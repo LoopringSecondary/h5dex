@@ -1,0 +1,69 @@
+@import 'variables.less';
+h1,h2,h3,h4,h5,h6{ margin:0 !important; }
+.form-inline.form-dark .ant-select{color: @text-color-1 !important;}
+.form-inline.form-dark .ant-form-item{ margin-bottom:10px !important; }
+.form-inline.form-dark .ant-select-selection{ height: @h-auto !important; background-color: @transparent !important; border-width:@bd-0 !important; padding:@pd-0 !important; color: @text-color-dark-1 !important; }
+.form-inline.form-dark .ant-select-arrow{ color: @text-color-dark-2 !important; }
+.form-inline.form-dark .ant-select-focused .ant-select-selection, .form-inline.form-dark .ant-select-selection:focus, .form-inline.form-dark .ant-select-selection:active{ background: @white !important; box-shadow:@box-shadow-none !important; color:@text-color-dark-1 !important; }
+.form-inline.form-dark .ant-select-open .ant-select-arrow,.form-inline.form-dark .ant-select-focused .ant-select-arrow{ color: @text-color-2 !important; }
+.form-inline.form-dark .ant-select-focused.ant-select-open.ant-select-enabled{ background: @white !important; }
+.form-inline.form-dark .ant-select-focused.ant-select-open.ant-select-enabled .ant-select-selection{ color:@text-color-1 !important;}
+.form-inline.form-dark .ant-select-focused.ant-select-enabled .ant-select-focused .ant-select-selection{ background: @transparent !important; }
+.form-inline.form-dark .ant-select-focused.ant-select-enabled .ant-select-selection{ color: @text-color-dark-1 !important; }
+.form-inline.form-dark .ant-select-focused.ant-select-enabled .ant-select-arrow{ color: @text-color-dark-2 !important; }
+.form-inline.form-dark .ant-select-focused.ant-select-open.ant-select-enabled .ant-select-selection .ant-select-arrow{ color: @text-color-1 !important; }
+.form-inline.form-dark .ant-select-focused .ant-select-selection, .form-inline.form-dark .ant-select-selection:focus, .form-inline.form-dark .ant-select-selection:active{ background: @transparent !important; }
+.form-inline.form-dark .ant-select-dropdown-menu-item-selected{ background:@blue-dark !important; color: @text-color-1 !important }
+.form-inline.form-dark .ant-select-dropdown-menu-item:hover{ background:@blue-dark !important;color: @text-color-1 !important }
+.form-inline.form-dark .ant-tabs-bar{margin:0!important;}
+.ant-radio-wrapper>span+span{ display: block; width: 100% }
+.ant-slider-mark{ font-size:@font-size-base !important; }
+.ant-slider-mark-text,.ant-slider-mark-text-active{ color: @text-color-dark-2 !important }
+.ant-slider-handle,.ant-slider-dot-active{ border-color: @blue-light !important; }
+.ant-slider-track{ background-color: @blue-light !important; }
+.form-dark .ant-slider-track{ background-color: @dark-color !important; }
+.form-dark .ant-slider-rail{ background-color: @dark-color-1 !important;}
+.form-dark .ant-slider-dot{ background: #7689a0 !important; border:0 !important; }
+.form-dark .ant-slider-dot-active,.form-dark .ant-slider-handle{ background-color: @dark-color !important; border: 0 !important;}
+.ant-form-item{margin-bottom: 10px !important;}
+.ant-select-selection--single,.ant-input{ height: 40px!important; }
+.ant-slider-dot{}
+.ant-select-selection__rendered,.ant-input{ line-height: 40px !important }
+.form-dark .ant-input,.form-dark .ant-input:focus,.form-dark .ant-select-selection,.form-dark .ant-select-selection:focus{ border: 0 !important; outline: 0 !important; box-shadow: none !important; }
+.form-dark .ant-form-item-label label{ color: @text-color-dark-2 }
+.form-dark .ant-input-group .ant-input-group-addon{ border:0 !important; background: @dark-color;  }
+.form-dark textarea.ant-input{ line-height: 1.2 !important }
+.form-dark .label{ font-size: 14px; color: @text-color-dark-2  }
+.prefix .ant-input-affix-wrapper .ant-input:not(:last-child){padding-left:11px !important;}
+.ant-input-affix-wrapper .ant-input:not(:last-child){ padding-left:70px !important; }
+.card.dark .ant-tabs-bar{ border-bottom-color:@dark-color-2; color:@text-color-dark-3; }
+.ant-radio-inner:after{ border-radius: 8px !important }
+.ant-input-group .ant-btn{ height: 40px !important; line-height: 38px; }
+.form-dark .ant-input-group .ant-btn{ border:0 !important; }
+.form-dark .ant-input-group .ant-btn:hover,.form-dark .ant-input-group .ant-btn:focus{  border:0 !important; }
+.card.dark .ant-tabs{ font-size: @font-size-base !important }
+.card.dark .ant-tabs.ant-tabs-card > .ant-tabs-bar{ margin:@mr-0; }
+.card.dark .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab{ background: @transparent !important; border:0 !important; font-size: 16px !important; font-weight: 600; }
+.card.dark .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active{ color: @text-color-dark-1 !important }
+.btn-upload.btn{ padding: 0; }
+.btn-upload .ant-upload.ant-upload-select,.btn-upload .ant-upload.ant-upload-select .ant-btn{ display: block; width: 100% !important; height: 40px; font-weight: 600; }
+[class*="text-color-dark"] h1,[class*="text-color-dark"] h2,[class*="text-color-dark"] h3,[class*="text-color-dark"] h4,[class*="text-color-dark"] h5,[class*="text-color-dark"] h6{ color: @text-color-dark !important }
+.ant-tabs.tabs-dark{
+	color:@text-color-dark !important;
+	.ant-tabs-ink-bar{ background-color:@dark-color!important; }
+	.ant-tabs-bar{ border-bottom-color:@dark-color-1; color:@text-color-dark-3!important; }
+	.ant-tabs-nav .ant-tabs-tab-active{ color:@text-color-dark !important; }
+	.ant-badge-status-text{color:@text-color-dark !important; }
+}
+.ant-modal [class*="text-color-dark"]{}
+.modal-header{ position: relative; top: -10px; }
+.modal-header.text-dark h3{ color: @text-color-dark }
+.ant-progress-success-bg, .ant-progress-bg{ background-color:@success-color !important }
+.password-strong .ant-progress-text{ display: none }
+.password-strong .ant-progress-show-info .ant-progress-outer{ margin:0 !important; padding:0 !important;}
+.password-strong .password-label{ white-space: nowrap; margin-right: 10px; }
+.eye-switch .ant-input-group .ant-input-group-addon{ width: 60px; text-align: center; }
+.eye-switch .ant-input-group .ant-input-group-addon i{ font-size: 16px; }
+.ant-tabs-nav-wrap{ text-align: center; }
+.orders .ant-tabs-nav-wrap{ text-align: left; }
+
