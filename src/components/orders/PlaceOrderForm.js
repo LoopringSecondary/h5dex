@@ -1,8 +1,13 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider } from 'antd-mobile';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl } from 'antd-mobile';
 import { createForm } from 'rc-form';
 const Item = List.Item;
 const Brief = Item.Brief;
+
+const tabs = [
+  { title: <Badge >OrderBook</Badge> },
+  { title: <Badge dot>My Orders</Badge> },
+];
 
 // 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
 // https://github.com/ant-design/ant-design-mobile/issues/307
@@ -23,7 +28,12 @@ class H5NumberInputExample extends React.Component {
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
     return (
-      <div>
+      <div className="bg-white">
+        <WingBlank>
+          <WhiteSpace />
+          <SegmentedControl values={['Buy LRC', 'Sell LRC']} style={{ height: '40px'}} />
+          <WhiteSpace />
+        </WingBlank>
         <List>
           <InputItem
             {...getFieldProps('money3')}
@@ -56,6 +66,8 @@ class H5NumberInputExample extends React.Component {
               }}
             />
           </Item>
+        </List>
+        <List renderHeader={()=>"Notes"}>
           <InputItem
             type={type}
             defaultValue="0.85 WETH"
@@ -70,6 +82,81 @@ class H5NumberInputExample extends React.Component {
           </Item>
 
         </List>
+        <Tabs tabs={tabs}
+          initialPage={0}
+          onChange={(tab, index) => { console.log('onChange', index, tab); }}
+          onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+        >
+          <div style={{height: '150px', backgroundColor: '#fff' }}>
+            <div className="row">
+              <div className="col-6">
+                <table class="w-100">
+                  <thead>
+                    <tr>
+                      <th className="text-left bg-grey-50">Buy</th>
+                      <th className="text-right bg-grey-50">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      [1,2,3].map((item,index)=>
+                        <tr>
+                          <td className="text-left text-up">0.00095</td>
+                          <td className="text-right">1000.00</td>
+                        </tr>
+                      )
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div className="col-6">
+                <table class="w-100">
+                  <thead>
+                    <tr>
+                      <th className="text-left bg-grey-50">Buy</th>
+                      <th className="text-right bg-grey-50">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      [1,2,3].map((item,index)=>
+                        <tr>
+                          <td className="text-left text-down">0.00095</td>
+                          <td className="text-right">1000.00</td>
+                        </tr>
+                      )
+                    }
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+          <div style={{height: '150px', backgroundColor: '#fff' }}>
+            <table class="w-100">
+              <thead>
+                <tr>
+                  <th className="text-left bg-grey-50">Side</th>
+                  <th className="text-right bg-grey-50">Price</th>
+                  <th className="text-right bg-grey-50">Amount</th>
+                  <th className="text-right bg-grey-50">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  [1,2,3].map((item,index)=>
+                    <tr>
+                      <td className="text-left text-down">Sell</td>
+                      <td className="text-right">0.00095</td>
+                      <td className="text-right">1000</td>
+                      <td className="text-right">Open</td>
+                    </tr>
+                  )
+                }
+              </tbody>
+            </table>
+          </div>
+        </Tabs>
       </div>
     );
   }
