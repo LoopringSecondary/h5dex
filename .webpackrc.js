@@ -1,7 +1,7 @@
 export default {
 	"extraBabelPlugins": [
-    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true },'antd'],
     ["import", { "libraryName": "antd-mobile", "libraryDirectory": "es", "style": true },'antd-mobile'],
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true },'antd'],
 	],
   disableCSSModules: true,
   hash:true,
