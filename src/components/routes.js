@@ -33,6 +33,7 @@ const Logged = ()=>{
       <Switch>
         <Route path={`/wallet`} component={Pages.Wallet} />
         <Route path="/placeOrder" exact component={Orders.PlaceOrderForm} />
+        <Route path="/placeOrderSimple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/trade/:market" component={Pages.Trade} />
         <Route path="/trade" exact component={Pages.Trade} />
       </Switch>
@@ -55,6 +56,7 @@ export default class Routes extends React.Component {
             <Route path="/unlock" component={Logged} />
             <Route path="/wallet" render={Logged} />
             <Route path="/placeOrder" render={Logged} />
+            <Route path="/placeOrderSimple" render={Logged} />
             <Route path="/trade" render={Logged} />
             <Route path="/dev" exact component={Pages.Test} />
           </Switch>
