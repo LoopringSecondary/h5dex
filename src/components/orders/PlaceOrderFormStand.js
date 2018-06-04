@@ -47,7 +47,7 @@ class PlaceOrder extends React.Component {
         </NavBar>
         <div className="row ml0 mr0 bg-white zb-b-t" style={{positiom:'relative',zIndex:'10'}}>
           <div className="col-6 text-center fs20 color-black pt15 pb15 zb-b-b " >Buy LRC</div>
-          <div className="col-6 text-center fs20 pt15 pb15 zb-b-l font-weight-bold color-red-600 " >Sell LRC</div>
+          <div className="col-6 text-center fs20 pt15 pb15 zb-b-l font-weight-bold color-red-500 " >Sell LRC</div>
         </div>
         <List className="bg-none no-border">
           <InputItem
@@ -85,19 +85,38 @@ class PlaceOrder extends React.Component {
           }
           {
             false &&
-            <Item>
-              <div className="row align-items-center ml0 mr0">
-                <div className="col color-black-1 fs24 pl0">Total</div>
-                <div className="col-auto color-black-3 fs16 pr0">0 WETH</div>
-              </div>
-            </Item>
+            <InputItem
+              type={type}
+              placeholder="0.00000000"
+              extra={<span className="fs16 color-black-4">{null && "LRC"}</span>}
+              clear
+              moneyKeyboardAlign="left"
+              onChange={(v) => { console.log('onChange', v); }}
+              onBlur={(v) => { console.log('onBlur', v); }}
+              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+              editable={false}
+            >LRC Fee</InputItem>
+          }
+          {
+            false &&
+            <InputItem
+              type={type}
+              placeholder="06-10 12:00"
+              extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
+              clear
+              moneyKeyboardAlign="left"
+              onChange={(v) => { console.log('onChange', v); }}
+              onBlur={(v) => { console.log('onBlur', v); }}
+              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+              editable={false}
+            >TTL</InputItem>
           }
           <Item>
             <div className="row align-items-center ml0 mr0 mb15 mt10">
               <div className="col color-black-3 fs16 pl0">Advanced</div>
-              <div className="col-auto color-black-3 fs16 pr0"><WebSwitch size="small" /></div>
+              <div className="col-auto color-black-3 fs16 pr0"><WebSwitch size="" /></div>
             </div>
-            <Button className="w-100 d-block bg-red-600 border-none mb10" type="primary">Place Sell Order</Button>
+            <Button className="w-100 d-block mb10" type="warning">Place Sell Order</Button>
           </Item>
         </List>
 
@@ -111,9 +130,9 @@ class PlaceOrder extends React.Component {
             <table className="w-100">
               <thead>
                 <tr>
-                  <th className="text-left bg-grey-50 pl10 font-weight-normal color-black-3">Token</th>
-                  <th className="text-right bg-grey-50 p5 font-weight-normal color-black-3">Balance</th>
-                  <th className="text-right bg-grey-50 pr10 font-weight-normal color-black-3">Actions</th>
+                  <th className="text-left bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
+                  <th className="text-right bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
+                  <th className="text-right bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -147,20 +166,20 @@ class PlaceOrder extends React.Component {
             <table className="w-100">
               <thead>
                 <tr>
-                  <th className="text-left bg-grey-50 p5 font-weight-normal color-black-3">Side</th>
-                  <th className="text-right bg-grey-50 p5 font-weight-normal color-black-3">Price</th>
-                  <th className="text-right bg-grey-50 p5 font-weight-normal color-black-3">Amount</th>
-                  <th className="text-right bg-grey-50 p5 font-weight-normal color-black-3">Status</th>
+                  <th className="text-left bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Side</th>
+                  <th className="text-right bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Price</th>
+                  <th className="text-right bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Amount</th>
+                  <th className="text-right bg-grey-50 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {
                   [1,2,3].map((item,index)=>
                     <tr key={index}>
-                      <td className="p5 text-left text-down">Sell</td>
-                      <td className="p5 color-black-2 text-right">0.00095</td>
-                      <td className="p5 color-black-2 text-right">1000</td>
-                      <td className="p5 color-black-2 text-right">Open</td>
+                      <td className="p10 text-left text-down">Sell</td>
+                      <td className="p10 color-black-2 text-right">0.00095</td>
+                      <td className="p10 color-black-2 text-right">1000</td>
+                      <td className="p10 color-black-2 text-right">Open</td>
                     </tr>
                   )
                 }
