@@ -43,22 +43,17 @@ class PlaceOrder extends React.Component {
             <WebIcon key="1" type="menu-fold" />,
           ]}
         >
-        Place Order
+        LRC-WETH
         </NavBar>
-
-        <List className="bg-none">
-          <Item className="border-none">
-            <div className="row ml0 mr0">
-              <div className="col-6 text-center">Sell LRC</div>
-              <div className="col-6 text-center">Buy LRC</div>
-            </div>
-          </Item>
-        </List>
-        <List className="bg-none">
+        <div className="row ml0 mr0 bg-white zb-b-t" style={{positiom:'relative',zIndex:'10'}}>
+          <div className="col-6 text-center fs20 color-black pt15 pb15 zb-b-b " >Buy LRC</div>
+          <div className="col-6 text-center fs20 pt15 pb15 zb-b-l font-weight-bold color-red-600 " >Sell LRC</div>
+        </div>
+        <List className="bg-none no-border">
           <InputItem
             {...getFieldProps('money3')}
             type={type}
-            placeholder="0.00"
+            placeholder="0.00000000"
             clear
             moneyKeyboardAlign="left"
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
@@ -66,7 +61,7 @@ class PlaceOrder extends React.Component {
           >Price</InputItem>
           <InputItem
             type={type}
-            placeholder="0.00"
+            placeholder="0.00000000"
             clear
             moneyKeyboardAlign="left"
             onChange={(v) => { console.log('onChange', v); }}
@@ -74,24 +69,35 @@ class PlaceOrder extends React.Component {
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
             extra={<WebIcon type="profile" />}
           >Amount</InputItem>
-          <InputItem
-            type={type}
-            defaultValue="0.00"
-            clear
-            moneyKeyboardAlign="left"
-            onChange={(v) => { console.log('onChange', v); }}
-            onBlur={(v) => { console.log('onBlur', v); }}
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            editable={false}
-          >Total</InputItem>
+          {
+            true &&
+            <InputItem
+              type={type}
+              placeholder="0.00000000"
+              extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
+              clear
+              moneyKeyboardAlign="left"
+              onChange={(v) => { console.log('onChange', v); }}
+              onBlur={(v) => { console.log('onBlur', v); }}
+              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+              editable={false}
+            >Total</InputItem>
+          }
+          {
+            false &&
+            <Item>
+              <div className="row align-items-center ml0 mr0">
+                <div className="col color-black-1 fs24 pl0">Total</div>
+                <div className="col-auto color-black-3 fs16 pr0">0 WETH</div>
+              </div>
+            </Item>
+          }
           <Item>
-            <Button className="w-100 d-block" type="primary">Place Buy Order</Button>
-          </Item>
-          <Item>
-            <div className="row align-items-center ml0 mr0">
-              <div className="col color-black-3 fs16 pl0">Advanced Options</div>
-              <div className="col-auto color-black-3 pr0"><WebSwitch size="small" /></div>
+            <div className="row align-items-center ml0 mr0 mb15 mt10">
+              <div className="col color-black-3 fs16 pl0">Advanced</div>
+              <div className="col-auto color-black-3 fs16 pr0"><WebSwitch size="small" /></div>
             </div>
+            <Button className="w-100 d-block bg-red-600 border-none mb10" type="primary">Place Sell Order</Button>
           </Item>
         </List>
 
