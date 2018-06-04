@@ -40,44 +40,21 @@ class PlaceOrder extends React.Component {
             <Icon key="1" type="ellipsis" />,
           ]}
           leftContent={[
-            <Icon key="1" type="left" />,
-            <span key="2" >LRC-WETH</span>
-
+            <WebIcon key="1" type="menu-fold" />,
           ]}
         >
+        Place Order
         </NavBar>
-        <List className="">
-          <InputItem
-            {...getFieldProps('money3')}
-            type={type}
-            defaultValue={0.00085}
-            placeholder="0.00085"
-            clear
-            moneyKeyboardAlign="left"
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            extra={<div className=""><WebIcon type="right" /></div>}
-            editable={false}
-            className=""
-          >LRC</InputItem>
-          <InputItem
-            {...getFieldProps('money3')}
-            type={type}
-            defaultValue={0.00085}
-            placeholder="0.00085"
-            clear
-            moneyKeyboardAlign="left"
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            extra={<div className=""><WebIcon type="right" /></div>}
-            editable={false}
-            className=""
-          >WETH</InputItem>
+
+        <List className="bg-none">
+          <Item className="border-none">
+            <div className="row ml0 mr0">
+              <div className="col-6 text-center">Sell LRC</div>
+              <div className="col-6 text-center">Buy LRC</div>
+            </div>
+          </Item>
         </List>
-        <List className="mt15 bg-none">
-          { false &&
-            <Item className="text-center">
-              <SegmentedControl values={['Buy LRC', 'Sell LRC']} style={{ height: '40px',width:'180px'}} />
-            </Item>
-          }
+        <List className="bg-none">
           <InputItem
             {...getFieldProps('money3')}
             type={type}
@@ -110,12 +87,15 @@ class PlaceOrder extends React.Component {
           <Item>
             <Button className="w-100 d-block" type="primary">Place Buy Order</Button>
           </Item>
+          <Item>
+            <div className="row align-items-center ml0 mr0">
+              <div className="col color-black-3 fs16 pl0">Advanced Options</div>
+              <div className="col-auto color-black-3 pr0"><WebSwitch size="small" /></div>
+            </div>
+          </Item>
         </List>
-        <div className="row align-items-center mt10">
-          <div className="col color-black-3 fs16 pl25"></div>
-          <div className="col-auto color-black-3 pr25">Advanced <WebSwitch size="small" /></div>
-        </div>
-        <div className="mt15"></div>
+
+        <div className="mt20"></div>
         <Tabs tabs={tabs}
           initialPage={0}
           onChange={(tab, index) => { console.log('onChange', index, tab); }}
@@ -132,26 +112,26 @@ class PlaceOrder extends React.Component {
               </thead>
               <tbody>
                   <tr >
-                    <td className="pl10 color-black-2 text-left">LRC</td>
-                    <td className="p5 color-black-2 text-right">100.15</td>
-                    <td className="pr10 color-black-2 text-right">
-                      <a className="m5"href="">转入</a>
-                      <a className="m5"href="">买入</a>
+                    <td className="p10 color-black-2 text-left">LRC</td>
+                    <td className="p10 color-black-2 text-right">12680.0000</td>
+                    <td className="p10 color-black-2 text-right">
+                      <a className="ml5 mr5" href="">转入</a>
+                      <a className="ml5 mr5" href="">买入</a>
                     </td>
                   </tr>
                   <tr >
-                    <td className="pl10 color-black-2 text-left">ETH</td>
-                    <td className="p5 color-black-2 text-right">100.15</td>
-                    <td className="pr10 color-black-2 text-right">
-                      <a className="m5"href="">转入</a>
-                      <a className="m5"href="">买入</a>
+                    <td className="p10 color-black-2 text-left">ETH</td>
+                    <td className="p10 color-black-2 text-right">85.0000</td>
+                    <td className="p10 color-black-2 text-right">
+                      <a className="ml5 mr5" href="">转入</a>
+                      <a className="ml5 mr5" href="">买入</a>
                     </td>
                   </tr>
                   <tr >
-                    <td className="pl10 color-black-2 text-left">WETH</td>
-                    <td className="p5 color-black-2 text-right">0.000</td>
-                    <td className="pr10 color-black-2 text-right">
-                      <a className="m5"href="">ETH转换为WETH</a>
+                    <td className="p10 color-black-2 text-left">WETH</td>
+                    <td className="p10 color-black-2 text-right">21.3652</td>
+                    <td className="p10 color-black-2 text-right">
+                      <a className="ml5 mr5" href="">转换ETH</a>
                     </td>
                   </tr>
               </tbody>
