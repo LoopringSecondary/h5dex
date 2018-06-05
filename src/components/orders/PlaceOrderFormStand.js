@@ -4,6 +4,8 @@ import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import PlaceOrerConfirm from './PlaceOrderConfirm';
 import PlaceOrerAdvance from './PlaceOrderAdvance';
+import PlaceOrerPriceHelper from './PlaceOrderPriceHelper';
+import PlaceOrerAmountHelper from './PlaceOrderAmountHelper';
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -216,6 +218,8 @@ class PlaceOrder extends React.Component {
         }
         <PlaceOrderConfirmPopup />
         <PlaceOrderAdvancePopup />
+        <PlaceOrderPriceHelperPopup />
+        <PlaceOrderAmountHelperPopup />
       </div>
     );
   }
@@ -240,7 +244,7 @@ export const PlaceOrderAdvancePopup = ()=>{
   return (
     <Modal
       popup
-      visible={true}
+      visible={false}
       onClose={()=>{}}
       animationType="slide-up"
     >
@@ -248,5 +252,31 @@ export const PlaceOrderAdvancePopup = ()=>{
     </Modal>
   )
 }
+export const PlaceOrderPriceHelperPopup = ()=>{
+  return (
+    <Modal
+      popup
+      visible={false}
+      onClose={()=>{}}
+      animationType="slide-up"
+    >
+      <PlaceOrerPriceHelper />
+    </Modal>
+  )
+}
+export const PlaceOrderAmountHelperPopup = ()=>{
+  return (
+    <Modal
+      popup
+      visible={true}
+      onClose={()=>{}}
+      animationType="slide-up"
+    >
+      <PlaceOrerAmountHelper />
+    </Modal>
+  )
+}
+
+
 
 
