@@ -3,6 +3,7 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import PlaceOrerConfirm from './PlaceOrderConfirm';
+import PlaceOrerAdvance from './PlaceOrderAdvance';
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -113,7 +114,7 @@ class PlaceOrder extends React.Component {
           }
           <Item>
             <div className="row align-items-center ml0 mr0 mb15 mt10">
-              <div className="col color-black-3 fs16 pl0">Advanced</div>
+              <div className="col color-grey-400 fs20 pl0">Advanced</div>
               <div className="col-auto color-black-3 fs16 pr0"><WebSwitch size="" /></div>
             </div>
             <Button className="w-100 d-block mb10" type="warning">Place Sell Order</Button>
@@ -207,7 +208,6 @@ class PlaceOrder extends React.Component {
             </div>
           </Tabs>
         </div>
-
         {
           false &&
           <div className="p10 bg-white" style={{position:'absolute',bottom:'0',left:'0',right:'0'}}>
@@ -215,12 +215,16 @@ class PlaceOrder extends React.Component {
           </div>
         }
         <PlaceOrderConfirmPopup />
+        <PlaceOrderAdvancePopup />
       </div>
     );
   }
 }
 
-const PlaceOrderConfirmPopup = ()=>{
+const PlaceOrderForm = createForm()(PlaceOrder);
+export default PlaceOrderForm
+
+export const PlaceOrderConfirmPopup = ()=>{
   return (
     <Modal
       popup
@@ -232,7 +236,17 @@ const PlaceOrderConfirmPopup = ()=>{
     </Modal>
   )
 }
+export const PlaceOrderAdvancePopup = ()=>{
+  return (
+    <Modal
+      popup
+      visible={true}
+      onClose={()=>{}}
+      animationType="slide-up"
+    >
+      <PlaceOrerAdvance />
+    </Modal>
+  )
+}
 
-const PlaceOrderForm = createForm()(PlaceOrder);
-export default PlaceOrderForm
 
