@@ -122,88 +122,18 @@ class PlaceOrder extends React.Component {
             <Button className="w-100 d-block mb10" type="warning">Place Sell Order</Button>
           </Item>
         </List>
-        <div className="bg-grey-100 mt20">
-          <Tabs tabs={tabs}
+        <div className="mt20 no-underline">
+          <Tabs
+            tabs={tabs}
             initialPage={0}
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
-            <div className="">
-              <table className="w-100">
-                <thead>
-                  <tr className="">
-                    <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-                    <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-                    <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">OrderRequired</th>
-                    <th className="text-center bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr >
-                      <td className="p10 color-black-2 text-right">LRC</td>
-                      <td className="p10 color-black-2 text-right">12680.0000</td>
-                      <td className="p10 color-black-2 text-right">1000.0000</td>
-                      <td className="p10 color-black-2 text-center">
-                        {false && <a className="mr10" >转入</a> }
-                        {false && <a className="ml5" >买入</a> }
-                        <WebIcon className="text-warning" type="exclamation-circle" />
-                      </td>
-                    </tr>
-                    <tr >
-                      <td className="p10 color-black-2 text-right">ETH</td>
-                      <td className="p10 color-black-2 text-right">85.0000</td>
-                      <td className="p10 color-black-2 text-right">45.0000</td>
-                      <td className="p10 color-black-2 text-center">
-                        {false && <a className="mr10" >转入</a> }
-                        {false && <a className="ml5" >买入</a> }
-                        <WebIcon className="text-success" type="check-circle" />
-                      </td>
-                    </tr>
-                    <tr >
-                      <td className="p10 color-black-2 text-right">WETH</td>
-                      <td className="p10 color-black-2 text-right">21.3652</td>
-                      <td className="p10 color-black-2 text-right">26.1278</td>
-                      <td className="p10 color-black-2 text-center">
-                        { false && <a className="mr10" >转换</a> }
-                        { false && <a className="ml5" >买入</a> }
-                        { false && <WebIcon className="text-down" type="exclamation-circle" />}
-                        <WebIcon className="text-success" type="check-circle" />
-                      </td>
-                    </tr>
-                </tbody>
-              </table>
+            <div className="bg-white">
+              <BalanceList />
             </div>
             <div>
-              <table className="w-100">
-                <thead>
-                  <tr>
-                    <th className="text-center bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Side</th>
-                    <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Price</th>
-                    <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Amount</th>
-                    <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Filled</th>
-                    <th className="text-center bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    [1,2,3,4,5].map((item,index)=>
-                      <tr key={index} className="color-black-2">
-                        { index%2 == 0 && <td className="p10 text-center text-up">Buy</td> }
-                        { index%2 == 1 && <td className="p10 text-center text-down">Sell</td> }
-                        <td className="p10 text-right">0.00095</td>
-                        <td className="p10 text-right">1000</td>
-                        <td className="p10 text-right">80%</td>
-                        <td className="p10 text-center">
-                        { index === 0 && <WebIcon className="text-warning" type="exclamation-circle" /> }
-                        { index === 1 && <WebIcon className="text-primary" type="clock-circle" /> }
-                        { index === 2 && <WebIcon className="text-success" type="check-circle" /> }
-                        { index === 3 && <WebIcon className="color-grey-300" type="close-circle" /> }
-                        </td>
-                      </tr>
-                    )
-                  }
-                </tbody>
-              </table>
+              <OrderList />
             </div>
             <div style={{minHeight: '150px'}}>
 
@@ -225,8 +155,86 @@ class PlaceOrder extends React.Component {
   }
 }
 
+
 const PlaceOrderForm = createForm()(PlaceOrder);
 export default PlaceOrderForm
+
+
+export const BalanceList = ()=>{
+  return (
+    <table className="w-100">
+      <thead>
+        <tr className="">
+          <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
+          <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
+          <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">OrderRequired</th>
+          <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr >
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">LRC</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">12680.0000</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">1000.0000</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-center">
+              <WebIcon className="text-warning" type="exclamation-circle" />
+            </td>
+          </tr>
+          <tr >
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">ETH</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">85.0000</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">45.0000</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-center">
+              <WebIcon className="text-success" type="check-circle" />
+            </td>
+          </tr>
+          <tr >
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">WETH</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">21.3652</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">26.1278</td>
+            <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-center">
+              <WebIcon className="text-success" type="check-circle" />
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  )
+}
+
+export const OrderList = ()=>{
+  return (
+    <table className="w-100">
+      <thead>
+        <tr>
+          <th className="text-center bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Side</th>
+          <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Price</th>
+          <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Amount</th>
+          <th className="text-right bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Filled</th>
+          <th className="text-center bg-grey-100 pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          [1,2,3,4,5].map((item,index)=>
+            <tr key={index} className="color-black-2">
+              { index%2 == 0 && <td className="p10 text-center text-up">Buy</td> }
+              { index%2 == 1 && <td className="p10 text-center text-down">Sell</td> }
+              <td className="p10 text-right">0.00095</td>
+              <td className="p10 text-right">1000</td>
+              <td className="p10 text-right">80%</td>
+              <td className="p10 text-center">
+              { index === 0 && <WebIcon className="text-warning" type="exclamation-circle" /> }
+              { index === 1 && <WebIcon className="text-primary" type="clock-circle" /> }
+              { index === 2 && <WebIcon className="text-success" type="check-circle" /> }
+              { index === 3 && <WebIcon className="color-grey-300" type="close-circle" /> }
+              </td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  )
+}
 
 export const PlaceOrderConfirmPopup = ()=>{
   return (
@@ -268,7 +276,7 @@ export const PlaceOrderAmountHelperPopup = ()=>{
   return (
     <Modal
       popup
-      visible={true}
+      visible={false}
       onClose={()=>{}}
       animationType="slide-up"
     >

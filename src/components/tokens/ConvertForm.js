@@ -12,110 +12,33 @@ import GasFee from '../setting/GasFee1'
 import Notification from '../../common/loopringui/components/Notification'
 import intl from 'react-intl-universal';
 
-const WETH = Contracts.WETH;
 function ConvertForm(props) {
-  const {wallet, convert,convertToken, balances, prices,form,gasPrice,dispatch} = props;
-  const {amount,isMax} = convert;
-  const {token} = convertToken;
-  if(!token){console.error('token is required');return null}
-  const type = token.toLowerCase() === 'eth' ? 'deposit': 'withdraw';
-  const gasLimit = config.getGasLimitByType(type).gasLimit;
-  const {address} = wallet;
-  const account = wallet.account || window.account;
-  const assets = getBalanceBySymbol({balances, symbol: token, toUnit: true});
-  const tf = new TokenFormatter({symbol:token});
-  const handleAmountChange = (e) => {
-    convert.setAmount({amount: e.target.value});
-  };
-  const setMax = () => {
-    const gas = toBig(gasPrice).times(gasLimit).div(1e9);
-    let max = assets.balance;
-    if (token === 'ETH') {
-      max = toBig(assets.balance).minus(gas).minus(0.1).isPositive() ? toBig(assets.balance).minus(gas).minus(0.1) : toBig(0)
-    }
-    convert.setMax({amount: max});
-    form.setFieldsValue({amount:max})
-  };
-  const toConvert =  async () => {
-    form.validateFields(async  (err,values) => {
-      if(err){
-        let data = '';
-        let value = '';
-        if (token.toLowerCase() === 'Eth') {
-          data = WETH.encodeInputs('deposit');
-          value = toHex(tf.getDecimalsAmount(amount));
-        } else {
-          data = WETH.encodeInputs('withdraw', {wad: toHex(tf.getDecimalsAmount(amount))});
-          value = '0x0'
-        }
-        const to = config.getTokenBySymbol('WETH').address;
-        const tx = {
-          gasLimit: toHex(gasLimit),
-          data,
-          to,
-          gasPrice: toHex(toBig(gasPrice).times(1e9)),
-          chainId: config.getChainId(),
-          value,
-          nonce: toHex(await window.STORAGE.wallet.getNonce(address))
-      };
-        const signTx = await account.signEthereumTx(tx);
-        window.ETH.sendRawTransaction(signTx).then(res => {
-          convert.reset();
-          if(!res.error){
-            Notification.open({
-              message:intl.get('convert.notification_suc_title',{value:amount,token}),
-              type:'success',
-              actions:(
-                <div>
-                  <Button className="alert-btn mr5"
-                          onClick={() => window.open(`https://etherscan.io/tx/${res.result}`, '_blank')}> {intl.get('token.transfer_result_etherscan')}
-                  </Button>
-                </div>
-              )
-            });
-            window.STORAGE.wallet.setWallet({address: window.WALLET.getAddress(), nonce: tx.nonce});
-            window.RELAY.account.notifyTransactionSubmitted({txHash:res.result,rawTx:tx, from: window.WALLET.getAddress()});
-          }else {
-            Notification.open({type:'error',message:intl.get('convert.notification_fail_title',{value:amount,token}),description:res.error.message})
-          }
-        });
-     }
-    });
-
-  };
-  const getGas = () =>{
-    return tf.toPricisionFixed(toBig(gasPrice).times(gasLimit).div(1e9))
-  }
-  const setGas = ()=>{
-    dispatch({type:"layers/showLayer",payload:{id:'gasFee'}})
-  }
-  const onGasChange = ({gasPrice}) => {
-    let amount  = amount;
-    if (isMax && token.toLowerCase() === 'eth') {
-      const gas = toBig(gasPrice).times(gasLimit).div(1e9);
-      amount = assets.balance.minus(gas).minus(0.1).isPositive() ? assets.balance.minus(gas).minus(0.1) : toBig(0);
-      convert.setAmount({amount});
-    }
-    form.setFieldsValue({amount})
-  };
+  const {form} = props
+  const sourceToken = 'ETH'
+  const targetToken = sourceToken.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
+  const convertAmountValidator = ()=>{}
+  const amount = 0
+  const handleAmountChange = ()=>{}
+  const setMax = ()=>{}
+  const setGas = ()=>{}
+  const toConvert = ()=>{}
+  const gas = '0.00015 ETH'
+  const gasWorth = '5.56'
 
   return (
-    <div className="pd-lg">
-      <div className="sidebar-header">
-        <h3>{token} 转换为 {token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</h3>
-      </div>
+    <div className="p15" style={{background:'#0e45c5',color:'#fff'}}>
       <div className="divider solid"/>
-      <div className="row align-items-center justify-content-center mt25 mb25">
+      <div className="row align-items-center justify-content-center mt25 mb25 ml0 mr0">
         <div className="col-auto text-center pr30">
-          <div className="fs18">{amount.toString() ? amount.toString() : 0}</div>
-          <div className="fs16">{token}</div>
+          <div className="fs18">{amount}</div>
+          <div className="fs16">{sourceToken}</div>
         </div>
         <div className="col-auto">
           <i className="loopring-icon loopring-icon-convert fs32"/>
         </div>
         <div className="col-auto text-center pl30">
-          <div className="fs18">{amount.toString() ? amount.toString() : 0}</div>
-          <div className="fs16">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</div>
+          <div className="fs18">{amount}</div>
+          <div className="fs16">{targetToken}</div>
         </div>
       </div>
       <Form>
@@ -125,50 +48,25 @@ function ConvertForm(props) {
             rules: [{
               required: true,
               message: 'invalid number',
-              validator: (rule, value, cb) => isValidNumber(value) && toBig(value).lt(assets.balance)  ? cb() : cb(true)
+              validator: convertAmountValidator,
             }]
           })(
             <Input  suffix={<div>
-              <a onClick={setMax} className="text-primary mr5">
-                <small>{intl.get('convert.actions_max')}</small>
-              </a>
-              <span className="color-black-2">{token}</span>
+              <Icon type="question-circle-o" />
             </div>} onChange={handleAmountChange}/>
           )}
         </Form.Item>
       </Form>
       <div  className="text-color-dark-1">
-        {
-          false &&
-          <div className="form-control-static d-flex justify-content-between mr-0">
-            <span>Gas Fee</span>
-            <span className="font-bold">
-              <Containers.Gas initState={{gasLimit}}>
-                <GasFee onGasChange={onGasChange}/><span className="offset-md"> {getGas()} ETH ≈ <Currency/> {getWorthBySymbol({prices, symbol: 'ETH', amount:getGas()})}</span>
-              </Containers.Gas>
-            </span>
-          </div>
-        }
-        {
-          false &&
-          <div className="form-control-static d-flex justify-content-between mr-0 mt15 mb15 align-items-center">
-            <span className="fs14 color-white-2">Balance</span>
-            <span className="font-bold fs12">
-              {assets.balance.toString()} {token}
-              <Icon hidden type="right" className="ml5" />
-            </span>
-          </div>
-        }
         <div className="form-control-static d-flex justify-content-between mr-0 mt15 mb15 align-items-center">
           <span className="fs14 color-white-2">{intl.get('common.gas')}</span>
           <span className="font-bold cursor-pointer fs12" onClick={setGas}>
-              <Currency/> {getWorthBySymbol({prices, symbol: 'ETH', amount:getGas()})} ≈ {getGas()} ETH
+              <Currency/> {gasWorth} ≈ {gas}
               <Icon type="right" className="ml5" />
           </span>
         </div>
       </div>
       <Button className="btn-block btn-xlg btn-o-dark" onClick={toConvert}>{intl.get('convert.actions_confirm_convert')}</Button>
-      {false && token.toLowerCase() === 'eth' && <p className="text-color-dark-1 mt15">{intl.get('convert.convert_eth_tip')}</p>}
     </div>
   )
 }
@@ -179,7 +77,6 @@ function mapToProps(state) {
     prices:state.sockets.marketcap.items,
     gasPrice:state.gas.gasPrice.last
   }
-
 }
 
 export default connect(mapToProps)(Form.create()(ConvertForm))

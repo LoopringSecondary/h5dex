@@ -32,11 +32,12 @@ const Logged = ()=>{
     return (
       <Switch>
         <Route path={`/wallet`} component={Pages.Wallet} />
-        <Route path="/placeOrder" exact component={Orders.PlaceOrderForm} />
-        <Route path="/placeOrderSimple" exact component={Orders.PlaceOrderFormSimple} />
-        <Route path="/placeOrderStand" exact component={Orders.PlaceOrderFormStand} />
+        <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
+        <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
+        <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
         <Route path="/trade/:market" component={Pages.Trade} />
         <Route path="/trade" exact component={Pages.Trade} />
+        <Route path="/home" exact component={Pages.Home} />
       </Switch>
     )
   }else{
