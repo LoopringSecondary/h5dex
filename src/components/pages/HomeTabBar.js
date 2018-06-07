@@ -12,14 +12,14 @@ class Home extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        selectedTab: 'redTab',
+        selectedTab: 'markets',
         hidden: false,
         fullScreen: false,
       };
   }
   render(){
     return (
-      <div style={{ position:"fiexd",height: "100vh", width: '100%', top: "0",}}>
+      <div style={{ position:"fixed",height: "100%", width: '100%', top: 0,}}>
               <TabBar
                 unselectedTintColor="#949494"
                 tintColor="#33A3F4"
@@ -50,25 +50,25 @@ class Home extends React.Component {
                   }}
                   data-seed="logId"
                 >
-                <div className="position-relative"  style={{paddingTop:'45px'}}>
-                  <NavBar
-                    style={{top:'0px',position:'fixed',zIndex:10}}
-                    className="w-100"
-                    mode="light"
-                    icon={null && <Icon type="left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
-                    rightContent={null && [
-                      <Icon key="1" type="ellipsis" />,
-                    ]}
-                    leftContent={[
-                      <WebIcon key="1" type="menu-fold" />,
-                    ]}
-                  >
-                  Markets
-                  </NavBar>
-                  <Tickers.ListTickers />
-                </div>
-
+                  <div className=""  style={{height:'100%'}}>
+                    <div style={{height:'45px'}}></div>
+                    <NavBar
+                      style={{top:'0px',position:'absolute',zIndex:10}}
+                      className="w-100 zb-b-b"
+                      mode="light"
+                      icon={null && <Icon type="left" />}
+                      onLeftClick={() => console.log('onLeftClick')}
+                      rightContent={null && [
+                        <Icon key="1" type="ellipsis" />,
+                      ]}
+                      leftContent={null && [
+                        <WebIcon key="1" type="menu-fold" />,
+                      ]}
+                    >
+                    Markets
+                    </NavBar>
+                    <Tickers.ListTickers />
+                  </div>
                 </TabBar.Item>
                 <TabBar.Item
                   icon={

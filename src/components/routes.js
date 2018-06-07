@@ -18,8 +18,7 @@ const UnLogged = ()=>{
   }else{
     return (
       <Switch>
-        <Route path="/" exact component={Pages.Home} />
-        <Route path="/home" component={Pages.Home} />
+        <Route path="/home" component={Pages.HomeTabBar} />
         <Route path="/unlock" component={Pages.Unlock} />
       </Switch>
     )
@@ -30,14 +29,19 @@ const Logged = ()=>{
   const isLogged = true
   if(isLogged){
     return (
+
       <Switch>
+        <Route path="/" exact component={Pages.HomeTabBar} />
+        <Route path="/home" exact component={Pages.HomeTabBar} />
+        <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
+        <Route path="/home/tabs" exact component={Pages.HomeTabs} />
         <Route path={`/wallet`} component={Pages.Wallet} />
         <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
         <Route path="/trade/:market" component={Pages.Trade} />
         <Route path="/trade" exact component={Pages.Trade} />
-        <Route path="/home" exact component={Pages.Home} />
+
       </Switch>
     )
   }else{

@@ -5,22 +5,40 @@ import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import { ListView,Button } from 'antd-mobile'
 
+const TickerHeader = ({list,actions})=>{
+    // if(!item){ return null }
+    // const tickerFm = new TickerFm(item)
+    return (
+      <div className="bg-white row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
+        <div className="col-5 fs18 color-black-3 text-left">Market</div>
+        <div className="col-4 text-left pr10">
+          <div className="fs18 color-black-3 ">Price</div>
+        </div>
+        <div className="col-3 text-right">
+          <div className="fs18 color-black-3">Change</div>
+        </div>
+      </div>
+    )
+}
+
 const TickerItem = ({item,actions})=>{
     // if(!item){ return null }
     // const tickerFm = new TickerFm(item)
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters">
-        <div className="col fs20 color-black-1">LRC-WETH</div>
-        <div className="col-auto">
-          <div className="fs20 color-black-2">0.00095</div>
+        <div className="col-5 fs20 color-black-1">LRC-WETH</div>
+        <div className="col-4 text-left">
+          <div className="fs20 color-black-1">0.00095</div>
           <div className="fs16 color-black-3">$0.52</div>
         </div>
-        <div className="col-auto pl15">
+        <div className="col-3 text-right">
           <Button type="primary" size="small" className="pl10 pr10 fs20">+15.2%</Button>
         </div>
       </div>
     )
 }
+
+
 const data = [
   {
     img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -108,7 +126,7 @@ class ListTickers extends React.Component {
         <ListView
           ref={el => this.lv = el}
           dataSource={this.state.dataSource}
-          renderHeader={() => null}
+          renderHeader={() => <TickerHeader />}
           renderFooter={() => (<div className="p15">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
           renderRow={row}
           className="am-list"
