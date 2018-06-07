@@ -3,7 +3,7 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
-import PlaceOrderConfirm from './PlaceOrderConfirm';
+import PlaceOrderPreview from './PlaceOrderPreview';
 import PlaceOrderAdvance from './PlaceOrderAdvance';
 import PlaceOrderPriceHelper from './PlaceOrderPriceHelper';
 import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
@@ -50,7 +50,7 @@ class PlaceOrder extends React.Component {
 
     }
     const showPriceHelper= ()=>{
-      showLayer({id:'placeOrderPriceHelperPopup'})
+      showLayer({id:'placeOrderPriceHelper'})
     }
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
@@ -66,7 +66,7 @@ class PlaceOrder extends React.Component {
             clear
             moneyKeyboardAlign="left"
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelperPopup',side:'sell'})} />}
+            extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />}
           >Price</InputItem>
           <InputItem
             type={type}
@@ -76,7 +76,7 @@ class PlaceOrder extends React.Component {
             onChange={(v) => { console.log('onChange', v); }}
             onBlur={(v) => { console.log('onBlur', v); }}
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelperPopup',side:'sell'})} />}
+            extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />}
           >Amount</InputItem>
           {
             true &&
@@ -123,15 +123,17 @@ class PlaceOrder extends React.Component {
           <Item>
             <div className="row align-items-center ml0 mr0 mb15 mt10">
               <div className="col color-grey-400 fs20 pl0">Advanced</div>
-              <div className="col-auto color-black-3 fs16 pr0"><WebSwitch /></div>
+              <div className="col-auto color-black-3 fs16 pr0">
+                <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
+              </div>
             </div>
             {
               side === 'sell' &&
-              <Button onClick={showLayer.bind(this,{id:'placeOrderConfirmPopup',side:'sell'})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
+              <Button onClick={showLayer.bind(this,{id:'placeOrderPreview',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
             }
             {
               side === 'buy' &&
-              <Button onClick={showLayer.bind(this,{id:'placeOrderConfirmPopup',side:'buy'})} className="w-100 d-block mb10 bg-green-500 color-white">Place Sell Order</Button>
+              <Button onClick={showLayer.bind(this,{id:'placeOrderPreview',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
             }
           </Item>
         </List>
@@ -157,13 +159,13 @@ class PlaceOrder extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs22 pt5 pb5">Buy LRC</div> },
-                { title: <div className="fs22 pt5 pb5">Sell LRC</div> },
+                { title: <div className="fs20 pt5 pb5">Buy LRC</div> },
+                { title: <div className="fs20 pt5 pb5">Sell LRC</div> },
               ]
             }
             tabBarBackgroundColor={"#fff"}
             tabBarActiveTextColor={""}
-            tabBarInactiveTextColor={""}
+            tabBarInactiveTextColor={"#000"}
             tabBarTextStyle={{}}
             initialPage={0}
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
@@ -194,33 +196,26 @@ class PlaceOrder extends React.Component {
               <OrderList />
             </div>
             <div style={{minHeight: '150px'}}>
-
             </div>
           </Tabs>
         </div>
-        {
-          false &&
-          <div className="p10 bg-white" style={{position:'absolute',bottom:'0',left:'0',right:'0'}}>
-            <Button className="w-100 d-block" type="primary">Place Buy Order</Button>
-          </div>
-        }
-        <Containers.Layers id="placeOrderConfirmPopup">
-          <UiContainers.Popups id="placeOrderConfirmPopup">
-            <PlaceOrderConfirm />
+        <Containers.Layers id="placeOrderPreview">
+          <UiContainers.Popups id="placeOrderPreview">
+            <PlaceOrderPreview />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderAdvancePopup">
-          <UiContainers.Popups id="placeOrderAdvancePopup">
+        <Containers.Layers id="placeOrderAdvance">
+          <UiContainers.Popups id="placeOrderAdvance">
             <PlaceOrderAdvance />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderPriceHelperPopup">
-          <UiContainers.Popups id="placeOrderPriceHelperPopup">
+        <Containers.Layers id="placeOrderPriceHelper">
+          <UiContainers.Popups id="placeOrderPriceHelper">
             <PlaceOrderPriceHelper />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderAmountHelperPopup">
-          <UiContainers.Popups id="placeOrderAmountHelperPopup">
+        <Containers.Layers id="placeOrderAmountHelper">
+          <UiContainers.Popups id="placeOrderAmountHelper">
             <PlaceOrderAmountHelper />
           </UiContainers.Popups>
         </Containers.Layers>

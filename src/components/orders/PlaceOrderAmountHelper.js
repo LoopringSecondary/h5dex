@@ -24,6 +24,7 @@ function PlaceOrderAmountHelper(props) {
       <div className="pt15 pb15 fs24 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
         tabBarUnderlineStyle={{}}
+        swipeable={false}
         initialPage={0}
         onChange={(tab, index) => { console.log('onChange', index, tab); }}
         onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
