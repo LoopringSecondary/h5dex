@@ -93,39 +93,102 @@ function PlaceOrderAmountHelper(props) {
 }
 export default PlaceOrderAmountHelper
 
-export const DepthList = ()=>{
+export const DepthList = ({depth={},maxRows=5})=>{
+  if(depth && depth.items){
+
+  }else{
+    depth.items=  [1,2,3,4,5]
+  }
+  const maxHeight = (60*maxRows+32) + 'px'
   return (
-    <table className="w-100">
-      <thead>
-        <tr className="">
-          <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
-          <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Buy</th>
-          <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Sell</th>
-          <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-          {
-            [1,2,3,4,5].map((item,index)=>
-              <tr key={index}>
-                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-left align-middle">
-                  1000.0000
-                </td>
-                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b text-right text-up align-middle">
-                  0.00015000
-                  <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
-                </td>
-                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b text-left text-down align-middle">
-                  0.00015000
-                  <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
-                </td>
-                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
-                  1000.0000
-                </td>
-              </tr>
-            )
-          }
-      </tbody>
-    </table>
+    <div style={{maxHeight,overflow:'auto'}}>
+      <table className="w-100">
+        <thead>
+          <tr className="">
+            <th className="zb-b-b bg-grey-100 text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
+            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Buy</th>
+            <th className="zb-b-b bg-grey-100 text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Sell</th>
+            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+            {
+              depth.items.map((item,index)=>
+                <tr key={index}>
+                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-left align-middle">
+                    1000.0000
+                  </td>
+                  <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-right color-green-500 align-middle">
+                    0.00015000
+                    <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
+                  </td>
+                  <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-left color-red-500 align-middle">
+                    0.00015000
+                    <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
+                  </td>
+                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
+                    1000.0000
+                  </td>
+                </tr>
+              )
+            }
+        </tbody>
+      </table>
+    </div>
+
   )
 }
+export const FillList = ({fill={},maxRows=5})=>{
+  if(fill && fill.items){
+
+  }else{
+    fill.items=  [1,2,3,4,5]
+  }
+  const maxHeight = (60*maxRows+32) + 'px'
+  return (
+    <div style={{maxHeight,overflow:'auto'}}>
+      <table className="w-100">
+        <thead>
+          <tr className="">
+            <th className="zb-b-b bg-grey-100 text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Price</th>
+            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
+            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">LRC Fee</th>
+            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+            {
+              fill.items.map((item,index)=>
+                <tr key={index}>
+                  {
+                    index%2===0 &&
+                    <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-left align-middle color-green-500">
+                      0.00015000
+                    </td>
+                  }
+                  {
+                    index%2===1 &&
+                    <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-left align-middle color-red-500">
+                      0.00015000
+                    </td>
+                  }
+                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
+                    1000.0000
+                  </td>
+                  <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-right color-black-2 align-middle">
+                    2.55 LRC
+                    <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
+                  </td>
+                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
+                    06-10 10:00
+                  </td>
+                </tr>
+              )
+            }
+        </tbody>
+      </table>
+    </div>
+
+  )
+}
+

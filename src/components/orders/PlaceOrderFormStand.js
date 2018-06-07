@@ -68,7 +68,7 @@ class PlaceOrder extends React.Component {
             moneyKeyboardAlign="left"
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
             extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />}
-          >Price</InputItem>
+          ><div className="fs20">Price</div></InputItem>
           <InputItem
             type={type}
             placeholder="0.00000000"
@@ -78,7 +78,7 @@ class PlaceOrder extends React.Component {
             onBlur={(v) => { console.log('onBlur', v); }}
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
             extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />}
-          >Amount</InputItem>
+          ><div className="fs20">Amount</div></InputItem>
           {
             true &&
             <InputItem
@@ -91,7 +91,7 @@ class PlaceOrder extends React.Component {
               onBlur={(v) => { console.log('onBlur', v); }}
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               editable={false}
-            >Total</InputItem>
+            ><div className="fs20">Total</div></InputItem>
           }
           {
             false &&
@@ -187,9 +187,9 @@ class PlaceOrder extends React.Component {
             tabBarBackgroundColor="#f5f5f5"
             tabs={
               [
-                { title: <Badge count={2} className="text-left d-block w-100 pl10">My Balances</Badge> },
-                { title: <Badge >My Orders</Badge> },
-                { title: <Badge className="d-block w-100 text-right pr10">My Fills</Badge> },
+                { title: <Badge count={2} className="text-left d-block w-100 pl10">Balances</Badge> },
+                { title: <Badge >Orders</Badge> },
+                { title: <Badge className="d-block w-100 text-center pr10">Fills</Badge> },
               ]
             }
             initialPage={0}

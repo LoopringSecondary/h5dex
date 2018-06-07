@@ -39,9 +39,9 @@ const Logged = ()=>{
         <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
-        <Route path="/trade/:market" component={Pages.Trade} />
-        <Route path="/trade" exact component={Pages.Trade} />
-
+        <Route path="/trade/detail" exact component={Tickers.Detail} />
+        { false && <Route path="/trade/:market" component={Pages.Trade} /> }
+        { false && <Route path="/trade" exact component={Pages.Trade} /> }
       </Switch>
     )
   }else{
