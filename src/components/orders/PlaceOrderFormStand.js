@@ -27,6 +27,7 @@ if (isIPhone) {
 class PlaceOrder extends React.Component {
   state = {
     type: 'money',
+    side: 'buy',
   }
   render() {
     const dispatch = this.props.dispatch
@@ -139,6 +140,12 @@ class PlaceOrder extends React.Component {
         </List>
       )
     }
+    const {side} = this.state
+    const tabChange = (side)=>{
+      this.setState({
+        side
+      })
+    }
     return (
       <div className="bg-grey-100">
         <NavBar
@@ -163,13 +170,13 @@ class PlaceOrder extends React.Component {
                 { title: <div className="fs20 pt5 pb5">Sell LRC</div> },
               ]
             }
-            tabBarBackgroundColor={"#fff"}
-            tabBarActiveTextColor={""}
+            tabBarBackgroundColor={'#fff'}
+            tabBarActiveTextColor={side === 'buy' ? "#43a047" : "#f44336"}
             tabBarInactiveTextColor={"#000"}
             tabBarTextStyle={{}}
             initialPage={0}
-            onChange={(tab, index) => { console.log('onChange', index, tab); }}
-            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+            onChange={(tab, index) => { tabChange(index==0 ? 'buy' : 'sell')}}
+            onTabClick={(tab, index) => { }}
           >
             <PlaceOrderForm side="buy" />
             <PlaceOrderForm side="sell" />

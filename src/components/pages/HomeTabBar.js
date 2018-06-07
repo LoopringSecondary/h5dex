@@ -29,17 +29,23 @@ class Home extends React.Component {
                 <TabBar.Item
                   title="Markets"
                   key="markets"
-                  icon={<div style={{
-                    width: '22px',
-                    height: '22px',
-                    background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}
-                  />
+                  icon={
+                    <div style={{
+                      position:'relative',
+                      top:'4px',
+                      width: '22px',
+                      height: '22px',
+                      background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}
+                    />
                   }
-                  selectedIcon={<div style={{
-                    width: '22px',
-                    height: '22px',
-                    background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
-                  />
+                  selectedIcon={
+                    <div style={{
+                      position:'relative',
+                      top:'4px',
+                      width: '22px',
+                      height: '22px',
+                      background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
+                    />
                   }
                   selected={this.state.selectedTab === 'markets'}
                   badge={null && 1}
@@ -73,6 +79,8 @@ class Home extends React.Component {
                 <TabBar.Item
                   icon={
                     <div style={{
+                      position:'relative',
+                      top:'4px',
                       width: '22px',
                       height: '22px',
                       background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
@@ -80,6 +88,8 @@ class Home extends React.Component {
                   }
                   selectedIcon={
                     <div style={{
+                      position:'relative',
+                      top:'4px',
                       width: '22px',
                       height: '22px',
                       background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
@@ -99,8 +109,24 @@ class Home extends React.Component {
                   <Orders.PlaceOrderFormStand />
                 </TabBar.Item>
                 <TabBar.Item
-                  icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                  selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+                  icon={
+                    <div style={{
+                      position:'relative',
+                      top:'4px',
+                      width: '22px',
+                      height: '22px',
+                      background: 'url(https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg) center center /  21px 21px no-repeat' }}
+                    />
+                  }
+                  selectedIcon={
+                    <div style={{
+                      position:'relative',
+                      top:'4px',
+                      width: '22px',
+                      height: '22px',
+                      background: 'url(https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg) center center /  21px 21px no-repeat' }}
+                    />
+                  }
                   title="My"
                   key="my"
                   selected={this.state.selectedTab === 'my'}
@@ -110,7 +136,7 @@ class Home extends React.Component {
                     });
                   }}
                 >
-                  333
+                  TODO
                 </TabBar.Item>
               </TabBar>
       </div>
