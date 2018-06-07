@@ -19,10 +19,10 @@ const OrderMetaItem = (props) => {
   return (
     <div className="row ml0 mr0 pt5 pb5 pl0 pr0">
       <div className="col">
-        <div className="fs16 color-black-2 lh25 text-left">{label}</div>
+        <div className="fs16 color-black-1 lh25 text-left">{label}</div>
       </div>
       <div className="col-auto text-right">
-        <div className="fs16 color-black-1 text-wrap lh25">{value}</div>
+        <div className="fs16 color-black-2 text-wrap lh25">{value}</div>
       </div>
     </div>
   )
@@ -60,28 +60,30 @@ const WalletItem = (props) => {
 
 const PlaceOrderResult = ({
   }) => {
-
   return (
     <div className="">
         {
           true &&
-          <div className="text-center p35">
+          <div className="text-center p15">
             <i className={`fs50 icon-success`}></i>
-            <div className="fs18 color-black-1">订单提交成功！</div>
-            <div className="mt10">
-              <Button className="m5" type="default"> 查看订单 </Button>
-              <Button className="m5" type="default"> 继续下单 </Button>
+            <div className="fs24 color-black-1">订单提交成功！</div>
+            <div className="row no-gutters mt15">
+              <div className="col-6">
+                <Button className="m5 fs18" size="" type="default"> 查看订单 </Button>
+              </div>
+              <div className="col-6">
+                <Button className="m5 fs18" size="" type="default"> 继续下单 </Button>
+              </div>
             </div>
           </div>
         }
         {
-          true &&
-          <div className="text-center p35">
+          false &&
+          <div className="text-center p15">
             <Icon type="close-circle" className="fs50 text-error" />
             <div className="fs18 color-black-1 mt15">您取消了订单提交</div>
             <div className="mt10">
-              <Button className="m5" type="default"> 返回上级 </Button>
-              <Button className="m5" type="default"> 返回交易页 </Button>
+
             </div>
           </div>
         }
@@ -104,7 +106,7 @@ function PlaceOrderPreview(props) {
               <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
             </div>
           </Accordion.Panel>
-          <Accordion.Panel header={<div className="text-left">2. 选择支付方式</div>} className="pad">
+          <Accordion.Panel header={<div className="text-left">2. 选择下单钱包</div>} className="pad">
             <div className="row ml0 mr0 bg-grey-100">
               <div className="col-4 zb-b-r">
                 <WalletItem icon="metamaskwallet" title="Loopr" layout="vertical" />
@@ -117,8 +119,10 @@ function PlaceOrderPreview(props) {
               </div>
             </div>
           </Accordion.Panel>
-          <Accordion.Panel header={<div className="text-left">3. 等待支付结果</div>} className="pad">
-
+          <Accordion.Panel header={<div className="text-left">3. 等待下单结果</div>} className="pad">
+            <div className="bg-grey-100">
+              <PlaceOrderResult />
+            </div>
           </Accordion.Panel>
 
         </Accordion>
