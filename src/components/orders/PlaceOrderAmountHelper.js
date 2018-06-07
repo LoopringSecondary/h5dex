@@ -16,13 +16,14 @@ import Alert from 'LoopringUI/components/Alert'
 
 function PlaceOrderAmountHelper(props) {
   const tabs = [
-    { title: <Badge >Qucik</Badge> },
-    { title: <Badge >Market Depth</Badge> },
+    { title: <div className="text-center d-block w-100 pl10">Percentage</div> },
+    { title: <div className="text-center d-block w-100 pr10">MarketDepth</div> },
   ];
   return (
     <div className="">
-      <div className="pt15 pb15 fs24 color-black-1 zb-b-b">Amount Helper</div>
+      <div className="pt15 pb15 fs24 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
+        tabBarUnderlineStyle={{}}
         initialPage={0}
         onChange={(tab, index) => { console.log('onChange', index, tab); }}
         onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
@@ -106,18 +107,18 @@ export const DepthList = ()=>{
           {
             [1,2,3,4,5].map((item,index)=>
               <tr key={index}>
-                <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left align-middle">
+                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-left align-middle">
                   1000.0000
                 </td>
-                <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b text-right text-up align-middle">
+                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b text-right text-up align-middle">
                   0.00015000
-                  <div className="fs12 color-black-4 mr5">￥8.52</div>
+                  <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                 </td>
-                <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b text-left text-down align-middle">
+                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b text-left text-down align-middle">
                   0.00015000
-                  <div className="fs12 color-black-4 mr5">￥8.52</div>
+                  <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                 </td>
-                <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle">
+                <td className="fs16 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
                   1000.0000
                 </td>
               </tr>

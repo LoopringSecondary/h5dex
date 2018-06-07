@@ -2,10 +2,13 @@ import React from 'react';
 import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
-import PlaceOrerConfirm from './PlaceOrderConfirm';
-import PlaceOrerAdvance from './PlaceOrderAdvance';
-import PlaceOrerPriceHelper from './PlaceOrderPriceHelper';
-import PlaceOrerAmountHelper from './PlaceOrderAmountHelper';
+import { connect } from 'dva';
+import PlaceOrderConfirm from './PlaceOrderConfirm';
+import PlaceOrderAdvance from './PlaceOrderAdvance';
+import PlaceOrderPriceHelper from './PlaceOrderPriceHelper';
+import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
+import Containers from 'modules/containers';
+import UiContainers from 'LoopringUI/containers'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -26,8 +29,9 @@ class PlaceOrder extends React.Component {
     type: 'money',
   }
   render() {
+    const dispatch = this.props.dispatch
     const showLayer = (payload={})=>{
-      this.props.dispatch({
+      dispatch({
         type:'layers/showLayer',
         payload:{
           ...payload
@@ -35,34 +39,25 @@ class PlaceOrder extends React.Component {
       })
     }
     const hideLayer = (payload={})=>{
-      this.props.dispatch({
+      dispatch({
         type:'layers/hideLayer',
         payload:{
           ...payload
         }
       })
     }
+    const gotoConfirm= ()=>{
+
+    }
+    const showPriceHelper= ()=>{
+      showLayer({id:'placeOrderPriceHelperPopup'})
+    }
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
-    return (
-      <div className="bg-grey-100">
-        <NavBar
-          mode="light"
-          icon={null && <Icon type="left" />}
-          onLeftClick={() => console.log('onLeftClick')}
-          rightContent={null && [
-            <Icon key="1" type="ellipsis" />,
-          ]}
-          leftContent={null && [
-            <WebIcon key="1" type="menu-fold" />,
-          ]}
-        >
-        LRC-WETH
-        </NavBar>
-        <div className="row ml0 mr0 bg-white zb-b-t" style={{positiom:'relative',zIndex:'10'}}>
-          <div className="col-6 text-center fs20 color-black pt15 pb15 zb-b-b " >Buy LRC</div>
-          <div className="col-6 text-center fs20 pt15 pb15 zb-b-l font-weight-bold color-red-500 " >Sell LRC</div>
-        </div>
+
+    const PlaceOrderForm = (props)=>{
+      const { side } = props
+      return (
         <List className="bg-none no-border">
           <InputItem
             {...getFieldProps('money3')}
@@ -71,7 +66,7 @@ class PlaceOrder extends React.Component {
             clear
             moneyKeyboardAlign="left"
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            extra={<WebIcon type="profile" />}
+            extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelperPopup',side:'sell'})} />}
           >Price</InputItem>
           <InputItem
             type={type}
@@ -81,7 +76,7 @@ class PlaceOrder extends React.Component {
             onChange={(v) => { console.log('onChange', v); }}
             onBlur={(v) => { console.log('onBlur', v); }}
             moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            extra={<WebIcon type="profile" />}
+            extra={<WebIcon type="profile" style={{padding:'7px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelperPopup',side:'sell'})} />}
           >Amount</InputItem>
           {
             true &&
@@ -128,11 +123,56 @@ class PlaceOrder extends React.Component {
           <Item>
             <div className="row align-items-center ml0 mr0 mb15 mt10">
               <div className="col color-grey-400 fs20 pl0">Advanced</div>
-              <div className="col-auto color-black-3 fs16 pr0"><WebSwitch size="" /></div>
+              <div className="col-auto color-black-3 fs16 pr0"><WebSwitch /></div>
             </div>
-            <Button className="w-100 d-block mb10" type="warning">Place Sell Order</Button>
+            {
+              side === 'sell' &&
+              <Button onClick={showLayer.bind(this,{id:'placeOrderConfirmPopup',side:'sell'})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
+            }
+            {
+              side === 'buy' &&
+              <Button onClick={showLayer.bind(this,{id:'placeOrderConfirmPopup',side:'buy'})} className="w-100 d-block mb10 bg-green-500 color-white">Place Sell Order</Button>
+            }
           </Item>
         </List>
+      )
+    }
+    return (
+      <div className="bg-grey-100">
+        <NavBar
+          className="zb-b-b"
+          mode="light"
+          icon={null && <Icon type="left" />}
+          onLeftClick={() => console.log('onLeftClick')}
+          rightContent={null && [
+            <Icon key="1" type="ellipsis" />,
+          ]}
+          leftContent={null && [
+            <WebIcon key="1" type="menu-fold" />,
+          ]}
+        >
+        LRC-WETH
+        </NavBar>
+        <div className="no-underline">
+          <Tabs
+            tabs={
+              [
+                { title: <div className="fs22 pt5 pb5">Buy LRC</div> },
+                { title: <div className="fs22 pt5 pb5">Sell LRC</div> },
+              ]
+            }
+            tabBarBackgroundColor={"#fff"}
+            tabBarActiveTextColor={""}
+            tabBarInactiveTextColor={""}
+            tabBarTextStyle={{}}
+            initialPage={0}
+            onChange={(tab, index) => { console.log('onChange', index, tab); }}
+            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+          >
+            <PlaceOrderForm side="buy" />
+            <PlaceOrderForm side="sell" />
+          </Tabs>
+        </div>
         <div className="no-underline">
           <Tabs
             tabBarBackgroundColor="#f5f5f5"
@@ -164,16 +204,32 @@ class PlaceOrder extends React.Component {
             <Button className="w-100 d-block" type="primary">Place Buy Order</Button>
           </div>
         }
-        <PlaceOrderConfirmPopup  />
-        <PlaceOrderAdvancePopup />
-        <PlaceOrderPriceHelperPopup />
-        <PlaceOrderAmountHelperPopup />
+        <Containers.Layers id="placeOrderConfirmPopup">
+          <UiContainers.Popups id="placeOrderConfirmPopup">
+            <PlaceOrderConfirm />
+          </UiContainers.Popups>
+        </Containers.Layers>
+        <Containers.Layers id="placeOrderAdvancePopup">
+          <UiContainers.Popups id="placeOrderAdvancePopup">
+            <PlaceOrderAdvance />
+          </UiContainers.Popups>
+        </Containers.Layers>
+        <Containers.Layers id="placeOrderPriceHelperPopup">
+          <UiContainers.Popups id="placeOrderPriceHelperPopup">
+            <PlaceOrderPriceHelper />
+          </UiContainers.Popups>
+        </Containers.Layers>
+        <Containers.Layers id="placeOrderAmountHelperPopup">
+          <UiContainers.Popups id="placeOrderAmountHelperPopup">
+            <PlaceOrderAmountHelper />
+          </UiContainers.Popups>
+        </Containers.Layers>
       </div>
     );
   }
 }
 
-const PlaceOrderForm = createForm(({layers})=>({layers}))(PlaceOrder);
+const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
 export default PlaceOrderForm
 
 export const BalanceList = ()=>{
@@ -249,55 +305,6 @@ export const OrderList = ()=>{
         }
       </tbody>
     </table>
-  )
-}
-
-export const PlaceOrderConfirmPopup = ()=>{
-  return (
-    <Modal
-      popup
-      visible={false}
-      onClose={()=>{}}
-      animationType="slide-up"
-    >
-      <PlaceOrerConfirm />
-    </Modal>
-  )
-}
-export const PlaceOrderAdvancePopup = ()=>{
-  return (
-    <Modal
-      popup
-      visible={false}
-      onClose={()=>{}}
-      animationType="slide-up"
-    >
-      <PlaceOrerAdvance />
-    </Modal>
-  )
-}
-export const PlaceOrderPriceHelperPopup = ()=>{
-  return (
-    <Modal
-      popup
-      visible={false}
-      onClose={()=>{}}
-      animationType="slide-up"
-    >
-      <PlaceOrerPriceHelper />
-    </Modal>
-  )
-}
-export const PlaceOrderAmountHelperPopup = ()=>{
-  return (
-    <Modal
-      popup
-      visible={false}
-      onClose={()=>{}}
-      animationType="slide-up"
-    >
-      <PlaceOrerAmountHelper />
-    </Modal>
   )
 }
 
