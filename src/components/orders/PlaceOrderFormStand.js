@@ -200,7 +200,7 @@ class PlaceOrder extends React.Component {
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
             <div className="bg-grey-100">
-              <BalanceList />
+              <TokenList />
             </div>
             <div>
               <OrderList />
@@ -238,46 +238,82 @@ class PlaceOrder extends React.Component {
 const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
 export default PlaceOrderForm
 
-export const BalanceList = ()=>{
+
+export const TokenNotEnough = ()=>{
   return (
-    <table className="w-100 fs16">
-      <thead>
-        <tr className="">
-          <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-          <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-          <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Required</th>
-          <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">LRC</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">12680.0000</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">15000.0000</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
-              <WebIcon className="color-red-500" type="exclamation-circle" />
-            </td>
-          </tr>
-          <tr >
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">ETH</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">85.0000</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">45.0000</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
-              <WebIcon className="color-green-500" type="check-circle" />
-            </td>
-          </tr>
-          <tr >
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">WETH</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">21.3652</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">20.1278</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
-              <WebIcon className="color-green-500" type="check-circle" />
-            </td>
-          </tr>
-      </tbody>
-    </table>
+    <div className="">
+      哈哈哈哈哈
+    </div>
   )
 }
+const TokenListComp = (props)=>{
+  const {dispatch} = props
+  const showLayer = (payload={})=>{
+    dispatch({
+      type:'layers/showLayer',
+      payload:{
+        ...payload
+      }
+    })
+  }
+  const tokens = [
+    {
+      symbol:"LRC",
+      balance:12680.0001,
+      required:15000.0001,
+    },
+    {
+      symbol:"WETH",
+      balance:21.3652,
+      required:20.1278,
+    },
+    {
+      symbol:"ETH",
+      balance:85.0001,
+      required:0.0001,
+    },
+  ]
+  return (
+    <div className="fs20">
+      <table className="w-100 fs16">
+        <thead>
+          <tr className="">
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Required</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Lack</th>
+            <th hidden className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Enough</th>
+          </tr>
+        </thead>
+        <tbody>
+            {
+              tokens.map((token,index)=>
+                <tr key={index} onClick={showLayer.bind(this,{id:'tokenNotEnough'})}>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{token.symbol}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.required}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{
+                      Number(token.balance - token.required).toFixed(4)>0 ? '0.0000' :
+                      <span className="color-red-500">
+                        <WebIcon type="exclamation-circle mr5" />
+                        {Number(token.required - token.balance).toFixed(4)}
+                      </span>
+                    }
+                  </td>
+                </tr>
+              )
+            }
+        </tbody>
+      </table>
+      <Containers.Layers id="tokenNotEnough">
+        <UiContainers.Popups id="tokenNotEnough">
+          <TokenNotEnough />
+        </UiContainers.Popups>
+      </Containers.Layers>
+    </div>
+  )
+}
+export const TokenList = connect()(TokenListComp)
 
 export const OrderList = ()=>{
   return (
