@@ -16,59 +16,50 @@ import Alert from 'LoopringUI/components/Alert'
 
 function PlaceOrderAmountHelper(props) {
   const tabs = [
-    { title: <div className="text-center d-block w-100 pl10">Percentage</div> },
-    { title: <div className="text-center d-block w-100 pr10">MarketDepth</div> },
+    { title: <div className="text-center">Percentage</div> },
+    { title: <div className="text-center">MarketDepth</div> },
   ];
   return (
-    <div className="">
+    <div className="no-underline tabs-no-border">
       <div className="pt15 pb15 fs24 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
-        tabBarUnderlineStyle={{}}
+        tabBarActiveTextColor={"#000"}
+        tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
         swipeable={false}
         initialPage={0}
         onChange={(tab, index) => { console.log('onChange', index, tab); }}
         onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
       >
-        <div className="">
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b">
+        <div className="zb-b-t">
+          <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl15">
               100%
-            </div>
-            <div className="col-auto color-black-3 pr15">
-              1500.00 LRC
+              <span className="color-black-3 ml25">1500.00 LRC</span>
             </div>
           </div>
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b">
+          <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl15">
               75%
-            </div>
-            <div className="col-auto color-black-3 pr15">
-              1125.00 LRC
+              <span className="color-black-3 ml25">1125.00 LRC</span>
             </div>
           </div>
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b">
+          <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl15">
               50%
-            </div>
-            <div className="col-auto color-black-3 pr15">
-              750.00 LRC
+              <span className="color-black-3 ml25">750.00 LRC</span>
             </div>
           </div>
           <div className="row pt15 pb15 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl15">
               25%
-            </div>
-            <div className="col-auto color-black-3 pr15">
-              375.00 LRC
+              <span className="color-black-3 ml25">375.00 LRC</span>
             </div>
           </div>
           <div className="row pt15 pb15 ml0 mr0">
             <div className="col color-black-1 text-left pl15">
               自定义
               <span className="ml5">10%</span>
-            </div>
-            <div className="col-auto color-black-3 pr15">
-              0.00 LRC
+              <span className="color-black-3 ml25">150.00 LRC</span>
             </div>
           </div>
           <div className="mt15 pb35">
