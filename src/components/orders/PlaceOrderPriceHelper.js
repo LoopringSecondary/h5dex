@@ -51,7 +51,7 @@ function PlaceOrderPriceHelper(props) {
             Current Price
           </div>
           <div className="col-auto color-black-2">
-            <span className="color-black-4 mr5 fs14">￥8.96</span>0.0001650 ETH
+            <span className="color-black-4 mr5">￥8.96</span>0.0001650 ETH
           </div>
         </div>
         <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
@@ -59,12 +59,11 @@ function PlaceOrderPriceHelper(props) {
             Last Price
           </div>
           <div className="col-auto color-black-2">
-            <span className="color-black-4 mr5 fs14">￥8.52</span>0.0001500 ETH
+            <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
           </div>
         </div>
         <DepthList />
       </div>
-
     </div>
   )
 }

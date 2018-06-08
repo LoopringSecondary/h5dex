@@ -115,18 +115,18 @@ export const DepthList = ({depth={},maxRows=5})=>{
             {
               depth.items.map((item,index)=>
                 <tr key={index}>
-                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-left align-middle">
+                  <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left align-middle">
                     1000.0000
                   </td>
-                  <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-right color-green-500 align-middle">
+                  <td className="fs16 pl10 pr5 pt10 pb10 zb-b-b text-right color-green-500 align-middle">
                     0.00015000
                     <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                   </td>
-                  <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-left color-red-500 align-middle">
+                  <td className="fs16 pl10 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle">
                     0.00015000
                     <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                   </td>
-                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
+                  <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle">
                     1000.0000
                   </td>
                 </tr>
@@ -162,24 +162,24 @@ export const FillList = ({fill={},maxRows=5})=>{
                 <tr key={index}>
                   {
                     index%2===0 &&
-                    <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-left align-middle color-green-500">
+                    <td className="fs16 pl10 pr5 pt10 pb10 zb-b-b text-left align-middle color-green-500">
                       0.00015000
                     </td>
                   }
                   {
                     index%2===1 &&
-                    <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-left align-middle color-red-500">
+                    <td className="fs16 pl10 pr5 pt10 pb10 zb-b-b text-left align-middle color-red-500">
                       0.00015000
                     </td>
                   }
-                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
+                  <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle">
                     1000.0000
                   </td>
-                  <td className="fs18 pl10 pr5 pt15 pb15 zb-b-b text-right color-black-2 align-middle">
+                  <td className="fs16 pl10 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle">
                     2.55 LRC
                     <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                   </td>
-                  <td className="fs18 pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right align-middle">
+                  <td className="fs16 pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle">
                     06-10 10:00
                   </td>
                 </tr>

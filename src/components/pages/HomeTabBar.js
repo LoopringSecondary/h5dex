@@ -19,10 +19,11 @@ class Home extends React.Component {
   }
   render(){
     return (
-      <div style={{ position:"fixed",height: "100%", width: '100%', top: 0,}}>
+      <div style={{ position:"fixed",height: "100%", width: '100%', top: 0,overflow:'auto'}}>
               <TabBar
                 unselectedTintColor="#949494"
-                tintColor="#33A3F4"
+                selectedTintColor="#000"
+                tintColor="#000"
                 barTintColor="white"
                 hidden={this.state.hidden}
               >
@@ -30,22 +31,10 @@ class Home extends React.Component {
                   title="Markets"
                   key="markets"
                   icon={
-                    <div style={{
-                      position:'relative',
-                      top:'4px',
-                      width: '22px',
-                      height: '22px',
-                      background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat' }}
-                    />
+                    <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
                   }
                   selectedIcon={
-                    <div style={{
-                      position:'relative',
-                      top:'4px',
-                      width: '22px',
-                      height: '22px',
-                      background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat' }}
-                    />
+                    <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
                   }
                   selected={this.state.selectedTab === 'markets'}
                   badge={null && 1}
@@ -64,11 +53,11 @@ class Home extends React.Component {
                       mode="light"
                       icon={null && <Icon type="left" />}
                       onLeftClick={() => console.log('onLeftClick')}
-                      rightContent={null && [
+                      leftContent={null && [
                         <Icon key="1" type="ellipsis" />,
                       ]}
-                      leftContent={null && [
-                        <WebIcon key="1" type="menu-fold" />,
+                      rightContent={[
+                        <WebIcon key="1" type="search" className="color-black-1" />,
                       ]}
                     >
                     Markets
@@ -77,24 +66,8 @@ class Home extends React.Component {
                   </div>
                 </TabBar.Item>
                 <TabBar.Item
-                  icon={
-                    <div style={{
-                      position:'relative',
-                      top:'4px',
-                      width: '22px',
-                      height: '22px',
-                      background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
-                    />
-                  }
-                  selectedIcon={
-                    <div style={{
-                      position:'relative',
-                      top:'4px',
-                      width: '22px',
-                      height: '22px',
-                      background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat' }}
-                    />
-                  }
+                  icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
+                  selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
                   title="Trade"
                   key="trade"
                   badge={null && 'new'}
@@ -109,24 +82,8 @@ class Home extends React.Component {
                   <Orders.PlaceOrderFormStand />
                 </TabBar.Item>
                 <TabBar.Item
-                  icon={
-                    <div style={{
-                      position:'relative',
-                      top:'4px',
-                      width: '22px',
-                      height: '22px',
-                      background: 'url(https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg) center center /  21px 21px no-repeat' }}
-                    />
-                  }
-                  selectedIcon={
-                    <div style={{
-                      position:'relative',
-                      top:'4px',
-                      width: '22px',
-                      height: '22px',
-                      background: 'url(https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg) center center /  21px 21px no-repeat' }}
-                    />
-                  }
+                  icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
+                  selectedIcon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
                   title="My"
                   key="my"
                   selected={this.state.selectedTab === 'my'}

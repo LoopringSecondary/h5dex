@@ -36,14 +36,14 @@ class HomeTabs extends React.Component {
               <NavBar
                 style={{top:'0px',position:'absolute',zIndex:10}}
                 className="w-100 zb-b-b"
-                mode="light"
+                mode="dark"
                 icon={null && <Icon type="left" />}
                 onLeftClick={() => console.log('onLeftClick')}
-                rightContent={null && [
-                  <Icon key="1" type="ellipsis" />,
-                ]}
-                leftContent={null && [
+                leftContent={[
                   <WebIcon key="1" type="menu-fold" />,
+                ]}
+                rightContent={[
+                  <WebIcon key="1" type="" />,
                 ]}
               >
               Markets

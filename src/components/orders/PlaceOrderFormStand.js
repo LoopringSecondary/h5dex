@@ -7,6 +7,7 @@ import PlaceOrderPreview from './PlaceOrderPreview';
 import PlaceOrderAdvance from './PlaceOrderAdvance';
 import PlaceOrderPriceHelper from './PlaceOrderPriceHelper';
 import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
+import {FillList} from './PlaceOrderAmountHelper';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 const Item = List.Item;
@@ -123,7 +124,7 @@ class PlaceOrder extends React.Component {
           }
           <Item>
             <div className="row align-items-center ml0 mr0 mb15 mt10">
-              <div className="col color-grey-400 fs20 pl0">Advanced</div>
+              <div className="col color-black-3 fs20 pl0">Advanced</div>
               <div className="col-auto color-black-3 fs16 pr0">
                 <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
               </div>
@@ -184,14 +185,16 @@ class PlaceOrder extends React.Component {
         </div>
         <div className="no-underline">
           <Tabs
-            tabBarBackgroundColor="#f5f5f5"
             tabs={
               [
-                { title: <Badge count={2} className="text-left d-block w-100 pl10">Balances</Badge> },
-                { title: <Badge >Orders</Badge> },
-                { title: <Badge className="d-block w-100 text-center pr10">Fills</Badge> },
+                { title: <Badge count={2} className="text-center d-block w-100 pl10">Balances</Badge> },
+                { title: <Badge className="text-center d-block w-100 pl10">Orders</Badge> },
+                { title: <Badge className="text-center d-block w-100  pr10">Trades</Badge> },
               ]
             }
+            tabBarBackgroundColor="#f5f5f5"
+            tabBarActiveTextColor={"#000"}
+            tabBarInactiveTextColor={"#999"}
             initialPage={0}
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
@@ -202,7 +205,8 @@ class PlaceOrder extends React.Component {
             <div>
               <OrderList />
             </div>
-            <div style={{minHeight: '150px'}}>
+            <div>
+              <FillList />
             </div>
           </Tabs>
         </div>
@@ -236,7 +240,7 @@ export default PlaceOrderForm
 
 export const BalanceList = ()=>{
   return (
-    <table className="w-100">
+    <table className="w-100 fs16">
       <thead>
         <tr className="">
           <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
@@ -246,12 +250,12 @@ export const BalanceList = ()=>{
         </tr>
       </thead>
       <tbody>
-          <tr >
+          <tr>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">LRC</td>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">12680.0000</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">1000.0000</td>
+            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">15000.0000</td>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
-              <WebIcon className="text-warning" type="exclamation-circle" />
+              <WebIcon className="color-red-500" type="exclamation-circle" />
             </td>
           </tr>
           <tr >
@@ -259,15 +263,15 @@ export const BalanceList = ()=>{
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">85.0000</td>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">45.0000</td>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
-              <WebIcon className="text-success" type="check-circle" />
+              <WebIcon className="color-green-500" type="check-circle" />
             </td>
           </tr>
           <tr >
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">WETH</td>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">21.3652</td>
-            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">26.1278</td>
+            <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">20.1278</td>
             <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
-              <WebIcon className="text-success" type="check-circle" />
+              <WebIcon className="color-green-500" type="check-circle" />
             </td>
           </tr>
       </tbody>
@@ -277,7 +281,7 @@ export const BalanceList = ()=>{
 
 export const OrderList = ()=>{
   return (
-    <table className="w-100">
+    <table className="w-100 fs16">
       <thead>
         <tr>
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>
@@ -291,16 +295,17 @@ export const OrderList = ()=>{
         {
           [1,2,3,4,5].map((item,index)=>
             <tr key={index} className="color-black-2">
-              { index%2 == 0 && <td className="zb-b-b p10 text-center text-up">Buy</td> }
-              { index%2 == 1 && <td className="zb-b-b p10 text-center text-down">Sell</td> }
+              { index%2 == 0 && <td className="zb-b-b p10 text-center color-green-500">Buy</td> }
+              { index%2 == 1 && <td className="zb-b-b p10 text-center color-red-500">Sell</td> }
               <td className="zb-b-b p10 text-right">0.00095</td>
-              <td className="zb-b-b p10 text-right">1000</td>
+              <td className="zb-b-b p10 text-right">1000.00</td>
               <td className="zb-b-b p10 text-right">80%</td>
               <td className="zb-b-b p10 text-center">
-              { index === 0 && <WebIcon className="zb-b-b text-warning" type="exclamation-circle" /> }
-              { index === 1 && <WebIcon className="zb-b-b text-primary" type="clock-circle" /> }
-              { index === 2 && <WebIcon className="zb-b-b text-success" type="check-circle" /> }
+              { index === 0 && <WebIcon className="zb-b-b color-red-500" type="exclamation-circle" /> }
+              { index === 1 && <WebIcon className="zb-b-b color-blue-500" type="clock-circle" /> }
+              { index === 2 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
               { index === 3 && <WebIcon className="zb-b-b color-grey-300" type="close-circle" /> }
+              { index === 4 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
               </td>
             </tr>
           )

@@ -3,6 +3,7 @@ import {connect} from 'dva'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
+import routeActions from 'common/utils/routeActions'
 import { ListView,Button } from 'antd-mobile'
 
 const TickerHeader = ({list,actions})=>{
@@ -21,18 +22,41 @@ const TickerHeader = ({list,actions})=>{
     )
 }
 
-const TickerItem = ({item,actions})=>{
+const TickerItem = ({item,actions,key,index})=>{
     // if(!item){ return null }
     // const tickerFm = new TickerFm(item)
+    const gotoDetail = ()=>{
+      routeActions.gotoPath('/trade/detail')
+    }
     return (
-      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters">
-        <div className="col-5 fs20 color-black-1">LRC-WETH</div>
+      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
+        <div className="col-5">
+          <span className="fs20 color-black-1 font-weight-bold">LRC</span>
+          <span className="fs16 color-black-3">/WETH</span>
+          <div className="fs16 color-black-3">Vol 1,035,288</div>
+        </div>
         <div className="col-4 text-left">
-          <div className="fs20 color-black-1">0.00095</div>
-          <div className="fs16 color-black-3">$0.52</div>
+          <div className="fs20 color-black-1 font-weight-bold">0.00095</div>
+          <div className="fs16 color-black-3">$0.62</div>
         </div>
         <div className="col-3 text-right">
-          <Button type="primary" size="small" className="pl10 pr10 fs20">+15.2%</Button>
+          {
+            index%4===0 &&
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-50 color-green-500">+5.2%</Button>
+          }
+          {
+            index%4===1 &&
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-300 color-white">+28.2%</Button>
+          }
+          {
+            index%4===2 &&
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-500 color-white">+50.2%</Button>
+          }
+          {
+            index%4===3 &&
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-700 color-white">+158.2%</Button>
+          }
+
         </div>
       </div>
     )
@@ -56,7 +80,7 @@ const data = [
     des: '不是所有的兼职汪都需要风吹日晒',
   },
 ];
-const NUM_ROWS = 100;
+const NUM_ROWS = 15;
 let pageIndex = 0;
 
 function genData(pIndex = 0) {
@@ -119,7 +143,7 @@ class ListTickers extends React.Component {
         }
         const obj = data[index--];
         return (
-          <TickerItem key={rowID} />
+          <TickerItem key={rowID} index={rowID} />
         );
       };
       return (
@@ -127,13 +151,17 @@ class ListTickers extends React.Component {
           ref={el => this.lv = el}
           dataSource={this.state.dataSource}
           renderHeader={() => <TickerHeader />}
-          renderFooter={() => (<div className="p15">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+          renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
           renderRow={row}
           className="am-list"
           pageSize={5}
-          useBodyScroll
+          useBodyScroll={false}
+          style={{
+             height: "100%",
+             overflow: 'auto',
+          }}
           onScroll={() => { console.log('scroll'); }}
-          scrollRenderAheadDistance={500}
+          scrollRenderAheadDistance={300}
           onEndReached={this.onEndReached}
           onEndReachedThreshold={10}
         />
