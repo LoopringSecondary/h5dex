@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch } from 'antd-mobile';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -12,18 +12,6 @@ import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 const Item = List.Item;
 const Brief = Item.Brief;
-
-
-// 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
-// https://github.com/ant-design/ant-design-mobile/issues/307
-// https://github.com/ant-design/ant-design-mobile/issues/163
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
-let moneyKeyboardWrapProps;
-if (isIPhone) {
-  moneyKeyboardWrapProps = {
-    onTouchStart: e => e.preventDefault(),
-  };
-}
 
 class PlaceOrder extends React.Component {
   state = {
@@ -57,97 +45,7 @@ class PlaceOrder extends React.Component {
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
 
-    const PlaceOrderForm = (props)=>{
-      const { side } = props
-      return (
-        <div>
-           <List className="bg-none no-border">
-            <InputItem
-              {...getFieldProps('money3')}
-              type={type}
-              placeholder="0.00000000"
-              clear
-              moneyKeyboardAlign="left"
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />}
-            ><div className="fs20">Price</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
-            <InputItem
-              type={type}
-              placeholder="0.00000000"
-              clear
-              moneyKeyboardAlign="left"
-              onChange={(v) => { console.log('onChange', v); }}
-              onBlur={(v) => { console.log('onBlur', v); }}
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />}
-            ><div className="fs20">Amount</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
-            <InputItem
-              type={type}
-              placeholder="0.00000000"
-              extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
-              clear
-              moneyKeyboardAlign="left"
-              onChange={(v) => { console.log('onChange', v); }}
-              onBlur={(v) => { console.log('onBlur', v); }}
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              editable={false}
-            ><div className="fs20">Total</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
-            {
-              false &&
-              <InputItem
-                type={type}
-                placeholder="0.00000000"
-                extra={<span className="fs16 color-black-4">{null && "LRC"}</span>}
-                clear
-                moneyKeyboardAlign="left"
-                onChange={(v) => { console.log('onChange', v); }}
-                onBlur={(v) => { console.log('onBlur', v); }}
-                moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-                editable={false}
-              >LRC Fee</InputItem>
-            }
-            {
-              false &&
-              <InputItem
-                type={type}
-                placeholder="06-10 12:00"
-                extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
-                clear
-                moneyKeyboardAlign="left"
-                onChange={(v) => { console.log('onChange', v); }}
-                onBlur={(v) => { console.log('onBlur', v); }}
-                moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-                editable={false}
-              >TTL</InputItem>
-            }
-            <Item>
-              <div className="row align-items-center ml0 mr0 mb15 mt10">
-                <div className="col color-black-3 fs20 pl0">Advanced</div>
-                <div className="col-auto color-black-3 fs16 pr0">
-                  <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
-                </div>
-              </div>
-              {
-                side === 'sell' &&
-                <Button onClick={showLayer.bind(this,{id:'placeOrderPreview',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
-              }
-              {
-                side === 'buy' &&
-                <Button onClick={showLayer.bind(this,{id:'placeOrderPreview',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
-              }
-            </Item>
-          </List>
 
-        </div>
-
-      )
-    }
     const {side} = this.state
     const tabChange = (side)=>{
       this.setState({
@@ -157,52 +55,61 @@ class PlaceOrder extends React.Component {
     const gotoTrade = ()=>{
 
     }
+    const data = [
+      {
+        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-transfer"></i>,
+        text: `Send`,
+      },
+      {
+        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-receive"></i>,
+        text: `Receive`,
+      },
+      {
+        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-convert"></i>,
+        text: `Convert`,
+      },
+      {
+        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-trade"></i>,
+        text: `Trade`,
+      },
+      {
+        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-success"></i>,
+        text: `Enable`,
+      },
+    ]
+
     return (
       <div className="bg-grey-100">
         <NavBar
           className=""
           mode="light"
-          icon={null && <Icon type="left" />}
           onLeftClick={() => console.log('onLeftClick')}
           leftContent={[
-            <span className="color-black-1"><WebIcon key="1" type="profile" /></span>,
+            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
           ]}
           rightContent={[
-            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
+            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="setting" /></span>
           ]}
         >
-        LRC-WETH
+        My Dex
         </NavBar>
-        <div className="no-underline tabs-no-border h-50 place-order-form">
-          <Tabs
-            tabs={
-              [
-                { title: <div className="fs20">Buy LRC</div> },
-                { title: <div className="fs20">Sell LRC</div> },
-              ]
-            }
-            tabBarBackgroundColor={side === 'buy' ? "#e8f5e9" : "#ffebee"}
-            tabBarActiveTextColor={side === 'buy' ? "#43a047" : "#f44336"}
-            tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-            tabBarTextStyle={{}}
-            initialPage={0}
-            onChange={(tab, index) => { tabChange(index==0 ? 'buy' : 'sell')}}
-            onTabClick={(tab, index) => { }}
-          >
-            <PlaceOrderForm side="buy" />
-            <PlaceOrderForm side="sell" />
-          </Tabs>
+        <div className="d-flex align-items-center bg-grey-900" style={{height:'125px'}}>
+          <div className="pl15">
+            <div className="text-left color-white-1 fs18" style={{width:'240px',wordBreak:'break-all'}}>0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00</div>
+            <div className="text-left fs16 color-white-2">Current Address</div>
+          </div>
         </div>
-        <div hidden className="no-underline">
+        <Grid className="my-dex-grid" data={data} square={true} activeStyle={false} columnNum={5} />
+        <div className="no-underline">
           <Tabs
             tabs={
               [
-                { title: <Badge count={2} className="text-center d-block w-100 pl10">Balances</Badge> },
-                { title: <Badge className="text-center d-block w-100 pl10">Orders</Badge> },
-                { title: <Badge className="text-center d-block w-100  pr10">Trades</Badge> },
+                { title: <Badge className="text-center d-block w-100 pl10">Open Orders</Badge> },
+                { title: <Badge className="text-center d-block w-100  pr10">Filled Orders</Badge> },
+                { title: <Badge count={2} className="text-center d-block w-100 pl10">History Orders</Badge> },
               ]
             }
-            tabBarBackgroundColor="#f5f5f5"
+            tabBarBackgroundColor="#fff"
             tabBarActiveTextColor={"#000"}
             tabBarInactiveTextColor={"#999"}
             initialPage={0}
@@ -210,14 +117,14 @@ class PlaceOrder extends React.Component {
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
-            <div className="bg-grey-100">
-              <TokenList />
-            </div>
             <div>
               <OrderList />
             </div>
             <div>
               <FillList />
+            </div>
+            <div className="bg-grey-100">
+              <TokenList />
             </div>
           </Tabs>
         </div>

@@ -5,6 +5,7 @@ import Footer from '../../layout/Footer';
 import intl from 'react-intl-universal';
 import Tickers from '../tickers';
 import Orders from '../orders';
+import My from '../orders/My';
 import { TabBar,NavBar,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 
@@ -93,7 +94,7 @@ class Home extends React.Component {
                     });
                   }}
                 >
-                  TODO
+                  <My />
                 </TabBar.Item>
               </TabBar>
       </div>

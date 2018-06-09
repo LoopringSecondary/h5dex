@@ -10,6 +10,7 @@ import Tickers from './tickers';
 import Setting from './setting';
 import Tools from './tools';
 import UnlockModals from './account/unlock/Modals'
+import My from './orders/My'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -40,6 +41,7 @@ const Logged = ()=>{
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
         <Route path="/trade/detail" exact component={Tickers.Detail} />
+        <Route path="/my" exact component={My} />
         { false && <Route path="/trade/:market" component={Pages.Trade} /> }
         { false && <Route path="/trade" exact component={Pages.Trade} /> }
       </Switch>
@@ -65,6 +67,7 @@ export default class Routes extends React.Component {
             <Route path="/placeOrderSimple" render={Logged} />
             <Route path="/placeOrderStand" render={Logged} />
             <Route path="/trade" render={Logged} />
+            <Route path="/my" render={Logged} />
             <Route path="/dev" exact component={Pages.Test} />
           </Switch>
           <Orders.Modals />
