@@ -76,7 +76,7 @@ class PlaceOrder extends React.Component {
       },
       {
         icon: <WebIcon type="compass" className="fs22 color-black-2 mb5" />,
-        text: <div className="fs16 color-black-2">Matching</div>,
+        text: <div className="fs16 color-black-2">Open</div>,
       },
       {
         icon: <WebIcon type="pay-circle-o" className="fs22 color-black-2 mb5" />,
@@ -141,53 +141,28 @@ class PlaceOrder extends React.Component {
           </div>
         </div>
         <div className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
-          <div className="col fs20 color-black-1">My Orders</div>
-          <div className="col-auto fs16 color-black-3">
-            All Orders <WebIcon type="right" />
+          <div className="col fs20 color-black-1">My Orders & Fills</div>
+          <div className="col-auto fs18 color-black-3 pl20">
+            All <WebIcon type="right" />
           </div>
         </div>
         <Grid className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
 
         <div className="row ml0 mr0 p10 mt15 bg-white align-items-center no-gutters">
-          <div className="col fs20 color-black-1">ETH Transactions</div>
-          <div className="col-auto fs16 color-black-3">
-            All txs <WebIcon type="right" />
+          <div className="col fs20 color-black-1">My ETH Transactions</div>
+          <div className="col-auto fs18 color-black-3 pl20">
+            All <WebIcon type="right" />
           </div>
         </div>
         <Grid className="my-dex-grid" data={txStatus} square={false} activeStyle={false} columnNum={4}/>
 
-        <div className="no-underline">
-          <Tabs
-            tabs={
-              [
-                { title: <Badge className="text-center d-block w-100 pl10">Balances</Badge> },
-                { title: <Badge className="text-center d-block w-100 pl10">Orders</Badge> },
-                { title: <Badge className="text-center d-block w-100  pr10">Fills</Badge> },
-                { title: <Badge className="text-center d-block w-100  pr10">Transactions</Badge> },
-              ]
-            }
-            tabBarBackgroundColor="#fff"
-            tabBarActiveTextColor={"#000"}
-            tabBarInactiveTextColor={"#999"}
-            initialPage={0}
-            swipeable={false}
-            onChange={(tab, index) => { console.log('onChange', index, tab); }}
-            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-          >
-            <div className="p50">
-              Balances
-            </div>
-            <div>
-              <OrderList />
-            </div>
-            <div>
-              <FillList />
-            </div>
-            <div className="bg-grey-100">
-              <TokenList />
-            </div>
-          </Tabs>
+        <div className="row ml0 mr0 p10 mt15 bg-white align-items-center no-gutters">
+          <div className="col fs20 color-black-1">My Tokens</div>
+          <div className="col-auto fs18 color-black-3 pl20">
+            All <WebIcon type="right" />
+          </div>
         </div>
+        <TokenList />
         <Containers.Layers id="placeOrderPreview">
           <UiContainers.Popups id="placeOrderPreview">
             <PlaceOrderPreview />
