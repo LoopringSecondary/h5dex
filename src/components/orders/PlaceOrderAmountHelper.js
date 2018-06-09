@@ -16,11 +16,13 @@ import Alert from 'LoopringUI/components/Alert'
 
 function PlaceOrderAmountHelper(props) {
   const tabs = [
-    { title: <div className="text-center">Percentage</div> },
-    { title: <div className="text-center">MarketDepth</div> },
+    { title: <div className="text-center">Balance</div> },
+    { title: <div className="text-center">Depth</div> },
+    { title: <div className="text-center">Opens</div> },
+    { title: <div className="text-center">Fills</div> },
   ];
   return (
-    <div className="no-underline tabs-no-border">
+    <div className="tabs-no-border">
       <div className="pt15 pb15 fs24 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
         tabBarActiveTextColor={"#000"}
@@ -30,33 +32,33 @@ function PlaceOrderAmountHelper(props) {
         onChange={(tab, index) => { console.log('onChange', index, tab); }}
         onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
       >
-        <div className="zb-b-t">
+        <div className="zb-b-t p10 pt15 pb15">
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl15">
-              100%
+            <div className="col color-black-1 text-left pl10">
+              <span className="d-inline-block" style={{width:'50px'}}>100%</span>
               <span className="color-black-3 ml25">1500.00 LRC</span>
             </div>
           </div>
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl15">
-              75%
+            <div className="col color-black-1 text-left pl10">
+              <span className="d-inline-block" style={{width:'50px'}}>75%</span>
               <span className="color-black-3 ml25">1125.00 LRC</span>
             </div>
           </div>
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl15">
-              50%
+            <div className="col color-black-1 text-left pl10">
+              <span className="d-inline-block" style={{width:'50px'}}>50%</span>
               <span className="color-black-3 ml25">750.00 LRC</span>
             </div>
           </div>
           <div className="row pt15 pb15 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl15">
-              25%
+            <div className="col color-black-1 text-left pl10">
+              <span className="d-inline-block" style={{width:'50px'}}>25%</span>
               <span className="color-black-3 ml25">375.00 LRC</span>
             </div>
           </div>
           <div className="row pt15 pb15 ml0 mr0">
-            <div className="col color-black-1 text-left pl15">
+            <div className="col color-black-1 text-left pl10">
               自定义
               <span className="ml5">10%</span>
               <span className="color-black-3 ml25">150.00 LRC</span>
@@ -73,8 +75,14 @@ function PlaceOrderAmountHelper(props) {
             />
           </div>
         </div>
-        <div className="">
+        <div className="zb-b-t">
           <DepthList />
+        </div>
+        <div className="p50 zb-b-t">
+          Opens Todo
+        </div>
+        <div className="p50 zb-b-t">
+          Fills Todo
         </div>
       </Tabs>
 
@@ -96,10 +104,10 @@ export const DepthList = ({depth={},maxRows=5})=>{
       <table className="w-100">
         <thead>
           <tr className="">
-            <th className="zb-b-b bg-grey-100 text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
-            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Buy</th>
-            <th className="zb-b-b bg-grey-100 text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Sell</th>
-            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
+            <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
+            <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Buy</th>
+            <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Sell</th>
+            <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
           </tr>
         </thead>
         <tbody>

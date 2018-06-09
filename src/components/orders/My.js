@@ -65,18 +65,47 @@ class PlaceOrder extends React.Component {
         text: `Receive`,
       },
       {
-        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-convert"></i>,
-        text: `Convert`,
-      },
-      {
         icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-trade"></i>,
         text: `Trade`,
       },
+    ]
+    const OrderStatus = [
       {
-        icon: <i className="fs24 color-black-1 loopring-icon loopring-icon-success"></i>,
-        text: `Enable`,
+        icon: <WebIcon type="exclamation-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Disabled</div>,
+      },
+      {
+        icon: <WebIcon type="compass" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Matching</div>,
+      },
+      {
+        icon: <WebIcon type="pay-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Matched</div>,
+      },
+      {
+        icon: <WebIcon type="check-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Completed</div>,
+      },
+      {
+        icon: <WebIcon type="close-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Closed</div>,
       },
     ]
+    const txStatus = [
+      {
+        icon: <WebIcon type="clock-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Pending</div>,
+      },
+      {
+        icon: <WebIcon type="check-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Success</div>,
+      },
+      {
+        icon: <WebIcon type="close-circle-o" className="fs22 color-black-2 mb5" />,
+        text: <div className="fs16 color-black-2">Failed</div>,
+      },
+    ]
+
 
     return (
       <div className="bg-grey-100">
@@ -93,20 +122,48 @@ class PlaceOrder extends React.Component {
         >
         My Dex
         </NavBar>
-        <div className="d-flex align-items-center bg-grey-900" style={{height:'125px'}}>
-          <div className="pl15">
-            <div className="text-left color-white-1 fs18" style={{width:'240px',wordBreak:'break-all'}}>0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00</div>
-            <div className="text-left fs16 color-white-2">Current Address</div>
+        <div className="d-flex align-items-center justify-content-center bg-grey-900" style={{height:'150px'}}>
+          <div className="w-100">
+            <div className="text-center color-white-1 fs18">
+              0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00
+            </div>
+            <div className="d-flex justify-content-center">
+              <Button className="d-flex m5 " size="small">
+                <i className="fs24 color-black-1 mr5 loopring-icon loopring-icon-transfer"></i>Send
+              </Button>
+              <Button className="d-flex m5" size="small">
+                <i className="fs24 color-black-1 mr5 loopring-icon loopring-icon-receive"></i>Receive
+              </Button>
+              <Button className="d-flex m5" size="small">
+                <i className="fs24 color-black-1 mr5 loopring-icon loopring-icon-trade"></i>Trade
+              </Button>
+            </div>
           </div>
         </div>
-        <Grid className="my-dex-grid" data={data} square={true} activeStyle={false} columnNum={5} />
+        <div className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
+          <div className="col fs20 color-black-1">My Orders</div>
+          <div className="col-auto fs16 color-black-3">
+            All Orders <WebIcon type="right" />
+          </div>
+        </div>
+        <Grid className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
+
+        <div className="row ml0 mr0 p10 mt15 bg-white align-items-center no-gutters">
+          <div className="col fs20 color-black-1">ETH Transactions</div>
+          <div className="col-auto fs16 color-black-3">
+            All txs <WebIcon type="right" />
+          </div>
+        </div>
+        <Grid className="my-dex-grid" data={txStatus} square={false} activeStyle={false} columnNum={4}/>
+
         <div className="no-underline">
           <Tabs
             tabs={
               [
-                { title: <Badge className="text-center d-block w-100 pl10">Open Orders</Badge> },
-                { title: <Badge className="text-center d-block w-100  pr10">Filled Orders</Badge> },
-                { title: <Badge count={2} className="text-center d-block w-100 pl10">History Orders</Badge> },
+                { title: <Badge className="text-center d-block w-100 pl10">Balances</Badge> },
+                { title: <Badge className="text-center d-block w-100 pl10">Orders</Badge> },
+                { title: <Badge className="text-center d-block w-100  pr10">Fills</Badge> },
+                { title: <Badge className="text-center d-block w-100  pr10">Transactions</Badge> },
               ]
             }
             tabBarBackgroundColor="#fff"
@@ -117,6 +174,9 @@ class PlaceOrder extends React.Component {
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
+            <div className="p50">
+              Balances
+            </div>
             <div>
               <OrderList />
             </div>

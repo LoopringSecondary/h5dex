@@ -46,7 +46,7 @@ class Home extends React.Component {
                   }}
                   data-seed="logId"
                 >
-                  <div className=""  style={{height:'100%'}}>
+                  <div className="tabs-no-border no-underline"  style={{height:'100%'}}>
                     <div style={{height:'45px'}}></div>
                     <NavBar
                       style={{top:'0px',position:'absolute',zIndex:10}}

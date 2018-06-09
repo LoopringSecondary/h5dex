@@ -162,10 +162,9 @@ class PlaceOrder extends React.Component {
         <NavBar
           className=""
           mode="light"
-          icon={null && <Icon type="left" />}
           onLeftClick={() => console.log('onLeftClick')}
           leftContent={[
-            <span className="color-black-1"><WebIcon key="1" type="profile" /></span>,
+            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
           ]}
           rightContent={[
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
@@ -197,7 +196,7 @@ class PlaceOrder extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Open</Badge> },
+                { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Opens</Badge> },
                 { title: <Badge className="text-center pt10 pb10 d-block w-100">Fills</Badge> },
                 { title: <Badge className="pr10  pt10 pb10 text-center d-block w-100">History</Badge> },
               ]

@@ -4,21 +4,23 @@ import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button } from 'antd-mobile'
+import { ListView,Button,Tabs } from 'antd-mobile'
 
 const TickerHeader = ({list,actions})=>{
     // if(!item){ return null }
     // const tickerFm = new TickerFm(item)
     return (
-      <div className="bg-white row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-        <div className="col-5 fs18 color-black-3 text-left">Market</div>
-        <div className="col-4 text-left pr10">
-          <div className="fs18 color-black-3 ">Price</div>
+
+        <div className="zb-b-t bg-white row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
+          <div className="col-5 fs18 color-black-3 text-left">Market</div>
+          <div className="col-4 text-left pr10">
+            <div className="fs18 color-black-3 ">Price</div>
+          </div>
+          <div className="col-3 text-right">
+            <div className="fs18 color-black-3">Change</div>
+          </div>
         </div>
-        <div className="col-3 text-right">
-          <div className="fs18 color-black-3">Change</div>
-        </div>
-      </div>
+
     )
 }
 
@@ -147,24 +149,59 @@ class ListTickers extends React.Component {
         );
       };
       return (
-        <ListView
-          ref={el => this.lv = el}
-          dataSource={this.state.dataSource}
-          renderHeader={() => <TickerHeader />}
-          renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
-          renderRow={row}
-          className="am-list"
-          pageSize={5}
-          useBodyScroll={false}
-          style={{
-             height: "100%",
-             overflow: 'auto',
-          }}
-          onScroll={() => { console.log('scroll'); }}
-          scrollRenderAheadDistance={300}
-          onEndReached={this.onEndReached}
-          onEndReachedThreshold={10}
-        />
+          <Tabs
+            tabs={
+              [
+                { title: <div className="fs20">Favorites</div> },
+                { title: <div className="fs20">WETH</div> },
+                { title: <div className="fs20">LRC</div> },
+              ]
+            }
+            tabBarBackgroundColor={"#fff"}
+            tabBarActiveTextColor={"#000"}
+            tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+            tabBarTextStyle={{}}
+            initialPage={1}
+            onChange={(tab, index) => {}}
+            onTabClick={(tab, index) => { }}
+          >
+            <ListView
+              ref={el => this.lv = el}
+              dataSource={this.state.dataSource}
+              renderHeader={() => <TickerHeader />}
+              renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+              renderRow={row}
+              className="am-list"
+              pageSize={5}
+              useBodyScroll={false}
+              style={{
+                 height: "100%",
+                 overflow: 'auto',
+              }}
+              onScroll={() => { console.log('scroll'); }}
+              scrollRenderAheadDistance={300}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={10}
+            />
+            <ListView
+              ref={el => this.lv = el}
+              dataSource={this.state.dataSource}
+              renderHeader={() => <TickerHeader />}
+              renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+              renderRow={row}
+              className="am-list"
+              pageSize={5}
+              useBodyScroll={false}
+              style={{
+                 height: "100%",
+                 overflow: 'auto',
+              }}
+              onScroll={() => { console.log('scroll'); }}
+              scrollRenderAheadDistance={300}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={10}
+            />
+          </Tabs>
       )
   }
 }

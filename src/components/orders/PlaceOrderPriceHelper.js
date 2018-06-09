@@ -39,31 +39,39 @@ const Advance = (
 
 function PlaceOrderPriceHelper(props) {
   const tabs = [
-    { title: <Badge >Qucik</Badge> },
-    { title: <Badge >Market Depth</Badge> },
+    { title: <Badge >Depth</Badge> },
+    { title: <Badge >Opens</Badge> },
+    { title: <Badge >Fills</Badge> },
   ];
   return (
-    <div className="">
+    <div className="tabs-no-border">
       <div className="pt15 pb15 fs24 color-black-1 zb-b-b">Price Helper</div>
-      <div className="">
-        <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
-          <div className="col color-black-1 text-left pl10">
-            Current Price
+      <Tabs tabs={tabs}
+        tabBarActiveTextColor={"#000"}
+        tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
+        swipeable={false}
+        initialPage={0}
+        onChange={(tab, index) => { console.log('onChange', index, tab); }}
+        onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+      >
+        <div className="zb-b-t">
+          <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
+            <div className="col color-black-2 text-left pl10">
+              Last Price
+            </div>
+            <div className="col-auto color-black-2">
+              <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
+            </div>
           </div>
-          <div className="col-auto color-black-2">
-            <span className="color-black-4 mr5">￥8.96</span>0.0001650 ETH
-          </div>
+          <DepthList />
         </div>
-        <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
-          <div className="col color-black-1 text-left pl10">
-            Last Price
-          </div>
-          <div className="col-auto color-black-2">
-            <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
-          </div>
+        <div className="p50 zb-b-t">
+          Opens Todo
         </div>
-        <DepthList />
-      </div>
+        <div className="p50 zb-b-t">
+          Fills Todo
+        </div>
+      </Tabs>
     </div>
   )
 }
