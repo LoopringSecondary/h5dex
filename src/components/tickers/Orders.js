@@ -55,7 +55,7 @@ class MarketDetail extends React.Component {
             tabBarInactiveTextColor={"rgba(0, 0, 0, 0.35)"}
             tabBarActiveTextColor={"#000"}
             tabBarTextStyle={{}}
-            initialPage={1}
+            initialPage={0}
             swipeable={false}
             onChange={(tab, index) => { }}
             onTabClick={(tab, index) => { }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid } from 'antd-mobile';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid,NoticeBar } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -73,23 +73,23 @@ class PlaceOrder extends React.Component {
     ]
     const OrderStatus = [
       {
-        icon: <WebIcon type="exclamation-circle-o" className="fs22 color-black-2 mb5" />,
+        icon: <span><WebIcon type="exclamation-circle" className="fs22 color-red-500 mb5" /></span>,
         text: <div className="fs16 color-black-2">Unenough</div>,
       },
       {
-        icon: <WebIcon type="clock-circle-o" className="fs22 color-black-2 mb5" />,
+        icon: <WebIcon type="clock-circle" className="fs22 color-black-1 mb5" />,
         text: <div className="fs16 color-black-2">Open</div>,
       },
       {
-        icon: <WebIcon type="pay-circle-o" className="fs22 color-black-2 mb5" />,
+        icon: <WebIcon type="pay-circle" className="fs22 color-black-1 mb5" />,
         text: <div className="fs16 color-black-2">Matched</div>,
       },
       {
-        icon: <WebIcon type="check-circle-o" className="fs22 color-black-2 mb5" />,
+        icon: <WebIcon type="check-circle" className="fs22 color-black-1 mb5" />,
         text: <div className="fs16 color-black-2">Completed</div>,
       },
       {
-        icon: <WebIcon type="close-circle-o" className="fs22 color-black-2 mb5" />,
+        icon: <WebIcon type="close-circle" className="fs22 color-black-1 mb5" />,
         text: <div className="fs16 color-black-2">Closed</div>,
       },
     ]
@@ -124,6 +124,9 @@ class PlaceOrder extends React.Component {
         >
         My Dex
         </NavBar>
+        <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
+              Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
+        </NoticeBar>
         <div className="pt40 pb40 text-left bg-grey-900">
           <div className="row align-items-center ml0 mr0 no-gutters">
             <div className="col">
