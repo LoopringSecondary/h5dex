@@ -40,7 +40,7 @@ const Advance = (
 function PlaceOrderPriceHelper(props) {
   const tabs = [
     { title: <Badge >Depth</Badge> },
-    { title: <Badge >Opens</Badge> },
+    { title: <Badge >Orders</Badge> },
     { title: <Badge >Fills</Badge> },
   ];
   return (
@@ -66,7 +66,7 @@ function PlaceOrderPriceHelper(props) {
           <DepthList />
         </div>
         <div className="p50 zb-b-t">
-          Opens Todo
+          Opens Orders Todo
         </div>
         <div className="p50 zb-b-t">
           Fills Todo
