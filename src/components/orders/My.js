@@ -10,6 +10,8 @@ import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
 import {FillList} from './PlaceOrderAmountHelper';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
+import routeActions from 'common/utils/routeActions'
+
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -151,7 +153,7 @@ class PlaceOrder extends React.Component {
 
           </div>
         </div>
-        <div className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
+        <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
           <div className="col fs20 color-black-1">
             My Orders
             <span hidden className="color-black-3 ml10 fs16">Order & Fills</span>
@@ -160,7 +162,7 @@ class PlaceOrder extends React.Component {
             Order & Fills <WebIcon type="right" />
           </div>
         </div>
-        <Grid className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
+        <Grid onClick={routeActions.gotoPath.bind(this,'/orders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
 
         <div className="bg-white mt15">
           <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">

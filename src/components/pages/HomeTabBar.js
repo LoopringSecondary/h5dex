@@ -55,7 +55,7 @@ class Home extends React.Component {
                       icon={null && <Icon type="left" />}
                       onLeftClick={() => console.log('onLeftClick')}
                       leftContent={ [
-                        <Icon key="1" type="bars" />,
+                        <WebIcon key="1" type="bars" className="color-black-1" />,
                       ]}
                       rightContent={[
                         <WebIcon key="1" type="search" className="color-black-1" />,

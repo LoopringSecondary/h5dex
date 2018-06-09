@@ -10,6 +10,7 @@ import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
 import {FillList} from './PlaceOrderAmountHelper';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
+import routeActions from 'common/utils/routeActions'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -154,8 +155,8 @@ class PlaceOrder extends React.Component {
         side
       })
     }
-    const gotoTrade = ()=>{
-
+   const gotoTrade = ()=>{
+      routeActions.gotoPath('/trade/detail')
     }
     return (
       <div className="bg-grey-100">
@@ -196,9 +197,8 @@ class PlaceOrder extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Opens</Badge> },
-                { title: <Badge className="text-center pt10 pb10 d-block w-100">Fills</Badge> },
-                { title: <Badge className="pr10  pt10 pb10 text-center d-block w-100">History</Badge> },
+                { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Orders</Badge> },
+                { title: <Badge className="text-center pt10 pb10 d-block w-100">My Fills</Badge> },
               ]
             }
             tabBarBackgroundColor="#f5f5f5"
@@ -356,12 +356,13 @@ export const OpenOrderList = ()=>{
               <td className="zb-b-b p10 text-right">2.5 LRC</td>
               <td className="zb-b-b p10 text-center">
                 { index <=2 && <WebIcon className="zb-b-b color-red-500" type="exclamation-circle" /> }
-                { index >=3 && <WebIcon className="zb-b-b color-blue-500" type="clock-circle" /> }
+                { index >=3 && index <=5 &&<WebIcon className="zb-b-b color-blue-500" type="clock-circle" /> }
+                { index >=6 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
               </td>
             </tr>
           )
         }
-        <tr className="color-black-2">
+        <tr hidden className="color-black-2">
           <td colSpan={10} className="zb-b-b p15 text-center">
               <Button className="color-grey-600">All Orders</Button>
           </td>
@@ -406,7 +407,7 @@ export const HistoryOrderList = ()=>{
             </tr>
           )
         }
-        <tr className="color-black-2">
+        <tr hidden className="color-black-2">
           <td colSpan={10} className="zb-b-b p15 text-center">
               <Button className="color-grey-600">All Orders</Button>
           </td>

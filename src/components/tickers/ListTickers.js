@@ -201,6 +201,24 @@ class ListTickers extends React.Component {
               onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
             />
+            <ListView
+              ref={el => this.lv = el}
+              dataSource={this.state.dataSource}
+              renderHeader={() => <TickerHeader />}
+              renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+              renderRow={row}
+              className="am-list"
+              pageSize={5}
+              useBodyScroll={false}
+              style={{
+                 height: "100%",
+                 overflow: 'auto',
+              }}
+              onScroll={() => { console.log('scroll'); }}
+              scrollRenderAheadDistance={300}
+              onEndReached={this.onEndReached}
+              onEndReachedThreshold={10}
+            />
           </Tabs>
       )
   }
