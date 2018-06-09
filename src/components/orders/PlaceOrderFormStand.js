@@ -88,7 +88,7 @@ class PlaceOrder extends React.Component {
             <InputItem
               type={type}
               placeholder="0.00000000"
-              extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
+              extra={<WebIcon type="exclamation-circle-o" onClick={()=>{}} />}
               clear
               moneyKeyboardAlign="left"
               onChange={(v) => { console.log('onChange', v); }}
@@ -193,13 +193,13 @@ class PlaceOrder extends React.Component {
             <PlaceOrderForm side="sell" />
           </Tabs>
         </div>
-        <div hidden className="no-underline">
+        <div className="no-underline">
           <Tabs
             tabs={
               [
-                { title: <Badge count={2} className="text-center d-block w-100 pl10">Balances</Badge> },
-                { title: <Badge className="text-center d-block w-100 pl10">Orders</Badge> },
-                { title: <Badge className="text-center d-block w-100  pr10">Trades</Badge> },
+                { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Open</Badge> },
+                { title: <Badge className="text-center pt10 pb10 d-block w-100">Fills</Badge> },
+                { title: <Badge className="pr10  pt10 pb10 text-center d-block w-100">History</Badge> },
               ]
             }
             tabBarBackgroundColor="#f5f5f5"
@@ -210,16 +210,17 @@ class PlaceOrder extends React.Component {
             onChange={(tab, index) => { console.log('onChange', index, tab); }}
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
-            <div className="bg-grey-100">
-              <TokenList />
-            </div>
             <div>
-              <OrderList />
+              <OpenOrderList />
             </div>
             <div>
               <FillList />
             </div>
+            <div>
+              <HistoryOrderList />
+            </div>
           </Tabs>
+          <div className="pb50"></div>
         </div>
         <Containers.Layers id="placeOrderPreview">
           <UiContainers.Popups id="placeOrderPreview">
@@ -326,41 +327,96 @@ const TokenListComp = (props)=>{
 }
 export const TokenList = connect()(TokenListComp)
 
-export const OrderList = ()=>{
+export const OpenOrderList = ()=>{
   return (
     <table className="w-100 fs16">
       <thead>
         <tr>
-          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
+          <th hidden className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>
+          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
           <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Amount</th>
           <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Filled</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Fee</th>
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Status</th>
         </tr>
       </thead>
       <tbody>
         {
-          [1,2,3,4,5].map((item,index)=>
+          [1,2,3,4,5,6,7,8,9].map((item,index)=>
             <tr key={index} className="color-black-2">
-              { index%2 == 0 && <td className="zb-b-b p10 text-center color-green-500">Buy</td> }
-              { index%2 == 1 && <td className="zb-b-b p10 text-center color-red-500">Sell</td> }
-              <td className="zb-b-b p10 text-right">0.00095</td>
-              <td className="zb-b-b p10 text-right">1000.00</td>
+              <td hidden className="zb-b-b p10 text-center">
+                {index%2 == 0 && <span className="color-green-500">Buy</span>}
+                {index%2 == 1 && <span className="color-red-500">Sell</span>}
+              </td>
+              <td className="zb-b-b p10 pl10 text-left">
+                {index%2 == 0 && <span className="color-green-500">0.00095000</span>}
+                {index%2 == 1 && <span className="color-red-500">0.00095000</span>}
+              </td>
+              <td className="zb-b-b p10 text-right">1000.0000</td>
               <td className="zb-b-b p10 text-right">80%</td>
+              <td className="zb-b-b p10 text-right">2.5 LRC</td>
               <td className="zb-b-b p10 text-center">
-              { index === 0 && <WebIcon className="zb-b-b color-red-500" type="exclamation-circle" /> }
-              { index === 1 && <WebIcon className="zb-b-b color-blue-500" type="clock-circle" /> }
-              { index === 2 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
-              { index === 3 && <WebIcon className="zb-b-b color-grey-300" type="close-circle" /> }
-              { index === 4 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
+                { index <=2 && <WebIcon className="zb-b-b color-red-500" type="exclamation-circle" /> }
+                { index >=3 && <WebIcon className="zb-b-b color-blue-500" type="clock-circle" /> }
               </td>
             </tr>
           )
         }
+        <tr className="color-black-2">
+          <td colSpan={10} className="zb-b-b p15 text-center">
+              <Button className="color-grey-600">All Orders</Button>
+          </td>
+        </tr>
       </tbody>
     </table>
   )
 }
+export const HistoryOrderList = ()=>{
+  return (
+    <table className="w-100 fs16">
+      <thead>
+        <tr>
+          <th hidden className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>
+          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Amount</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Filled</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Fee</th>
+          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          [1,2,3,4,5,6,7,8,9].map((item,index)=>
+            <tr key={index} className="color-black-2">
+              <td hidden className="zb-b-b p10 text-center">
+                {index%2 == 0 && <span className="color-green-500">Buy</span>}
+                {index%2 == 1 && <span className="color-red-500">Sell</span>}
+              </td>
+              <td className="zb-b-b p10 pl10 text-left">
+                {index%2 == 0 && <span className="color-green-500">0.00095000</span>}
+                {index%2 == 1 && <span className="color-red-500">0.00095000</span>}
+              </td>
+              <td className="zb-b-b p10 text-right">1000.0000</td>
+              <td className="zb-b-b p10 text-right">80%</td>
+              <td className="zb-b-b p10 text-right">2.5 LRC</td>
+              <td className="zb-b-b p10 text-center">
+                { index%3 === 0 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
+                { index%3 === 1 && <WebIcon className="zb-b-b color-black-4" type="close-circle" /> }
+                { index%3 === 2 && <WebIcon className="zb-b-b color-black-4" type="clock-circle" /> }
+              </td>
+            </tr>
+          )
+        }
+        <tr className="color-black-2">
+          <td colSpan={10} className="zb-b-b p15 text-center">
+              <Button className="color-grey-600">All Orders</Button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  )
+}
+
 
 
 

@@ -143,7 +143,7 @@ export const FillList = ({fill={},maxRows=5})=>{
           <tr className="">
             <th className="zb-b-b bg-grey-100 text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Price</th>
             <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Amount</th>
-            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">LRC Fee</th>
+            <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Fee</th>
             <th className="zb-b-b bg-grey-100 text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 fs16">Time</th>
           </tr>
         </thead>
