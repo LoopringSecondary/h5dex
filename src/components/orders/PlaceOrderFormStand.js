@@ -244,7 +244,7 @@ class PlaceOrder extends React.Component {
         </Containers.Layers>
         <Containers.Layers id="placeOrderMarketHelper">
           <UiContainers.Popups id="placeOrderMarketHelper">
-            <div className="" style={{height:'90vh'}}>
+            <div className="tabs-no-border" style={{height:'90vh'}}>
               <NavBar
                 className="zb-b-b"
                 mode="light"

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Input,Icon } from 'antd';
-import { Modal,List,Button,Accordion } from 'antd-mobile';
+import { Input,Icon,Button as WebButton } from 'antd';
+import { Modal,List,Button,Accordion,Steps} from 'antd-mobile';
 import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
 import config from 'common/config'
 import intl from 'react-intl-universal';
@@ -17,12 +17,12 @@ import Alert from 'LoopringUI/components/Alert'
 const OrderMetaItem = (props) => {
   const {label, value} = props
   return (
-    <div className="row ml0 mr0 pt5 pb5 pl0 pr0">
+    <div className="row ml0 mr0 pt5 pb5 pl0 pr0 zb-b-t no-gutters">
       <div className="col">
         <div className="fs16 color-black-1 lh25 text-left">{label}</div>
       </div>
       <div className="col-auto text-right">
-        <div className="fs16 color-black-2 text-wrap lh25">{value}</div>
+        <div className="fs16 color-black-2 text-wrap lh25 text-left">{value}</div>
       </div>
     </div>
   )
@@ -93,12 +93,38 @@ const PlaceOrderResult = ({
 function PlaceOrderPreview(props) {
   const {placeOrderPreview} = props
   const {side} = placeOrderPreview
+  const steps = [{
+    title: 'Finished',
+    description: 'This is description',
+  }, {
+    title: 'In Progress',
+    description: 'This is description',
+  }, {
+    title: 'Waiting',
+    description: 'This is description',
+  }].map((s, i) => <Steps.Step key={i} title={s.title} description={s.description} />);
   return (
     <div className="">
-        {false && <div className="pt15 pb15 color-black-1 fs22">{intl.get(`common.${side}`)} LRC</div>}
-        <Accordion defaultActiveKey="0" className="" onChange={()=>{}}>
+        <div className="pt15 pb15 color-black-1 fs22">{intl.get(`common.${side}`)} LRC</div>
+        <Steps current={1} direction="horizontal">{steps}</Steps>
+        <Accordion accordion={true} defaultActiveKey="0" className="" onChange={()=>{}}>
           <Accordion.Panel header={<div className="text-left">1. 确认订单信息</div>}>
-            <div className="pt10 pb10 bg-grey-100">
+            <div className="p15 bg-grey-100">
+              <div className="pb15 row ml0 mr0 no-gutters align-items-center justify-content-center">
+                <div className="col-auto">
+                  <div className="bg-black color-white" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
+                    <i className={`icon-LRC fs28`}/>
+                  </div>
+                </div>
+                <div className="col-auto pl25 pr25">
+                  <Icon type="swap" className={`color-black-1 fs20`} />
+                </div>
+                <div className="col-auto">
+                  <div className="bg-black color-white" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
+                    <i className={`icon-WETH fs28`}/>
+                  </div>
+                </div>
+              </div>
               <OrderMetaItem label="买入" value="10000 LRC" />
               <OrderMetaItem label="卖出" value="25 ETH" />
               <OrderMetaItem label="价格" value="0.00025 ETH" />
