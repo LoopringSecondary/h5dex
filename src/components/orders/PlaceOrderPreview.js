@@ -17,7 +17,7 @@ import Alert from 'LoopringUI/components/Alert'
 const OrderMetaItem = (props) => {
   const {label, value} = props
   return (
-    <div className="row ml0 mr0 pt5 pb5 pl0 pr0 zb-b-t no-gutters">
+    <div className="row ml0 mr0 pl0 pr0 zb-b-t no-gutters" style={{padding:'7px 0px'}}>
       <div className="col">
         <div className="fs16 color-black-1 lh25 text-left">{label}</div>
       </div>
@@ -102,39 +102,47 @@ function PlaceOrderPreview(props) {
   }].map((s, i) => <Steps.Step key={i} title={s.title} description={s.description} />);
   return (
     <div className="">
-        <div className="p15 color-black-1 fs22 zb-b-b text-center">{intl.get(`common.${side}`)} LRC</div>
-        <div className="p15 text-left">
+        <div className="p15 color-black-1 fs22 zb-b-b text-center">Place Order</div>
+        <div hidden className="p15 text-left">
           <Steps direction="horizontal">
              <Steps.Step title={<div className="fs18">Order</div>}  icon={<Icon type="check-circle-o" />} />
              <Steps.Step title={<div className="fs18">Wallet</div>} icon={<Icon type="check-circle-o" />} />
              <Steps.Step title={<div className="fs18">Result</div>}  icon={<Icon type="check-circle-o" />} />
           </Steps>
         </div>
-        <Accordion accordion={true} defaultActiveKey="0" className="" onChange={()=>{}}>
-          <Accordion.Panel header={<div className="text-left">1. 确认订单信息</div>}>
-            <div className="p15 bg-grey-100">
-              <div className="pb15 row ml0 mr0 no-gutters align-items-center justify-content-center">
-                <div className="col-auto">
-                  <div className="bg-black color-white text-center" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
-                    <i className={`icon-LRC fs28`}/>
-                  </div>
-                </div>
-                <div className="col-auto pl25 pr25 text-center">
-                  <Icon type="swap" className={`color-black-1 fs20`} />
-                </div>
-                <div className="col-auto">
-                  <div className="bg-black color-white text-center" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
-                    <i className={`icon-WETH fs28`}/>
-                  </div>
-                </div>
+        <div className="p20 bg-white">
+          <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
+            <div className="col-auto">
+              <div className=" color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                <i className={`icon-LRC fs28`}/>
               </div>
-              <OrderMetaItem label="买入" value="10000 LRC" />
-              <OrderMetaItem label="卖出" value="25 ETH" />
-              <OrderMetaItem label="价格" value="0.00025 ETH" />
-              <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
-              <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
-              <Button type="" className="bg-black color-white mt15" onClick={()=>{}}>Next</Button>
             </div>
+            <div className="col-auto pl25 pr25 text-center">
+              <Icon type="swap" className={`color-black-1 fs20`} />
+            </div>
+            <div className="col-auto">
+              <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                <i className={`icon-WETH fs28`}/>
+              </div>
+            </div>
+          </div>
+          <OrderMetaItem label="买入" value="10000 LRC" />
+          <OrderMetaItem label="卖出" value="25 ETH" />
+          <OrderMetaItem label="价格" value="0.00025 ETH" />
+          <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
+          <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
+          {
+            side === 'buy' &&
+            <Button type="" className="bg-grey-900 color-white mt15" onClick={()=>{}}>Next</Button>
+          }
+          {
+            side === 'sell' &&
+            <Button className="bg-grey-900 color-white mt15" onClick={()=>{}}>Next</Button>
+          }
+        </div>
+        {false && <Accordion accordion={true} defaultActiveKey="0" className="" onChange={()=>{}}>
+          <Accordion.Panel header={<div className="text-left">1. 确认订单信息</div>}>
+
           </Accordion.Panel>
           <Accordion.Panel header={<div className="text-left">2. 选择下单钱包</div>} className="pad">
             <div className="row ml0 mr0 bg-grey-100">
@@ -155,6 +163,7 @@ function PlaceOrderPreview(props) {
             </div>
           </Accordion.Panel>
         </Accordion>
+        }
         {
           false &&
           <List className="popup-list">
