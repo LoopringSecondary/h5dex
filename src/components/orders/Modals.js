@@ -13,11 +13,12 @@ import CancelOrderConfirm  from './CancelOrderConfirm'
 function Modals(props) {
   return (
     <div>
-      <Containers.Layers id="orderDetail">
+      {false && <Containers.Layers id="orderDetail">
         <UiContianers.Panels id="orderDetail" position="right" width="450px">
           <Detail />
         </UiContianers.Panels>
       </Containers.Layers>
+      }
       <Containers.Layers id="placeOrderConfirm">
         <UiContianers.Modals id="placeOrderConfirm" position="left" width="600px"  className="rs" wrapClassName="theme-blue">
           <Containers.Settings>

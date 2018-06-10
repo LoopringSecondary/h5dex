@@ -3,6 +3,7 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
+import OrderDetail from './Detail';
 import PlaceOrderPreview from './PlaceOrderPreview';
 import PlaceOrderAdvance from './PlaceOrderAdvance';
 import PlaceOrderPriceHelper from './PlaceOrderPriceHelper';
@@ -53,6 +54,16 @@ class PlaceOrder extends React.Component {
     const gotoConfirm= ()=>{
 
     }
+    const gotoOrderDetail= (payload)=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          id:'orderDetail',
+          ...payload
+        }
+      })
+    }
+
     const showPriceHelper= ()=>{
       showLayer({id:'placeOrderPriceHelper'})
     }
@@ -211,7 +222,7 @@ class PlaceOrder extends React.Component {
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
             <div>
-              <OpenOrderList />
+              <OpenOrderList gotoOrderDetail={gotoOrderDetail} />
             </div>
             <div>
               <FillList />
@@ -240,6 +251,11 @@ class PlaceOrder extends React.Component {
         <Containers.Layers id="placeOrderAmountHelper">
           <UiContainers.Popups id="placeOrderAmountHelper">
             <PlaceOrderAmountHelper />
+          </UiContainers.Popups>
+        </Containers.Layers>
+        <Containers.Layers id="orderDetail">
+          <UiContainers.Popups id="orderDetail">
+            <OrderDetail />
           </UiContainers.Popups>
         </Containers.Layers>
         <Containers.Layers id="placeOrderMarketHelper">
@@ -279,76 +295,9 @@ export const TokenNotEnough = ()=>{
     </div>
   )
 }
-const TokenListComp = (props)=>{
-  const {dispatch} = props
-  const showLayer = (payload={})=>{
-    dispatch({
-      type:'layers/showLayer',
-      payload:{
-        ...payload
-      }
-    })
-  }
-  const tokens = [
-    {
-      symbol:"LRC",
-      balance:12680.0001,
-      required:15000.0001,
-    },
-    {
-      symbol:"WETH",
-      balance:21.3652,
-      required:20.1278,
-    },
-    {
-      symbol:"ETH",
-      balance:85.0001,
-      required:0.0001,
-    },
-  ]
-  return (
-    <div className="fs20">
-      <table className="w-100 fs16">
-        <thead>
-          <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Selling</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Lack</th>
-            <th hidden className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Enough</th>
-          </tr>
-        </thead>
-        <tbody>
-            {
-              tokens.map((token,index)=>
-                <tr key={index} onClick={showLayer.bind(this,{id:'tokenNotEnough'})}>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{token.symbol}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.required}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{
-                      Number(token.balance - token.required).toFixed(4)>0 ? '0.0000' :
-                      <span className="color-red-500">
-                        <WebIcon type="exclamation-circle mr5" />
-                        {Number(token.required - token.balance).toFixed(4)}
-                      </span>
-                    }
-                  </td>
-                </tr>
-              )
-            }
-        </tbody>
-      </table>
-      <Containers.Layers id="tokenNotEnough">
-        <UiContainers.Popups id="tokenNotEnough">
-          <TokenNotEnough />
-        </UiContainers.Popups>
-      </Containers.Layers>
-    </div>
-  )
-}
-export const TokenList = connect()(TokenListComp)
 
-export const OpenOrderList = ()=>{
+
+export const OpenOrderList = ({gotoOrderDetail})=>{
   return (
     <table className="w-100 fs16">
       <thead>
@@ -364,7 +313,7 @@ export const OpenOrderList = ()=>{
       <tbody>
         {
           [1,2,3,4,5,6,7,8,9].map((item,index)=>
-            <tr key={index} className="color-black-2">
+            <tr key={index} className="color-black-2" onClick={gotoOrderDetail}>
               <td hidden className="zb-b-b p10 text-center">
                 {index%2 == 0 && <span className="color-green-500">Buy</span>}
                 {index%2 == 1 && <span className="color-red-500">Sell</span>}

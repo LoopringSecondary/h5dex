@@ -19,7 +19,7 @@ import {connect} from 'dva'
 const OrderMetaItem = (props) => {
   const {label, value} = props
   return (
-    <div className="row ml0 mr0 p15 zb-b-b no-gutters" style={{padding:'7px 0px'}}>
+    <div className="row ml0 mr0 p10 pl15 pr15 zb-b-b no-gutters" style={{padding:'7px 0px'}}>
       <div className="col">
         <div className="fs18 color-black-1 lh25 text-left">{label}</div>
       </div>
@@ -60,33 +60,35 @@ function OrderDetail(props) {
                 onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
               >
 
-                <div className="p20 bg-white">
-                  <WebSteps progressDot direction="vertical" size="small" current={4}>
+                <div className="pt15 pl20 pr20 bg-white text-left">
+                  <WebSteps progressDot direction="vertical" size="small" current={5}>
                       <WebSteps.Step title="Submit Successfully" description="2018-06-10 10:00:00" />
                       <WebSteps.Step title="Match Start Failed" status="error" description={<div className="">
-                        <Icon  type="close-circle" /> Tokens are not enabled .
+                        <Icon hidden type="exclamation-circle-o" /> <span hidden className="">Tokens are not enabled to trade.</span>
+                        <br hidden />
+                        <Icon type="exclamation-circle-o" /> <span className="">LRC balance is not sufficient .</span>
                         <br />
-                        <Icon  type="close-circle" /> Tokens balance are not sufficient .
+                        <Icon type="exclamation-circle-o" /> <span className="">WETH balance is not sufficient .</span>
                       </div>} />
                       <WebSteps.Step title="Match Start Successfully" description="2018-06-11 10:01:25" />
                       <WebSteps.Step title="Matched Successfully" description="2018-06-15 10:02:23" />
                       <WebSteps.Step title="Transfer tokens starts" description="2018-06-15 10:04:00" />
-                      <WebSteps.Step title="ETH Network is slow" status="error" description={<div className="fs18">
-
-                      </div>}/>
+                      {false && <WebSteps.Step title="ETH Network is slow" status="error" description={<div className="fs18">
+                      </div>} /> }
                       <WebSteps.Step title="Transfer Successfully" description=""/>
                       { false && <WebSteps.Step title="Expired" description="" /> }
                       { false && <WebSteps.Step title="Cancled" description="" /> }
                   </WebSteps>
                 </div>
-                <div className="p20 bg-white">
+                <div className="p20 bg-white text-left">
                   <WebSteps progressDot direction="vertical" size="small" current={4}>
-                      <WebSteps.Step title="2018-06-10 10:00" description="Submited Successfully" />
-                      <WebSteps.Step title="2018-06-10 12:00" description="Start to Match" />
-                      <WebSteps.Step title="2018-06-10 18:00" description="Matched Successfully" />
-                      <WebSteps.Step title="2018-06-10 20:00" description="Matched Successfully" />
-                      { true && <WebSteps.Step title="2018-06-10 22:00" description="Canceled" /> }
-                      { true && <WebSteps.Step title="2018-06-10 24:00" description="Expired" /> }
+                      <WebSteps.Step description="2018-06-10 10:00" title="Submited Successfully" />
+                      <WebSteps.Step description="2018-06-10 12:00" title="Match Starts" />
+                      <WebSteps.Step description="2018-06-10 18:00" title="Match Successfully" />
+                      <WebSteps.Step description="2018-06-10 20:00" title="Transfer Starts" />
+                      <WebSteps.Step description="2018-06-10 21:00" title="Transfer Successfully" />
+                      { false && <WebSteps.Step title="2018-06-10 22:00" description="Canceled" /> }
+                      { false && <WebSteps.Step title="2018-06-10 24:00" description="Expired" /> }
                   </WebSteps>
                 </div>
                 <div className="bg-white">
