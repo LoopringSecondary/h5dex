@@ -73,7 +73,7 @@ class PlaceOrder extends React.Component {
     ]
     const OrderStatus = [
       {
-        icon: <Badge text="5"><WebIcon type="exclamation-circle" className="fs22 color-black-1 mb5" /></Badge>,
+        icon: <Badge text="3"><WebIcon type="exclamation-circle" className="fs22 color-black-1 mb5" /></Badge>,
         text: <div className="fs16 color-black-2">Error</div>,
       },
       {

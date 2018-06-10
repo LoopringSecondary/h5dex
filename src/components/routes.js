@@ -43,6 +43,7 @@ const Logged = ()=>{
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
         <Route path="/trade/detail" exact component={Tickers.Detail} />
         <Route path="/my" exact component={My} />
+        <Route path="/orders/detail" exact component={Orders.Detail} />
         <Route path="/orders" exact component={MyOrders} />
         { false && <Route path="/trade/:market" component={Pages.Trade} /> }
         { false && <Route path="/trade" exact component={Pages.Trade} /> }
