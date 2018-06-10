@@ -49,8 +49,8 @@ function OrderDetail(props) {
               <Tabs
                 tabs={[
                   { title: <div className="text-center">Status</div> },
-                  { title: <div className="text-center">Basic</div> },
-                  { title: <div className="text-center">Related</div> },
+                  { title: <div className="text-center">Timeline</div> },
+                  { title: <div className="text-center">Detail</div> },
                 ]}
                 tabBarActiveTextColor={"#000"}
                 tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
@@ -59,19 +59,34 @@ function OrderDetail(props) {
                 onChange={(tab, index) => { console.log('onChange', index, tab); }}
                 onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
               >
+
                 <div className="p20 bg-white">
-                  <WebSteps direction="vertical" size="small" current={1}>
-                      <WebSteps.Step title="Submited Successfully" description="This is a description." />
-                      <WebSteps.Step title="Confirmed Failed" status="error" description={<div className="">
+                  <WebSteps progressDot direction="vertical" size="small" current={4}>
+                      <WebSteps.Step title="Submit Successfully" description="2018-06-10 10:00:00" />
+                      <WebSteps.Step title="Match Start Failed" status="error" description={<div className="">
                         <Icon  type="close-circle" /> Tokens are not enabled .
                         <br />
                         <Icon  type="close-circle" /> Tokens balance are not sufficient .
                       </div>} />
-                      <WebSteps.Step title="Matched Successfully" description="Miner found the ring " />
-                      <WebSteps.Step title="Transfed Successfully" description="Miner transferd all tokens" />
-                      <WebSteps.Step title="Completed"/>
+                      <WebSteps.Step title="Match Start Successfully" description="2018-06-11 10:01:25" />
+                      <WebSteps.Step title="Matched Successfully" description="2018-06-15 10:02:23" />
+                      <WebSteps.Step title="Transfer tokens starts" description="2018-06-15 10:04:00" />
+                      <WebSteps.Step title="ETH Network is slow" status="error" description={<div className="fs18">
+
+                      </div>}/>
+                      <WebSteps.Step title="Transfer Successfully" description=""/>
                       { false && <WebSteps.Step title="Expired" description="" /> }
                       { false && <WebSteps.Step title="Cancled" description="" /> }
+                  </WebSteps>
+                </div>
+                <div className="p20 bg-white">
+                  <WebSteps progressDot direction="vertical" size="small" current={4}>
+                      <WebSteps.Step title="2018-06-10 10:00" description="Submited Successfully" />
+                      <WebSteps.Step title="2018-06-10 12:00" description="Start to Match" />
+                      <WebSteps.Step title="2018-06-10 18:00" description="Matched Successfully" />
+                      <WebSteps.Step title="2018-06-10 20:00" description="Matched Successfully" />
+                      { true && <WebSteps.Step title="2018-06-10 22:00" description="Canceled" /> }
+                      { true && <WebSteps.Step title="2018-06-10 24:00" description="Expired" /> }
                   </WebSteps>
                 </div>
                 <div className="bg-white">
@@ -81,10 +96,8 @@ function OrderDetail(props) {
                     <OrderMetaItem label="价格" value="0.00025 ETH" />
                     <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
                     <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
+                    <OrderMetaItem label="成交记录" value="TODO" />
                   </div>
-                </div>
-                <div className="p50 bg-white ">
-                  Related Fills Todo
                 </div>
               </Tabs>
 
