@@ -63,11 +63,6 @@ class PlaceOrder extends React.Component {
       const { side } = props
       return (
         <div>
-          <Steps direction="horizontal">
-               <Steps.Step title="Step 1" />
-               <Steps.Step status="error" title="Step 2" />
-               <Steps.Step title="Step 3" />
-          </Steps>
            <List className="bg-none no-border">
             <InputItem
               {...getFieldProps('money3')}

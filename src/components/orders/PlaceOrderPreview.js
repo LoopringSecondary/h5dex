@@ -101,27 +101,29 @@ function PlaceOrderPreview(props) {
     title: 'Waiting',
   }].map((s, i) => <Steps.Step key={i} title={s.title} description={s.description} />);
   return (
-    <div className="text-left">
-        <div className="pt15 pb15 color-black-1 fs22">{intl.get(`common.${side}`)} LRC</div>
-        <Steps direction="horizontal">
-             <Steps.Step title="Step 1" />
-             <Steps.Step status="error" title="Step 2" />
-             <Steps.Step title="Step 3" />
-        </Steps>
+    <div className="">
+        <div className="p15 color-black-1 fs22 zb-b-b text-center">{intl.get(`common.${side}`)} LRC</div>
+        <div className="p15 text-left">
+          <Steps direction="horizontal">
+             <Steps.Step title={<div className="fs18">Order</div>}  icon={<Icon type="check-circle-o" />} />
+             <Steps.Step title={<div className="fs18">Wallet</div>} icon={<Icon type="check-circle-o" />} />
+             <Steps.Step title={<div className="fs18">Result</div>}  icon={<Icon type="check-circle-o" />} />
+          </Steps>
+        </div>
         <Accordion accordion={true} defaultActiveKey="0" className="" onChange={()=>{}}>
           <Accordion.Panel header={<div className="text-left">1. 确认订单信息</div>}>
             <div className="p15 bg-grey-100">
               <div className="pb15 row ml0 mr0 no-gutters align-items-center justify-content-center">
                 <div className="col-auto">
-                  <div className="bg-black color-white" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
+                  <div className="bg-black color-white text-center" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
                     <i className={`icon-LRC fs28`}/>
                   </div>
                 </div>
-                <div className="col-auto pl25 pr25">
+                <div className="col-auto pl25 pr25 text-center">
                   <Icon type="swap" className={`color-black-1 fs20`} />
                 </div>
                 <div className="col-auto">
-                  <div className="bg-black color-white" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
+                  <div className="bg-black color-white text-center" style={{width:"40px",height:'40px',lineHeight:'40px',borderRadius:'50em'}}>
                     <i className={`icon-WETH fs28`}/>
                   </div>
                 </div>
@@ -131,6 +133,7 @@ function PlaceOrderPreview(props) {
               <OrderMetaItem label="价格" value="0.00025 ETH" />
               <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
               <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
+              <Button type="" className="bg-black color-white mt15" onClick={()=>{}}>Next</Button>
             </div>
           </Accordion.Panel>
           <Accordion.Panel header={<div className="text-left">2. 选择下单钱包</div>} className="pad">
