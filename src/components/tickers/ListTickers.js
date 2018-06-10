@@ -32,7 +32,7 @@ const TickerItem = ({item,actions,key,index})=>{
     }
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
-        <div className="col-5">
+        <div className="col-5 text-left">
           <span className="fs20 color-black-1 font-weight-bold">LRC</span>
           <span className="fs16 color-black-3">/WETH</span>
           <div className="fs16 color-black-3">Vol 1,035,288</div>

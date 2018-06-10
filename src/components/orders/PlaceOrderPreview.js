@@ -32,7 +32,7 @@ const WalletItem = (props) => {
   if(layout === 'vertical'){
     return (
       <div className="pl10 pr10 pt15 pb15">
-        <div className="text-center text-primary">
+        <div className="text-center color-black-1">
           <i className={`fs28 icon-${icon}`}></i>
         </div>
         <div className="fs18">{title}</div>
@@ -95,18 +95,19 @@ function PlaceOrderPreview(props) {
   const {side} = placeOrderPreview
   const steps = [{
     title: 'Finished',
-    description: 'This is description',
   }, {
-    title: 'In Progress',
-    description: 'This is description',
+    title: 'Progress',
   }, {
     title: 'Waiting',
-    description: 'This is description',
   }].map((s, i) => <Steps.Step key={i} title={s.title} description={s.description} />);
   return (
-    <div className="">
+    <div className="text-left">
         <div className="pt15 pb15 color-black-1 fs22">{intl.get(`common.${side}`)} LRC</div>
-        <Steps current={1} direction="horizontal">{steps}</Steps>
+        <Steps direction="horizontal">
+             <Steps.Step title="Step 1" />
+             <Steps.Step status="error" title="Step 2" />
+             <Steps.Step title="Step 3" />
+        </Steps>
         <Accordion accordion={true} defaultActiveKey="0" className="" onChange={()=>{}}>
           <Accordion.Panel header={<div className="text-left">1. 确认订单信息</div>}>
             <div className="p15 bg-grey-100">
@@ -150,7 +151,6 @@ function PlaceOrderPreview(props) {
               <PlaceOrderResult />
             </div>
           </Accordion.Panel>
-
         </Accordion>
         {
           false &&
@@ -168,7 +168,6 @@ function PlaceOrderPreview(props) {
             </List.Item>
           </List>
         }
-
     </div>
   )
 }

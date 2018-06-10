@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch } from 'antd-mobile';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -63,6 +63,11 @@ class PlaceOrder extends React.Component {
       const { side } = props
       return (
         <div>
+          <Steps direction="horizontal">
+               <Steps.Step title="Step 1" />
+               <Steps.Step status="error" title="Step 2" />
+               <Steps.Step title="Step 3" />
+          </Steps>
            <List className="bg-none no-border">
             <InputItem
               {...getFieldProps('money3')}
@@ -244,7 +249,7 @@ class PlaceOrder extends React.Component {
         </Containers.Layers>
         <Containers.Layers id="placeOrderMarketHelper">
           <UiContainers.Popups id="placeOrderMarketHelper">
-            <div className="tabs-no-border" style={{height:'90vh'}}>
+            <div className="tabs-no-border" style={{height:'80vh'}}>
               <NavBar
                 className="zb-b-b"
                 mode="light"
