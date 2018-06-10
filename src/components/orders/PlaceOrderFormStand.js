@@ -7,6 +7,7 @@ import PlaceOrderPreview from './PlaceOrderPreview';
 import PlaceOrderAdvance from './PlaceOrderAdvance';
 import PlaceOrderPriceHelper from './PlaceOrderPriceHelper';
 import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
+import ListTickers from '../tickers/ListTickers';
 import {FillList} from './PlaceOrderAmountHelper';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
@@ -171,7 +172,7 @@ class PlaceOrder extends React.Component {
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
           ]}
         >
-        LRC-WETH
+        <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
         </NavBar>
         <div className="no-underline tabs-no-border h-50 place-order-form">
           <Tabs
@@ -241,6 +242,27 @@ class PlaceOrder extends React.Component {
             <PlaceOrderAmountHelper />
           </UiContainers.Popups>
         </Containers.Layers>
+        <Containers.Layers id="placeOrderMarketHelper">
+          <UiContainers.Popups id="placeOrderMarketHelper">
+            <div className="" style={{height:'90vh'}}>
+              <NavBar
+                className="zb-b-b"
+                mode="light"
+                onLeftClick={() => console.log('onLeftClick')}
+                leftContent={[
+                  <span className="color-black-1 " onClick={hideLayer.bind(this,{id:'placeOrderMarketHelper'})}><WebIcon key="1" type="close" /></span>
+                ]}
+                rightContent={[
+                  <span className="color-black-1"><WebIcon key="1" type="search" /></span>,
+                ]}
+              >
+                Market
+              </NavBar>
+              <ListTickers />
+            </div>
+          </UiContainers.Popups>
+        </Containers.Layers>
+
       </div>
     );
   }

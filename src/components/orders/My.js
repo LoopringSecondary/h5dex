@@ -73,8 +73,8 @@ class PlaceOrder extends React.Component {
     ]
     const OrderStatus = [
       {
-        icon: <span><WebIcon type="exclamation-circle" className="fs22 color-red-500 mb5" /></span>,
-        text: <div className="fs16 color-black-2">Unenough</div>,
+        icon: <Badge text="5"><WebIcon type="exclamation-circle" className="fs22 color-black-1 mb5" /></Badge>,
+        text: <div className="fs16 color-black-2">Error</div>,
       },
       {
         icon: <WebIcon type="clock-circle" className="fs22 color-black-1 mb5" />,
@@ -111,6 +111,9 @@ class PlaceOrder extends React.Component {
 
     return (
       <div className="bg-grey-100">
+        <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
+              Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
+        </NoticeBar>
         <NavBar
           className=""
           mode="light"
@@ -124,9 +127,6 @@ class PlaceOrder extends React.Component {
         >
         My Dex
         </NavBar>
-        <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
-              Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
-        </NoticeBar>
         <div className="pt40 pb40 text-left bg-grey-900">
           <div className="row align-items-center ml0 mr0 no-gutters">
             <div className="col">
@@ -257,8 +257,8 @@ const TokenListComp = (props)=>{
                     {token.symbol}
                     <span className="color-black-3 ml5">{token.name}</span>
                   </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">$ 23647.57</td>
+                  <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">{token.balance}</td>
+                  <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">$ 23647.57</td>
                   <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.required}</td>
                   <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{
                       Number(token.balance - token.required).toFixed(4)>0 ? '0.0000' :

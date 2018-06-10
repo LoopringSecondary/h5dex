@@ -44,10 +44,10 @@ class MarketDetail extends React.Component {
         <div className="bg-white">
           <div className="p10 zb-b-b">
             <span className="fs28 font-weight-bold color-green-600">0.00089000</span>
-            <span className="fs16 color-green-600 ml10">
+            <span className="fs18 color-green-600 ml10">
               +12.00%
             </span>
-            <span className="fs16 color-green-600 ml10">￥3.35</span>
+            <span className="fs18 color-green-600 ml10">￥3.35</span>
           </div>
           <div className="p10 zb-b-b">
             <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs16">
