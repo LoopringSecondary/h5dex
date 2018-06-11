@@ -36,7 +36,7 @@ function OrderDetail(props) {
     <div className="">
         <Pages active="order">
           <Page id="order" render={({page})=>
-            <div className="bg-white">
+            <div className="bg-white no-underline">
               <div className="color-black-1 fs22 zb-b-b text-center">
                 <div className="row ml0 mr0 pt15 pb15 no-gutters">
                   <div className="col text-left pl15 pr15">
@@ -64,18 +64,23 @@ function OrderDetail(props) {
               >
                 <div className="bg-white">
                   <div className="">
-                    <NoticeBar className="text-left" mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
-                        该订单无法进行撮合<span hidden>Token未授权交易</span>
+                    <NoticeBar className="text-left t-error s-lg" icon={<Icon type="close-circle-o"/>} mode="link" marqueeProps={{ loop: true}} action={<span>撮合生效<Icon type="right" /></span>}>
+                        该订单现在无法进行撮合<span hidden>Token未授权交易</span>
                     </NoticeBar>
-                    <NoticeBar className="text-left" mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
-                        该订单只能部分成交<span hidden>Token余额不足</span>
+                    <NoticeBar className="text-left t-waring s-lg" icon={<Icon type="exclamation-circle-o"/>} mode="link" marqueeProps={{ loop: true}} action={<span>撮合全部<Icon type="right" /></span>}>
+                        该订单只有部分正在进行撮合<span hidden>Token余额不足</span>
                     </NoticeBar>
+                    <NoticeBar className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
+                        该订单正在进行撮合
+                    </NoticeBar>
+
                     <OrderMetaItem label="买入" value="10000 LRC" />
                     <OrderMetaItem label="卖出" value="25 ETH" />
                     <OrderMetaItem label="价格" value="0.00025 ETH" />
                     <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
                     <OrderMetaItem label="订单有效时间" value="06-10 10:38 ~ 06-30 10:38" />
                     <OrderMetaItem label="订单提交时间" value="06-10 10:38" />
+                    <Button className="m15 color-white" type="warning">Cancel Order</Button>
                   </div>
                 </div>
                 <div className="p20 bg-white">
