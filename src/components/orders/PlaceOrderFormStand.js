@@ -227,9 +227,6 @@ class PlaceOrder extends React.Component {
             <div>
               <FillList />
             </div>
-            <div>
-              <HistoryOrderList />
-            </div>
           </Tabs>
           <div className="pb50"></div>
         </div>
