@@ -76,11 +76,13 @@ function OrderDetail(props) {
       >
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
-            <NoticeBar className="text-left t-error s-lg" icon={<Icon type="close-circle-o"/>} mode="link" marqueeProps={{ loop: true}} action={<span>撮合生效<Icon type="right" /></span>}>
-                该订单无法进行撮合<span hidden>Token未授权交易</span>
-            </NoticeBar>
-            <NoticeBar className="text-left t-waring s-lg" icon={<Icon type="exclamation-circle-o"/>} mode="link" marqueeProps={{ loop: true}} action={<span>撮合全部<Icon type="right" /></span>}>
-                该订单只有部分正在进行撮合<span hidden>Token余额不足</span>
+            { false &&
+              <NoticeBar className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+                  该订单无法进行撮合
+              </NoticeBar>
+            }
+            <NoticeBar className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看余额<Icon type="right" /></span>}>
+                余额不足，该订单无法100%被撮合
             </NoticeBar>
             {
               false &&
@@ -88,6 +90,13 @@ function OrderDetail(props) {
                   该订单正在进行撮合
               </NoticeBar>
             }
+            {
+              true &&
+              <NoticeBar className="text-left t-info s-lg" icon={<Icon type="question-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看原因<Icon type="right" /></span>}>
+                  为什么订单没有撮合成交？
+              </NoticeBar>
+            }
+
             <OrderMetaItem label="买入" value="10000 LRC" />
             <OrderMetaItem label="成交" value="80% ≈ 8000.00 / 10000.00 LRC" />
             <OrderMetaItem label="卖出" value="25 WETH" />
