@@ -15,6 +15,7 @@ import QRCode from 'qrcode.react';
 import Alert from 'LoopringUI/components/Alert'
 import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
+import routeActions from 'common/utils/routeActions'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -77,22 +78,22 @@ function OrderDetail(props) {
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
             { false &&
-              <NoticeBar className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
                   该订单无法进行撮合
               </NoticeBar>
             }
-            <NoticeBar className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看余额<Icon type="right" /></span>}>
+            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看余额<Icon type="right" /></span>}>
                 余额不足，该订单无法100%被撮合
             </NoticeBar>
             {
               false &&
-              <NoticeBar className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
+              <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
                   该订单正在进行撮合
               </NoticeBar>
             }
             {
-              true &&
-              <NoticeBar className="text-left t-info s-lg" icon={<Icon type="question-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看原因<Icon type="right" /></span>}>
+              false &&
+              <NoticeBar  className="text-left t-info s-lg" icon={<Icon type="question-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看原因<Icon type="right" /></span>}>
                   为什么订单没有撮合成交？
               </NoticeBar>
             }

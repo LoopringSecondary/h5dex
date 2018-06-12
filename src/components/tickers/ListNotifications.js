@@ -161,13 +161,15 @@ class ListTickers extends React.Component {
       }, 1000);
   }
   render(){
+      const goBack = ()=>{
+        routeActions.goBack()
+      }
       let index = data.length - 1;
       const row = (rowData, sectionID, rowID) => {
         if (index < 0) {
           index = data.length - 1;
         }
         const obj = data[index--];
-        console.log('obj',obj)
         return (
           <TodoItem key={rowID} index={rowID} item={obj} />
         );
@@ -180,7 +182,7 @@ class ListTickers extends React.Component {
               icon={null && <Icon type="left" />}
               onLeftClick={() => console.log('onLeftClick')}
               leftContent={ [
-                <WebIcon key="1" type="left" className="color-black-1" />,
+                <WebIcon key="1" type="left" className="color-black-1" onClic={goBack}/>,
               ]}
               rightContent={null && [
                 <WebIcon key="1" type="search" className="color-black-1" />,
