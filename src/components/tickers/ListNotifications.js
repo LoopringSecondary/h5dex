@@ -18,7 +18,13 @@ const TodoItem = ({item={},actions,key,index})=>{
       <div>
         <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
           <div className="col-auo pr15 color-black text-center">
-              <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i>
+              {false && <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i> }
+              {
+                item.type === 'allowance' && <WebIcon className="color-red-500 fs28" type="close-circle" />
+              }
+              {
+                item.type === 'balance' && <WebIcon className="color-red-500 fs28" type="exclamation-circle" />
+              }
           </div>
           <div className="col text-left">
             <div>

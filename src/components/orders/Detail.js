@@ -20,7 +20,7 @@ import routeActions from 'common/utils/routeActions'
 const OrderMetaItem = (props) => {
   const {label, value} = props
   return (
-    <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters" style={{padding:'7px 0px'}}>
+    <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters align-items-center" style={{padding:'7px 0px'}}>
       <div className="col">
         <div className="fs18 color-black-1 text-left">{label}</div>
       </div>
@@ -56,8 +56,8 @@ function OrderDetail(props) {
             <Icon type="close"/>
           </div>
           <div className="col-auto">Order Detail</div>
-          <div className="col text-left pl15 pr15 color-white">
-            <Icon type="close"/>
+          <div className="col text-right pl15 pr15 color-white">
+            <Button className="" inline={true}  size="small" type="ghost">Cancel</Button>
           </div>
         </div>
       </div>
@@ -79,11 +79,17 @@ function OrderDetail(props) {
           <div className="">
             { false &&
               <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
-                  该订单无法进行撮合
+                  订单无法进行撮合
               </NoticeBar>
             }
-            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看余额<Icon type="right" /></span>}>
-                余额不足，该订单无法100%被撮合
+            { false &&
+              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+                  余额为0，订单无法进行撮合
+              </NoticeBar>
+            }
+
+            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
+                余额不足，订单无法全部被撮合
             </NoticeBar>
             {
               false &&
@@ -98,15 +104,19 @@ function OrderDetail(props) {
               </NoticeBar>
             }
 
+            <OrderMetaItem label="状态" value={
+              <div>
+                撮合中
+              </div>
+            }/>
             <OrderMetaItem label="买入" value="10000 LRC" />
             <OrderMetaItem label="成交" value="80% ≈ 8000.00 / 10000.00 LRC" />
             <OrderMetaItem label="卖出" value="25 WETH" />
             <OrderMetaItem label="价格" value="0.00025 WETH" />
-
             <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
             <OrderMetaItem label="订单有效时间" value="06-10 10:38 ~ 06-30 10:38" />
             <OrderMetaItem label="订单提交时间" value="06-10 10:38" />
-            <Button className="m15 color-white" type="warning">Cancel Order</Button>
+            {false && <Button className="m15 color-white" type="warning">Cancel Order</Button> }
           </div>
         </div>
         <div className="p20 bg-white">
