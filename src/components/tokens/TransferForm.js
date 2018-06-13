@@ -58,18 +58,28 @@ class PlaceOrder extends React.Component {
       return (
         <div>
            <List className="bg-none" renderHeader={()=> <div className="d-none pl15 pt10 fs14 zb-b-b">LRC To Sell</div>}>
+            <Item extra={
+              <div>
+                <span className="color-black-2">LRC</span>
+                <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
+                  <WebIcon className="color-black-3" type="right"/>
+                </span>
+              </div>
+            } >
+              Token
+            </Item>
             <InputItem
               {...getFieldProps('money3')}
               type={type}
-              placeholder="00.0000"
+              placeholder="0x"
               clear
               moneyKeyboardAlign="right"
               extra={
-                <div style={{width:'30px',textAlign:'right'}}>
-                  <WebIcon className="color-black-2" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />
+                <div style={{width:'25px',textAlign:'right'}}>
+                  <WebIcon className="color-black-3" type="scan" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />
                 </div>
               }
-            ><div className="fs16" >To</div></InputItem>
+            ><div className="fs16" >Recipient</div></InputItem>
             <InputItem
               type={type}
               placeholder="00.0000"
@@ -78,25 +88,40 @@ class PlaceOrder extends React.Component {
               onChange={(v) => { console.log('onChange', v); }}
               onBlur={(v) => { console.log('onBlur', v); }}
               extra={
-                <div style={{width:'30px',textAlign:'right'}}>
-                  <WebIcon className="color-black-2" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />
+                <div style={{width:'25px',textAlign:'right'}}>
+                  <WebIcon className="color-black-3" type="profile" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />
                 </div>
               }
             ><div className="fs16">Amount</div></InputItem>
-            <InputItem
-              type={type}
-              placeholder="00.0000"
-              extra={
-                <div style={{width:'30px',textAlign:'right'}}>
-                  <WebIcon className="d-none" type="exclamation-circle-o" onClick={()=>{}} />
+            <Item extra={
+              <div>
+                <span className="color-black-2">$1.2 ≈ 0.00015ETH</span>
+                <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
+                  <WebIcon className="color-black-3" type="right"/>
+                </span>
+              </div>
+            } >
+              Gas
+            </Item>
+            <Item  multipleLine wrap
+            extra={
+              <div>
+                <span className="color-black-3">Notes</span>
+                <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
+                  <WebIcon className="color-black-3" type="right"/>
+                </span>
+              </div>
+            }
+            >Data</Item>
+            <Item>
+              <div className="row align-items-center ml0 mr0 mb15 mt10">
+                <div className="col color-black-3 fs16 pl0">Advanced</div>
+                <div className="col-auto color-black-3 fs16 pr0">
+                  <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
                 </div>
-              }
-              clear
-              moneyKeyboardAlign="right"
-              onChange={(v) => { console.log('onChange', v); }}
-              onBlur={(v) => { console.log('onBlur', v); }}
-              editable={false}
-            ><div className="fs16">Price</div></InputItem>
+              </div>
+              <Button type="primary">Exchange</Button>
+            </Item>
           </List>
         </div>
 
@@ -124,14 +149,12 @@ class PlaceOrder extends React.Component {
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
           ]}
         >
-          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Face to Face</div>
+          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Send LRC</div>
         </NavBar>
         <div className="">
           <PlaceOrderForm side="buy" />
         </div>
-        <div className=" p10">
-          <Button type="primary">Exchange</Button>
-        </div>
+
       </div>
     );
   }
