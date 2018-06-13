@@ -28,7 +28,6 @@ const TxItem = ({item={},actions,key,index})=>{
               <div className="fs16 color-black-3">
                 {item.name}
               </div>
-
             </div>
           </div>
           <div className="col-auto">
@@ -140,22 +139,22 @@ class ListTickers extends React.Component {
                 <WebIcon key="1" type="plus" className="color-black-1" />,
               ]}
             >
-              LRC <WebIcon className="ml5" type="down" />
+              <div className="fs24">LRC <WebIcon hidden className="ml5 color-black-3" type="down" /></div>
             </NavBar>
-            <div className="pt30 pb30 pl15 pr15 text-center zb-b-b">
+            <div className="pt40 pb40 pl15 pr15 text-center zb-b-b">
                 <div className="fs32 color-black-1">0.00000 LRC</div>
                 <div className="fs24 color-black-3">
                   $ 0.00000
                 </div>
             </div>
             <div className="row ">
-              <div className="col text-center pt10 pb10 fs20 color-black-2">
+              <div className="col text-center pt10 pb10 fs16 color-black-1">
                 Status <WebIcon className="fs14" type="down" />
               </div>
-              <div className="col text-center pt10 pb10 fs20">
+              <div className="col text-center pt10 pb10 fs16 color-black-1">
                 Types <WebIcon className="fs14" type="down" />
               </div>
-              <div className="col text-center pt10 pb10 fs20">
+              <div className="col text-center pt10 pb10 fs16 color-black-1">
                 Sides <WebIcon className="fs14" type="down" />
               </div>
             </div>
@@ -178,6 +177,20 @@ class ListTickers extends React.Component {
               onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
             />
+            <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
+              <div className="row ml0 mr0 no-gutters">
+                <div className="col-6">
+                  <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs20">
+                    <i className="fs24 loopring-icon loopring-icon-receive mr10"></i>Receive LRC
+                  </Button>
+                </div>
+                <div className="col-6">
+                  <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs18">
+                    <i className="fs24 loopring-icon loopring-icon-transfer mr10"></i>Send LRC
+                  </Button>
+                </div>
+              </div>
+            </div>
             {
               false &&
               <Tabs
