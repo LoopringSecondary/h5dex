@@ -16,6 +16,7 @@ import ListNotifications from './tickers/ListNotifications'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
+import PlaceOrderP2P from './orders/PlaceOrderP2P'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -44,6 +45,7 @@ const Logged = ()=>{
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
         <Route path={`/wallet`} component={Pages.Wallet} />
+        <Route path="/placeOrder/p2p" exact component={PlaceOrderP2P} />
         <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
