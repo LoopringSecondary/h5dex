@@ -100,7 +100,7 @@ class PlaceOrder extends React.Component {
               </div>
             </div>
           </div>
-          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
               <div className="color-black-2 fs16">ETH</div>
             </div>
@@ -111,7 +111,7 @@ class PlaceOrder extends React.Component {
               <div className="color-black-2 fs16">WETH</div>
             </div>
           </div>
-          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
               <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
               </Button>
@@ -137,8 +137,8 @@ class PlaceOrder extends React.Component {
               }
             </div>
           </div>
-          <Button className="mt20" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
-          <div className="row ml0 mr0 mt15 pt10 pb10 no-gutters">
+          <Button className="mt15" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
+          <div className="row ml0 mr0 mt10 pt10 pb10 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">ETH Gas</div>
             </div>

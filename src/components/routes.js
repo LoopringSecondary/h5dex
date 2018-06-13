@@ -41,6 +41,7 @@ const Logged = ()=>{
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
         <Route path="/convert" exact component={ConvertForm} />
+        <Route path="/token/transfer" exact component={Tokens.TransferForm} />
         <Route path="/home" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
@@ -72,6 +73,7 @@ export default class Routes extends React.Component {
       <div>
           <Switch>
             <Route path="/" exact component={Logged} />
+            <Route path="/token" component={Logged} />
             <Route path="/tokens" component={Logged} />
             <Route path="/tokenDetail" component={Logged} />
             <Route path="/convert" component={Logged} />

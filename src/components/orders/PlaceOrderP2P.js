@@ -151,16 +151,6 @@ class PlaceOrder extends React.Component {
               20.0000 EOS/ETH
             </div>
           </div>
-          <div className="row ml0 mr0 pt10 pb10 no-gutters">
-            <div className="col">
-              <div className="color-black-2 fs14">ETH Gas</div>
-            </div>
-            <div className="col-auto fs14 color-black-3">
-              $1.2 ≈ 0.00015 ETH
-              <WebIcon type="right" />
-            </div>
-          </div>
-
         </div>
       </div>
     );
