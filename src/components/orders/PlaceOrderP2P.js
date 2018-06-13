@@ -102,21 +102,22 @@ class PlaceOrder extends React.Component {
           </div>
           <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
-                Sell EOS <WebIcon type="down"/>
+              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+                <span>Sell EOS</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
-                Buy LRC <WebIcon type="down"/>
+              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+                <span>Buy LRC</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
           </div>
           <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
+              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
+                <span className="color-black-3">0.0000</span>
               </Button>
               {
                 false &&
@@ -129,7 +130,8 @@ class PlaceOrder extends React.Component {
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
+              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
+                <span className="color-black-3">0.0000</span>
               </Button>
               {
                 false &&
