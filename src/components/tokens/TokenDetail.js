@@ -26,11 +26,11 @@ const TxItem = ({item={},actions,key,index})=>{
           </div>
           <div className="col text-left">
             <div>
-              <div className="fs16 color-black-1">
+              <div className="fs14 color-black-2">
                 {item.title}
-                { item.status === 'success' && <WebIcon className="ml5 fs14 color-green-500" type="check-circle" /> }
-                { item.status === 'failed' && <WebIcon className="ml5 fs14 color-red-500" type="exclamation-circle" /> }
-                { item.status === 'pending' && <WebIcon className="ml5 fs14 color-blue-500" type="clock-circle" /> }
+                { item.status === 'success' && <WebIcon className="ml5 fs14 color-green-500" type="check-circle-o" /> }
+                { item.status === 'failed' && <WebIcon className="ml5 fs14 color-red-500" type="exclamation-circle-o" /> }
+                { item.status === 'pending' && <WebIcon className="ml5 fs14 color-blue-500" type="clock-circle-o" /> }
               </div>
               <div className="fs12 color-black-3">
                 06-03 10:00:00
@@ -38,7 +38,7 @@ const TxItem = ({item={},actions,key,index})=>{
             </div>
           </div>
           <div className="col-auto text-right">
-            <div className="color-black-1 fs16 font-weight-bold">
+            <div className="color-black-2 fs14">
               {item.value && item.value}
             </div>
             <div className="color-black-3 fs12">
@@ -169,26 +169,28 @@ class ListTickers extends React.Component {
               leftContent={ [
                 <WebIcon key="1" type="left" className="color-black-1" onClic={goBack}/>,
               ]}
-              rightContent={null && [
-                <WebIcon key="1" type="plus" className="color-black-1" />,
+              rightContent={[
+                <WebIcon key="1" type="info-circle-o" className="color-black-1" />,
               ]}
             >
-              <div className="fs20">LRC <WebIcon hidden className="ml5 color-black-3" type="down" /></div>
+            <SegmentedControl values={['Records', 'Trade']} style={{width:'180px',height:'32px'}}/>
             </NavBar>
             <div className="pt40 pb40 pl15 pr15 text-center zb-b-b">
-                <div className="fs24 color-black-1">0.000000 LRC</div>
+                <div className="fs24 color-black-1">
+                  0.000000 LRC
+                </div>
                 <div className="fs16 color-black-3">
                   $ 0.000000
                 </div>
             </div>
-            <div className="row ml0 mr0">
-              <div className="col text-center pt10 pb10 fs14 color-black-2 zb-b-r">
+            <div className="row ml0 mr0 fs16 color-black-2">
+              <div className="col text-center pt10 pb10 zb-b-r">
                 Status <WebIcon className="fs12" type="down" />
               </div>
-              <div className="col text-center pt10 pb10 fs14 color-black-2 zb-b-r">
+              <div className="col text-center pt10 pb10 zb-b-r">
                 Types <WebIcon className="fs12" type="down" />
               </div>
-              <div className="col text-center pt10 pb10 fs14 color-black-2">
+              <div className="col text-center pt10 pb10 ">
                 Sides <WebIcon className="fs12" type="down" />
               </div>
             </div>
@@ -211,18 +213,21 @@ class ListTickers extends React.Component {
               onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
             />
-            <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
+            <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0',zIndex:10}}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col-6">
-                  <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs16">
-                    <i className="fs24 loopring-icon loopring-icon-receive mr10"></i>Receive
+                  <Button onClick={()=>{}} type="primary" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>
+                    <i className="fs24 loopring-icon loopring-icon-transfer mr10"></i>
+                    <span className="d-inline-block position-relative" style={{top:'-3px'}}>Send</span>
                   </Button>
                 </div>
                 <div className="col-6">
-                  <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs18">
-                    <i className="fs24 loopring-icon loopring-icon-transfer mr10"></i>Send
+                  <Button onClick={()=>{}} type="ghost" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>
+                    <i className="fs24 loopring-icon loopring-icon-receive mr10"></i>
+                    <span className="d-inline-block position-relative" style={{top:'-3px'}}>Receive</span>
                   </Button>
                 </div>
+
               </div>
             </div>
             {

@@ -40,7 +40,7 @@ class MarketDetail extends React.Component {
           ]}
 
         >
-        <SegmentedControl values={['Orders', 'Fills']} style={{width:'180px',height:'32px'}}/>
+          <SegmentedControl values={['Orders', 'Fills']} style={{width:'180px',height:'32px'}}/>
         </NavBar>
         <div className="no-underline">
           <Tabs

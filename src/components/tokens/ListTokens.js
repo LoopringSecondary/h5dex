@@ -12,28 +12,31 @@ const TokenItem = ({item={},actions,key,index})=>{
     // const tickerFm = new TickerFm(item)
     console.log('todo item',item)
     const gotoDetail = ()=>{
-      routeActions.gotoPath('/trade/detail')
+      routeActions.gotoPath('/tokenDetail')
     }
     return (
       <div>
-        <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
+        <div className="row ml0 mr0 pt15 pb15 pl10 pr10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
           <div className="col-auo pr10 color-black text-center">
-              <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i>
+              <i className={`icon-${item.symbol} fs24 d-block bg-black color-white`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #000',borderRadius:'50em'}}></i>
           </div>
           <div className="col text-left">
             <div>
-              <div className="fs20 color-black-1">
+              <div className="fs18 color-black-1">
                 {item.symbol}
               </div>
-              <div className="fs16 color-black-3">
+              <div className="fs14 color-black-3">
                 {item.name}
               </div>
 
             </div>
           </div>
-          <div className="col-auto">
-            <div className="color-black-1 fs20">
-              0.00000000
+          <div className="col-auto text-right">
+            <div className="color-black-1 fs18">
+              0.000000
+            </div>
+            <div className="fs14 color-black-3">
+              $ 0.0000
             </div>
           </div>
         </div>
@@ -144,8 +147,8 @@ class ListTickers extends React.Component {
               Test <WebIcon className="ml5" type="down" />
             </NavBar>
             <div className="pt50 pb50 pl15 pr15 text-center bg-white">
-                <div className="fs32 color-black-1">$ 0.00000</div>
-                <div className="fs18 color-black-3">
+                <div className="fs28 color-black-1">$ 0.00000</div>
+                <div className="fs16 color-black-3">
                   0x6d4ee35d...52e75005
                   <WebIcon className="ml5 fs16" type="qrcode" />
                 </div>
@@ -153,7 +156,7 @@ class ListTickers extends React.Component {
             <ListView
               ref={el => this.lv = el}
               dataSource={this.state.dataSource}
-              renderHeader={() => <div className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
+              renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
               renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
               renderRow={row}
               className="am-list"
