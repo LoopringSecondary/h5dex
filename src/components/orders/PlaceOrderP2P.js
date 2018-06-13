@@ -74,26 +74,23 @@ class PlaceOrder extends React.Component {
       const { side } = props
       return (
         <div>
-           <List className="bg-none no-border" renderHeader={()=> <div className="d-none pl15 pt10 fs14 zb-b-b">LRC To Sell</div>}>
+           <List className="bg-none" renderHeader={()=> <div className="d-none pl15 pt10 fs14 zb-b-b">LRC To Sell</div>}>
             <InputItem
               {...getFieldProps('money3')}
               type={type}
-              placeholder="0.00000000"
+              placeholder="00.0000"
               clear
               moneyKeyboardAlign="right"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               extra={
                 <div style={{width:'30px',textAlign:'right'}}>
-                  <span className="fs16 d-none" style={{color:"#bbb"}}>WETH</span>
-                  <WebIcon type="question-circle-o" style={{padding:'2px 0px 5px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />
+                  <WebIcon className="color-black-2" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />
                 </div>
               }
             ><div className="fs16" >LRC To Sell</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
             <InputItem
               type={type}
-              placeholder="0.00000000"
+              placeholder="00.0000"
               clear
               moneyKeyboardAlign="right"
               onChange={(v) => { console.log('onChange', v); }}
@@ -101,19 +98,16 @@ class PlaceOrder extends React.Component {
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               extra={
                 <div style={{width:'30px',textAlign:'right'}}>
-                  <span className="fs16 d-none" style={{color:"#bbb"}}>WETH</span>
-                  <WebIcon type="question-circle-o" style={{padding:'2px 0px 5px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />
+                  <WebIcon className="color-black-2" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />
                 </div>
               }
             ><div className="fs16">EOS To Buy</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
             <InputItem
               type={type}
-              placeholder="0.00000000"
+              placeholder="00.0000"
               extra={
                 <div style={{width:'30px',textAlign:'right'}}>
-                  <WebIcon type="exclamation-circle-o" onClick={()=>{}} />
+                  <WebIcon className="d-none" type="exclamation-circle-o" onClick={()=>{}} />
                 </div>
               }
               clear
@@ -122,7 +116,7 @@ class PlaceOrder extends React.Component {
               onBlur={(v) => { console.log('onBlur', v); }}
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               editable={false}
-            ><div className="fs16">Exchange Price</div></InputItem>
+            ><div className="fs16">Price</div></InputItem>
           </List>
         </div>
 
@@ -143,7 +137,7 @@ class PlaceOrder extends React.Component {
           className="zb-b-b"
           mode="light"
           onLeftClick={() => console.log('onLeftClick')}
-          leftContent={[
+          leftContent={null && [
             <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
           ]}
           rightContent={null && [
@@ -152,7 +146,7 @@ class PlaceOrder extends React.Component {
         >
           <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Face to Face</div>
         </NavBar>
-        <div className="pt30 pb30 zb-b-b">
+        <div className="pt25 pb25">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col-auto text-center" style={{width:'125px'}}>
               <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
@@ -168,12 +162,19 @@ class PlaceOrder extends React.Component {
               </div>
             </div>
           </div>
-          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col-auto text-center" style={{width:'125px'}}>
               <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
                 LRC <WebIcon className="" type="down" />
               </Button>
-              <div className="fs14 color-black-3 mt5 text-center">0.0000</div>
+              {
+                false &&
+                <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
+                  <span>Balance</span>
+                  <span>0.0000</span>
+                </div>
+              }
+
             </div>
             <div className="col-auto text-center" style={{width:'25px'}}>
             </div>
@@ -181,14 +182,22 @@ class PlaceOrder extends React.Component {
               <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
                 EOS <WebIcon className="" type="down" />
               </Button>
-              <div className="fs14 color-black-3 mt5 text-center">0.0000</div>
+              {
+                false &&
+                <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
+                  <span>Balance</span>
+                  <span>0.0000</span>
+                </div>
+              }
             </div>
           </div>
         </div>
-        <div className="zb-b-t">
+        <div className="">
           <PlaceOrderForm side="buy" />
         </div>
-
+        <div className=" p10">
+          <Button type="primary">Exchange</Button>
+        </div>
       </div>
     );
   }
