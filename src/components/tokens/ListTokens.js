@@ -138,7 +138,7 @@ class ListTickers extends React.Component {
               icon={null && <Icon type="left" />}
               onLeftClick={() => console.log('onLeftClick')}
               leftContent={ [
-                <WebIcon key="1" type="qrcode" className="color-black-1" onClic={goBack}/>,
+                <WebIcon key="1" type="scan" className="color-black-1" onClic={goBack}/>,
               ]}
               rightContent={[
                 <WebIcon key="1" type="plus" className="color-black-1" />,

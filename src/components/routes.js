@@ -15,6 +15,7 @@ import MyOrders from './tickers/Orders'
 import ListNotifications from './tickers/ListNotifications'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
+import ConvertForm from './tokens/ConvertForm'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -34,11 +35,11 @@ const Logged = ()=>{
   const isLogged = true
   if(isLogged){
     return (
-
       <Switch>
         <Route path="/" exact component={Pages.HomeTabBar} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
+        <Route path="/convert" exact component={ConvertForm} />
         <Route path="/home" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
@@ -71,6 +72,7 @@ export default class Routes extends React.Component {
             <Route path="/" exact component={Logged} />
             <Route path="/tokens" component={Logged} />
             <Route path="/tokenDetail" component={Logged} />
+            <Route path="/convert" component={Logged} />
             <Route path="/home" component={Logged} />
             <Route path="/unlock" component={Logged} />
             <Route path="/wallet" render={Logged} />

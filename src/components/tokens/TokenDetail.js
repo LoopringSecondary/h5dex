@@ -15,7 +15,7 @@ const TxItem = ({item={},actions,key,index})=>{
       routeActions.gotoPath('/trade/detail')
     }
     return (
-      <div>
+      <div className="">
         <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
           <div className="col-auo pr10 color-black text-center">
               {item.type === "sell" && <i className={`loopring-icon loopring-icon-trade fs24`} style={{}}></i> }
@@ -161,21 +161,21 @@ class ListTickers extends React.Component {
         );
       };
       return (
-          <div className="bg-white"  style={{height:'100%'}}>
+          <div className=""  style={{height:'100%'}}>
             <NavBar
               className="w-100 zb-b-b"
               mode="light"
               onLeftClick={() => console.log('onLeftClick')}
               leftContent={ [
-                <WebIcon key="1" type="left" className="color-black-1" onClic={goBack}/>,
+                <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
               ]}
               rightContent={[
                 <WebIcon key="1" type="info-circle-o" className="color-black-1" />,
               ]}
             >
-            <SegmentedControl values={['Records', 'Trade']} style={{width:'180px',height:'32px'}}/>
+              <SegmentedControl values={['Records', 'Trade']} style={{width:'180px',height:'32px'}}/>
             </NavBar>
-            <div className="pt40 pb40 pl15 pr15 text-center zb-b-b">
+            <div className="pt40 pb40 pl15 pr15 text-center bg-white">
                 <div className="fs24 color-black-1">
                   0.000000 LRC
                 </div>
@@ -183,37 +183,39 @@ class ListTickers extends React.Component {
                   $ 0.000000
                 </div>
             </div>
-            <div className="row ml0 mr0 fs16 color-black-2">
-              <div className="col text-center pt10 pb10 zb-b-r">
-                Status <WebIcon className="fs12" type="down" />
-              </div>
-              <div className="col text-center pt10 pb10 zb-b-r">
-                Types <WebIcon className="fs12" type="down" />
-              </div>
-              <div className="col text-center pt10 pb10 ">
-                Sides <WebIcon className="fs12" type="down" />
+            <div className="bg-white">
+              <div className="row ml0 mr0 fs16 zb-b-t">
+                <div className="col text-center pt10 pb10 zb-b-r">
+                  Status <WebIcon className="fs12" type="down" />
+                </div>
+                <div className="col text-center pt10 pb10 zb-b-r">
+                  Types <WebIcon className="fs12" type="down" />
+                </div>
+                <div className="col text-center pt10 pb10 ">
+                  Sides <WebIcon className="fs12" type="down" />
+                </div>
               </div>
             </div>
+
             <ListView
               ref={el => this.lv = el}
               dataSource={this.state.dataSource}
               renderHeader={() => null}
               renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
               renderRow={row}
-              className="am-list"
+              className="am-list am-list-bg-none"
               pageSize={5}
               useBodyScroll={true}
               style={{
                  height: "100%",
                  overflow: 'auto',
-                 background:'#fff',
               }}
               onScroll={() => { console.log('scroll'); }}
               scrollRenderAheadDistance={300}
               onEndReached={this.onEndReached}
               onEndReachedThreshold={10}
             />
-            <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0',zIndex:10}}>
+            <div className="position-fixed bg-white p5" style={{bottom:'0',left:'0',right:'0',zIndex:10}}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col-6">
                   <Button onClick={()=>{}} type="primary" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>

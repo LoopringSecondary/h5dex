@@ -1,5 +1,6 @@
 import React from 'react';
-import {Form, Input, Button,Icon} from 'antd';
+import {Form, Input, Button as WebButton,Icon} from 'antd';
+import {Button,List,InputItem} from 'antd-mobile';
 import {getBalanceBySymbol, getWorthBySymbol,isValidNumber} from "../../modules/tokens/TokenFm";
 import TokenFormatter from '../../modules/tokens/TokenFm';
 import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
@@ -26,47 +27,50 @@ function ConvertForm(props) {
   const gasWorth = '5.56'
 
   return (
-    <div className="p15" style={{background:'#0e45c5',color:'#fff'}}>
-      <div className="divider solid"/>
-      <div className="row align-items-center justify-content-center mt25 mb25 ml0 mr0">
-        <div className="col-auto text-center pr30">
-          <div className="fs18">{amount}</div>
-          <div className="fs16">{sourceToken}</div>
+    <div className="" style={{background:'#fff',color:'#000'}}>
+      <div className="zb-b-b p20 mb25">
+        <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
+          <div className="col-auto text-center" style={{width:'80px'}}>
+            <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+              <i className={`icon-ETH fs24`}/>
+            </div>
+          </div>
+          <div className="col-auto text-center" style={{width:'80px'}}>
+            <Icon type="arrow-right" className={`color-black-1 fs20`} />
+          </div>
+          <div className="col-auto text-center" style={{width:'80px'}}>
+            <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+              <i className={`icon-WETH fs24`}/>
+            </div>
+          </div>
         </div>
-        <div className="col-auto">
-          <i className="loopring-icon loopring-icon-convert fs32"/>
-        </div>
-        <div className="col-auto text-center pl30">
-          <div className="fs18">{amount}</div>
-          <div className="fs16">{targetToken}</div>
-        </div>
-      </div>
-      <Form>
-        <Form.Item className="prefix">
-          {form.getFieldDecorator('amount', {
-            initialValue: amount,
-            rules: [{
-              required: true,
-              message: 'invalid number',
-              validator: convertAmountValidator,
-            }]
-          })(
-            <Input  suffix={<div>
-              <Icon type="question-circle-o" />
-            </div>} onChange={handleAmountChange}/>
-          )}
-        </Form.Item>
-      </Form>
-      <div  className="text-color-dark-1">
-        <div className="form-control-static d-flex justify-content-between mr-0 mt15 mb15 align-items-center">
-          <span className="fs14 color-white-2">{intl.get('common.gas')}</span>
-          <span className="font-bold cursor-pointer fs12" onClick={setGas}>
-              <Currency/> {gasWorth} ≈ {gas}
-              <Icon type="right" className="ml5" />
-          </span>
+        <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
+          <div className="col-auto text-center" style={{width:'80px'}}>
+            <div className="color-black-2 fs16">WETH</div>
+          </div>
+          <div className="col-auto text-center" style={{width:'80px'}}>
+            <div className="color-black-2 fs16">1 : 1</div>
+          </div>
+          <div className="col-auto text-center" style={{width:'80px'}}>
+            <div className="color-black-2 fs16">ETH</div>
+          </div>
         </div>
       </div>
-      <Button className="btn-block btn-xlg btn-o-dark" onClick={toConvert}>{intl.get('convert.actions_confirm_convert')}</Button>
+       <List className="bg-none">
+        <InputItem
+          type="number"
+          placeholder="0.00000000"
+          clear
+          moneyKeyboardAlign="left"
+          extra={<Icon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={()=>{}} />}
+        ><div className="fs20">Price</div></InputItem>
+      </List>
+      <div className="position-fixed w-100 bg-white" style={{bottom:'0',left:0,right:0,zIndex:10}}>
+        <Button onClick={()=>{}} type="primary" className="m10 fs16" style={{height:'44px',lineHeight:'44px'}}>
+          <i className="fs24 loopring-icon loopring-icon-convert mr10"></i>
+          <span className="d-inline-block position-relative" style={{top:'-3px'}}>Convert ETH To WETH </span>
+        </Button>
+      </div>
     </div>
   )
 }
