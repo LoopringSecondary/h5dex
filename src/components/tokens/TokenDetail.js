@@ -16,24 +16,35 @@ const TxItem = ({item={},actions,key,index})=>{
     }
     return (
       <div>
-        <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
+        <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
           <div className="col-auo pr10 color-black text-center">
-              <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #000',borderRadius:'50em'}}></i>
+              {item.type === "sell" && <i className={`loopring-icon loopring-icon-trade fs24`} style={{}}></i> }
+              {item.type === "buy" && <i className={`loopring-icon loopring-icon-trade fs24`} style={{}}></i> }
+              {item.type === "send" && <i className={`loopring-icon loopring-icon-transfer fs24`} style={{}}></i> }
+              {item.type === "receive" && <i className={`loopring-icon loopring-icon-receive fs24`} style={{}}></i> }
+              {item.type === "enable" && <i className={`loopring-icon loopring-icon-success fs24`} style={{}}></i> }
           </div>
           <div className="col text-left">
             <div>
               <div className="fs16 color-black-1">
-                {item.symbol}
+                {item.title}
+                { item.status === 'success' && <WebIcon className="ml5 fs14 color-green-500" type="check-circle" /> }
+                { item.status === 'failed' && <WebIcon className="ml5 fs14 color-red-500" type="exclamation-circle" /> }
+                { item.status === 'pending' && <WebIcon className="ml5 fs14 color-blue-500" type="clock-circle" /> }
               </div>
               <div className="fs12 color-black-3">
-                {item.name}
+                06-03 10:00:00
               </div>
             </div>
           </div>
-          <div className="col-auto">
-            <div className="color-black-1 fs20">
-              0.00000000
+          <div className="col-auto text-right">
+            <div className="color-black-1 fs16 font-weight-bold">
+              {item.value && item.value}
             </div>
+            <div className="color-black-3 fs12">
+              {item.gas}
+            </div>
+
           </div>
         </div>
 
@@ -44,16 +55,39 @@ const TxItem = ({item={},actions,key,index})=>{
 
 const data = [
   {
-    symbol: 'ETH',
-    name: 'Ether',
+    type: 'enable',
+    title: 'Enable LRC To Trade',
+    value: '',
+    gas: '0.00015 eth',
+    status:'success',
   },
   {
-    symbol: 'WETH',
-    name: 'Wrapper Ether',
+    type: 'send',
+    title: 'Sent LRC',
+    value: '- 1000.0000',
+    gas: '0.000125 eth',
+    status:'success',
   },
   {
-    symbol: 'LRC',
-    name: 'Loopring',
+    type: 'receive',
+    title: 'Received LRC',
+    value: '+ 3566.0000',
+    gas: '0.000135 eth',
+    status:'success',
+  },
+  {
+    type: 'buy',
+    title: 'Bought LRC',
+    value: '+ 2688.0000',
+    gas: '0.000135 eth',
+    status:'failed',
+  },
+  {
+    type: 'sell',
+    title: 'Sold LRC',
+    value: '- 6233.0000',
+    gas: '0.000135 eth',
+    status:'pending',
   },
 ];
 const NUM_ROWS = 15;
@@ -142,20 +176,20 @@ class ListTickers extends React.Component {
               <div className="fs20">LRC <WebIcon hidden className="ml5 color-black-3" type="down" /></div>
             </NavBar>
             <div className="pt40 pb40 pl15 pr15 text-center zb-b-b">
-                <div className="fs24 color-black-1">0.00000 LRC</div>
+                <div className="fs24 color-black-1">0.000000 LRC</div>
                 <div className="fs16 color-black-3">
-                  $ 0.00000
+                  $ 0.000000
                 </div>
             </div>
             <div className="row ml0 mr0">
-              <div className="col text-center pt10 pb10 fs16 color-black-1">
-                Status <WebIcon className="fs14" type="down" />
+              <div className="col text-center pt10 pb10 fs14 color-black-2 zb-b-r">
+                Status <WebIcon className="fs12" type="down" />
               </div>
-              <div className="col text-center pt10 pb10 fs16 color-black-1">
-                Types <WebIcon className="fs14" type="down" />
+              <div className="col text-center pt10 pb10 fs14 color-black-2 zb-b-r">
+                Types <WebIcon className="fs12" type="down" />
               </div>
-              <div className="col text-center pt10 pb10 fs16 color-black-1">
-                Sides <WebIcon className="fs14" type="down" />
+              <div className="col text-center pt10 pb10 fs14 color-black-2">
+                Sides <WebIcon className="fs12" type="down" />
               </div>
             </div>
             <ListView
