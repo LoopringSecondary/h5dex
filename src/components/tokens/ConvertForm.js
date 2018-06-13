@@ -1,86 +1,156 @@
 import React from 'react';
-import {Form, Input, Button as WebButton,Icon} from 'antd';
-import {Button,List,InputItem} from 'antd-mobile';
-import {getBalanceBySymbol, getWorthBySymbol,isValidNumber} from "../../modules/tokens/TokenFm";
-import TokenFormatter from '../../modules/tokens/TokenFm';
-import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
-import {toBig, toHex} from "../../common/loopringjs/src/common/formatter";
-import config from '../../common/config'
-import Currency from 'modules/settings/CurrencyContainer'
-import {connect} from "dva";
-import {Containers} from 'modules'
-import GasFee from '../setting/GasFee1'
-import Notification from '../../common/loopringui/components/Notification'
-import intl from 'react-intl-universal';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
+import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
+import { createForm } from 'rc-form';
+import { connect } from 'dva';
+import Containers from 'modules/containers';
+import UiContainers from 'LoopringUI/containers'
+import routeActions from 'common/utils/routeActions'
+const Item = List.Item;
+const Brief = Item.Brief;
 
-function ConvertForm(props) {
-  const {form} = props
-  const sourceToken = 'ETH'
-  const targetToken = sourceToken.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
-  const convertAmountValidator = ()=>{}
-  const amount = 0
-  const handleAmountChange = ()=>{}
-  const setMax = ()=>{}
-  const setGas = ()=>{}
-  const toConvert = ()=>{}
-  const gas = '0.00015 ETH'
-  const gasWorth = '5.56'
+class PlaceOrder extends React.Component {
+  state = {
+    type: 'money',
+    side: 'buy',
+  }
+  render() {
+    const dispatch = this.props.dispatch
+    const showLayer = (payload={})=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          ...payload
+        }
+      })
+    }
+    const hideLayer = (payload={})=>{
+      dispatch({
+        type:'layers/hideLayer',
+        payload:{
+          ...payload
+        }
+      })
+    }
+    const gotoConfirm= ()=>{
 
-  return (
-    <div className="" style={{background:'#fff',color:'#000'}}>
-      <div className="zb-b-b p20 mb25">
-        <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
-          <div className="col-auto text-center" style={{width:'80px'}}>
-            <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-              <i className={`icon-ETH fs24`}/>
+    }
+    const gotoOrderDetail= (payload)=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          id:'orderDetail',
+          ...payload
+        }
+      })
+    }
+
+    const showPriceHelper= ()=>{
+      showLayer({id:'placeOrderPriceHelper'})
+    }
+    const { getFieldProps } = this.props.form;
+    const { type } = this.state;
+
+    const PlaceOrderForm = (props)=>{
+      const { side } = props
+      return (
+        <div>
+
+        </div>
+
+      )
+    }
+    const {side} = this.state
+    const tabChange = (side)=>{
+      this.setState({
+        side
+      })
+    }
+   const gotoTrade = ()=>{
+      routeActions.gotoPath('/trade/detail')
+    }
+    return (
+      <div className="bg-white">
+        <NavBar
+          className="zb-b-b"
+          mode="light"
+          onLeftClick={() => console.log('onLeftClick')}
+          leftContent={null && [
+            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+          ]}
+          rightContent={null && [
+            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
+          ]}
+        >
+          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Convert</div>
+        </NavBar>
+        <div className="zb-b-b pt25 pb25 pl15 pr15">
+          <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
+            <div className="col text-center">
+              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                <i className={`icon-LRC fs24`}/>
+              </div>
+            </div>
+            <div className="col-auto text-center" style={{width:'30px'}}>
+              <WebIcon type="arrow-right" className={`color-black-1 fs20`} />
+            </div>
+            <div className="col text-center">
+              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                <i className={`icon-EOS fs24`}/>
+              </div>
             </div>
           </div>
-          <div className="col-auto text-center" style={{width:'80px'}}>
-            <Icon type="arrow-right" className={`color-black-1 fs20`} />
+          <div className="row ml0 mr0 mt10 mb15 no-gutters align-items-center justify-content-center">
+            <div className="col text-center">
+              <div className="color-black-2 fs16">ETH</div>
+            </div>
+            <div className="col-auto text-center position-relative" style={{width:'30px'}}>
+              <div className="color-black-3 fs16" >1 : 1</div>
+            </div>
+            <div className="col text-center">
+              <div className="color-black-2 fs16">WETH</div>
+            </div>
           </div>
-          <div className="col-auto text-center" style={{width:'80px'}}>
-            <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-              <i className={`icon-WETH fs24`}/>
+          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
+            <div className="col text-center">
+              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
+
+              </Button>
+              {
+                false &&
+                <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
+                  <span>Balance</span>
+                  <span>0.0000</span>
+                </div>
+              }
+            </div>
+            <div className="col-auto text-center" style={{width:'30px'}}>
+            </div>
+            <div className="col text-center">
+              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
+              </Button>
+              {
+                false &&
+                <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
+                  <span>Balance</span>
+                  <span>0.0000</span>
+                </div>
+              }
             </div>
           </div>
         </div>
-        <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
-          <div className="col-auto text-center" style={{width:'80px'}}>
-            <div className="color-black-2 fs16">WETH</div>
-          </div>
-          <div className="col-auto text-center" style={{width:'80px'}}>
-            <div className="color-black-2 fs16">1 : 1</div>
-          </div>
-          <div className="col-auto text-center" style={{width:'80px'}}>
-            <div className="color-black-2 fs16">ETH</div>
-          </div>
+        <div className="pl15 pr15">
+          <Button onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
         </div>
       </div>
-       <List className="bg-none">
-        <InputItem
-          type="number"
-          placeholder="0.00000000"
-          clear
-          moneyKeyboardAlign="left"
-          extra={<Icon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={()=>{}} />}
-        ><div className="fs20">Price</div></InputItem>
-      </List>
-      <div className="position-fixed w-100 bg-white" style={{bottom:'0',left:0,right:0,zIndex:10}}>
-        <Button onClick={()=>{}} type="primary" className="m10 fs16" style={{height:'44px',lineHeight:'44px'}}>
-          <i className="fs24 loopring-icon loopring-icon-convert mr10"></i>
-          <span className="d-inline-block position-relative" style={{top:'-3px'}}>Convert ETH To WETH </span>
-        </Button>
-      </div>
-    </div>
-  )
-}
-
-function mapToProps(state) {
-  return {
-    balances:state.sockets.balance.items,
-    prices:state.sockets.marketcap.items,
-    gasPrice:state.gas.gasPrice.last
+    );
   }
 }
+const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
+export default PlaceOrderForm
 
-export default connect(mapToProps)(Form.create()(ConvertForm))
+
+
+
+
+
