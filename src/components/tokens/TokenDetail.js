@@ -18,14 +18,14 @@ const TxItem = ({item={},actions,key,index})=>{
       <div>
         <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
           <div className="col-auo pr10 color-black text-center">
-              <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i>
+              <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #000',borderRadius:'50em'}}></i>
           </div>
           <div className="col text-left">
             <div>
-              <div className="fs20 color-black-1">
+              <div className="fs16 color-black-1">
                 {item.symbol}
               </div>
-              <div className="fs16 color-black-3">
+              <div className="fs12 color-black-3">
                 {item.name}
               </div>
             </div>
@@ -139,15 +139,15 @@ class ListTickers extends React.Component {
                 <WebIcon key="1" type="plus" className="color-black-1" />,
               ]}
             >
-              <div className="fs24">LRC <WebIcon hidden className="ml5 color-black-3" type="down" /></div>
+              <div className="fs20">LRC <WebIcon hidden className="ml5 color-black-3" type="down" /></div>
             </NavBar>
             <div className="pt40 pb40 pl15 pr15 text-center zb-b-b">
-                <div className="fs32 color-black-1">0.00000 LRC</div>
-                <div className="fs24 color-black-3">
+                <div className="fs24 color-black-1">0.00000 LRC</div>
+                <div className="fs16 color-black-3">
                   $ 0.00000
                 </div>
             </div>
-            <div className="row ">
+            <div className="row ml0 mr0">
               <div className="col text-center pt10 pb10 fs16 color-black-1">
                 Status <WebIcon className="fs14" type="down" />
               </div>
@@ -180,13 +180,13 @@ class ListTickers extends React.Component {
             <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col-6">
-                  <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs20">
-                    <i className="fs24 loopring-icon loopring-icon-receive mr10"></i>Receive LRC
+                  <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs16">
+                    <i className="fs24 loopring-icon loopring-icon-receive mr10"></i>Receive
                   </Button>
                 </div>
                 <div className="col-6">
                   <Button onClick={()=>{}} className="bg-grey-900 color-white m5 fs18">
-                    <i className="fs24 loopring-icon loopring-icon-transfer mr10"></i>Send LRC
+                    <i className="fs24 loopring-icon loopring-icon-transfer mr10"></i>Send
                   </Button>
                 </div>
               </div>

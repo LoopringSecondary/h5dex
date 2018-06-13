@@ -10,17 +10,15 @@ const TickerHeader = ({list,actions})=>{
     // if(!item){ return null }
     // const tickerFm = new TickerFm(item)
     return (
-
         <div className="zb-b-t bg-white row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-          <div className="col-5 fs18 color-black-3 text-left">Market</div>
+          <div className="col-5 fs14 color-black-3 text-left">Market</div>
           <div className="col-4 text-left pr10">
-            <div className="fs18 color-black-3 ">Price</div>
+            <div className="fs14 color-black-3 ">Price</div>
           </div>
           <div className="col-3 text-right">
-            <div className="fs18 color-black-3">Change</div>
+            <div className="fs14 color-black-3">Change</div>
           </div>
         </div>
-
     )
 }
 
@@ -33,30 +31,30 @@ const TickerItem = ({item,actions,key,index})=>{
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
         <div className="col-5 text-left">
-          <span className="fs20 color-black-1 font-weight-bold">LRC</span>
-          <span className="fs16 color-black-3">/WETH</span>
-          <div className="fs16 color-black-3">Vol 1,035,288</div>
+          <span className="fs16 color-black-1 font-weight-bold">LRC</span>
+          <span className="fs14 color-black-3">/WETH</span>
+          <div className="fs14 color-black-3">Vol 1,035,288</div>
         </div>
         <div className="col-4 text-left">
-          <div className="fs20 color-black-1 font-weight-bold">0.00095</div>
-          <div className="fs16 color-black-3">$0.62</div>
+          <div className="fs16 color-black-1 font-weight-bold">0.00095</div>
+          <div className="fs14 color-black-3">$0.62</div>
         </div>
         <div className="col-3 text-right">
           {
             index%4===0 &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-50 color-green-500">+5.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-50 color-green-500">+5.2%</Button>
           }
           {
             index%4===1 &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-300 color-white">+28.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-300 color-white">+28.2%</Button>
           }
           {
             index%4===2 &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-500 color-white">+50.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-500 color-white">+50.2%</Button>
           }
           {
             index%4===3 &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs20 bg-green-700 color-white">+158.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-700 color-white">+158.2%</Button>
           }
 
         </div>
@@ -152,9 +150,9 @@ class ListTickers extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs20">Favorites</div> },
-                { title: <div className="fs20">WETH</div> },
-                { title: <div className="fs20">LRC</div> },
+                { title: <div className="fs16">Favorites</div> },
+                { title: <div className="fs16">WETH</div> },
+                { title: <div className="fs16">LRC</div> },
               ]
             }
             tabBarBackgroundColor={"#fff"}

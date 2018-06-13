@@ -43,23 +43,17 @@ class MarketDetail extends React.Component {
         </NavBar>
         <div className="bg-white">
           <div className="p10 zb-b-b">
-            <span className="fs28 font-weight-bold color-green-600">0.00089000</span>
-            <span className="fs18 color-green-600 ml10">
+            <span className="fs24 font-weight-bold color-green-600">0.00089000</span>
+            <span className="fs16 color-green-600 ml10">
               +12.00%
             </span>
-            <span className="fs18 color-green-600 ml10">￥3.35</span>
+            <span className="fs16 color-green-600 ml10">￥3.35</span>
           </div>
-          <div className="p10 zb-b-b">
-            <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs16">
+          <div className="pl10 pr10 pt15 pb15 zb-b-b">
+            <div className="row ml0 mr0 no-gutters align-items-center fs14">
               <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
                 24H涨跌幅
               </div>
-              {
-                false &&
-                <div className="col color-green-600 font-weight-bold fs18">
-                  +12.00%
-                </div>
-              }
               <div className="col color-black-2">
                 0.00092350
               </div>
@@ -70,7 +64,7 @@ class MarketDetail extends React.Component {
                 0.00092350
               </div>
             </div>
-            <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs16">
+            <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs14">
               <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
                 24H交易量
               </div>
@@ -90,10 +84,10 @@ class MarketDetail extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs20 pt5 pb5">Charts</div> },
-                { title: <div className="fs20 pt5 pb5">Depth</div> },
-                { title: <div className="fs20 pt5 pb5">Trades</div> },
-                { title: <div className="fs20 pt5 pb5">Info</div> },
+                { title: <div className="fs16 pt5 pb5">Charts</div> },
+                { title: <div className="fs16 pt5 pb5">Depth</div> },
+                { title: <div className="fs16 pt5 pb5">Trades</div> },
+                { title: <div className="fs16 pt5 pb5">Info</div> },
               ]
             }
             tabBarBackgroundColor={'#fff'}
