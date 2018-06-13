@@ -140,9 +140,25 @@ class PlaceOrder extends React.Component {
               }
             </div>
           </div>
-        </div>
-        <div className="pl15 pr15">
-          <Button onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
+          <Button className="mt20" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
+          <div className="row ml0 mr0 mt10 pt10 pb10 no-gutters">
+            <div className="col">
+              <div className="color-black-2 fs14">Exchage Price</div>
+            </div>
+            <div className="col-auto fs14 color-black-3">
+              20.0000 EOS/ETH
+            </div>
+          </div>
+          <div className="row ml0 mr0 pt10 pb10 no-gutters">
+            <div className="col">
+              <div className="color-black-2 fs14">ETH Gas</div>
+            </div>
+            <div className="col-auto fs14 color-black-3">
+              $1.2 ≈ 0.00015 ETH
+              <WebIcon type="right" />
+            </div>
+          </div>
+
         </div>
       </div>
     );
