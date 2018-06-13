@@ -88,7 +88,7 @@ class PlaceOrder extends React.Component {
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
               <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-LRC fs24`}/>
+                <i className={`icon-ETH fs24`}/>
               </div>
             </div>
             <div className="col-auto text-center" style={{width:'30px'}}>
@@ -96,7 +96,7 @@ class PlaceOrder extends React.Component {
             </div>
             <div className="col text-center">
               <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-EOS fs24`}/>
+                <i className={`icon-WETH fs24`}/>
               </div>
             </div>
           </div>
