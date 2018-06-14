@@ -20,15 +20,15 @@ const TodoItem = ({item={},actions,key,index})=>{
           <div className="col-auo pr15 color-black text-center">
               {false && <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i> }
               {
-                item.type === 'allowance' && <WebIcon className="color-red-500 fs28" type="close-circle" />
+                item.type === 'allowance' && <WebIcon className="color-red-500 fs16" type="close-circle" />
               }
               {
-                item.type === 'balance' && <WebIcon className="color-red-500 fs28" type="exclamation-circle" />
+                item.type === 'balance' && <WebIcon className="color-red-500 fs16" type="exclamation-circle" />
               }
           </div>
           <div className="col text-left">
             <div>
-              <div className="fs20 color-black-1">
+              <div className="fs16 color-black-2">
                 {
                   item.type === 'allowance' && `${item.symbol} is disabled for orders`
                 }
@@ -38,7 +38,7 @@ const TodoItem = ({item={},actions,key,index})=>{
               </div>
               {
                 item.type === 'balance' &&
-                <div className="fs18 color-black-3">
+                <div className="fs14 color-black-3">
                       <div className="lh25">
                         <span className="d-inline-block" style={{width:'100px'}}>Balance</span>
                         1000.00 {item.symbol}

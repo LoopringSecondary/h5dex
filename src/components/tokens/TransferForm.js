@@ -10,8 +10,7 @@ import routeActions from 'common/utils/routeActions'
 const Item = List.Item;
 const Brief = Item.Brief;
 
-
-class PlaceOrder extends React.Component {
+class Transfer extends React.Component {
   state = {
     type: 'money',
     side: 'buy',
@@ -144,9 +143,9 @@ class PlaceOrder extends React.Component {
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={() => console.log('onLeftClick')}
-          leftContent={null && [
-            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+          onLeftClick={() => routeActions.goBack()}
+          leftContent={[
+            <span className="color-black-1"><WebIcon key="1" type="left" /></span>,
           ]}
           rightContent={null && [
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
@@ -162,8 +161,8 @@ class PlaceOrder extends React.Component {
     );
   }
 }
-const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
-export default PlaceOrderForm
+const TransferForm = createForm()(connect(({layers})=>({layers}))(Transfer))
+export default TransferForm
 
 
 

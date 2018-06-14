@@ -22,10 +22,10 @@ const OrderMetaItem = (props) => {
   return (
     <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters align-items-center" style={{padding:'7px 0px'}}>
       <div className="col">
-        <div className="fs18 color-black-1 text-left">{label}</div>
+        <div className="fs14 color-black-1 text-left">{label}</div>
       </div>
       <div className="col-auto text-right">
-        <div className="fs18 color-black-2 text-wrap text-left">{value}</div>
+        <div className="fs14 color-black-2 text-wrap text-left">{value}</div>
       </div>
     </div>
   )
@@ -50,7 +50,7 @@ function OrderDetail(props) {
   }
   return (
     <div className="bg-white no-underline">
-      <div className="color-black-1 fs22 zb-b-b text-center">
+      <div className="color-black-1 fs18 zb-b-b text-center">
         <div className="row ml0 mr0 pt15 pb15 no-gutters">
           <div className="col text-left pl15 pr15" onClick={hideLayer.bind(this,{id:'orderDetail'})}>
             <Icon type="close"/>

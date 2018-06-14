@@ -239,13 +239,13 @@ class TokenDetail extends React.Component {
             <div className="position-fixed bg-white p5" style={{bottom:'0',left:'0',right:'0',zIndex:10}}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col-6">
-                  <Button onClick={()=>{}} type="primary" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>
+                  <Button onClick={routeActions.gotoPath.bind(this,'/wallet/send')} type="primary" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>
                     <i className="fs24 loopring-icon loopring-icon-transfer mr10"></i>
                     <span className="d-inline-block position-relative" style={{top:'-3px'}}>Send</span>
                   </Button>
                 </div>
                 <div className="col-6">
-                  <Button onClick={()=>{}} type="ghost" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>
+                  <Button onClick={routeActions.gotoPath.bind(this,'/wallet/receive')} type="ghost" className="m5 fs16" style={{height:'44px',lineHeight:'44px'}}>
                     <i className="fs24 loopring-icon loopring-icon-receive mr10"></i>
                     <span className="d-inline-block position-relative" style={{top:'-3px'}}>Receive</span>
                   </Button>

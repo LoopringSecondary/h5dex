@@ -23,7 +23,7 @@ function PlaceOrderAmountHelper(props) {
   ];
   return (
     <div className="tabs-no-border">
-      <div className="pt15 pb15 fs24 color-black-1 zb-b-b text-center">Amount Helper</div>
+      <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
         tabBarActiveTextColor={"#000"}
         tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
@@ -104,10 +104,10 @@ export const DepthList = ({depth={},maxRows=5})=>{
       <table className="w-100 fs13">
         <thead>
           <tr className="">
-            <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 >Amount</th>
-            <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 >Buy</th>
-            <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 >Sell</th>
-            <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 >Amount</th>
+            <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Amount</th>
+            <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Buy</th>
+            <th className="zb-b-b text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Sell</th>
+            <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Amount</th>
           </tr>
         </thead>
         <tbody>

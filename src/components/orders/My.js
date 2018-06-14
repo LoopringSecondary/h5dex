@@ -73,38 +73,38 @@ class PlaceOrder extends React.Component {
     ]
     const OrderStatus = [
       {
-        icon: <Badge text="3"><WebIcon type="exclamation-circle" className="fs22 color-black-1 mb5" /></Badge>,
-        text: <div className="fs16 color-black-2">Error</div>,
+        icon: <Badge text="3"><WebIcon type="exclamation-circle-o" className="fs22 color-black-1 mb5" /></Badge>,
+        text: <div className="fs14 color-black-2">Error</div>,
       },
       {
-        icon: <WebIcon type="clock-circle" className="fs22 color-black-1 mb5" />,
-        text: <div className="fs16 color-black-2">Open</div>,
+        icon: <WebIcon type="clock-circle-o" className="fs20 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-2">Open</div>,
       },
       {
-        icon: <WebIcon type="pay-circle" className="fs22 color-black-1 mb5" />,
-        text: <div className="fs16 color-black-2">Matched</div>,
+        icon: <WebIcon type="pay-circle-o" className="fs20 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-2">Matched</div>,
       },
       {
-        icon: <WebIcon type="check-circle" className="fs22 color-black-1 mb5" />,
-        text: <div className="fs16 color-black-2">Completed</div>,
+        icon: <WebIcon type="check-circle-o" className="fs20 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-2">Completed</div>,
       },
       {
-        icon: <WebIcon type="close-circle" className="fs22 color-black-1 mb5" />,
-        text: <div className="fs16 color-black-2">Closed</div>,
+        icon: <WebIcon type="close-circle-o" className="fs20 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-2">Closed</div>,
       },
     ]
     const txStatus = [
       {
-        icon: <WebIcon type="clock-circle-o" className="fs22 color-black-2 mb5" />,
-        text: <div className="fs16 color-black-2">Pending</div>,
+        icon: <WebIcon type="clock-circle-o" className="fs20 color-black-2 mb5" />,
+        text: <div className="fs14 color-black-2">Pending</div>,
       },
       {
-        icon: <WebIcon type="check-circle-o" className="fs22 color-black-2 mb5" />,
-        text: <div className="fs16 color-black-2">Success</div>,
+        icon: <WebIcon type="check-circle-o" className="fs20 color-black-2 mb5" />,
+        text: <div className="fs14 color-black-2">Success</div>,
       },
       {
-        icon: <WebIcon type="close-circle-o" className="fs22 color-black-2 mb5" />,
-        text: <div className="fs16 color-black-2">Failed</div>,
+        icon: <WebIcon type="close-circle-o" className="fs20 color-black-2 mb5" />,
+        text: <div className="fs14 color-black-2">Failed</div>,
       },
     ]
 
@@ -130,47 +130,30 @@ class PlaceOrder extends React.Component {
         <div className="pt40 pb40 text-left bg-grey-900">
           <div className="row align-items-center ml0 mr0 no-gutters">
             <div className="col">
-              <div className="text-left color-white-1 fs18 pl15" style={{width:'240px',wordBreak:'break-all'}}>
+              <div className="text-left color-white-1 fs16 pl15" style={{width:'240px',wordBreak:'break-all'}}>
                 0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00
-                <div className="fs16 color-white-3 mt5">
+                <div className="fs14 color-white-3 mt5">
                   Switch Wallet <WebIcon type="right" />
                 </div>
               </div>
             </div>
             <div className="col-auto">
-
             </div>
-            {false &&
-              <div className="d-flex justify-content-center">
-                <Button className="d-flex m5 " size="small">
-                  <i className="fs24 color-black-1 mr5 loopring-icon loopring-icon-transfer"></i>Send
-                </Button>
-                <Button className="d-flex m5" size="small">
-                  <i className="fs24 color-black-1 mr5 loopring-icon loopring-icon-receive"></i>Receive
-                </Button>
-                <Button className="d-flex m5" size="small">
-                  <i className="fs24 color-black-1 mr5 loopring-icon loopring-icon-trade"></i>Trade
-                </Button>
-              </div>
-            }
-
           </div>
         </div>
         <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
-          <div className="col fs20 color-black-1">
+          <div className="col fs16 color-black-1">
             My Orders
-            <span hidden className="color-black-3 ml10 fs16">Order & Fills</span>
           </div>
-          <div className="col-auto fs18 color-black-3 pl20">
+          <div className="col-auto fs14 color-black-3 pl20">
             Order & Fills <WebIcon type="right" />
           </div>
         </div>
         <Grid onClick={routeActions.gotoPath.bind(this,'/orders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
-
         <div className="bg-white mt15">
           <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
-            <div className="col fs20 color-black-1">My Assets</div>
-            <div className="col-auto fs18 color-black-3 pl20">
+            <div className="col fs16 color-black-1">My Assets</div>
+            <div className="col-auto fs14 color-black-3 pl20">
               All <WebIcon type="right" />
             </div>
           </div>
@@ -239,7 +222,7 @@ const TokenListComp = (props)=>{
   ]
   return (
     <div className="fs20">
-      <table className="w-100 fs16">
+      <table className="w-100 fs13">
         <thead>
           <tr className="">
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>

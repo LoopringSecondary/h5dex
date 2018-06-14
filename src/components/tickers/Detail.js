@@ -20,8 +20,8 @@ class MarketDetail extends React.Component {
     const goBack = ()=>{
       routeActions.goBack()
     }
-    const gotoTrade = ()=>{
-      routeActions.gotoPath('/placeOrder/stand')
+    const gotoSend = ()=>{
+
     }
 
     return (
@@ -50,7 +50,7 @@ class MarketDetail extends React.Component {
             <span className="fs16 color-green-600 ml10">￥3.35</span>
           </div>
           <div className="pl10 pr10 pt15 pb15 zb-b-b">
-            <div className="row ml0 mr0 no-gutters align-items-center fs14">
+            <div className="row ml0 mr0 no-gutters align-items-center fs13">
               <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
                 24H涨跌幅
               </div>
@@ -64,7 +64,7 @@ class MarketDetail extends React.Component {
                 0.00092350
               </div>
             </div>
-            <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs14">
+            <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
               <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
                 24H交易量
               </div>
@@ -116,10 +116,10 @@ class MarketDetail extends React.Component {
         <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
           <div className="row ml0 mr0 no-gutters">
             <div className="col-6">
-              <Button onClick={gotoTrade} className="bg-green-500 color-white m5">Buy LRC</Button>
+              <Button onClick={routeActions.gotoPath.bind(this,'/wallet/send')} className="bg-green-500 color-white m5">Buy LRC</Button>
             </div>
             <div className="col-6">
-              <Button onClick={gotoTrade} className="bg-red-500 color-white m5">Sell LRC</Button>
+              <Button onClick={routeActions.gotoPath.bind(this,'/wallet/receive')} className="bg-red-500 color-white m5">Sell LRC</Button>
             </div>
           </div>
         </div>

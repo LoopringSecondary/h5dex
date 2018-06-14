@@ -21,10 +21,10 @@ const OrderMetaItem = (props) => {
   return (
     <div className="row ml0 mr0 pl0 pr0 zb-b-t no-gutters" style={{padding:'7px 0px'}}>
       <div className="col">
-        <div className="fs16 color-black-1 lh25 text-left">{label}</div>
+        <div className="fs14 color-black-1 lh25 text-left">{label}</div>
       </div>
       <div className="col-auto text-right">
-        <div className="fs16 color-black-2 text-wrap lh25 text-left">{value}</div>
+        <div className="fs14 color-black-2 text-wrap lh25 text-left">{value}</div>
       </div>
     </div>
   )
@@ -43,15 +43,15 @@ const WalletItem = (props) => {
   }else{
     return (
       <div className="row pt15 pb15 pl10 pr10 ml0 mr0 align-items-center zb-b-b no-gutters">
-        <div className="col-auto pr5 text-center color-black-1 fs28" style={{minWidth:'40px'}}>
+        <div className="col-auto pr5 text-center color-black-1 fs24" style={{minWidth:'40px'}}>
           {typeof icon === 'string' &&
             <i className={`icon-${icon}`}></i>
           }
           {typeof icon !== 'string' && icon}
         </div>
         <div className="col pl10">
-          <div className="fs20 color-black-1 text-wrap text-left">{title}</div>
-          { description && <div className="fs16 color-black-3 text-left">{description}</div> }
+          <div className="fs16 color-black-1 text-wrap text-left">{title}</div>
+          { description && <div className="fs14 color-black-3 text-left">{description}</div> }
         </div>
         {showArrow &&
           <div className="col-auto text-right color-black-3">
@@ -120,7 +120,7 @@ function PlaceOrderPreview(props) {
         <Pages active="order">
           <Page id="order" render={({page})=>
             <div>
-              <div className="p15 color-black-1 fs22 zb-b-b text-center">
+              <div className="p15 color-black-1 fs18 zb-b-b text-center">
                 <div className="row">
                   <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'placeOrderPreview'})}>
                     <Icon type="close" />
@@ -135,7 +135,7 @@ function PlaceOrderPreview(props) {
                 <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
                   <div className="col-auto">
                     <div className=" color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                      <i className={`icon-LRC fs28`}/>
+                      <i className={`icon-LRC fs24`}/>
                     </div>
                   </div>
                   <div className="col-auto pl25 pr25 text-center">
@@ -143,7 +143,7 @@ function PlaceOrderPreview(props) {
                   </div>
                   <div className="col-auto">
                     <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                      <i className={`icon-WETH fs28`}/>
+                      <i className={`icon-WETH fs24`}/>
                     </div>
                   </div>
                 </div>
@@ -165,7 +165,7 @@ function PlaceOrderPreview(props) {
           }/>
           <Page id="wallet" render={({page})=>
             <div className="div">
-              <div className="p15 color-black-1 fs22 zb-b-b text-center no-gutters">
+              <div className="p15 color-black-1 fs18 zb-b-b text-center no-gutters">
                 <div className="row">
                   <div className="col-auto text-left pl20 pr20" onClick={page.gotoPage.bind(this,{id:'order'})}>
                     <Icon type="left"/>

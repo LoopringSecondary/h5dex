@@ -45,7 +45,7 @@ function PlaceOrderPriceHelper(props) {
   ];
   return (
     <div className="tabs-no-border">
-      <div className="pt15 pb15 fs24 color-black-1 zb-b-b">Price Helper</div>
+      <div className="pt15 pb15 fs18 color-black-1 zb-b-b">Price Helper</div>
       <Tabs tabs={tabs}
         tabBarActiveTextColor={"#000"}
         tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}

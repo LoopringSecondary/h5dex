@@ -78,47 +78,47 @@ class PlaceOrder extends React.Component {
             <InputItem
               {...getFieldProps('money3')}
               type={type}
-              placeholder="0.00000000"
+              placeholder="00.000000"
               clear
-              moneyKeyboardAlign="left"
+              moneyKeyboardAlign="right"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />}
-            ><div className="fs20">Price</div></InputItem>
+            ><div className="fs16">Price</div></InputItem>
           </List>
           <List className="bg-none no-border">
             <InputItem
               type={type}
-              placeholder="0.00000000"
+              placeholder="00.000000"
               clear
-              moneyKeyboardAlign="left"
+              moneyKeyboardAlign="right"
               onChange={(v) => { console.log('onChange', v); }}
               onBlur={(v) => { console.log('onBlur', v); }}
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />}
-            ><div className="fs20">Amount</div></InputItem>
+            ><div className="fs16">Amount</div></InputItem>
           </List>
           <List className="bg-none no-border">
             <InputItem
               type={type}
-              placeholder="0.00000000"
-              extra={<WebIcon type="exclamation-circle-o" onClick={()=>{}} />}
+              placeholder="00.000000"
+              extra={<WebIcon type="exclamation-circle-o" style={{padding:'2px 0px 5px 20px',outline:'5px'}} />}
               clear
-              moneyKeyboardAlign="left"
+              moneyKeyboardAlign="right"
               onChange={(v) => { console.log('onChange', v); }}
               onBlur={(v) => { console.log('onBlur', v); }}
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               editable={false}
-            ><div className="fs20">Total</div></InputItem>
+            ><div className="fs16">Total</div></InputItem>
           </List>
           <List className="bg-none no-border">
             {
               false &&
               <InputItem
                 type={type}
-                placeholder="0.00000000"
+                placeholder="00.000000"
                 extra={<span className="fs16 color-black-4">{null && "LRC"}</span>}
                 clear
-                moneyKeyboardAlign="left"
+                moneyKeyboardAlign="right"
                 onChange={(v) => { console.log('onChange', v); }}
                 onBlur={(v) => { console.log('onBlur', v); }}
                 moneyKeyboardWrapProps={moneyKeyboardWrapProps}
@@ -141,7 +141,7 @@ class PlaceOrder extends React.Component {
             }
             <Item>
               <div className="row align-items-center ml0 mr0 mb15 mt10">
-                <div className="col color-black-3 fs20 pl0">Advanced</div>
+                <div className="col color-black-3 fs16 pl0">Advanced</div>
                 <div className="col-auto color-black-3 fs16 pr0">
                   <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
                 </div>
@@ -189,8 +189,8 @@ class PlaceOrder extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs20">Buy LRC</div> },
-                { title: <div className="fs20">Sell LRC</div> },
+                { title: <div className="fs16">Buy LRC</div> },
+                { title: <div className="fs16">Sell LRC</div> },
               ]
             }
             tabBarBackgroundColor={side === 'buy' ? "#e8f5e9" : "#ffebee"}
@@ -286,7 +286,7 @@ export default PlaceOrderForm
 
 export const OpenOrderList = ({gotoOrderDetail})=>{
   return (
-    <table className="w-100 fs12">
+    <table className="w-100 fs13">
       <thead>
         <tr>
           <th hidden className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>

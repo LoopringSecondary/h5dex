@@ -18,6 +18,8 @@ import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
 import Face2Face from './dapp/face2face/PlaceOrder'
 import Dex from './pages/Dex'
+import Todo from './pages/Todo'
+import Send from './tokens/TransferForm'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -41,7 +43,9 @@ const Logged = ()=>{
         <Route path="/" exact component={Pages.HomeTabBar} />
         <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/dex" component={Dex} />
-        <Route path="/wallet" exact component={Pages.Wallet} />
+        <Route path="/wallet/send" exact component={Send} />
+        <Route path="/wallet/receive" exact component={Todo} />
+        <Route path="/wallet" component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
         <Route path="/convert" exact component={ConvertForm} />
@@ -49,7 +53,7 @@ const Logged = ()=>{
         <Route path="/home" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
-        <Route path={`/wallet`} component={Pages.Wallet} />
+
         <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />

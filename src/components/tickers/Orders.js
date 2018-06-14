@@ -46,9 +46,9 @@ class MarketDetail extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs20 pt5 pb5">Open</div> },
-                { title: <div className="fs20 pt5 pb5">Completed</div> },
-                { title: <div className="fs20 pt5 pb5">Closed</div> },
+                { title: <div className="fs16 pt5 pb5">Open</div> },
+                { title: <div className="fs16 pt5 pb5">Completed</div> },
+                { title: <div className="fs16 pt5 pb5">Closed</div> },
               ]
             }
             tabBarBackgroundColor={'#fff'}
