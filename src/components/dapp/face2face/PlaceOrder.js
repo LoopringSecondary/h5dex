@@ -75,9 +75,9 @@ class PlaceOrder extends React.Component {
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={() => console.log('onLeftClick')}
-          leftContent={null && [
-            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+          onLeftClick={() => routeActions.goBack()}
+          leftContent={[
+            <span className="color-black-1"><WebIcon key="1" type="left" /></span>,
           ]}
           rightContent={[
             <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="question-circle-o" /></span>

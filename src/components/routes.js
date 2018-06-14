@@ -16,7 +16,8 @@ import ListNotifications from './tickers/ListNotifications'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
-import PlaceOrderFace from './dapp/face2face/PlaceOrder'
+import Face2Face from './dapp/face2face/PlaceOrder'
+import Dex from './pages/Dex'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -38,6 +39,8 @@ const Logged = ()=>{
     return (
       <Switch>
         <Route path="/" exact component={Pages.HomeTabBar} />
+        <Route path="/dapp/face2face" exact component={Face2Face} />
+        <Route path="/dapp/dex" component={Dex} />
         <Route path="/wallet" exact component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
@@ -47,7 +50,6 @@ const Logged = ()=>{
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
         <Route path={`/wallet`} component={Pages.Wallet} />
-        <Route path="/dapp/face2face" exact component={PlaceOrderFace} />
         <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />

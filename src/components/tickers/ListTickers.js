@@ -171,7 +171,7 @@ class ListTickers extends React.Component {
               renderRow={row}
               className="am-list"
               pageSize={5}
-              useBodyScroll={false}
+              useBodyScroll={true}
               style={{
                  height: "100%",
                  overflow: 'auto',
@@ -189,7 +189,7 @@ class ListTickers extends React.Component {
               renderRow={row}
               className="am-list"
               pageSize={5}
-              useBodyScroll={false}
+              useBodyScroll={true}
               style={{
                  height: "100%",
                  overflow: 'auto',
@@ -207,7 +207,7 @@ class ListTickers extends React.Component {
               renderRow={row}
               className="am-list"
               pageSize={5}
-              useBodyScroll={false}
+              useBodyScroll={true}
               style={{
                  height: "100%",
                  overflow: 'auto',

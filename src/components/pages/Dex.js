@@ -1,22 +1,18 @@
 import React from 'react';
 import {Link, Redirect, Route, Switch} from 'dva/router'
 import routeActions from 'common/utils/routeActions'
-import Layout from '../../layout';
-import Footer from '../../layout/Footer';
 import intl from 'react-intl-universal';
-import Tickers from '../tickers';
-import Orders from '../orders';
 import My from '../orders/My';
+import Markets from '../tickers/Markets';
+import PlaceOrder from '../orders/PlaceOrderFormStand';
 import { TabBar,NavBar,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 
-class Wallet extends React.Component {
+class Dex extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        selectedTab: 'assets',
-        hidden: false,
-        fullScreen: false,
+        selectedTab: 'markets',
       };
   }
   render(){
@@ -28,22 +24,10 @@ class Wallet extends React.Component {
     return (
       <div style={{ }}>
               <Switch>
-                <Route path={`${url}/assets`} exact render={() =>
-                  <div className="p30">
-                    Assets
-                  </div>}
-                />
-                <Route path={`${url}/dapps`} exact render={() =>
-                  <div className="p30">
-                    Dapp
-                  </div>}
-                />
-                <Route path={`${url}/settings`} exact render={() =>
-                  <div className="p30">
-                    Settings
-                  </div>}
-                />
-                <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
+                <Route path={`${url}/markets`} exact component={Markets} />
+                <Route path={`${url}/trade`} exact component={PlaceOrder} />
+                <Route path={`${url}/my`} exact component={My} />
+                <Redirect path={`${match.url}/`} to={`${match.url}/markets`}/>
               </Switch>
               <div className="tabbar-only-bar">
                 <TabBar
@@ -55,50 +39,50 @@ class Wallet extends React.Component {
                   className="position-fixed"
                 >
                   <TabBar.Item
-                    title="Assets"
-                    key="assets"
+                    title="Markets"
+                    key="markets"
                     icon={
                       <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
                     }
                     selectedIcon={
                       <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
                     }
-                    selected={this.state.selectedTab === 'assets'}
+                    selected={this.state.selectedTab === 'markets'}
                     badge={null && 1}
                     onPress={() => {
                       this.setState({
-                        selectedTab: 'assets',
+                        selectedTab: 'markets',
                       });
-                      changeTab('assets')
+                      changeTab('markets')
                     }}
                     data-seed="logId"
                   />
                   <TabBar.Item
                     icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
-                    title="DApps"
-                    key="dapps"
+                    title="Trade"
+                    key="trade"
                     badge={null && 'new'}
-                    selected={this.state.selectedTab === 'dapps'}
+                    selected={this.state.selectedTab === 'trade'}
                     onPress={() => {
                       this.setState({
-                        selectedTab: 'dapps',
+                        selectedTab: 'trade',
                       });
-                      changeTab('dapps')
+                      changeTab('trade')
                     }}
                     data-seed="logId1"
                   />
                   <TabBar.Item
                     icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
-                    title="Settings"
-                    key="settings"
-                    selected={this.state.selectedTab === 'settings'}
+                    title="My"
+                    key="my"
+                    selected={this.state.selectedTab === 'my'}
                     onPress={() => {
                       this.setState({
-                        selectedTab: 'settings',
+                        selectedTab: 'my',
                       });
-                      changeTab('settings')
+                      changeTab('my')
                     }}
                   />
                 </TabBar>
@@ -108,4 +92,4 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet
+export default Dex
