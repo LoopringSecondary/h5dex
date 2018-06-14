@@ -8,8 +8,6 @@ import Tickers from '../tickers';
 import Orders from '../orders';
 import My from '../orders/My';
 import { TabBar,NavBar,Icon } from 'antd-mobile';
-import ListTokens from '../tokens/ListTokens';
-import DApps from './DApps';
 import { Icon as WebIcon } from 'antd';
 
 class Wallet extends React.Component {
@@ -31,16 +29,20 @@ class Wallet extends React.Component {
       <div style={{ }}>
               <Switch>
                 <Route path={`${url}/assets`} exact render={() =>
-                  <ListTokens />
-                }/>
+                  <div className="p30">
+                    Assets
+                  </div>}
+                />
                 <Route path={`${url}/dapps`} exact render={() =>
-                  <DApps />
-                }/>
+                  <div className="p30">
+                    Dapp
+                  </div>}
+                />
                 <Route path={`${url}/settings`} exact render={() =>
                   <div className="p30">
                     Settings
-                  </div>
-                }/>
+                  </div>}
+                />
                 <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
               </Switch>
               <div className="tabbar-only-bar">
@@ -53,10 +55,14 @@ class Wallet extends React.Component {
                   className="position-fixed"
                 >
                   <TabBar.Item
-                    title="Wallet"
+                    title="Assets"
                     key="assets"
-                    icon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'4px'}} />}
-                    selectedIcon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'4px'}} />}
+                    icon={
+                      <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
+                    }
+                    selectedIcon={
+                      <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
+                    }
                     selected={this.state.selectedTab === 'assets'}
                     badge={null && 1}
                     onPress={() => {
@@ -68,8 +74,8 @@ class Wallet extends React.Component {
                     data-seed="logId"
                   />
                   <TabBar.Item
-                    icon={<WebIcon type="compass" className="fs22" style={{marginTop:'4px'}} />}
-                    selectedIcon={<WebIcon type="compass" className="fs22" style={{marginTop:'4px'}} />}
+                    icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
+                    selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
                     title="DApps"
                     key="dapps"
                     badge={null && 'new'}
@@ -83,7 +89,7 @@ class Wallet extends React.Component {
                     data-seed="logId1"
                   />
                   <TabBar.Item
-                    icon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
+                    icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
                     title="Settings"
                     key="settings"
