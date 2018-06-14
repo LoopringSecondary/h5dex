@@ -40,11 +40,11 @@ const Logged = ()=>{
   if(isLogged){
     return (
       <Switch>
-        <Route path="/" exact component={Pages.HomeTabBar} />
         <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/dex" component={Dex} />
         <Route path="/wallet/send" exact component={Send} />
         <Route path="/wallet/receive" exact component={Todo} />
+        <Route path="/wallet/scan" exact component={Todo} />
         <Route path="/wallet" component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
@@ -64,6 +64,7 @@ const Logged = ()=>{
         <Route path="/notifications" exact component={ListNotifications} />
         { false && <Route path="/trade/:market" component={Pages.Trade} /> }
         { false && <Route path="/trade" exact component={Pages.Trade} /> }
+        <Redirect path={`/`} to={`/wallet`}/>
       </Switch>
     )
   }else{

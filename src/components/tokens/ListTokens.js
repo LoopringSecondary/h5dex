@@ -135,18 +135,22 @@ class ListTickers extends React.Component {
         {
           icon: <WebIcon type="scan" className="fs20 color-black-1 mb5" />,
           text: <div className="fs14 color-black-1">Scan</div>,
+          onClick: ()=>routeActions.gotoPath('/wallet/scan'),
         },
         {
           icon: <i className="fs20 lh1 color-black-1 loopring-icon loopring-icon-receive mb5"></i>,
           text: <div className="fs14 color-black-1">Receive</div>,
+          onClick: ()=>routeActions.gotoPath('/wallet/receive'),
         },
         {
           icon: <i className="fs20 lh1 color-black-1 loopring-icon loopring-icon-transfer mb5"></i>,
           text: <div className="fs14 color-black-1">Send</div>,
+          onClick: ()=>routeActions.gotoPath('/wallet/send'),
         },
         {
           icon: <i className="fs20 lh1 color-black-1 loopring-icon loopring-icon-trade mb5"></i>,
           text: <div className="fs14 color-black-1">Trade</div>,
+          onClick: ()=>routeActions.gotoPath('/wallet/trade'),
         },
       ]
       return (
@@ -172,7 +176,16 @@ class ListTickers extends React.Component {
                   <WebIcon className="ml5 fs16" type="qrcode" />
                 </div>
             </div>
-            <Grid onClick={()=>{}} className="my-dex-grid" data={menus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4} />
+            <Grid className="my-dex-grid" data={menus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4}
+              renderItem={(item,index)=>{
+                return (
+                  <div onClick={item.onClick.bind(this,item)}>
+                    {item.icon}
+                    {item.text}
+                  </div>
+                )
+              }}
+            />
             <div className="tabs-no-border no-underline zb-b-t mt15">
                 <div hidden className="bg-white p10">
                   <SegmentedControl values={['Assets', 'Transactions']} className="" style={{height:'40px'}}/>
