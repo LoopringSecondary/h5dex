@@ -54,18 +54,22 @@ class DApps extends React.Component {
       {
         icon: <WebIcon type="api" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">去中心化交易</div>,
+        onClick:(item)=> routeActions.gotoPath('/dapp/dex')
       },
       {
         icon: <WebIcon type="team" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">面对面交易</div>,
+        onClick:(item)=> routeActions.gotoPath('/dapp/face2face')
       },
       {
         icon: <WebIcon type="pay-circle-o" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">一键购买</div>,
+        onClick:(item)=>{},
       },
       {
         icon: <WebIcon type="qrcode" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">扫码收款</div>,
+        onClick:(item)=>{},
       },
     ]
     return (
@@ -110,7 +114,16 @@ class DApps extends React.Component {
             Order & Fills <WebIcon type="right" />
           </div>
         </div>
-        <Grid onClick={routeActions.gotoPath.bind(this,'/orders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={2} />
+        <Grid className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={2}
+          renderItem={(item,index)=>{
+            return (
+              <div onClick={item.onClick.bind(this,item)}>
+                {item.icon}
+                {item.text}
+              </div>
+            )
+          }}
+        />
         <div className="pb50"></div>
       </div>
     );

@@ -16,7 +16,7 @@ import ListNotifications from './tickers/ListNotifications'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
-import PlaceOrderP2P from './orders/PlaceOrderP2P'
+import PlaceOrderFace from './dapp/face2face/PlaceOrder'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -47,7 +47,7 @@ const Logged = ()=>{
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
         <Route path={`/wallet`} component={Pages.Wallet} />
-        <Route path="/placeOrder/p2p" exact component={PlaceOrderP2P} />
+        <Route path="/dapp/face2face" exact component={PlaceOrderFace} />
         <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
         <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
         <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
@@ -74,6 +74,7 @@ export default class Routes extends React.Component {
       <div>
           <Switch>
             <Route path="/" exact component={Logged} />
+            <Route path="/dapp" component={Logged} />
             <Route path="/token" component={Logged} />
             <Route path="/tokens" component={Logged} />
             <Route path="/tokenDetail" component={Logged} />
