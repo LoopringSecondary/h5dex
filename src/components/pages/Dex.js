@@ -10,14 +10,12 @@ import { Icon as WebIcon } from 'antd';
 
 class Dex extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        selectedTab: 'markets',
-      };
+    super(props);
   }
   render(){
-    const {match} = this.props;
+    const {match,location} = this.props;
     const {url} = match;
+    const {pathname} = location;
     const changeTab = (path) => {
       routeActions.gotoPath(`${url}/${path}`);
     };
@@ -47,12 +45,9 @@ class Dex extends React.Component {
                     selectedIcon={
                       <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
                     }
-                    selected={this.state.selectedTab === 'markets'}
+                    selected={pathname === `${url}/markets`}
                     badge={null && 1}
                     onPress={() => {
-                      this.setState({
-                        selectedTab: 'markets',
-                      });
                       changeTab('markets')
                     }}
                     data-seed="logId"
@@ -63,11 +58,8 @@ class Dex extends React.Component {
                     title="Trade"
                     key="trade"
                     badge={null && 'new'}
-                    selected={this.state.selectedTab === 'trade'}
+                    selected={pathname === `${url}/trade`}
                     onPress={() => {
-                      this.setState({
-                        selectedTab: 'trade',
-                      });
                       changeTab('trade')
                     }}
                     data-seed="logId1"
@@ -77,7 +69,7 @@ class Dex extends React.Component {
                     selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
                     title="My"
                     key="my"
-                    selected={this.state.selectedTab === 'my'}
+                    selected={pathname === `${url}/my`}
                     onPress={() => {
                       this.setState({
                         selectedTab: 'my',

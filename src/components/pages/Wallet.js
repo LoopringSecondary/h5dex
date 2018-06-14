@@ -15,15 +15,12 @@ import { Icon as WebIcon } from 'antd';
 class Wallet extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {
-        selectedTab: 'assets',
-        hidden: false,
-        fullScreen: false,
-      };
   }
   render(){
-    const {match} = this.props;
+    const {match,location} = this.props;
+    console.log('Wallet props',this.props)
     const {url} = match;
+    const {pathname} = location
     const changeTab = (path) => {
       routeActions.gotoPath(`${url}/${path}`);
     };
@@ -57,12 +54,9 @@ class Wallet extends React.Component {
                     key="assets"
                     icon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'4px'}} />}
-                    selected={this.state.selectedTab === 'assets'}
+                    selected={pathname === `${url}/assets`}
                     badge={null && 1}
                     onPress={() => {
-                      this.setState({
-                        selectedTab: 'assets',
-                      });
                       changeTab('assets')
                     }}
                     data-seed="logId"
@@ -73,11 +67,8 @@ class Wallet extends React.Component {
                     title="Trade"
                     key="trade"
                     badge={null && 'new'}
-                    selected={this.state.selectedTab === 'trade'}
+                    selected={pathname === `${url}/trade`}
                     onPress={() => {
-                      this.setState({
-                        selectedTab: 'trade',
-                      });
                       changeTab('trade')
                     }}
                     data-seed="logId1"
@@ -87,11 +78,8 @@ class Wallet extends React.Component {
                     selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
                     title="Settings"
                     key="settings"
-                    selected={this.state.selectedTab === 'settings'}
+                    selected={pathname === `${url}/settings`}
                     onPress={() => {
-                      this.setState({
-                        selectedTab: 'settings',
-                      });
                       changeTab('settings')
                     }}
                   />
