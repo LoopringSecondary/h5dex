@@ -6,6 +6,7 @@ import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
 import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,Grid } from 'antd-mobile'
 import { Switch,Icon as WebIcon} from 'antd'
+import { TxList } from './TokenDetail'
 
 const TokenItem = ({item={},actions,key,index})=>{
     // if(!item){ return null }
@@ -133,19 +134,19 @@ class ListTickers extends React.Component {
       const menus = [
         {
           icon: <WebIcon type="scan" className="fs20 color-black-1 mb5" />,
-          text: <div className="fs14 color-black-1">扫码</div>,
+          text: <div className="fs14 color-black-1">Scan</div>,
         },
         {
-          icon: <WebIcon type="qrcode" className="fs20 color-black-1 mb5" />,
-          text: <div className="fs14 color-black-1">收款</div>,
+          icon: <i className="fs20 lh1 color-black-1 loopring-icon loopring-icon-receive mb5"></i>,
+          text: <div className="fs14 color-black-1">Receive</div>,
         },
         {
-          icon: <WebIcon type="swap" className="fs20 color-black-1 mb5" />,
-          text: <div className="fs14 color-black-1">转账</div>,
+          icon: <i className="fs20 lh1 color-black-1 loopring-icon loopring-icon-transfer mb5"></i>,
+          text: <div className="fs14 color-black-1">Send</div>,
         },
         {
-          icon: <WebIcon type="plus" className="fs20 color-black-1 mb5" />,
-          text: <div className="fs14 color-black-1">资产</div>,
+          icon: <i className="fs20 lh1 color-black-1 loopring-icon loopring-icon-trade mb5"></i>,
+          text: <div className="fs14 color-black-1">Trade</div>,
         },
       ]
       return (
@@ -156,7 +157,7 @@ class ListTickers extends React.Component {
               icon={null && <Icon type="left" />}
               onLeftClick={() => console.log('onLeftClick')}
               leftContent={ [
-                <WebIcon key="1" type="scan" className="color-black-1" onClic={goBack}/>,
+                <WebIcon key="1" type="bars" className="color-black-1" onClic={goBack}/>,
               ]}
               rightContent={[
                 <WebIcon key="1" type="plus" className="color-black-1" />,
@@ -172,47 +173,75 @@ class ListTickers extends React.Component {
                 </div>
             </div>
             <Grid onClick={()=>{}} className="my-dex-grid" data={menus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4} />
-            <div className="tabs-no-border no-underline zb-b-t">
-                <Tabs
-                  tabs={
-                    [
-                      { title: <div className="fs16 d-block w-100 zb-b-r text-center">Assets</div> },
-                      { title: <div className="fs16">Transactions</div> },
-                    ]
-                  }
-                  swipeable={false}
-                  tabBarBackgroundColor={"transparent"}
-                  tabBarActiveTextColor={"#000"}
-                  tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-                  tabBarTextStyle={{}}
-                  initialPage={0}
-                  onChange={(tab, index) => {}}
-                  onTabClick={(tab, index) => { }}
-                >
-                  <div className="">
-                    <ListView
-                      ref={el => this.lv = el}
-                      dataSource={this.state.dataSource}
-                      renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
-                      renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
-                      renderRow={row}
-                      className="am-list-bg-none"
-                      pageSize={5}
-                      useBodyScroll={true}
-                      style={{
-                         height: "100%",
-                         overflow: 'auto',
-                      }}
-                      onScroll={() => { console.log('scroll'); }}
-                      scrollRenderAheadDistance={300}
-                      onEndReached={this.onEndReached}
-                      onEndReachedThreshold={10}
-                    />
-                  </div>
-                  <div className="p50">
-                    Transactions
-                  </div>
-                </Tabs>
+            <div className="tabs-no-border no-underline zb-b-t mt15">
+                <div hidden className="bg-white p10">
+                  <SegmentedControl values={['Assets', 'Transactions']} className="" style={{height:'40px'}}/>
+                </div>
+                <div hidden className="">
+                  <ListView
+                    ref={el => this.lv = el}
+                    dataSource={this.state.dataSource}
+                    renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
+                    renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+                    renderRow={row}
+                    className="am-list-bg-none"
+                    pageSize={5}
+                    useBodyScroll={true}
+                    style={{
+                       height: "100%",
+                       overflow: 'auto',
+                       background:'#fff',
+                    }}
+                    onScroll={() => { console.log('scroll'); }}
+                    scrollRenderAheadDistance={300}
+                    onEndReached={this.onEndReached}
+                    onEndReachedThreshold={10}
+                  />
+                </div>
+                <div className="wallet-home-tabs tabs-no-border">
+                  <Tabs
+                    tabs={
+                      [
+                        { title: <div className="fs16 d-block w-100 text-center wallet-home-tabs-bar-item">Assets</div> },
+                        { title: <div className="fs16 d-block w-100 text-center wallet-home-tabs-bar-item">Transactions</div> },
+                      ]
+                    }
+                    swipeable={false}
+                    tabBarBackgroundColor={"#fff"}
+                    tabBarActiveTextColor={"#000"}
+                    tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+                    tabBarTextStyle={{}}
+                    initialPage={0}
+                    onChange={(tab, index) => {}}
+                    onTabClick={(tab, index) => { }}
+                  >
+                    <div className="no-border">
+                      <ListView
+                        ref={el => this.lv = el}
+                        dataSource={this.state.dataSource}
+                        renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
+                        renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+                        renderRow={row}
+                        className="am-list-bg-none"
+                        pageSize={5}
+                        useBodyScroll={true}
+                        style={{
+                           height: "100%",
+                           overflow: 'auto',
+                           background:'#fff',
+                        }}
+                        onScroll={() => { console.log('scroll'); }}
+                        scrollRenderAheadDistance={300}
+                        onEndReached={this.onEndReached}
+                        onEndReachedThreshold={10}
+                      />
+                    </div>
+                    <div className="bg-white no-border">
+                      <TxList />
+                    </div>
+                  </Tabs>
+                </div>
+
             </div>
           </div>
 

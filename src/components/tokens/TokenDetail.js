@@ -7,6 +7,44 @@ import routeActions from 'common/utils/routeActions'
 import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl  } from 'antd-mobile'
 import { Switch,Icon as WebIcon} from 'antd'
 
+const data = [
+  {
+    type: 'enable',
+    title: 'Enable LRC To Trade',
+    value: '',
+    gas: '0.00015 eth',
+    status:'success',
+  },
+  {
+    type: 'send',
+    title: 'Sent LRC',
+    value: '- 1000.0000',
+    gas: '0.000125 eth',
+    status:'success',
+  },
+  {
+    type: 'receive',
+    title: 'Received LRC',
+    value: '+ 3566.0000',
+    gas: '0.000135 eth',
+    status:'success',
+  },
+  {
+    type: 'buy',
+    title: 'Bought LRC',
+    value: '+ 2688.0000',
+    gas: '0.000135 eth',
+    status:'failed',
+  },
+  {
+    type: 'sell',
+    title: 'Sold LRC',
+    value: '- 6233.0000',
+    gas: '0.000135 eth',
+    status:'pending',
+  },
+];
+
 const TxItem = ({item={},actions,key,index})=>{
     // if(!item){ return null }
     // const tickerFm = new TickerFm(item)
@@ -53,43 +91,6 @@ const TxItem = ({item={},actions,key,index})=>{
     )
 }
 
-const data = [
-  {
-    type: 'enable',
-    title: 'Enable LRC To Trade',
-    value: '',
-    gas: '0.00015 eth',
-    status:'success',
-  },
-  {
-    type: 'send',
-    title: 'Sent LRC',
-    value: '- 1000.0000',
-    gas: '0.000125 eth',
-    status:'success',
-  },
-  {
-    type: 'receive',
-    title: 'Received LRC',
-    value: '+ 3566.0000',
-    gas: '0.000135 eth',
-    status:'success',
-  },
-  {
-    type: 'buy',
-    title: 'Bought LRC',
-    value: '+ 2688.0000',
-    gas: '0.000135 eth',
-    status:'failed',
-  },
-  {
-    type: 'sell',
-    title: 'Sold LRC',
-    value: '- 6233.0000',
-    gas: '0.000135 eth',
-    status:'pending',
-  },
-];
 const NUM_ROWS = 15;
 let pageIndex = 0;
 
@@ -102,7 +103,25 @@ function genData(pIndex = 0) {
   return dataBlob;
 }
 
-class TokenDetail extends React.Component {
+const TxListHeader = ()=>{
+  return (
+    <div className="bg-white">
+      <div className="row ml0 mr0 fs16 zb-b-t">
+        <div className="col text-center pt10 pb10 zb-b-r">
+          Status <WebIcon className="fs12" type="down" />
+        </div>
+        <div className="col text-center pt10 pb10 zb-b-r">
+          Types <WebIcon className="fs12" type="down" />
+        </div>
+        <div className="col text-center pt10 pb10 ">
+          Sides <WebIcon className="fs12" type="down" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export class TxList extends React.Component {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -146,19 +165,52 @@ class TokenDetail extends React.Component {
       }, 1000);
   }
   render(){
+    let index = data.length - 1;
+    const row = (rowData, sectionID, rowID) => {
+      if (index < 0) {
+        index = data.length - 1;
+      }
+      const obj = data[index--];
+      return (
+        <TxItem key={rowID} index={rowID} item={obj} />
+      );
+    };
+    return (
+       <ListView
+         ref={el => this.lv = el}
+         dataSource={this.state.dataSource}
+         renderHeader={() => null}
+         renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+         renderRow={row}
+         className="am-list-bg-none"
+         pageSize={5}
+         useBodyScroll={true}
+         style={{
+            height: "100%",
+            overflow: 'auto',
+         }}
+         onScroll={() => { console.log('scroll'); }}
+         scrollRenderAheadDistance={300}
+         onEndReached={this.onEndReached}
+         onEndReachedThreshold={10}
+       />
+    )
+  }
+}
+
+class TokenDetail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+    }
+  }
+  componentDidMount() {
+  }
+  render(){
       const goBack = ()=>{
         routeActions.goBack()
       }
-      let index = data.length - 1;
-      const row = (rowData, sectionID, rowID) => {
-        if (index < 0) {
-          index = data.length - 1;
-        }
-        const obj = data[index--];
-        return (
-          <TxItem key={rowID} index={rowID} item={obj} />
-        );
-      };
       return (
           <div className=""  style={{height:'100%'}}>
             <NavBar
@@ -172,7 +224,7 @@ class TokenDetail extends React.Component {
                 <WebIcon key="1" type="info-circle-o" className="color-black-1" />,
               ]}
             >
-              <SegmentedControl values={['Records', 'Trade']} style={{width:'180px',height:'32px'}}/>
+              <SegmentedControl values={['Transactions', 'Trade']} style={{width:'210px',height:'32px'}}/>
             </NavBar>
             <div className="pt40 pb40 pl15 pr15 text-center bg-white">
                 <div className="fs24 color-black-1">
@@ -182,38 +234,8 @@ class TokenDetail extends React.Component {
                   $ 0.000000
                 </div>
             </div>
-            <div className="bg-white">
-              <div className="row ml0 mr0 fs16 zb-b-t">
-                <div className="col text-center pt10 pb10 zb-b-r">
-                  Status <WebIcon className="fs12" type="down" />
-                </div>
-                <div className="col text-center pt10 pb10 zb-b-r">
-                  Types <WebIcon className="fs12" type="down" />
-                </div>
-                <div className="col text-center pt10 pb10 ">
-                  Sides <WebIcon className="fs12" type="down" />
-                </div>
-              </div>
-            </div>
-
-            <ListView
-              ref={el => this.lv = el}
-              dataSource={this.state.dataSource}
-              renderHeader={() => null}
-              renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
-              renderRow={row}
-              className="am-list-bg-none"
-              pageSize={5}
-              useBodyScroll={true}
-              style={{
-                 height: "100%",
-                 overflow: 'auto',
-              }}
-              onScroll={() => { console.log('scroll'); }}
-              scrollRenderAheadDistance={300}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={10}
-            />
+            <TxListHeader />
+            <TxList />
             <div className="position-fixed bg-white p5" style={{bottom:'0',left:'0',right:'0',zIndex:10}}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col-6">
@@ -228,35 +250,9 @@ class TokenDetail extends React.Component {
                     <span className="d-inline-block position-relative" style={{top:'-3px'}}>Receive</span>
                   </Button>
                 </div>
-
               </div>
             </div>
-            {
-              false &&
-              <Tabs
-                tabs={
-                  [
-                    { title: <div className="fs20">Todos</div> },
-                    { title: <div className="fs20">Messages</div> },
-                  ]
-                }
-                swipeable={false}
-                tabBarBackgroundColor={"#fff"}
-                tabBarActiveTextColor={"#000"}
-                tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-                tabBarTextStyle={{}}
-                initialPage={0}
-                onChange={(tab, index) => {}}
-                onTabClick={(tab, index) => { }}
-              >
-
-                <div className="p50">
-                  Messages TODO
-                </div>
-              </Tabs>
-            }
           </div>
-
       )
   }
 }

@@ -1,91 +1,124 @@
 import React from 'react';
-import Orders from '../orders'
-import Fills from '../fills'
-import Tickers from '../tickers'
-import Charts from '../charts'
-import { Tabs,Tooltip } from 'antd';
-import { Containers } from 'modules';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid,NoticeBar } from 'antd-mobile';
+import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
+import { createForm } from 'rc-form';
 import { connect } from 'dva';
-import {AccountMenu} from './Wallet';
-import intl from 'react-intl-universal';
+import Containers from 'modules/containers';
+import UiContainers from 'LoopringUI/containers'
+import routeActions from 'common/utils/routeActions'
 
+const Item = List.Item;
+const Brief = Item.Brief;
 
-function Trade(props) {
-  const { children, match } = props
-  // let pair = match.params.pair || window.STORAGE.markets.getCurrent() || 'LRC-WETH'
-  let market = match.params.market || 'LRC-WETH'
-  const TabPane = Tabs.TabPane;
-  return (
-    <div>
-        <header id="header" style={{ position:"fixed",width:"100%",zIndex:"1000" }}>
-            <div className="bg d-flex justify-content-between align-items-center">
-                <Tickers.TickerHeader />
-                <AccountMenu dispatch={props.dispatch} />
-            </div>
-        </header>
-  	    <div className="side-fixed" style={{ top:"0", left:"0", width:"320px", paddingTop:"74px" }}>
-              <div className="card h-full">
-                <Containers.PlaceOrder initState={{pair:market}}>
-                  <Containers.Settings>
-                    <Containers.Sockets id="balance">
-                      <Containers.Sockets id="marketcap">
-                        <Containers.Sockets id="pendingTx">
-                          <Containers.Wallet>
-                            <Containers.Gas>
-                              <Containers.Ttl>
-                                <Orders.PlaceOrderForm />
-                              </Containers.Ttl>
-                            </Containers.Gas>
-                          </Containers.Wallet>
-                        </Containers.Sockets>
-                      </Containers.Sockets>
-                    </Containers.Sockets>
-                  </Containers.Settings>
-                </Containers.PlaceOrder>
+class DApps extends React.Component {
+  state = {
+    type: 'money',
+    side: 'buy',
+  }
+  render() {
+    const dispatch = this.props.dispatch
+    const showLayer = (payload={})=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          ...payload
+        }
+      })
+    }
+    const hideLayer = (payload={})=>{
+      dispatch({
+        type:'layers/hideLayer',
+        payload:{
+          ...payload
+        }
+      })
+    }
+    const gotoConfirm= ()=>{
+
+    }
+    const showPriceHelper= ()=>{
+      showLayer({id:'placeOrderPriceHelper'})
+    }
+    const { type } = this.state;
+
+    const {side} = this.state
+    const tabChange = (side)=>{
+      this.setState({
+        side
+      })
+    }
+    const gotoTrade = ()=>{
+
+    }
+    const OrderStatus = [
+      {
+        icon: <WebIcon type="api" className="fs24 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-1">去中心化交易</div>,
+      },
+      {
+        icon: <WebIcon type="team" className="fs24 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-1">面对面交易</div>,
+      },
+      {
+        icon: <WebIcon type="pay-circle-o" className="fs24 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-1">一键购买</div>,
+      },
+      {
+        icon: <WebIcon type="qrcode" className="fs24 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-1">扫码收款</div>,
+      },
+    ]
+    return (
+      <div className="bg-grey-100">
+        {
+          false &&
+          <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
+                Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
+          </NoticeBar>
+        }
+        <NavBar
+          className=""
+          mode="light"
+          onLeftClick={() => console.log('onLeftClick')}
+          leftContent={null && [
+            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+          ]}
+          rightContent={[
+            <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="info-circle-o" /></span>
+          ]}
+        >
+        Trade
+        </NavBar>
+        <div className="pt50 pb50 text-left bg-grey-900">
+          <div className="row align-items-center ml0 mr0 no-gutters">
+            <div className="col">
+              <div className="text-center color-white-1 fs20 pl15" style={{wordBreak:'break-all'}}>
+                Loopring Dex Trade Store
+                <div className="fs16 color-white-3 mt5">
+                  让交易更简单
+                </div>
               </div>
-  	    </div>
-  	    <div className="m-container h-full relative" style={{marginLeft: "324px"}}>
-  	        <div className="side" style={{left:"0",width: "320px"}}>
-  	            <div className="card h-full">
-  	                <Orders.ListOrderBook />
-  	            </div>
-  	        </div>
-  	        <div className="fulid-container" style={{marginLeft:"324px", marginRight: "324px", height: "100%" }}>
-  	            <div className="card dark h-full">
-      	            <div style={{position: "relative", height: "-webkit-calc(50% - 40px)", overflow:"hidden" }}>
-        	              <div className="card-header card-header-dark bordered">
-        		               <h4>{intl.get('kline_chart.kline_chart')}</h4>
-        		            </div>
-                        <div style={{height:"-webkit-calc(100% - 40px)"}}>
-            		            <div className="market-chart" style={{height: "60%" }}>
-            		               <Charts.KlineChart />
-            		            </div>
-            	               <div className="market-chart" style={{height: "40%" }}>
-                                <Charts.DepthChart />
-                            </div>
-                        </div>
-                    </div>
-      	            <div className="orders" style={{position: "relative", height:"50%", paddingTop:"0"}}>
-          	            <Tabs defaultActiveKey="1"  type="card">
-          	                <TabPane tab={intl.get('order_list.my_open_orders')} key="1">
-                              <Containers.Orders id="MyOpenOrders" alias="orders"  >
-                                <Orders.ListMyOrders style={{height:"100%",overflow:"auto"}} />
-                              </Containers.Orders>
-                            </TabPane>
-          	                <TabPane tab={intl.get('fill_list.my_recent_fills')} key="2">
-                              <Containers.Fills id="MyFills" alias="fills"  >
-                                <Fills.ListMyFills style={{height:"100%",overflow:"auto"}} />
-                              </Containers.Fills>
-                            </TabPane>
-          	            </Tabs>
-      	            </div>
-  	            </div>
-    		        <div className="side" style={{top:"74px", right:"0", width: "320px"}}>
-    		            <Fills.ListTradesHistory />
-    		        </div>
-  	        </div>
+            </div>
+          </div>
         </div>
-    </div>
-  )
+        <div hidden onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
+          <div className="col fs20 color-black-1">
+            My Orders
+            <span hidden className="color-black-3 ml10 fs16">Order & Fills</span>
+          </div>
+          <div className="col-auto fs18 color-black-3 pl20">
+            Order & Fills <WebIcon type="right" />
+          </div>
+        </div>
+        <Grid onClick={routeActions.gotoPath.bind(this,'/orders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={2} />
+        <div className="pb50"></div>
+      </div>
+    );
+  }
 }
-export default connect()(Trade)
+export default DApps
+
+
+
+
+

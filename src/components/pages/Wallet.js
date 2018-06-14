@@ -9,7 +9,7 @@ import Orders from '../orders';
 import My from '../orders/My';
 import { TabBar,NavBar,Icon } from 'antd-mobile';
 import ListTokens from '../tokens/ListTokens';
-import DApps from './DApps';
+import Trade from './Trade';
 import { Icon as WebIcon } from 'antd';
 
 class Wallet extends React.Component {
@@ -33,8 +33,8 @@ class Wallet extends React.Component {
                 <Route path={`${url}/assets`} exact render={() =>
                   <ListTokens />
                 }/>
-                <Route path={`${url}/dapps`} exact render={() =>
-                  <DApps />
+                <Route path={`${url}/trade`} exact render={() =>
+                  <Trade />
                 }/>
                 <Route path={`${url}/settings`} exact render={() =>
                   <div className="p30">
@@ -70,15 +70,15 @@ class Wallet extends React.Component {
                   <TabBar.Item
                     icon={<WebIcon type="compass" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="compass" className="fs22" style={{marginTop:'4px'}} />}
-                    title="DApps"
-                    key="dapps"
+                    title="Trade"
+                    key="trade"
                     badge={null && 'new'}
-                    selected={this.state.selectedTab === 'dapps'}
+                    selected={this.state.selectedTab === 'trade'}
                     onPress={() => {
                       this.setState({
-                        selectedTab: 'dapps',
+                        selectedTab: 'trade',
                       });
-                      changeTab('dapps')
+                      changeTab('trade')
                     }}
                     data-seed="logId1"
                   />
