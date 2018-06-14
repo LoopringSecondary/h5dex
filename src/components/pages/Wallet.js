@@ -1,79 +1,111 @@
 import React from 'react';
-import Tokens from '../tokens'
-import Transactions from '../transactions'
-import Charts from '../charts'
-import Tickers from '../tickers'
-import {Containers} from 'modules'
-import {Tooltip} from 'antd'
-import {connect} from 'dva'
+import {Link, Redirect, Route, Switch} from 'dva/router'
+import routeActions from 'common/utils/routeActions'
+import Layout from '../../layout';
+import Footer from '../../layout/Footer';
+import intl from 'react-intl-universal';
+import Tickers from '../tickers';
+import Orders from '../orders';
+import My from '../orders/My';
+import { TabBar,NavBar,Icon } from 'antd-mobile';
+import { Icon as WebIcon } from 'antd';
 
-export const AccountMenu = (props)=>{
-  const showUserCenter = ()=>{
-    props.dispatch({
-      type:'layers/showLayer',
-      payload:{id:'userCenter'}
-    })
+class Wallet extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+        selectedTab: 'assets',
+        hidden: false,
+        fullScreen: false,
+      };
   }
-  return (
-    <div className="account-bar">
-      <ul>
-        <li onMouseOver={showUserCenter}>
-          <div className="logo">
-            {window.WALLET && window.WALLET.unlockType === 'address' && <Tooltip title={'Watch Only Wallet'}><i className="icon-eye" /> </Tooltip>}
-            {window.WALLET && window.WALLET.unlockType === 'metamask' && <Tooltip title={window.WALLET.unlockType + 'Wallet'}><i className="icon-metamaskwallet" /> </Tooltip>}
-            {window.WALLET && window.WALLET.unlockType === 'ledger' && <Tooltip title={window.WALLET.unlockType + 'Wallet'}><i className="icon-ledgerwallet" /> </Tooltip>}
-            {window.WALLET && window.WALLET.unlockType === 'trezor' && <Tooltip title={window.WALLET.unlockType + 'Wallet'}><i className="icon-trezorwallet" /> </Tooltip>}
-            {window.WALLET && window.WALLET.unlockType === 'keystore' && <Tooltip title={window.WALLET.unlockType + 'Wallet'}><i className="icon-json" /> </Tooltip>}
-            {window.WALLET && window.WALLET.unlockType === 'mnemonic' && <Tooltip title={window.WALLET.unlockType + 'Wallet'}><i className="icon-mnemonic" /> </Tooltip>}
-            {window.WALLET && window.WALLET.unlockType === 'privateKey' && <Tooltip title={window.WALLET.unlockType + 'Wallet'}><i className="icon-key" /> </Tooltip>}
-          </div>
-          <div className="account-address">{window.WALLET && window.WALLET.address}</div>
-        </li>
-      </ul>
-    </div>
-  )
-}
-
-function Wallet(props) {
- const {token} = props;
-  return (
-    <div>
-        <header id="header" style={{ position:"fixed",width:"100%",zIndex:"1000"}}>
-            <div className="bg text-color-dark-1 w-control d-flex justify-content-between align-items-center">
-                <h2>{token.toUpperCase()}</h2>
-                <AccountMenu dispatch={props.dispatch} />
-            </div>
-        </header>
-        <div className="side-fixed" style={{top:"0",left: "0",width: "280px",padding: "20px 0"}} id="tokenSide">
-            <div className="loopring-brand"><img src={require('../../assets/images/logo.png')} className="img" /></div>
-              <Containers.Tokens>
-                  <Containers.Settings>
-                    <Tokens.ListSidebar />
-                  </Containers.Settings>
-              </Containers.Tokens>
-        </div>
-        <div className="m-container h-full" style={{marginLeft: "280px", marginRight: "454px"}} id="transactions">
-            <div className="card dark h-full">
-              <Containers.Sockets id="transaction">
-                <Transactions.ListDefault />
-              </Containers.Sockets>
-            </div>
-        </div>
-        <div className="side-fixed" style={{top:"0",right: "0",width: "450px",paddingTop:"74px"}} id="sideMarkets">
-            <div className="card dark h-full">
-                <Charts.PriceChart />
-                <Tickers.ListTokenTickers />
-            </div>
-        </div>
-    </div>
-  )
-}
-
-function mapStateToProps(state) {
-
-  return {
-    token:state.tokens.selected
+  render(){
+    const {match} = this.props;
+    const {url} = match;
+    const changeTab = (path) => {
+      routeActions.gotoPath(`${url}/${path}`);
+    };
+    return (
+      <div style={{ }}>
+              <Switch>
+                <Route path={`${url}/assets`} exact render={() =>
+                  <div className="p30">
+                    Assets
+                  </div>}
+                />
+                <Route path={`${url}/dapps`} exact render={() =>
+                  <div className="p30">
+                    Dapp
+                  </div>}
+                />
+                <Route path={`${url}/settings`} exact render={() =>
+                  <div className="p30">
+                    Settings
+                  </div>}
+                />
+                <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
+              </Switch>
+              <div className="tabbar-only-bar">
+                <TabBar
+                  unselectedTintColor="#949494"
+                  selectedTintColor="#000"
+                  tintColor="#000"
+                  barTintColor="white"
+                  style={{position:"fixed",bottom: 0,left:0,right:0}}
+                  className="position-fixed"
+                >
+                  <TabBar.Item
+                    title="Assets"
+                    key="assets"
+                    icon={
+                      <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
+                    }
+                    selectedIcon={
+                      <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
+                    }
+                    selected={this.state.selectedTab === 'assets'}
+                    badge={null && 1}
+                    onPress={() => {
+                      this.setState({
+                        selectedTab: 'assets',
+                      });
+                      changeTab('assets')
+                    }}
+                    data-seed="logId"
+                  />
+                  <TabBar.Item
+                    icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
+                    selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
+                    title="DApps"
+                    key="dapps"
+                    badge={null && 'new'}
+                    selected={this.state.selectedTab === 'dapps'}
+                    onPress={() => {
+                      this.setState({
+                        selectedTab: 'dapps',
+                      });
+                      changeTab('dapps')
+                    }}
+                    data-seed="logId1"
+                  />
+                  <TabBar.Item
+                    icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
+                    selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
+                    title="Settings"
+                    key="settings"
+                    selected={this.state.selectedTab === 'settings'}
+                    onPress={() => {
+                      this.setState({
+                        selectedTab: 'settings',
+                      });
+                      changeTab('settings')
+                    }}
+                  />
+                </TabBar>
+              </div>
+      </div>
+    )
   }
 }
 
-export default connect(mapStateToProps)(Wallet)
+export default Wallet

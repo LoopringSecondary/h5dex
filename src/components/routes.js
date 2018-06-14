@@ -38,6 +38,7 @@ const Logged = ()=>{
     return (
       <Switch>
         <Route path="/" exact component={Pages.HomeTabBar} />
+        <Route path="/wallet" exact component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
         <Route path="/convert" exact component={ConvertForm} />
