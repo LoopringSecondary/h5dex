@@ -78,8 +78,8 @@ class PlaceOrder extends React.Component {
           leftContent={null && [
             <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
           ]}
-          rightContent={null && [
-            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
+          rightContent={[
+            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="question-circle-o" /></span>
           ]}
         >
           <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Convert</div>
@@ -100,7 +100,7 @@ class PlaceOrder extends React.Component {
               </div>
             </div>
           </div>
-          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
             <div className="col text-center">
               <div className="color-black-2 fs16">ETH</div>
             </div>
@@ -113,7 +113,8 @@ class PlaceOrder extends React.Component {
           </div>
           <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
+              <Button type="ghost" className="fs16 color-black-2 text-center" style={{height:'40px',lineHeight:'40px'}}>
+                <span className="color-black-3">0.0000</span>
               </Button>
               {
                 false &&
@@ -126,7 +127,8 @@ class PlaceOrder extends React.Component {
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2" style={{height:'40px',lineHeight:'40px'}}>
+              <Button type="ghost" className="fs16 color-black-2 text-center" style={{height:'40px',lineHeight:'40px'}}>
+                <span className="color-black-3">0.0000</span>
               </Button>
               {
                 false &&
@@ -138,7 +140,7 @@ class PlaceOrder extends React.Component {
             </div>
           </div>
           <Button className="mt15" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
-          <div className="row ml0 mr0 mt10 pt10 pb10 no-gutters">
+          <div className="row ml0 mr0 mt20 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">ETH Gas</div>
             </div>

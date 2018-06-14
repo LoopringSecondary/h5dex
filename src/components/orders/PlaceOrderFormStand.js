@@ -284,19 +284,9 @@ class PlaceOrder extends React.Component {
 const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
 export default PlaceOrderForm
 
-
-export const TokenNotEnough = ()=>{
-  return (
-    <div className="">
-      哈哈哈哈哈
-    </div>
-  )
-}
-
-
 export const OpenOrderList = ({gotoOrderDetail})=>{
   return (
-    <table className="w-100 fs16">
+    <table className="w-100 fs12">
       <thead>
         <tr>
           <th hidden className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>

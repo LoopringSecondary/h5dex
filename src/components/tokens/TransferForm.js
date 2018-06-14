@@ -103,16 +103,19 @@ class PlaceOrder extends React.Component {
             } >
               Gas
             </Item>
-            <Item  multipleLine wrap
-            extra={
-              <div>
-                <span className="color-black-3">Notes</span>
-                <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-3" type="right"/>
-                </span>
-              </div>
+            {
+              false &&
+              <Item  multipleLine wrap
+              extra={
+                <div>
+                  <span className="color-black-3">Notes</span>
+                  <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
+                    <WebIcon className="color-black-3" type="right"/>
+                  </span>
+                </div>
+              }
+              >Data</Item>
             }
-            >Data</Item>
             <Item>
               <div className="row align-items-center ml0 mr0 mb15 mt10">
                 <div className="col color-black-3 fs16 pl0">Advanced</div>
@@ -120,7 +123,7 @@ class PlaceOrder extends React.Component {
                   <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
                 </div>
               </div>
-              <Button type="primary">Exchange</Button>
+              <Button className="mb15" type="primary">Send</Button>
             </Item>
           </List>
         </div>

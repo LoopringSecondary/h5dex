@@ -6,6 +6,7 @@ import { connect } from 'dva';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
+import {OpenOrderList} from './PlaceOrderFormStand'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -78,8 +79,8 @@ class PlaceOrder extends React.Component {
           leftContent={null && [
             <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
           ]}
-          rightContent={null && [
-            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
+          rightContent={[
+            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="question-circle-o" /></span>
           ]}
         >
           <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Face To Face</div>
@@ -142,16 +143,21 @@ class PlaceOrder extends React.Component {
               }
             </div>
           </div>
-          <Button className="mt20" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
-          <div className="row ml0 mr0 mt10 pt10 pb10 no-gutters">
+          <div className="row ml0 mr0 pt15 pb15 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">Exchage Price</div>
             </div>
             <div className="col-auto fs14 color-black-3">
-              20.0000 EOS/ETH
+              20.0000 EOS/LRC
             </div>
           </div>
+          <Button className="" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
         </div>
+        <div className="bg-grey-100">
+          <div className="color-black-2 fs14 p10 zb-b-b">My Exchanges</div>
+          <OpenOrderList />
+        </div>
+
       </div>
     );
   }
