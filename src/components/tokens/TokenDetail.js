@@ -102,8 +102,7 @@ function genData(pIndex = 0) {
   return dataBlob;
 }
 
-
-class ListTickers extends React.Component {
+class TokenDetail extends React.Component {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -203,7 +202,7 @@ class ListTickers extends React.Component {
               renderHeader={() => null}
               renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
               renderRow={row}
-              className="am-list am-list-bg-none"
+              className="am-list-bg-none"
               pageSize={5}
               useBodyScroll={true}
               style={{
@@ -261,5 +260,5 @@ class ListTickers extends React.Component {
       )
   }
 }
-export default connect()(ListTickers)
+export default connect()(TokenDetail)
 

@@ -4,7 +4,7 @@ import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl  } from 'antd-mobile'
+import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,Grid } from 'antd-mobile'
 import { Switch,Icon as WebIcon} from 'antd'
 
 const TokenItem = ({item={},actions,key,index})=>{
@@ -18,7 +18,7 @@ const TokenItem = ({item={},actions,key,index})=>{
       <div>
         <div className="row ml0 mr0 pt15 pb15 pl10 pr10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
           <div className="col-auo pr10 color-black text-center">
-              <i className={`icon-${item.symbol} fs24 d-block bg-black color-white`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #000',borderRadius:'50em'}}></i>
+              <i className={`icon-${item.symbol} fs24 d-block color-black-1`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #000',borderRadius:'50em'}}></i>
           </div>
           <div className="col text-left">
             <div>
@@ -130,8 +130,26 @@ class ListTickers extends React.Component {
           <TokenItem key={rowID} index={rowID} item={obj} />
         );
       };
+      const menus = [
+        {
+          icon: <WebIcon type="scan" className="fs20 color-black-1 mb5" />,
+          text: <div className="fs14 color-black-1">扫码</div>,
+        },
+        {
+          icon: <WebIcon type="qrcode" className="fs20 color-black-1 mb5" />,
+          text: <div className="fs14 color-black-1">收款</div>,
+        },
+        {
+          icon: <WebIcon type="swap" className="fs20 color-black-1 mb5" />,
+          text: <div className="fs14 color-black-1">转账</div>,
+        },
+        {
+          icon: <WebIcon type="plus" className="fs20 color-black-1 mb5" />,
+          text: <div className="fs14 color-black-1">资产</div>,
+        },
+      ]
       return (
-          <div className="tabs-no-border no-underline"  style={{height:'100%'}}>
+          <div className=""  style={{height:'100%'}}>
             <NavBar
               className="w-100 zb-b-b"
               mode="light"
@@ -146,56 +164,56 @@ class ListTickers extends React.Component {
             >
               Test <WebIcon className="ml5" type="down" />
             </NavBar>
-            <div className="pt50 pb50 pl15 pr15 text-center bg-white">
+            <div className="pt40 pb40 pl15 pr15 text-center bg-white">
                 <div className="fs28 color-black-1">$ 0.00000</div>
                 <div className="fs16 color-black-3">
                   0x6d4ee35d...52e75005
                   <WebIcon className="ml5 fs16" type="qrcode" />
                 </div>
             </div>
-            <ListView
-              ref={el => this.lv = el}
-              dataSource={this.state.dataSource}
-              renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
-              renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
-              renderRow={row}
-              className="am-list"
-              pageSize={5}
-              useBodyScroll={true}
-              style={{
-                 height: "100%",
-                 overflow: 'auto',
-                 background:'#fff',
-              }}
-              onScroll={() => { console.log('scroll'); }}
-              scrollRenderAheadDistance={300}
-              onEndReached={this.onEndReached}
-              onEndReachedThreshold={10}
-            />
-            {
-              false &&
-              <Tabs
-                tabs={
-                  [
-                    { title: <div className="fs20">Todos</div> },
-                    { title: <div className="fs20">Messages</div> },
-                  ]
-                }
-                swipeable={false}
-                tabBarBackgroundColor={"#fff"}
-                tabBarActiveTextColor={"#000"}
-                tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-                tabBarTextStyle={{}}
-                initialPage={0}
-                onChange={(tab, index) => {}}
-                onTabClick={(tab, index) => { }}
-              >
-
-                <div className="p50">
-                  Messages TODO
-                </div>
-              </Tabs>
-            }
+            <Grid onClick={()=>{}} className="my-dex-grid" data={menus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4} />
+            <div className="tabs-no-border no-underline zb-b-t">
+                <Tabs
+                  tabs={
+                    [
+                      { title: <div className="fs16 d-block w-100 zb-b-r text-center">Assets</div> },
+                      { title: <div className="fs16">Transactions</div> },
+                    ]
+                  }
+                  swipeable={false}
+                  tabBarBackgroundColor={"transparent"}
+                  tabBarActiveTextColor={"#000"}
+                  tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+                  tabBarTextStyle={{}}
+                  initialPage={0}
+                  onChange={(tab, index) => {}}
+                  onTabClick={(tab, index) => { }}
+                >
+                  <div className="">
+                    <ListView
+                      ref={el => this.lv = el}
+                      dataSource={this.state.dataSource}
+                      renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
+                      renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
+                      renderRow={row}
+                      className="am-list-bg-none"
+                      pageSize={5}
+                      useBodyScroll={true}
+                      style={{
+                         height: "100%",
+                         overflow: 'auto',
+                      }}
+                      onScroll={() => { console.log('scroll'); }}
+                      scrollRenderAheadDistance={300}
+                      onEndReached={this.onEndReached}
+                      onEndReachedThreshold={10}
+                    />
+                  </div>
+                  <div className="p50">
+                    Transactions
+                  </div>
+                </Tabs>
+            </div>
           </div>
 
       )
