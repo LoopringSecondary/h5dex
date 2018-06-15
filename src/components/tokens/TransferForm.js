@@ -161,11 +161,10 @@ class Transfer extends React.Component {
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
           ]}
         >
-          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Send</div>
+          <SegmentedControl values={['Send', 'Send2']} style={{width:'210px',height:'32px'}}/>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
         <TransferForm side="buy" />
-
       </div>
     );
   }

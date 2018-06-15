@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch,Button as WebButton } from 'antd';
+import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
 import Containers from 'modules/containers';
@@ -9,7 +9,7 @@ import routeActions from 'common/utils/routeActions'
 const Item = List.Item;
 const Brief = Item.Brief;
 
-class PlaceOrder extends React.Component {
+class Transfer extends React.Component {
   state = {
     type: 'money',
     side: 'buy',
@@ -44,8 +44,30 @@ class PlaceOrder extends React.Component {
         }
       })
     }
+
     const showPriceHelper= ()=>{
-      showLayer({id:'placeOrderPriceHelper'})
+      showLayer({id:'PlaceOrderPriceHelper'})
+    }
+    const { getFieldProps } = this.props.form;
+    const { type } = this.state;
+
+    const PlaceOrderForm = (props)=>{
+      const { side } = props
+      return (
+        <div>
+
+        </div>
+
+      )
+    }
+    const {side} = this.state
+    const tabChange = (side)=>{
+      this.setState({
+        side
+      })
+    }
+   const gotoTrade = ()=>{
+      routeActions.gotoPath('/trade/detail')
     }
     return (
       <div className="bg-white">
@@ -57,25 +79,16 @@ class PlaceOrder extends React.Component {
             <span className="color-black-1"><WebIcon key="1" type="left" /></span>,
           ]}
           rightContent={[
-            <Button key="1" size="small" type="ghost" className="color-black-2 fs18 mr10" style={{padding:'0 7px'}} onClick={()=>{}}><WebIcon  type="question" /></Button>,
-            <Button key="2" size="small" type="ghost" className="color-black-2 fs18" style={{padding:'0 7px'}} onClick={()=>{}}><WebIcon  type="swap" /></Button>,
+            <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="question-circle-o" /></span>
           ]}
         >
-          {false && <SegmentedControl selectedIndex={0} values={['To WETH', ' To ETH']} style={{width:'210px',height:'32px'}}/>}
-          {
-            false &&
-            <WebButton.Group>
-              <WebButton>To WETH</WebButton>
-              <WebButton>To ETH</WebButton>
-            </WebButton.Group>
-          }
-          Convert
+          <SegmentedControl selectedIndex={2} values={['Send', 'Send2']} style={{width:'210px',height:'32px'}}/>
         </NavBar>
         <div className="zb-b-b pt25 pb25 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
               <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-ETH fs24`}/>
+                <i className={`icon-EOS fs24`}/>
               </div>
             </div>
             <div className="col-auto text-center" style={{width:'30px'}}>
@@ -83,24 +96,27 @@ class PlaceOrder extends React.Component {
             </div>
             <div className="col text-center">
               <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-WETH fs24`}/>
+                <i className={`icon-LRC fs24`}/>
               </div>
             </div>
           </div>
-          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
+          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <div className="color-black-2 fs16">ETH</div>
+              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+                <span>Sell EOS</span> <WebIcon className="color-black-3" type="down"/>
+              </Button>
             </div>
-            <div className="col-auto text-center position-relative" style={{width:'30px'}}>
-              <div className="color-black-3 fs16" ></div>
+            <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <div className="color-black-2 fs16">WETH</div>
+              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+                <span>Buy LRC</span> <WebIcon className="color-black-3" type="down"/>
+              </Button>
             </div>
           </div>
-          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-center" style={{height:'40px',lineHeight:'40px'}}>
+              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
                 <span className="color-black-3">0.0000</span>
               </Button>
               {
@@ -114,7 +130,7 @@ class PlaceOrder extends React.Component {
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-center" style={{height:'40px',lineHeight:'40px'}}>
+              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
                 <span className="color-black-3">0.0000</span>
               </Button>
               {
@@ -126,31 +142,22 @@ class PlaceOrder extends React.Component {
               }
             </div>
           </div>
-          <div hidden className="row ml0 mr0 mt15 no-gutters">
+          <div className="row ml0 mr0 pt15 pb15 no-gutters">
             <div className="col">
-              <div className="color-black-2 fs14">Ratio</div>
+              <div className="color-black-2 fs14">Exchage Price</div>
             </div>
             <div className="col-auto fs14 color-black-3">
-              1 ETH = 1 WETH
+              20.0000 EOS/LRC
             </div>
           </div>
-          <Button className="mt20" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
-          <div className="row ml0 mr0 mt20 no-gutters">
-            <div className="col">
-              <div className="color-black-2 fs14">Gas Fee</div>
-            </div>
-            <div className="col-auto fs14 color-black-2">
-              $1.2 ≈ 0.00015 ETH
-              <WebIcon type="right" />
-            </div>
-          </div>
+          <Button className="" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
         </div>
       </div>
     );
   }
 }
-const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
-export default PlaceOrderForm
+const TransferForm = createForm()(connect(({layers})=>({layers}))(Transfer))
+export default TransferForm
 
 
 
