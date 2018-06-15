@@ -177,7 +177,7 @@ class PlaceOrder extends React.Component {
           mode="light"
           onLeftClick={() => console.log('onLeftClick')}
           leftContent={[
-            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+            <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
           ]}
           rightContent={[
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>

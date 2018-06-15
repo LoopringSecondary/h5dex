@@ -52,33 +52,37 @@ class Transfer extends React.Component {
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
 
-    const PlaceOrderForm = (props)=>{
+    const TransferForm = (props)=>{
       const { side } = props
       return (
         <div>
-           <List className="bg-none" renderHeader={()=> <div className="d-none pl15 pt10 fs14 zb-b-b">LRC To Sell</div>}>
+           <List className="bg-none no-border">
             <Item extra={
               <div>
-                <span className="color-black-2">LRC</span>
+                <span className="" style={{color:'#bbb'}}>LRC</span>
                 <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-3" type="right"/>
+                  <WebIcon className="color-black-2 fs14" type="right"/>
                 </span>
               </div>
             } >
-              Token
+              <div className="fs16">Token</div>
             </Item>
+            </List>
+            <List className="bg-none no-border">
             <InputItem
               {...getFieldProps('money3')}
               type={type}
-              placeholder="0x"
+              placeholder="recipient address"
               clear
               moneyKeyboardAlign="right"
               extra={
                 <div style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-3" type="scan" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />
+                  <WebIcon className="color-black-2" type="scan" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />
                 </div>
               }
-            ><div className="fs16" >Recipient</div></InputItem>
+            ><div className="fs16" >To</div></InputItem>
+            </List>
+            <List className="bg-none no-border">
             <InputItem
               type={type}
               placeholder="00.0000"
@@ -88,41 +92,47 @@ class Transfer extends React.Component {
               onBlur={(v) => { console.log('onBlur', v); }}
               extra={
                 <div style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-3" type="profile" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />
+                  <WebIcon className="color-black-2" type="profile" style={{padding:'2px 0px 5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />
                 </div>
               }
             ><div className="fs16">Amount</div></InputItem>
+            </List>
+            <List className="bg-none no-border">
             <Item extra={
               <div>
-                <span className="color-black-2">$1.2 ≈ 0.00015ETH</span>
+                <span className="" style={{color:'#bbb'}}>$1.2 ≈ 0.00015ETH</span>
                 <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-3" type="right"/>
+                  <WebIcon className="color-black-2 fs14" type="right"/>
                 </span>
               </div>
             } >
               Gas
             </Item>
+            </List>
             {
               false &&
-              <Item  multipleLine wrap
-              extra={
-                <div>
-                  <span className="color-black-3">Notes</span>
-                  <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
-                    <WebIcon className="color-black-3" type="right"/>
-                  </span>
-                </div>
-              }
-              >Data</Item>
+              <List className="bg-none no-border">
+                <Item  multipleLine wrap
+                extra={
+                  <div>
+                    <span className="color-black-3">Notes</span>
+                    <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
+                      <WebIcon className="color-black-3" type="right"/>
+                    </span>
+                  </div>
+                }
+                >Data</Item>
+              </List>
             }
+            <List className="bg-none no-border">
             <Item>
               <div className="row align-items-center ml0 mr0 mb15 mt10">
-                <div className="col color-black-3 fs16 pl0">Advanced</div>
+                <div className="col fs16 pl0">Advanced</div>
                 <div className="col-auto color-black-3 fs16 pr0">
                   <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
                 </div>
               </div>
-              <Button className="mb15" type="primary">Send</Button>
+              <Button className="mb15" type="primary">Send LRC</Button>
             </Item>
           </List>
         </div>
@@ -141,7 +151,7 @@ class Transfer extends React.Component {
     return (
       <div className="bg-white">
         <NavBar
-          className="zb-b-b"
+          className=""
           mode="light"
           onLeftClick={() => routeActions.goBack()}
           leftContent={[
@@ -151,11 +161,10 @@ class Transfer extends React.Component {
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
           ]}
         >
-          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Send LRC</div>
+          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Send</div>
         </NavBar>
-        <div className="">
-          <PlaceOrderForm side="buy" />
-        </div>
+        <div className="divider 1px zb-b-t"></div>
+        <TransferForm side="buy" />
 
       </div>
     );
