@@ -19,21 +19,21 @@ const TokenItem = ({item={},actions,key,index})=>{
       <div>
         <div className="row ml0 mr0 pt15 pb15 pl10 pr10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
           <div className="col-auo pr10 color-black text-center">
-              <i className={`icon-${item.symbol} fs24 d-block color-black-1`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #000',borderRadius:'50em'}}></i>
+              <i className={`icon-${item.symbol} fs24 d-block color-black-1`} style={{width:'36px',height:'36px',lineHeight:'36px',border:'1px solid #eee',borderRadius:'50em'}}></i>
           </div>
           <div className="col text-left">
             <div>
-              <div className="fs18 color-black-1">
+              <div className="fs16 color-black-2">
                 {item.symbol}
               </div>
-              <div className="fs14 color-black-3">
+              <div hidden className="fs14 color-black-3">
                 {item.name}
               </div>
 
             </div>
           </div>
           <div className="col-auto text-right">
-            <div className="color-black-1 fs18">
+            <div className="color-black-2 fs16">
               0.000000
             </div>
             <div className="fs14 color-black-3">
@@ -174,7 +174,7 @@ class ListTickers extends React.Component {
                 <div className="fs28 color-black-1">$ 0.00000</div>
                 <div className="fs16 color-black-3">
                   0x6d4ee35d...52e75005
-                  <WebIcon className="ml5 fs16" type="qrcode" />
+                  <WebIcon hidden className="ml5 fs16" type="qrcode" />
                 </div>
             </div>
             <Grid className="my-dex-grid" data={menus} hasLine={false} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4}
@@ -187,13 +187,14 @@ class ListTickers extends React.Component {
                 )
               }}
             />
-            <div className="divider 1px zb-b-t mt15"></div>
+            <div className="divider 1px zb-b-t mb15"></div>
+            <div className="divider 1px zb-b-t"></div>
             <div className="tabs-no-border no-underline">
               <Tabs
                 tabs={
                   [
                     { title: <div className="am-tabs-item-wrapper"><div className="fs16 am-tabs-item">Assets</div></div> },
-                    { title: <div className="am-tabs-item-wrapper"><div className="fs16 am-tabs-item"><Badge className="ml5 t-black" count={3}>Transactions</Badge></div></div> },
+                    { title: <div className="am-tabs-item-wrapper"><div className="fs16 am-tabs-item"><Badge className="ml5 t-black fs16" count={3}>Transactions</Badge></div></div> },
                   ]
                 }
                 swipeable={false}

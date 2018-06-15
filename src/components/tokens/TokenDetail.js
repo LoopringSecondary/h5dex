@@ -106,7 +106,7 @@ function genData(pIndex = 0) {
 const TxListHeader = ()=>{
   return (
     <div className="bg-white">
-      <div className="row ml0 mr0 fs16 zb-b-t">
+      <div className="row ml0 mr0 fs14 zb-b-t">
         <div className="col text-center pt10 pb10 zb-b-r">
           Status <WebIcon className="fs12" type="down" />
         </div>
@@ -221,18 +221,27 @@ class TokenDetail extends React.Component {
                 <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
               ]}
               rightContent={[
-                <WebIcon key="1" type="info-circle-o" className="color-black-1" />,
+                <WebIcon key="1" type="ellipsis" className="color-black-1" />,
               ]}
             >
+            LRC
+            {
+              false &&
               <SegmentedControl values={['Transactions', 'Trade']} style={{width:'210px',height:'32px'}}/>
+            }
             </NavBar>
-            <div className="pt40 pb40 pl15 pr15 text-center bg-white">
+            <div className="pt30 pb30 pl15 pr15 text-center bg-white">
+                <i className="icon-LRC fs26 color-black-1 d-inline-block mb5" style={{width:"40px",height:'40px',lineHeight:"38px",borderRadius:'50em',border:"1px solid #eee"}}></i>
                 <div className="fs24 color-black-1">
-                  0.000000 LRC
+                  0.000000
                 </div>
                 <div className="fs16 color-black-3">
                   $ 0.000000
                 </div>
+            </div>
+            <div hidden className="divider 1px zb-b-t"></div>
+            <div hidden className="p10 bg-white">
+              <SegmentedControl values={['Transactions','Orders','Fills']} style={{height:'40px'}}/>
             </div>
             <TxListHeader />
             <TxList />

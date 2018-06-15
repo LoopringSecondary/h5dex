@@ -76,6 +76,12 @@ class DApps extends React.Component {
         text: <div className="fs14 color-black-1">扫码收款</div>,
         onClick:(item)=>routeActions.gotoPath('/todo'),
       },
+      {
+        icon: <WebIcon type="ellipsis" className="fs24 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-1">更多</div>,
+        onClick:(item)=>routeActions.gotoPath('/todo'),
+      },
+
     ]
     return (
       <div className="bg-grey-100">
@@ -96,7 +102,7 @@ class DApps extends React.Component {
             <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="info-circle-o" /></span>
           ]}
         >
-        Trade
+        Trade DApps
         </NavBar>
         <div className="bg-white">
           <div className="pt50 pb50 text-left zb-b-t">
