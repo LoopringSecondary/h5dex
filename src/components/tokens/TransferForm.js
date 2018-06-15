@@ -61,7 +61,7 @@ class Transfer extends React.Component {
               <div>
                 <span className="" style={{color:'#bbb'}}>LRC</span>
                 <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-2 fs14" type="right"/>
+                  <WebIcon className="color-black-2 fs14" type="profile"/>
                 </span>
               </div>
             } >
@@ -102,7 +102,7 @@ class Transfer extends React.Component {
               <div>
                 <span className="" style={{color:'#bbb'}}>$1.2 ≈ 0.00015ETH</span>
                 <span className="d-inline-block ml5" style={{width:'25px',textAlign:'right'}}>
-                  <WebIcon className="color-black-2 fs14" type="right"/>
+                  <WebIcon className="color-black-2 fs14" type="profile"/>
                 </span>
               </div>
             } >

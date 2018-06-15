@@ -86,7 +86,7 @@ class MarketDetail extends React.Component {
               [
                 { title: <div className="fs16 pt5 pb5">Charts</div> },
                 { title: <div className="fs16 pt5 pb5">Depth</div> },
-                { title: <div className="fs16 pt5 pb5">Trades</div> },
+                { title: <div className="fs16 pt5 pb5">Fills</div> },
                 { title: <div className="fs16 pt5 pb5">Info</div> },
               ]
             }
@@ -116,10 +116,10 @@ class MarketDetail extends React.Component {
         <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
           <div className="row ml0 mr0 no-gutters">
             <div className="col-6">
-              <Button onClick={routeActions.gotoPath.bind(this,'/wallet/send')} className="bg-green-500 color-white m5">Buy LRC</Button>
+              <Button onClick={routeActions.gotoPath.bind(this,'/dex/placeOrder')} className="bg-green-500 color-white m5">Buy LRC</Button>
             </div>
             <div className="col-6">
-              <Button onClick={routeActions.gotoPath.bind(this,'/wallet/receive')} className="bg-red-500 color-white m5">Sell LRC</Button>
+              <Button onClick={routeActions.gotoPath.bind(this,'/dex/placeOrder')} className="bg-red-500 color-white m5">Sell LRC</Button>
             </div>
           </div>
         </div>

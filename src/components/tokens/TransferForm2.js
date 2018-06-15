@@ -97,8 +97,8 @@ class Transfer extends React.Component {
         <div className="zb-b-b p15">
           <Button type="ghost" className="fs16 color-black-2 text-left pl15 pr15 d-flex justify-content-between" style={{height:'40px',lineHeight:'40px'}}>
             <span className="color-black-3">Token</span>
-            <span className="color-black-3">
-              EOS
+            <span className="color-black-1">
+              <span hidden className="color-black-3 mr5">Balance 20.0000 </span>EOS
               <span className="ml15 color-black-2">
                 <WebIcon type="profile" />
               </span>
@@ -123,14 +123,6 @@ class Transfer extends React.Component {
               </span>
             </span>
           </Button>
-          <div className="row ml0 mr0 mt20 no-gutters">
-            <div className="col">
-              <div className="color-black-2 fs14">Balance</div>
-            </div>
-            <div className="col-auto fs14 color-black-2">
-              20.0000 EOS
-            </div>
-          </div>
           <div className="row ml0 mr0 mt20 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">Gas Fee</div>

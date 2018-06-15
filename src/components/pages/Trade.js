@@ -54,7 +54,7 @@ class DApps extends React.Component {
       {
         icon: <WebIcon type="api" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">去中心化交易</div>,
-        onClick:(item)=> routeActions.gotoPath('/dapp/dex')
+        onClick:(item)=> routeActions.gotoPath('/dex')
       },
       {
         icon: <WebIcon type="team" className="fs24 color-black-1 mb5" />,

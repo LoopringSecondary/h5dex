@@ -175,7 +175,7 @@ class PlaceOrder extends React.Component {
         <NavBar
           className=""
           mode="light"
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
           leftContent={[
             <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
           ]}
@@ -183,7 +183,7 @@ class PlaceOrder extends React.Component {
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
           ]}
         >
-        <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
+          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
         </NavBar>
         <div className="no-underline tabs-no-border h-50 place-order-form">
           <Tabs

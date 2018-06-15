@@ -44,7 +44,7 @@ const Logged = ()=>{
         <Route path="/todo" exact component={Todo} />
         <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/convert" exact component={ConvertForm} />
-        <Route path="/dapp/dex" component={Dex} />
+        <Route path="/dex" component={Dex} />
         <Route path="/wallet/send" exact component={Send2} />
         <Route path="/wallet/send2" exact component={Send} />
         <Route path="/wallet/transfer" exact component={Send} />
@@ -53,7 +53,6 @@ const Logged = ()=>{
         <Route path="/wallet" component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
-
         <Route path="/home" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
         <Route path="/home/tabs" exact component={Pages.HomeTabs} />
@@ -85,6 +84,7 @@ export default class Routes extends React.Component {
           <Switch>
             <Route path="/" exact component={Logged} />
             <Route path="/dapp" component={Logged} />
+            <Route path="/dex" component={Logged} />
             <Route path="/wallet" render={Logged} />
             <Route path="/trade" render={Logged} />
             <Route path="/todo" render={Logged} />

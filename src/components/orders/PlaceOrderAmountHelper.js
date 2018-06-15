@@ -18,8 +18,6 @@ function PlaceOrderAmountHelper(props) {
   const tabs = [
     { title: <div className="text-center">Balance</div> },
     { title: <div className="text-center">Depth</div> },
-    { title: <div className="text-center">Orders</div> },
-    { title: <div className="text-center">Fills</div> },
   ];
   return (
     <div className="tabs-no-border">
@@ -77,12 +75,6 @@ function PlaceOrderAmountHelper(props) {
         </div>
         <div className="zb-b-t">
           <DepthList />
-        </div>
-        <div className="p50 zb-b-t">
-          Open Order Todo
-        </div>
-        <div className="p50 zb-b-t">
-          Fills Todo
         </div>
       </Tabs>
 

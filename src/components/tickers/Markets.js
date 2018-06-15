@@ -4,6 +4,7 @@ import intl from 'react-intl-universal';
 import ListTickers from './ListTickers';
 import { NavBar,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
+import routeActions from 'common/utils/routeActions'
 
 class Markets extends React.Component {
   render(){
@@ -15,7 +16,7 @@ class Markets extends React.Component {
           className="w-100 zb-b-b"
           mode="light"
           icon={null && <Icon type="left" />}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
           leftContent={ [
             <WebIcon key="1" type="home" className="color-black-1" />,
           ]}

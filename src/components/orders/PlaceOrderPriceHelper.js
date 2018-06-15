@@ -39,9 +39,8 @@ const Advance = (
 
 function PlaceOrderPriceHelper(props) {
   const tabs = [
-    { title: <Badge >Depth</Badge> },
-    { title: <Badge >Orders</Badge> },
-    { title: <Badge >Fills</Badge> },
+    { title: <div className="">Prices</div>},
+    { title: <div className="">Depth</div>},
   ];
   return (
     <div className="tabs-no-border">
@@ -57,19 +56,31 @@ function PlaceOrderPriceHelper(props) {
         <div className="zb-b-t">
           <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
             <div className="col color-black-2 text-left pl10">
-              Last Price
+              Last Filled Price
             </div>
             <div className="col-auto color-black-2">
               <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
             </div>
           </div>
+          <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
+            <div className="col color-black-2 text-left pl10">
+              Last Sell Price
+            </div>
+            <div className="col-auto color-black-2">
+              <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
+            </div>
+          </div>
+          <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
+            <div className="col color-black-2 text-left pl10">
+              Last Buy Price
+            </div>
+            <div className="col-auto color-black-2">
+              <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
+            </div>
+          </div>
+        </div>
+        <div className="zb-b-t">
           <DepthList />
-        </div>
-        <div className="p50 zb-b-t">
-          Opens Orders Todo
-        </div>
-        <div className="p50 zb-b-t">
-          Fills Todo
         </div>
       </Tabs>
     </div>

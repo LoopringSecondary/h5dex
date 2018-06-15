@@ -117,7 +117,7 @@ class PlaceOrder extends React.Component {
         <NavBar
           className=""
           mode="light"
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
           leftContent={[
             <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
           ]}

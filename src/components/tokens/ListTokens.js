@@ -167,7 +167,7 @@ class ListTickers extends React.Component {
                 <WebIcon key="1" type="plus" className="color-black-1" />,
               ]}
             >
-              Test <WebIcon className="ml5" type="down" />
+              Test <WebIcon className="ml5 " type="down" />
             </NavBar>
             <div className="divider 1px zb-b-t"></div>
             <div className="pt40 pb20 pl15 pr15 text-center bg-white">
