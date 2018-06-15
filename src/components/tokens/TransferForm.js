@@ -145,8 +145,17 @@ class Transfer extends React.Component {
         side
       })
     }
-   const gotoTrade = ()=>{
+    const gotoTrade = ()=>{
       routeActions.gotoPath('/trade/detail')
+    }
+    const onValueChange = (val)=>{
+      console.log('onValueChange',onValueChange)
+      if(val === 'Send'){
+        routeActions.gotoPath('/wallet/send')
+      }
+      if(val === 'Send2'){
+        routeActions.gotoPath('/wallet/send2')
+      }
     }
     return (
       <div className="bg-white">
@@ -161,7 +170,7 @@ class Transfer extends React.Component {
             <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
           ]}
         >
-          <SegmentedControl values={['Send', 'Send2']} style={{width:'210px',height:'32px'}}/>
+          <SegmentedControl onValueChange={onValueChange} selectedIndex={0} values={['Send', 'Send2']} style={{width:'210px',height:'32px'}} />
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
         <TransferForm side="buy" />

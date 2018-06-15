@@ -45,8 +45,8 @@ const Logged = ()=>{
         <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/convert" exact component={ConvertForm} />
         <Route path="/dapp/dex" component={Dex} />
-        <Route path="/wallet/send" exact component={Send} />
-        <Route path="/wallet/send2" exact component={Send2} />
+        <Route path="/wallet/send" exact component={Send2} />
+        <Route path="/wallet/send2" exact component={Send} />
         <Route path="/wallet/transfer" exact component={Send} />
         <Route path="/wallet/receive" exact component={Todo} />
         <Route path="/wallet/scan" exact component={Todo} />

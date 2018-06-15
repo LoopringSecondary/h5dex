@@ -66,8 +66,17 @@ class Transfer extends React.Component {
         side
       })
     }
-   const gotoTrade = ()=>{
+    const gotoTrade = ()=>{
       routeActions.gotoPath('/trade/detail')
+    }
+    const onValueChange = (val)=>{
+      console.log('onValueChange',onValueChange)
+      if(val === 'Send'){
+        routeActions.gotoPath('/wallet/send')
+      }
+      if(val === 'Send2'){
+        routeActions.gotoPath('/wallet/send2')
+      }
     }
     return (
       <div className="bg-white">
@@ -82,75 +91,62 @@ class Transfer extends React.Component {
             <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="question-circle-o" /></span>
           ]}
         >
-          <SegmentedControl selectedIndex={2} values={['Send', 'Send2']} style={{width:'210px',height:'32px'}}/>
+          <SegmentedControl onValueChange={onValueChange} selectedIndex={1} values={['Send', 'Send2']} style={{width:'210px',height:'32px'}} />
         </NavBar>
-        <div className="zb-b-b pt25 pb25 pl15 pr15">
-          <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
-            <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-EOS fs24`}/>
-              </div>
-            </div>
-            <div className="col-auto text-center" style={{width:'30px'}}>
-              <WebIcon type="arrow-right" className={`color-black-1 fs20`} />
-            </div>
-            <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-LRC fs24`}/>
-              </div>
-            </div>
-          </div>
-          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
-            <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
-                <span>Sell EOS</span> <WebIcon className="color-black-3" type="down"/>
-              </Button>
-            </div>
-            <div className="col-auto text-center" style={{width:'30px'}}>
-            </div>
-            <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
-                <span>Buy LRC</span> <WebIcon className="color-black-3" type="down"/>
-              </Button>
-            </div>
-          </div>
-          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
-            <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
-                <span className="color-black-3">0.0000</span>
-              </Button>
-              {
-                false &&
-                <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
-                  <span>Balance</span>
-                  <span>0.0000</span>
-                </div>
-              }
-            </div>
-            <div className="col-auto text-center" style={{width:'30px'}}>
-            </div>
-            <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
-                <span className="color-black-3">0.0000</span>
-              </Button>
-              {
-                false &&
-                <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
-                  <span>Balance</span>
-                  <span>0.0000</span>
-                </div>
-              }
-            </div>
-          </div>
-          <div className="row ml0 mr0 pt15 pb15 no-gutters">
+
+        <div className="zb-b-b p15">
+          <Button type="ghost" className="fs16 color-black-2 text-left pl15 pr15 d-flex justify-content-between" style={{height:'40px',lineHeight:'40px'}}>
+            <span className="color-black-3">Token</span>
+            <span className="color-black-3">
+              EOS
+              <span className="ml15 color-black-2">
+                <WebIcon type="profile" />
+              </span>
+            </span>
+          </Button>
+          <Button type="ghost" className="mt20 fs16 color-black-2 text-left pl15 pr15 d-flex justify-content-between" style={{height:'40px',lineHeight:'40px'}}>
+            <span className="color-black-3">To</span>
+            <span className="color-black-3">
+              recipient address
+              <span className="ml15 color-black-2">
+                <WebIcon type="scan" />
+              </span>
+            </span>
+          </Button>
+
+          <Button type="ghost" className="mt20 fs16 color-black-2 text-left pl15 pr15 d-flex justify-content-between" style={{height:'40px',lineHeight:'40px'}}>
+            <span className="color-black-3">Amount</span>
+            <span className="color-black-3">
+              00.00000
+              <span className="ml15 color-black-2">
+                <WebIcon type="profile" />
+              </span>
+            </span>
+          </Button>
+          <div className="row ml0 mr0 mt20 no-gutters">
             <div className="col">
-              <div className="color-black-2 fs14">Exchage Price</div>
+              <div className="color-black-2 fs14">Balance</div>
             </div>
-            <div className="col-auto fs14 color-black-3">
-              20.0000 EOS/LRC
+            <div className="col-auto fs14 color-black-2">
+              20.0000 EOS
             </div>
           </div>
-          <Button className="" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
+          <div className="row ml0 mr0 mt20 no-gutters">
+            <div className="col">
+              <div className="color-black-2 fs14">Gas Fee</div>
+            </div>
+            <div className="col-auto fs14 color-black-2">
+              $1.2 ≈ 0.00015ETH
+              <WebIcon className="ml5" type="right" />
+            </div>
+          </div>
+          <div className="row align-items-center ml0 mr0 mt20 mb20">
+            <div className="col fs14 pl0 color-black-2">Advanced</div>
+            <div className="col-auto color-black-2 fs16 pr0">
+              <WebSwitch size="" onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
+            </div>
+          </div>
+          <Button className="" onClick={()=>{}} type="primary">Send EOS</Button>
         </div>
       </div>
     );
