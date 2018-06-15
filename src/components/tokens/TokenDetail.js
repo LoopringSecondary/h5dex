@@ -105,7 +105,7 @@ function genData(pIndex = 0) {
 
 const TxListHeader = ()=>{
   return (
-    <div className="bg-white">
+    <div className="color-black-2">
       <div className="row ml0 mr0 fs14 zb-b-t">
         <div className="col text-center pt10 pb10 zb-b-r">
           Status <WebIcon className="fs12" type="down" />
@@ -239,12 +239,37 @@ class TokenDetail extends React.Component {
                   $ 0.000000
                 </div>
             </div>
-            <div hidden className="divider 1px zb-b-t"></div>
+            <div className="divider 1px zb-b-t"></div>
             <div hidden className="p10 bg-white">
               <SegmentedControl values={['Transactions','Orders','Fills']} style={{height:'40px'}}/>
             </div>
-            <TxListHeader />
-            <TxList />
+            <div className="no-underline">
+              <Tabs
+                tabs={
+                  [
+                    { title: <div className="am-tabs-item-wrapper zb-b-r"><div className="fs16 am-tabs-item-bak">Transactions</div></div> },
+                    { title: <div className="am-tabs-item-wrapper"><div className="fs16 am-tabs-item-bak">Trade</div></div> },
+                  ]
+                }
+                swipeable={false}
+                tabBarBackgroundColor={"#fff"}
+                tabBarActiveTextColor={"#000"}
+                tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+                tabBarTextStyle={{}}
+                initialPage={0}
+                onChange={(tab, index) => {}}
+                onTabClick={(tab, index) => { }}
+              >
+                <div className="">
+                  <TxListHeader />
+                  <TxList />
+                </div>
+                <div className="p15">
+                  Trades
+                </div>
+              </Tabs>
+            </div>
+
             <div className="position-fixed bg-white p5" style={{bottom:'0',left:'0',right:'0',zIndex:10}}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col-6">
