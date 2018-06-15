@@ -5,7 +5,7 @@ import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
 import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,Grid } from 'antd-mobile'
-import { Switch,Icon as WebIcon} from 'antd'
+import { Switch,Icon as WebIcon,Badge} from 'antd'
 import { TxList } from './TokenDetail'
 
 const TokenItem = ({item={},actions,key,index})=>{
@@ -156,11 +156,11 @@ class ListTickers extends React.Component {
       return (
           <div className=""  style={{height:'100%'}}>
             <NavBar
-              className="w-100 zb-b-b"
+              className="w-100"
               mode="light"
               icon={null && <Icon type="left" />}
               onLeftClick={() => console.log('onLeftClick')}
-              leftContent={ [
+              leftContent={null && [
                 <WebIcon key="1" type="bars" className="color-black-1" onClic={goBack}/>,
               ]}
               rightContent={[
@@ -169,14 +169,15 @@ class ListTickers extends React.Component {
             >
               Test <WebIcon className="ml5" type="down" />
             </NavBar>
-            <div className="pt40 pb40 pl15 pr15 text-center bg-white">
+            <div className="divider 1px zb-b-t"></div>
+            <div className="pt40 pb20 pl15 pr15 text-center bg-white">
                 <div className="fs28 color-black-1">$ 0.00000</div>
                 <div className="fs16 color-black-3">
                   0x6d4ee35d...52e75005
                   <WebIcon className="ml5 fs16" type="qrcode" />
                 </div>
             </div>
-            <Grid className="my-dex-grid" data={menus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4}
+            <Grid className="my-dex-grid" data={menus} hasLine={false} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={false} columnNum={4}
               renderItem={(item,index)=>{
                 return (
                   <div onClick={item.onClick.bind(this,item)}>
@@ -186,11 +187,25 @@ class ListTickers extends React.Component {
                 )
               }}
             />
-            <div className="tabs-no-border no-underline zb-b-t mt15">
-                <div hidden className="bg-white p10">
-                  <SegmentedControl values={['Assets', 'Transactions']} className="" style={{height:'40px'}}/>
-                </div>
-                <div hidden className="">
+            <div className="divider 1px zb-b-t mt15"></div>
+            <div className="tabs-no-border no-underline">
+              <Tabs
+                tabs={
+                  [
+                    { title: <div className="am-tabs-item-wrapper"><div className="fs16 am-tabs-item">Assets</div></div> },
+                    { title: <div className="am-tabs-item-wrapper"><div className="fs16 am-tabs-item"><Badge className="ml5 t-black" count={3}>Transactions</Badge></div></div> },
+                  ]
+                }
+                swipeable={false}
+                tabBarBackgroundColor={"#fff"}
+                tabBarActiveTextColor={"#000"}
+                tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+                tabBarTextStyle={{}}
+                initialPage={0}
+                onChange={(tab, index) => {}}
+                onTabClick={(tab, index) => { }}
+              >
+                <div className="bg-white">
                   <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}
@@ -203,7 +218,6 @@ class ListTickers extends React.Component {
                     style={{
                        height: "100%",
                        overflow: 'auto',
-                       background:'#fff',
                     }}
                     onScroll={() => { console.log('scroll'); }}
                     scrollRenderAheadDistance={300}
@@ -211,50 +225,10 @@ class ListTickers extends React.Component {
                     onEndReachedThreshold={10}
                   />
                 </div>
-                <div className="wallet-home-tabs tabs-no-border">
-                  <Tabs
-                    tabs={
-                      [
-                        { title: <div className="fs16 d-block w-100 text-center wallet-home-tabs-bar-item">Assets</div> },
-                        { title: <div className="fs16 d-block w-100 text-center wallet-home-tabs-bar-item">Transactions</div> },
-                      ]
-                    }
-                    swipeable={false}
-                    tabBarBackgroundColor={"#fff"}
-                    tabBarActiveTextColor={"#000"}
-                    tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-                    tabBarTextStyle={{}}
-                    initialPage={0}
-                    onChange={(tab, index) => {}}
-                    onTabClick={(tab, index) => { }}
-                  >
-                    <div className="no-border">
-                      <ListView
-                        ref={el => this.lv = el}
-                        dataSource={this.state.dataSource}
-                        renderHeader={() => <div hidden className="fs20 p15 color-black-1 zb-b-t">Assets</div>}
-                        renderFooter={() => (<div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
-                        renderRow={row}
-                        className="am-list-bg-none"
-                        pageSize={5}
-                        useBodyScroll={true}
-                        style={{
-                           height: "100%",
-                           overflow: 'auto',
-                           background:'#fff',
-                        }}
-                        onScroll={() => { console.log('scroll'); }}
-                        scrollRenderAheadDistance={300}
-                        onEndReached={this.onEndReached}
-                        onEndReachedThreshold={10}
-                      />
-                    </div>
-                    <div className="bg-white no-border">
-                      <TxList />
-                    </div>
-                  </Tabs>
+                <div className="bg-white">
+                  <TxList />
                 </div>
-
+              </Tabs>
             </div>
           </div>
 

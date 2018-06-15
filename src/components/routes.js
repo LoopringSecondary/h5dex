@@ -40,7 +40,9 @@ const Logged = ()=>{
   if(isLogged){
     return (
       <Switch>
+        <Route path="/todo" exact component={Todo} />
         <Route path="/dapp/face2face" exact component={Face2Face} />
+        <Route path="/dapp/convert" exact component={ConvertForm} />
         <Route path="/dapp/dex" component={Dex} />
         <Route path="/wallet/send" exact component={Send} />
         <Route path="/wallet/receive" exact component={Todo} />
@@ -82,17 +84,20 @@ export default class Routes extends React.Component {
           <Switch>
             <Route path="/" exact component={Logged} />
             <Route path="/dapp" component={Logged} />
+            <Route path="/wallet" render={Logged} />
+            <Route path="/trade" render={Logged} />
+            <Route path="/todo" render={Logged} />
             <Route path="/token" component={Logged} />
             <Route path="/tokens" component={Logged} />
             <Route path="/tokenDetail" component={Logged} />
             <Route path="/convert" component={Logged} />
             <Route path="/home" component={Logged} />
             <Route path="/unlock" component={Logged} />
-            <Route path="/wallet" render={Logged} />
+
             <Route path="/placeOrder" render={Logged} />
             <Route path="/placeOrderSimple" render={Logged} />
             <Route path="/placeOrderStand" render={Logged} />
-            <Route path="/trade" render={Logged} />
+
             <Route path="/orders" render={Logged} />
             <Route path="/my" render={Logged} />
             <Route path="/notifications" render={Logged} />

@@ -62,14 +62,19 @@ class DApps extends React.Component {
         onClick:(item)=> routeActions.gotoPath('/dapp/face2face')
       },
       {
+        icon: <i className="icon-WETH fs24 color-black-1 mb5" />,
+        text: <div className="fs14 color-black-1">WETH转换</div>,
+        onClick:(item)=> routeActions.gotoPath('/dapp/convert')
+      },
+      {
         icon: <WebIcon type="pay-circle-o" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">一键购买</div>,
-        onClick:(item)=>{},
+        onClick:(item)=>routeActions.gotoPath('/todo'),
       },
       {
         icon: <WebIcon type="qrcode" className="fs24 color-black-1 mb5" />,
         text: <div className="fs14 color-black-1">扫码收款</div>,
-        onClick:(item)=>{},
+        onClick:(item)=>routeActions.gotoPath('/todo'),
       },
     ]
     return (
@@ -83,23 +88,25 @@ class DApps extends React.Component {
         <NavBar
           className=""
           mode="light"
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={() => {}}
           leftContent={null && [
-            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+            <span className="color-black-1"><WebIcon key="1" type="left" /></span>,
           ]}
-          rightContent={[
+          rightContent={null && [
             <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="info-circle-o" /></span>
           ]}
         >
         Trade
         </NavBar>
-        <div className="pt50 pb50 text-left bg-grey-900">
-          <div className="row align-items-center ml0 mr0 no-gutters">
-            <div className="col">
-              <div className="text-center color-white-1 fs20 pl15" style={{wordBreak:'break-all'}}>
-                Loopring Dex Trade Store
-                <div className="fs16 color-white-3 mt5">
-                  让交易更简单
+        <div className="bg-white">
+          <div className="pt50 pb50 text-left zb-b-t">
+            <div className="row align-items-center ml0 mr0 no-gutters">
+              <div className="col">
+                <div className="text-center color-black-1 fs20 pl15" style={{wordBreak:'break-all'}}>
+                  Loopring Dex EcoSystem
+                  <div className="fs16 color-black-3 mt5">
+                    让交易更安全更简单
+                  </div>
                 </div>
               </div>
             </div>

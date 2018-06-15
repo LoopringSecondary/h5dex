@@ -44,42 +44,20 @@ class PlaceOrder extends React.Component {
         }
       })
     }
-
     const showPriceHelper= ()=>{
       showLayer({id:'placeOrderPriceHelper'})
-    }
-    const { getFieldProps } = this.props.form;
-    const { type } = this.state;
-
-    const PlaceOrderForm = (props)=>{
-      const { side } = props
-      return (
-        <div>
-
-        </div>
-
-      )
-    }
-    const {side} = this.state
-    const tabChange = (side)=>{
-      this.setState({
-        side
-      })
-    }
-   const gotoTrade = ()=>{
-      routeActions.gotoPath('/trade/detail')
     }
     return (
       <div className="bg-white">
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={() => console.log('onLeftClick')}
-          leftContent={null && [
-            <span className="color-black-1"><WebIcon key="1" type="bars" /></span>,
+          onLeftClick={() => routeActions.goBack()}
+          leftContent={[
+            <span className="color-black-1"><WebIcon key="1" type="left" /></span>,
           ]}
           rightContent={[
-            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="question-circle-o" /></span>
+            <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="question-circle-o" /></span>
           ]}
         >
           <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Convert</div>
@@ -105,7 +83,7 @@ class PlaceOrder extends React.Component {
               <div className="color-black-2 fs16">ETH</div>
             </div>
             <div className="col-auto text-center position-relative" style={{width:'30px'}}>
-              <div className="color-black-3 fs16" >1 : 1</div>
+              <div className="color-black-3 fs16" ></div>
             </div>
             <div className="col text-center">
               <div className="color-black-2 fs16">WETH</div>
@@ -139,12 +117,20 @@ class PlaceOrder extends React.Component {
               }
             </div>
           </div>
-          <Button className="mt15" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
-          <div className="row ml0 mr0 mt20 no-gutters">
+          <div hidden className="row ml0 mr0 mt15 no-gutters">
             <div className="col">
-              <div className="color-black-2 fs14">ETH Gas</div>
+              <div className="color-black-2 fs14">Ratio</div>
             </div>
             <div className="col-auto fs14 color-black-3">
+              1 ETH = 1 WETH
+            </div>
+          </div>
+          <Button className="mt20" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
+          <div className="row ml0 mr0 mt20 no-gutters">
+            <div className="col">
+              <div className="color-black-2 fs14">Gas Fee</div>
+            </div>
+            <div className="col-auto fs14 color-black-2">
               $1.2 ≈ 0.00015 ETH
               <WebIcon type="right" />
             </div>
