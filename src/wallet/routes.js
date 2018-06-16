@@ -2,21 +2,15 @@ import React from 'react';
 import { Route, Switch,Redirect} from 'dva/router';
 import Pages from './pages';
 import Tokens from './tokens';
-import Orders from './orders';
-import Fills from './fills';
 import Transactions from './transactions';
 import Account from './account';
 import Tickers from './tickers';
 import Setting from './setting';
-import Tools from './tools';
 import UnlockModals from './account/unlock/Modals'
-import My from './orders/My'
-import MyOrders from './tickers/Orders'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
 import Face2Face from './dapp/face2face/PlaceOrder'
-import Dex from './pages/Dex'
 import Todo from './pages/Todo'
 import Send from './tokens/TransferForm'
 import Send2 from './tokens/TransferForm2'
@@ -76,24 +70,9 @@ export default class Routes extends React.Component {
             <Route path="/tokens" component={Logged} />
             <Route path="/tokenDetail" component={Logged} />
             <Route path="/convert" component={Logged} />
-            <Route path="/home" component={Logged} />
             <Route path="/unlock" component={Logged} />
-
-            <Route path="/placeOrder" render={Logged} />
-            <Route path="/placeOrderSimple" render={Logged} />
-            <Route path="/placeOrderStand" render={Logged} />
-            <Route path="/orders" render={Logged} />
-            <Route path="/my" render={Logged} />
             <Route path="/dev" exact component={Pages.Test} />
           </Switch>
-          <Orders.Modals />
-          <Fills.Modals />
-          <Transactions.Modals />
-          <Tokens.Modals />
-          <Account.Modals />
-          <Setting.Modals />
-          <Tickers.Modals />
-          <UnlockModals />
       </div>
     );
   }
