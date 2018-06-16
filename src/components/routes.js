@@ -53,12 +53,6 @@ const Logged = ()=>{
         <Route path="/wallet" component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
-        <Route path="/home" exact component={Pages.HomeTabBar} />
-        <Route path="/home/tabbar" exact component={Pages.HomeTabBar} />
-        <Route path="/home/tabs" exact component={Pages.HomeTabs} />
-        <Route path="/placeOrder/simple" exact component={Orders.PlaceOrderFormSimple} />
-        <Route path="/placeOrder/stand" exact component={Orders.PlaceOrderFormStand} />
-        <Route path="/placeOrder/convert" exact component={Orders.PlaceOrderConvertForm} />
         <Route path="/trade/detail" exact component={Tickers.Detail} />
         <Route path="/my" exact component={My} />
         <Route path="/orders/detail" exact component={Orders.Detail} />
