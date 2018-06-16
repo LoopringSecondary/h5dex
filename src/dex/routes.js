@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch,Redirect} from 'dva/router';
 import Pages from './pages';
 import Orders from './orders';
+import Face2Face from './orders/Face2Face'
 import ListTodos from './notifications/ListTodos'
 
 const UnLogged = ()=>{
@@ -27,6 +28,7 @@ const Logged = ()=>{
         <Route path={`/dex/settings`} exact component={Pages.Todo} />
         <Route path={`/dex/todos`} exact component={ListTodos} />
         <Route path={`/dex/messages`} exact component={Pages.Todo} />
+        <Route path={`/dex/face2face`} exact component={Face2Face} />
         <Route path={`/dex`} component={Pages.Home} />
 
       </Switch>

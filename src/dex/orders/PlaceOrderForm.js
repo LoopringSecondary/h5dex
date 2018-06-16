@@ -4,10 +4,10 @@ import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
 import OrderDetail from './Detail';
-import PlaceOrderPreview from './PlaceOrderPreview';
-import PlaceOrderAdvance from './PlaceOrderAdvance';
-import PlaceOrderPriceHelper from './PlaceOrderPriceHelper';
-import PlaceOrderAmountHelper from './PlaceOrderAmountHelper';
+import PlaceOrderSteps from './PlaceOrderSteps';
+import HelperOfAdvance from './HelperOfAdvance';
+import HelperOfPrice from './HelperOfPrice';
+import HelperOfAmount from './HelperOfAmount';
 import ListTickers from '../tickers/ListTickers';
 import {OpenOrderList,HistoryOrderList} from './ListOrders';
 import ListMyFills from '../fills/ListMyFills';
@@ -66,7 +66,7 @@ class PlaceOrder extends React.Component {
     }
 
     const showPriceHelper= ()=>{
-      showLayer({id:'placeOrderPriceHelper'})
+      showLayer({id:'helperOfPrice'})
     }
     const { getFieldProps } = this.props.form;
     const { type } = this.state;
@@ -83,7 +83,7 @@ class PlaceOrder extends React.Component {
               clear
               moneyKeyboardAlign="right"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderPriceHelper',side:'sell'})} />}
+              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
             ><div className="fs16">Price</div></InputItem>
           </List>
           <List className="bg-none no-border">
@@ -95,7 +95,7 @@ class PlaceOrder extends React.Component {
               onChange={(v) => { console.log('onChange', v); }}
               onBlur={(v) => { console.log('onBlur', v); }}
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'placeOrderAmountHelper',side:'sell'})} />}
+              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfAmount',side:'sell'})} />}
             ><div className="fs16">Amount</div></InputItem>
           </List>
           <List className="bg-none no-border">
@@ -144,16 +144,16 @@ class PlaceOrder extends React.Component {
               <div className="row align-items-center ml0 mr0 mb15 mt10">
                 <div className="col color-black-3 fs16 pl0">Advanced</div>
                 <div className="col-auto color-black-3 fs16 pr0">
-                  <WebSwitch onChange={(checked)=>{showLayer({id:'placeOrderAdvance',side})}} />
+                  <WebSwitch onChange={(checked)=>{showLayer({id:'helperOfAdvance',side})}} />
                 </div>
               </div>
               {
                 side === 'sell' &&
-                <Button onClick={showLayer.bind(this,{id:'placeOrderPreview',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
+                <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
               }
               {
                 side === 'buy' &&
-                <Button onClick={showLayer.bind(this,{id:'placeOrderPreview',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
+                <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
               }
             </Item>
           </List>
@@ -231,24 +231,24 @@ class PlaceOrder extends React.Component {
           </Tabs>
           <div className="pb50"></div>
         </div>
-        <Containers.Layers id="placeOrderPreview">
-          <UiContainers.Popups id="placeOrderPreview">
-            <PlaceOrderPreview />
+        <Containers.Layers id="placeOrderSteps">
+          <UiContainers.Popups id="placeOrderSteps">
+            <PlaceOrderSteps />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderAdvance">
-          <UiContainers.Popups id="placeOrderAdvance">
-            <PlaceOrderAdvance />
+        <Containers.Layers id="helperOfAdvance">
+          <UiContainers.Popups id="helperOfAdvance">
+            <HelperOfAdvance />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderPriceHelper">
-          <UiContainers.Popups id="placeOrderPriceHelper">
-            <PlaceOrderPriceHelper />
+        <Containers.Layers id="helperOfPrice">
+          <UiContainers.Popups id="helperOfPrice">
+            <HelperOfPrice />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderAmountHelper">
-          <UiContainers.Popups id="placeOrderAmountHelper">
-            <PlaceOrderAmountHelper />
+        <Containers.Layers id="helperOfAmount">
+          <UiContainers.Popups id="helperOfAmount">
+            <HelperOfAmount />
           </UiContainers.Popups>
         </Containers.Layers>
         <Containers.Layers id="orderDetail">

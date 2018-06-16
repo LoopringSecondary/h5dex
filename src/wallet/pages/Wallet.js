@@ -1,12 +1,7 @@
 import React from 'react';
 import {Link, Redirect, Route, Switch} from 'dva/router'
 import routeActions from 'common/utils/routeActions'
-import Layout from '../../layout';
-import Footer from '../../layout/Footer';
 import intl from 'react-intl-universal';
-import Tickers from '../tickers';
-import Orders from '../orders';
-import My from '../orders/My';
 import { TabBar,NavBar,Icon } from 'antd-mobile';
 import ListTokens from '../tokens/ListTokens';
 import Trade from './Trade';
@@ -18,7 +13,6 @@ class Wallet extends React.Component {
   }
   render(){
     const {match,location} = this.props;
-    console.log('Wallet props',this.props)
     const {url} = match;
     const {pathname} = location
     const changeTab = (path) => {

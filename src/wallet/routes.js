@@ -4,13 +4,11 @@ import Pages from './pages';
 import Tokens from './tokens';
 import Transactions from './transactions';
 import Account from './account';
-import Tickers from './tickers';
 import Setting from './setting';
 import UnlockModals from './account/unlock/Modals'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
-import Face2Face from './dapp/face2face/PlaceOrder'
 import Todo from './pages/Todo'
 import Send from './tokens/TransferForm'
 import Send2 from './tokens/TransferForm2'
@@ -35,7 +33,6 @@ const Logged = ()=>{
     return (
       <Switch>
         <Route path="/todo" exact component={Todo} />
-        <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/convert" exact component={ConvertForm} />
         <Route path="/wallet/send" exact component={Send2} />
         <Route path="/wallet/send2" exact component={Send} />

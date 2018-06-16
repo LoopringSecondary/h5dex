@@ -6,7 +6,7 @@ import { connect } from 'dva';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
-import {OpenOrderList} from '../../orders/PlaceOrderFormStand'
+import {OpenOrderList} from './ListOrders'
 const Item = List.Item;
 const Brief = Item.Brief;
 
