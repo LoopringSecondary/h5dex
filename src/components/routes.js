@@ -42,6 +42,7 @@ const Logged = ()=>{
     return (
       <Switch>
         <Route path="/todo" exact component={Todo} />
+        <Route path="/notifications" exact component={ListNotifications} />
         <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/convert" exact component={ConvertForm} />
         <Route path="/dex" component={Dex} />
@@ -53,13 +54,6 @@ const Logged = ()=>{
         <Route path="/wallet" component={Pages.Wallet} />
         <Route path="/tokens" exact component={ListTokens} />
         <Route path="/tokenDetail" exact component={TokenDetail} />
-        <Route path="/trade/detail" exact component={Tickers.Detail} />
-        <Route path="/my" exact component={My} />
-        <Route path="/orders/detail" exact component={Orders.Detail} />
-        <Route path="/orders" exact component={MyOrders} />
-        <Route path="/notifications" exact component={ListNotifications} />
-        { false && <Route path="/trade/:market" component={Pages.Trade} /> }
-        { false && <Route path="/trade" exact component={Pages.Trade} /> }
         <Redirect path={`/`} to={`/wallet`}/>
       </Switch>
     )
