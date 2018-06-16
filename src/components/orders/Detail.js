@@ -78,22 +78,22 @@ function OrderDetail(props) {
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
             { false &&
-              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
                   订单无法进行撮合
               </NoticeBar>
             }
             { false &&
-              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
                   余额为0，订单无法进行撮合
               </NoticeBar>
             }
 
-            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
+            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
                 余额不足，订单无法全部被撮合
             </NoticeBar>
             {
               false &&
-              <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
+              <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
                   该订单正在进行撮合
               </NoticeBar>
             }

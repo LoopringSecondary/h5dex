@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch,Redirect} from 'dva/router';
 import Pages from './pages';
-import ListNotifications from './tickers/ListNotifications'
+import Orders from './orders';
+import ListTodos from './notifications/ListTodos'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -21,15 +22,17 @@ const Logged = ()=>{
   if(isLogged){
     return (
       <Switch>
-        <Route path={`/`} exact component={Pages.Home} />
-        <Route path={`/home`} exact component={Pages.Home} />
-        <Route path={`/myOrders`} exact component={My} />
-        <Route path={`/myFills`} exact component={My} />
-        <Route path={`/settings`} exact component={My} />
+        <Route path={`/dex/myOrders`} exact component={Orders.ListMyOrders} />
+        <Route path={`/dex/myFills`} exact component={Pages.Todo} />
+        <Route path={`/dex/settings`} exact component={Pages.Todo} />
+        <Route path={`/dex/todos`} exact component={ListTodos} />
+        <Route path={`/dex/messages`} exact component={Pages.Todo} />
+        <Route path={`/dex`} component={Pages.Home} />
+
       </Switch>
     )
   }else{
-    return <Redirect to="/home" />
+    return <Redirect to="/dex" />
   }
 }
 
@@ -43,11 +46,8 @@ export default class Routes extends React.Component {
     const url = ""
     return (
       <Switch>
-        <Route path={`/`} exact component={Loged} />
-        <Route path={`/Home`} exact component={Loged} />
-        <Route path={`/myOrders`} component={Loged} />
-        <Route path={`/myFills`} exact component={Loged} />
-        <Route path={`/settings`} exact component={Loged} />
+        <Route path={`/dex`}  component={Logged} />
+        {false && <Redirect from="/" to="/dex" />}
       </Switch>
     );
   }

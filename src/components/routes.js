@@ -12,7 +12,6 @@ import Tools from './tools';
 import UnlockModals from './account/unlock/Modals'
 import My from './orders/My'
 import MyOrders from './tickers/Orders'
-import ListNotifications from './tickers/ListNotifications'
 import ListTokens from './tokens/ListTokens'
 import TokenDetail from './tokens/TokenDetail'
 import ConvertForm from './tokens/ConvertForm'
@@ -42,10 +41,8 @@ const Logged = ()=>{
     return (
       <Switch>
         <Route path="/todo" exact component={Todo} />
-        <Route path="/notifications" exact component={ListNotifications} />
         <Route path="/dapp/face2face" exact component={Face2Face} />
         <Route path="/dapp/convert" exact component={ConvertForm} />
-        <Route path="/dex" component={Dex} />
         <Route path="/wallet/send" exact component={Send2} />
         <Route path="/wallet/send2" exact component={Send} />
         <Route path="/wallet/transfer" exact component={Send} />
@@ -72,7 +69,6 @@ export default class Routes extends React.Component {
           <Switch>
             <Route path="/" exact component={Logged} />
             <Route path="/dapp" component={Logged} />
-            <Route path="/dex" component={Logged} />
             <Route path="/wallet" render={Logged} />
             <Route path="/trade" render={Logged} />
             <Route path="/todo" render={Logged} />
@@ -86,10 +82,8 @@ export default class Routes extends React.Component {
             <Route path="/placeOrder" render={Logged} />
             <Route path="/placeOrderSimple" render={Logged} />
             <Route path="/placeOrderStand" render={Logged} />
-
             <Route path="/orders" render={Logged} />
             <Route path="/my" render={Logged} />
-            <Route path="/notifications" render={Logged} />
             <Route path="/dev" exact component={Pages.Test} />
           </Switch>
           <Orders.Modals />

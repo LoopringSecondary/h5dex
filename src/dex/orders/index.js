@@ -3,7 +3,6 @@ import ListOrderBook from './ListOrderBook'
 import Detail from './Detail'
 import Modals from './Modals'
 import PlaceOrderForm from './PlaceOrderForm'
-import PlaceOrderFormStand from './PlaceOrderFormStand'
 import PlaceOrderConfirm from './PlaceOrderConfirm'
 
 export default {
@@ -12,6 +11,5 @@ export default {
   Detail,
   Modals,
   PlaceOrderForm,
-  PlaceOrderFormStand,
   PlaceOrderConfirm,
 }

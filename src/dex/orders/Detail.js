@@ -51,13 +51,13 @@ function OrderDetail(props) {
   return (
     <div className="bg-white no-underline">
       <div className="color-black-1 fs18 zb-b-b text-center">
-        <div className="row ml0 mr0 pt15 pb15 no-gutters">
-          <div className="col text-left pl15 pr15" onClick={hideLayer.bind(this,{id:'orderDetail'})}>
+        <div className="row ml0 mr0 pt15 pb15 no-gutters align-items-center">
+          <div className="col-auto text-left pl15 pr15" onClick={hideLayer.bind(this,{id:'orderDetail'})}>
             <Icon type="close"/>
           </div>
-          <div className="col-auto">Order Detail</div>
-          <div className="col text-right pl15 pr15 color-white">
-            <Button className="" inline={true}  size="small" type="ghost">Cancel</Button>
+          <div className="col">Order Detail</div>
+          <div className="col-auto text-right pl15 pr15 color-white">
+            <Button className="" size="small" type="ghost">Cancel</Button>
           </div>
         </div>
       </div>
@@ -78,22 +78,22 @@ function OrderDetail(props) {
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
             { false &&
-              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
                   订单无法进行撮合
               </NoticeBar>
             }
             { false &&
-              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
                   余额为0，订单无法进行撮合
               </NoticeBar>
             }
 
-            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
+            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
                 余额不足，订单无法全部被撮合
             </NoticeBar>
             {
               false &&
-              <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/notifications')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
+              <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
                   该订单正在进行撮合
               </NoticeBar>
             }

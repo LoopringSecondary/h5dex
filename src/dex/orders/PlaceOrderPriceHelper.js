@@ -14,7 +14,7 @@ import * as fm from 'LoopringJS/common/formatter'
 import QRCode from 'qrcode.react';
 import Alert from 'LoopringUI/components/Alert'
 
-import {DepthList} from './PlaceOrderAmountHelper'
+import ListDepth from './ListDepth'
 
 export const MenuItem = (props)=>{
   const { left, right,middle,label,value,extra } = props
@@ -80,7 +80,7 @@ function PlaceOrderPriceHelper(props) {
           </div>
         </div>
         <div className="zb-b-t">
-          <DepthList />
+          <ListDepth />
         </div>
       </Tabs>
     </div>

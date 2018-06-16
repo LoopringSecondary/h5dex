@@ -49,30 +49,28 @@ class Home extends React.Component {
                     onPress={() => {
                       changeTab('markets')
                     }}
-                    data-seed="logId"
                   />
                   <TabBar.Item
                     icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
                     title="Trade"
-                    key="trade"
+                    key="placeOrder"
                     selected={pathname === `${url}/placeOrder`}
                     onPress={() => {
-                      changeTab('trade')
+                      changeTab('placeOrder')
                     }}
-                    data-seed="logId1"
                   />
                   <TabBar.Item
                     icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
                     title="My"
-                    key="my"
+                    key="userCenter"
                     selected={pathname === `${url}/userCenter`}
                     onPress={() => {
                       this.setState({
-                        selectedTab: 'my',
+                        selectedTab: 'userCenter',
                       });
-                      changeTab('my')
+                      changeTab('userCenter')
                     }}
                   />
                 </TabBar>

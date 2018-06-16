@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
-import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
 import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl  } from 'antd-mobile'
@@ -123,7 +122,7 @@ function genData(pIndex = 0) {
 }
 
 
-class ListTickers extends React.Component {
+class ListTodos extends React.Component {
   constructor(props) {
     super(props);
     const dataSource = new ListView.DataSource({
@@ -186,7 +185,7 @@ class ListTickers extends React.Component {
               className="w-100 zb-b-b"
               mode="light"
               icon={null && <Icon type="left" />}
-              onLeftClick={() => console.log('onLeftClick')}
+              onLeftClick={() => routeActions.goBack()}
               leftContent={ [
                 <WebIcon key="1" type="left" className="color-black-1" onClic={goBack}/>,
               ]}
@@ -243,5 +242,5 @@ class ListTickers extends React.Component {
       )
   }
 }
-export default connect()(ListTickers)
+export default connect()(ListTodos)
 

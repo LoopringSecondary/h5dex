@@ -82,7 +82,7 @@ class UserCenter extends React.Component {
             <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
           ]}
           rightContent={[
-            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="setting" /></span>
+            <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="setting" /></span>
           ]}
         >
         My Dex
@@ -109,7 +109,7 @@ class UserCenter extends React.Component {
             Order & Fills <WebIcon type="right" />
           </div>
         </div>
-        <Grid onClick={routeActions.gotoPath.bind(this,'/orders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
+        <Grid onClick={routeActions.gotoPath.bind(this,'/dex/myOrders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
         <div className="bg-white mt15">
           <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
             <div className="col fs16 color-black-1">My Assets</div>
@@ -205,11 +205,6 @@ const TokenListComp = (props)=>{
             }
         </tbody>
       </table>
-      <Containers.Layers id="tokenNotEnough">
-        <UiContainers.Popups id="tokenNotEnough">
-          <TokenNotEnough />
-        </UiContainers.Popups>
-      </Containers.Layers>
     </div>
   )
 }
