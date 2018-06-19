@@ -16,6 +16,7 @@ import Alert from 'LoopringUI/components/Alert'
 import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
 import routeActions from 'common/utils/routeActions'
+import {OrderFm} from 'modules/orders/OrderFm';
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -31,7 +32,13 @@ const OrderMetaItem = (props) => {
   )
 }
 function OrderDetail(props) {
-  const {OrderDetail,dispatch} = props
+  const {orderDetail,dispatch} = props
+  const {order} = orderDetail;
+  if(!order){
+    return null
+  }
+  const orderFm = new OrderFm(order);
+
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -103,20 +110,14 @@ function OrderDetail(props) {
                   为什么订单没有撮合成交？
               </NoticeBar>
             }
-
-            <OrderMetaItem label="状态" value={
-              <div>
-                撮合中
-              </div>
-            }/>
-            <OrderMetaItem label="买入" value="10000 LRC" />
-            <OrderMetaItem label="成交" value="80% ≈ 8000.00 / 10000.00 LRC" />
-            <OrderMetaItem label="卖出" value="25 WETH" />
-            <OrderMetaItem label="价格" value="0.00025 WETH" />
-            <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
-            <OrderMetaItem label="订单有效时间" value="06-10 10:38 ~ 06-30 10:38" />
-            <OrderMetaItem label="订单提交时间" value="06-10 10:38" />
-            {false && <Button className="m15 color-white" type="warning">Cancel Order</Button> }
+            <OrderMetaItem label={intl.get('order.status')} value={orderFm.getStatus()}/>
+            <OrderMetaItem label={intl.get('order.price')} value={orderFm.getPrice()}/>
+            <OrderMetaItem label={intl.get('order.amount')} value={orderFm.getAmount()}/>
+            <OrderMetaItem label={intl.get('order.total')} value={orderFm.getTotal()}/>
+            <OrderMetaItem label={intl.get('order.filled')} value={orderFm.getFilledPercent()}/>
+            <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
+            <OrderMetaItem label={intl.get('order.validSince')} value={orderFm.getCreateTime()}/>
+            <OrderMetaItem label={intl.get('order.validUntil')} value={orderFm.getExpiredTime()}/>
           </div>
         </div>
         <div className="p20 bg-white">

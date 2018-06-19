@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch,Redirect} from 'dva/router';
 import Pages from './pages';
 import Orders from './orders';
+import Markets from './tickers/Markets';
+import MarketDetail from './tickers/Detail';
 import Face2Face from './orders/Face2Face'
 import ListTodos from './notifications/ListTodos'
 
@@ -29,8 +31,9 @@ const Logged = ()=>{
         <Route path={`/dex/todos`} exact component={ListTodos} />
         <Route path={`/dex/messages`} exact component={Pages.Todo} />
         <Route path={`/dex/face2face`} exact component={Face2Face} />
-        <Route path={`/dex`} component={Pages.Home} />
-
+        <Route path={`/dex/markets`} exact component={Markets} />
+        <Route path={`/dex/markets/:market`} component={MarketDetail} />
+        {false && <Route path={`/dex`} component={Pages.Home} /> }
       </Switch>
     )
   }else{

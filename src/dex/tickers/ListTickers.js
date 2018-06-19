@@ -26,7 +26,7 @@ const TickerItem = ({item,actions,key,index})=>{
     // if(!item){ return null }
     // const tickerFm = new TickerFm(item)
     const gotoDetail = ()=>{
-      routeActions.gotoPath('/trade/detail')
+      routeActions.gotoPath('/dex/markets/LRC-WETH')
     }
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>

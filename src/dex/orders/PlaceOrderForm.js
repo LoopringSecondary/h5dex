@@ -55,15 +55,7 @@ class PlaceOrder extends React.Component {
     const gotoConfirm= ()=>{
 
     }
-    const gotoOrderDetail= (payload)=>{
-      dispatch({
-        type:'layers/showLayer',
-        payload:{
-          id:'orderDetail',
-          ...payload
-        }
-      })
-    }
+
 
     const showPriceHelper= ()=>{
       showLayer({id:'helperOfPrice'})
@@ -176,7 +168,7 @@ class PlaceOrder extends React.Component {
         <NavBar
           className=""
           mode="light"
-          onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
+          onLeftClick={() => routeActions.gotoPath('/dex/markets/LRC-WETH')}
           leftContent={[
             <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
           ]}
@@ -224,7 +216,7 @@ class PlaceOrder extends React.Component {
           >
             <div>
               <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
-                <OpenOrderList gotoOrderDetail={gotoOrderDetail} />
+                <OpenOrderList />
               </Containers.Orders>
             </div>
             <div>

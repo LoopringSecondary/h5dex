@@ -1,6 +1,8 @@
 import React from 'react';
 import {FillFm} from 'modules/fills/formatters'
-const ListMyFills = ({fills={},maxRows=5})=>{
+import {connect} from 'dva'
+
+const ListMarketFills = ({trades={},maxRows=5})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
   const maxHeight = 'auto'
   return (
@@ -16,7 +18,7 @@ const ListMyFills = ({fills={},maxRows=5})=>{
         </thead>
         <tbody>
             {
-              fills.items && fills.items.map((item,index)=>{
+              trades.items && trades.items.map((item,index)=>{
                 const fillFm = new FillFm(item)
                 return (
                   <tr key={index}>
@@ -53,4 +55,6 @@ const ListMyFills = ({fills={},maxRows=5})=>{
   )
 }
 
-export default ListMyFills
+export default connect(
+  ({sockets:{trades}})=>({trades})
+)(ListMarketFills)

@@ -3,7 +3,8 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
-import {DepthList,FillList} from '../orders/PlaceOrderAmountHelper';
+import ListDepth from '../orders/ListDepth';
+import ListFills from '../fills/ListMarketFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
@@ -103,13 +104,10 @@ class MarketDetail extends React.Component {
               <div className="p10">Charts</div>
             </div>
             <div className="">
-              <DepthList depth={{items:Array(15).fill(1)}} maxRows={8} />
+              <ListDepth depth={{items:Array(15).fill(1)}} maxRows={8} />
             </div>
             <div className="" style={{minHeight: '150px'}}>
-              <FillList fill={{items:Array(15).fill(1)}} maxRows={10} />
-            </div>
-            <div className="" style={{minHeight: '150px'}}>
-              <div className="p10">Infomation</div>
+              <ListFills />
             </div>
           </Tabs>
         </div>

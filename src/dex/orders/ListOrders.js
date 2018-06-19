@@ -10,10 +10,18 @@ import commonFm from 'modules/formatter/common'
 import intl from 'react-intl-universal'
 import {OrderFm} from 'modules/orders/OrderFm'
 
-export const OpenOrderList = ({orders={}})=>{
-  // gotoDetail: () => props.dispatch({type: 'layers/showLayer', payload: {id: 'orderDetail', order: item}})
+export const OpenOrderList = ({orders={},dispatch})=>{
+  const gotoDetail= (item)=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          id:'orderDetail',
+          order:item,
+        }
+      })
+    }
   return (
-    <table className="w-100 fs13">
+    <table className="w-100 fs13" style={{overflow:'auto'}}>
       <thead>
         <tr>
           <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
@@ -28,14 +36,14 @@ export const OpenOrderList = ({orders={}})=>{
           orders.items && orders.items.map((item,index)=>{
             const orderFm = new OrderFm(item)
             return (
-              <tr key={index} className="color-black-2" onClick={()=>{}}>
+              <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
                 <td className="zb-b-b p10 pl10 text-left">
                   { orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
                   { orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}
                 </td>
-                <td className="zb-b-b p10 text-right">{orderFm.getAmount()}</td>
-                <td className="zb-b-b p10 text-right">{orderFm.getFilledPercent()}%</td>
-                <td className="zb-b-b p10 text-right">{orderFm.getLRCFee()}</td>
+                <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getAmount()}</td>
+                <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+                <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b p10 text-center">
                   {renders.status(orderFm,item.originalOrder)}
                 </td>
@@ -45,7 +53,7 @@ export const OpenOrderList = ({orders={}})=>{
         }
         {
           orders.items.length == 0 &&
-          <tr><td colSpan='100'><div className="text-center">{intl.get('common.list.no_data')}</div></td></tr>
+          <tr><td colSpan='100'><div className="text-center pt10 pb10">{intl.get('common.list.no_data')}</div></td></tr>
         }
         {
           false &&
