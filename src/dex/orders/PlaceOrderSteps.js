@@ -95,9 +95,9 @@ const PlaceOrderResult = ({
     </div>
   );
 };
-function PlaceOrderPreview(props) {
-  const {placeOrderPreview,dispatch} = props
-  const {side} = placeOrderPreview
+function PlaceOrderSteps(props) {
+  const {placeOrderSteps,dispatch} = props
+  const {side} = placeOrderSteps
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -114,7 +114,6 @@ function PlaceOrderPreview(props) {
       }
     })
   }
-
   return (
     <div className="">
         <Pages active="order">
@@ -122,7 +121,7 @@ function PlaceOrderPreview(props) {
             <div>
               <div className="p15 color-black-1 fs18 zb-b-b text-center">
                 <div className="row">
-                  <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'placeOrderPreview'})}>
+                  <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'placeOrderSteps'})}>
                     <Icon type="close" />
                   </div>
                   <div className="col">Place Order</div>
@@ -203,4 +202,4 @@ function PlaceOrderPreview(props) {
     </div>
   )
 }
-export default connect()(PlaceOrderPreview)
+export default connect()(PlaceOrderSteps)

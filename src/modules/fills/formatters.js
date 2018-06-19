@@ -44,6 +44,9 @@ export class FillFm{
     const symbol = this.fill.side === 'buy' ? this.fill.tokenB : this.fill.tokenS
     return commonFm.getFormatNum(fmS.toPricisionFixed(amount)) + '' + symbol
   }
+  getSide(){
+    return this.fill.side
+  }
   getTotal(){
     const fmS = this.fill.side.toLowerCase() === 'buy' ? new TokenFm({symbol: this.fill.tokenS}) : new TokenFm({symbol: this.fill.tokenB});
     const amount = this.fill.side.toLowerCase() === 'buy' ? fmS.getUnitAmount(this.fill.amountS) : fmS.getUnitAmount(this.fill.amountB);
@@ -67,7 +70,7 @@ export class FillFm{
     return commonFm.getFormatNum(fmLrc.toPricisionFixed(fmLrc.getUnitAmount(this.fill.lrcReward))) + ' LRC'
   }
   getCreateTime(){
-    return commonFm.getFormatTime(toNumber(this.fill.createTime) * 1e3)
+    return commonFm.getFormatTime(toNumber(this.fill.createTime) * 1e3,'MM-DD HH:mm')
   }
 }
 

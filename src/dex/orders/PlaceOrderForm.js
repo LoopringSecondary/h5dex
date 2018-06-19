@@ -223,10 +223,14 @@ class PlaceOrder extends React.Component {
             onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
           >
             <div>
-              <OpenOrderList gotoOrderDetail={gotoOrderDetail} />
+              <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
+                <OpenOrderList gotoOrderDetail={gotoOrderDetail} />
+              </Containers.Orders>
             </div>
             <div>
-              <ListMyFills />
+              <Containers.Fills id="MyFills" alias="fills" initState={{}}>
+                <ListMyFills />
+              </Containers.Fills>
             </div>
           </Tabs>
           <div className="pb50"></div>
