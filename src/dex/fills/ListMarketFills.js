@@ -4,6 +4,7 @@ import {connect} from 'dva'
 
 const ListMarketFills = ({trades={},maxRows=5})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
+  const market = trades.filters.market || 'LRC-WETH'
   const maxHeight = 'auto'
   return (
     <div style={{height:maxHeight,overflow:'auto'}}>
@@ -19,30 +20,29 @@ const ListMarketFills = ({trades={},maxRows=5})=>{
         <tbody>
             {
               trades.items && trades.items.map((item,index)=>{
-                const fillFm = new FillFm(item)
+                // const fillFm = new FillFm({...item,market})
                 return (
                   <tr key={index}>
                     {
                       item.side === 'buy' &&
                       <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-green-500">
-                        {fillFm.getPrice()}
+                        {item.price}
                       </td>
                     }
                     {
                       item.side === 'sell' &&
                       <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-red-500">
-                        {fillFm.getPrice()}
+                        {item.price}
                       </td>
                     }
                     <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">
-                      {fillFm.getAmount()}
+                      {item.amount}
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
-                      {fillFm.getLRCFee()}
-                      <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
+                      {item.lrcFee}
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">
-                      {fillFm.getCreateTime()}
+                      {item.createTime}
                     </td>
                   </tr>
                 )

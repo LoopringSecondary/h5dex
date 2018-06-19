@@ -155,13 +155,14 @@ class PlaceOrder extends React.Component {
       )
     }
     const {side} = this.state
+    const market = "LRC-WETH";
     const tabChange = (side)=>{
       this.setState({
         side
       })
     }
    const gotoTrade = ()=>{
-      routeActions.gotoPath('/trade/detail')
+      routeActions.gotoPath(`/dex/markets/${market}`)
     }
     return (
       <div className="bg-grey-100">
@@ -170,10 +171,10 @@ class PlaceOrder extends React.Component {
           mode="light"
           onLeftClick={() => routeActions.gotoPath('/dex/markets/LRC-WETH')}
           leftContent={[
-            <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
+            <span className="color-black-1" key="1" ><WebIcon type="home" /></span>,
           ]}
           rightContent={[
-            <span className="color-black-1 " onClick={gotoTrade}><WebIcon key="1" type="line-chart" /></span>
+            <span className="color-black-1" key="1"  onClick={gotoTrade}><WebIcon type="line-chart" /></span>
           ]}
         >
           <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>

@@ -5,6 +5,8 @@ import Orders from './orders';
 import Markets from './tickers/Markets';
 import MarketDetail from './tickers/Detail';
 import Face2Face from './orders/Face2Face'
+import PlaceOrder from './orders/PlaceOrderForm'
+import UserCenter from './account/UserCenter'
 import ListTodos from './notifications/ListTodos'
 
 const UnLogged = ()=>{
@@ -33,6 +35,8 @@ const Logged = ()=>{
         <Route path={`/dex/face2face`} exact component={Face2Face} />
         <Route path={`/dex/markets`} exact component={Markets} />
         <Route path={`/dex/markets/:market`} component={MarketDetail} />
+        <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
+        <Route path={`/dex/usercenter`} exact component={UserCenter} />
         {false && <Route path={`/dex`} component={Pages.Home} /> }
       </Switch>
     )

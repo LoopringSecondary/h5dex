@@ -37,7 +37,6 @@ const ListMyFills = ({fills={},maxRows=5})=>{
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
                       {fillFm.getLRCFee()}
-                      <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">
                       {fillFm.getCreateTime()}

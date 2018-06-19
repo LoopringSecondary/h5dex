@@ -88,7 +88,6 @@ class MarketDetail extends React.Component {
                 { title: <div className="fs16 pt5 pb5">Charts</div> },
                 { title: <div className="fs16 pt5 pb5">Depth</div> },
                 { title: <div className="fs16 pt5 pb5">Fills</div> },
-                { title: <div className="fs16 pt5 pb5">Info</div> },
               ]
             }
             tabBarBackgroundColor={'#fff'}
