@@ -4,8 +4,8 @@ import {TickerFm} from 'modules/tickers/formatters'
 import routeActions from 'common/utils/routeActions'
 import intl from 'react-intl-universal'
 
-function TickerHeader(props) {
-  console.log('TickerHeader render',props)
+function TickerItem(props) {
+  console.log('TickerItem render',props)
   const showAllTickers = ()=>{
     props.dispatch({
       type:"layers/showLayer",
@@ -43,4 +43,4 @@ function TickerHeader(props) {
 }
 export default connect(
   ({sockets:{tickers}})=>({tickers})
-)(TickerHeader)
+)(TickerItem)

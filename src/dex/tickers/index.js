@@ -1,14 +1,12 @@
-import ListTickers from './ListTickers'
+import ListMarketTickers from './ListMarketTickers'
 import ListTokenTickers from './ListTokenTickers'
-import ListAllTickers from './ListAllTickers'
-import TickerHeader from './TickerHeader'
+import TickerItem from './TickerItem'
 import Detail from './Detail'
 import Modals from './Modals'
 export default {
-  ListTickers,
+  ListMarketTickers,
   ListTokenTickers,
-  ListAllTickers,
-  TickerHeader,
+  TickerItem,
   Detail,
   Modals,
 }

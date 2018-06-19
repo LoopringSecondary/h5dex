@@ -8,7 +8,7 @@ import PlaceOrderSteps from './PlaceOrderSteps';
 import HelperOfAdvance from './HelperOfAdvance';
 import HelperOfPrice from './HelperOfPrice';
 import HelperOfAmount from './HelperOfAmount';
-import ListTickers from '../tickers/ListTickers';
+import ListMarketTickers from '../tickers/ListMarketTickers';
 import {OpenOrderList,HistoryOrderList} from './ListOrders';
 import ListMyFills from '../fills/ListMyFills';
 import Containers from 'modules/containers';
@@ -269,7 +269,7 @@ class PlaceOrder extends React.Component {
               >
                 Market
               </NavBar>
-              <ListTickers />
+              <ListMarketTickers />
             </div>
           </UiContainers.Popups>
         </Containers.Layers>

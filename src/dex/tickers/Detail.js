@@ -8,8 +8,78 @@ import ListFills from '../fills/ListMarketFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
+import {TickerFm} from 'modules/tickers/formatters'
+import intl from 'react-intl-universal'
 const Item = List.Item;
 const Brief = Item.Brief;
+
+const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatch})=>{
+  const looprTickerFm = new TickerFm(tickers.item.loopr || {})
+  const tokens = looprTickerFm.getTokens()
+  const goBack = ()=>{
+    routeActions.goBack()
+  }
+  return (
+    <div className="bg-white">
+      <NavBar
+        className="zb-b-b"
+        mode="light"
+        icon={null && <Icon type="left" />}
+        onLeftClick={() => console.log('onLeftClick')}
+        leftContent={[
+          <Icon key="1" type="left" onClick={goBack} className="color-black-1" />,
+        ]}
+        rightContent={null && [
+          <Icon key="1" type="search" />,
+        ]}
+
+      >
+      {tickers.filters.market}
+      </NavBar>
+      <div className="p10 zb-b-b">
+        <span className="fs24 font-weight-bold color-green-600">
+          {looprTickerFm.getLast()}
+        </span>
+        <span className="fs16 color-green-600 ml10">
+          {looprTickerFm.getChange()}
+        </span>
+        <span className="fs16 color-green-600 ml10">
+          $1.5
+        </span>
+      </div>
+      <div className="pl10 pr10 pt15 pb15 zb-b-b">
+        <div className="row ml0 mr0 no-gutters align-items-center fs13">
+          <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
+            24H涨跌幅
+          </div>
+          <div className="col color-black-2">
+            {looprTickerFm.getChange()}
+          </div>
+          <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
+            24H最高价
+          </div>
+          <div className="col-auto color-black-2">
+            {looprTickerFm.getHigh()}
+          </div>
+        </div>
+        <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
+          <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
+            24H交易量
+          </div>
+          <div className="col color-black-2">
+            {looprTickerFm.getVol()} {tokens.right}
+          </div>
+          <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
+            24H最低价
+          </div>
+          <div className="col-auto color-black-2">
+            {looprTickerFm.getLow()}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+})
 
 class MarketDetail extends React.Component {
   state = {
@@ -18,69 +88,9 @@ class MarketDetail extends React.Component {
   }
   render() {
     const dispatch = this.props.dispatch
-    const goBack = ()=>{
-      routeActions.goBack()
-    }
-    const gotoSend = ()=>{
-
-    }
-
     return (
       <div className="bg-grey-100">
-        <NavBar
-          className="zb-b-b"
-          mode="light"
-          icon={null && <Icon type="left" />}
-          onLeftClick={() => console.log('onLeftClick')}
-          leftContent={[
-            <Icon key="1" type="left" onClick={goBack} className="color-black-1" />,
-          ]}
-          rightContent={null && [
-            <Icon key="1" type="search" />,
-          ]}
-
-        >
-        LRC-WETH
-        </NavBar>
-        <div className="bg-white">
-          <div className="p10 zb-b-b">
-            <span className="fs24 font-weight-bold color-green-600">0.00089000</span>
-            <span className="fs16 color-green-600 ml10">
-              +12.00%
-            </span>
-            <span className="fs16 color-green-600 ml10">￥3.35</span>
-          </div>
-          <div className="pl10 pr10 pt15 pb15 zb-b-b">
-            <div className="row ml0 mr0 no-gutters align-items-center fs13">
-              <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-                24H涨跌幅
-              </div>
-              <div className="col color-black-2">
-                0.00092350
-              </div>
-              <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-                24H最高价
-              </div>
-              <div className="col-auto color-black-2">
-                0.00092350
-              </div>
-            </div>
-            <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
-              <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-                24H交易量
-              </div>
-              <div className="col color-black-2">
-                1347.65 WETH
-              </div>
-              <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-                24H最低价
-              </div>
-              <div className="col-auto color-black-2">
-                0.00085800
-              </div>
-            </div>
-          </div>
-        </div>
+        <TickerItem />
         <div className="no-underline">
           <Tabs
             tabs={
@@ -124,7 +134,10 @@ class MarketDetail extends React.Component {
     );
   }
 }
-export default connect(({layers})=>({layers}))(MarketDetail)
+
+export default MarketDetail
+
+
 
 
 
