@@ -6,15 +6,12 @@ import { connect } from 'dva';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
+import LayoutDexHome from '../../layout/LayoutDexHome'
 
 const Item = List.Item;
 const Brief = Item.Brief;
 
 class UserCenter extends React.Component {
-  state = {
-    type: 'money',
-    side: 'buy',
-  }
   render() {
     const dispatch = this.props.dispatch
     const showLayer = (payload={})=>{
@@ -70,71 +67,74 @@ class UserCenter extends React.Component {
       },
     ]
     return (
-      <div className="bg-grey-100">
-        <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
-              Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
-        </NoticeBar>
-        <NavBar
-          className=""
-          mode="light"
-          onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
-          leftContent={[
-            <span className="color-black-1"><WebIcon key="1" type="home" /></span>,
-          ]}
-          rightContent={[
-            <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="setting" /></span>
-          ]}
-        >
-        My Dex
-        </NavBar>
-        <div className="pt40 pb40 text-left bg-grey-900">
-          <div className="row align-items-center ml0 mr0 no-gutters">
-            <div className="col">
-              <div className="text-left color-white-1 fs16 pl15" style={{width:'240px',wordBreak:'break-all'}}>
-                0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00
-                <div className="fs14 color-white-3 mt5">
-                  Switch Wallet <WebIcon type="right" />
+      <LayoutDexHome {...this.props}>
+        <div className="bg-grey-100">
+          <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
+                Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
+          </NoticeBar>
+          <NavBar
+            className=""
+            mode="light"
+            onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
+            leftContent={[
+              <span className="color-black-1" key="1"><WebIcon type="home" /></span>,
+            ]}
+            rightContent={[
+              <span className="color-black-1" key="1" onClick={()=>{}}><WebIcon type="setting" /></span>
+            ]}
+          >
+          My Dex
+          </NavBar>
+          <div className="pt40 pb40 text-left bg-grey-900">
+            <div className="row align-items-center ml0 mr0 no-gutters">
+              <div className="col">
+                <div className="text-left color-white-1 fs16 pl15" style={{width:'240px',wordBreak:'break-all'}}>
+                  0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00
+                  <div className="fs14 color-white-3 mt5">
+                    Switch Wallet <WebIcon type="right" />
+                  </div>
                 </div>
               </div>
+              <div className="col-auto">
+              </div>
             </div>
-            <div className="col-auto">
+          </div>
+          <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
+            <div className="col fs16 color-black-1">
+              My Orders
             </div>
-          </div>
-        </div>
-        <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
-          <div className="col fs16 color-black-1">
-            My Orders
-          </div>
-          <div className="col-auto fs14 color-black-3 pl20">
-            Order & Fills <WebIcon type="right" />
-          </div>
-        </div>
-        <Grid onClick={routeActions.gotoPath.bind(this,'/dex/myOrders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
-        <div className="bg-white mt15">
-          <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
-            <div className="col fs16 color-black-1">My Assets</div>
             <div className="col-auto fs14 color-black-3 pl20">
-              All <WebIcon type="right" />
+              Order & Fills <WebIcon type="right" />
             </div>
           </div>
-          <div className="zb-b-t">
-            <TokenList />
+          <Grid onClick={routeActions.gotoPath.bind(this,'/dex/myOrders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
+          <div className="bg-white mt15">
+            <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
+              <div className="col fs16 color-black-1">My Assets</div>
+              <div className="col-auto fs14 color-black-3 pl20">
+                All <WebIcon type="right" />
+              </div>
+            </div>
+            <div className="zb-b-t">
+              <TokenList />
+            </div>
           </div>
+          <div hidden className="bg-white mt15">
+            <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
+              <div className="col fs20 color-black-1">
+                My Transactions
+                <span hidden className="color-black-3 ml10 fs16">ETH</span>
+              </div>
+              <div className="col-auto fs18 color-black-3 pl20">
+                All <WebIcon type="right" />
+              </div>
+            </div>
+            <Grid className="my-dex-grid" data={txStatus} square={false} activeStyle={false} columnNum={4}/>
+          </div>
+          <div className="pb50"></div>
         </div>
-        <div hidden className="bg-white mt15">
-          <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
-            <div className="col fs20 color-black-1">
-              My Transactions
-              <span hidden className="color-black-3 ml10 fs16">ETH</span>
-            </div>
-            <div className="col-auto fs18 color-black-3 pl20">
-              All <WebIcon type="right" />
-            </div>
-          </div>
-          <Grid className="my-dex-grid" data={txStatus} square={false} activeStyle={false} columnNum={4}/>
-        </div>
-        <div className="pb50"></div>
-      </div>
+      </LayoutDexHome>
+
     );
   }
 }
