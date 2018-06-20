@@ -10,9 +10,8 @@ class DexHomeLayout extends React.Component {
     super(props);
   }
   render(){
-    const {match,location} = this.props;
-    const {url} = match;
-    const {pathname} = location;
+    const url = routeActions.match.getUrl(this.props)
+    const pathname = routeActions.location.getPathname(this.props)
     const changeTab = (path) => {
       routeActions.gotoPath(`/dex/${path}`);
     }
@@ -47,7 +46,7 @@ class DexHomeLayout extends React.Component {
               selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
               title="Trade"
               key="placeOrder"
-              selected={pathname === `/dex/placeOrder`}
+              selected={pathname.indexOf(`/dex/placeOrder`)>-1}
               onPress={() => {
                 changeTab('placeOrder')
               }}

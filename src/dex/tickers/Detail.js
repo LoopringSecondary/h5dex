@@ -85,14 +85,10 @@ class MarketDetail extends React.Component {
     const tokens = getTokensByMarket(market)
     const gotoTrade = ({side})=>{
       dispatch({
-        type:"placeOrder/pairChangeEffects",
-        payload:{market}
-      })
-      dispatch({
         type:"placeOrder/sideChangeEffects",
         payload:{side}
       })
-      routeActions.gotoPath('/dex/placeOrder')
+      routeActions.gotoPath(`/dex/placeOrder/${market}`)
     }
     return (
       <div className="bg-grey-100">

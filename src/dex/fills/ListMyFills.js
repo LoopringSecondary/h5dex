@@ -1,5 +1,6 @@
 import React from 'react';
 import {FillFm} from 'modules/fills/formatters'
+import intl from 'react-intl-universal'
 const ListMyFills = ({fills={},maxRows=5})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
   const maxHeight = 'auto'
@@ -44,6 +45,10 @@ const ListMyFills = ({fills={},maxRows=5})=>{
                   </tr>
                 )
               })
+            }
+            {
+              fills.items && fills.items.length == 0 &&
+              <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
             }
         </tbody>
       </table>

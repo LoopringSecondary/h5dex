@@ -30,7 +30,7 @@ const storeUnlockedAddress = (unlockType, address) => {
 };
 
 const getUnlockedAddress = () => {
-  return localStorage.unlockedAddress || ''
+  return localStorage.unlockedAddress || '0xebA7136A36DA0F5e16c6bDBC739c716Bb5B65a00'
 };
 
 const getUnlockedType = () => {

@@ -9,7 +9,7 @@ import HelperOfAdvance from './HelperOfAdvance';
 import HelperOfPrice from './HelperOfPrice';
 import HelperOfAmount from './HelperOfAmount';
 import HelperOfMarket from './HelperOfMarket';
-import {OpenOrderList,HistoryOrderList} from './ListOrders';
+import {OpenOrderList} from './ListOrders';
 import ListMyFills from '../fills/ListMyFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
@@ -23,6 +23,11 @@ class PlaceOrderPage extends React.Component {
   render() {
     const {dispatch,placeOrder} = this.props
     const {side,pair} = placeOrder
+    const params = routeActions.match.getParams(this.props)
+    if(!params.market && !pair) {
+      const defaultMarket = "LRC-WETH"
+      routeActions.gotoPath(`/dex/placeOrder/${defaultMarket}`)
+    }
     const pairTokens = getTokensByMarket(pair)
     const showLayer = (payload={})=>{
       dispatch({

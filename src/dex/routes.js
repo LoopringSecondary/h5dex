@@ -36,8 +36,9 @@ const Logged = ()=>{
         <Route path={`/dex/markets`} exact component={Markets} />
         <Route path={`/dex/markets/:market`} component={MarketDetail} />
         <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
+        <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
         <Route path={`/dex/usercenter`} exact component={UserCenter} />
-        {false && <Route path={`/dex`} component={Pages.Home} /> }
+        <Redirect from="/dex" to="/dex/markets" />
       </Switch>
     )
   }else{

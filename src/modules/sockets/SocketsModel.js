@@ -37,6 +37,17 @@ export default {
           const market = pathname.replace('/dex/markets/','')
           if(market.indexOf('-')>-1){
             dispatch({
+              type:'marketChange',
+              payload:{market}
+            })
+          }
+        }
+      })
+      history.listen(({pathname,search})=> {
+        if (pathname.indexOf('/dex/placeOrder/')>-1) {
+          const market = pathname.replace('/dex/placeOrder/','')
+          if(market.indexOf('-')>-1){
+            dispatch({
               type:'orders/filtersChange',
               payload:{
                 id:'MyOpenOrders',
@@ -63,6 +74,7 @@ export default {
           }
         }
       })
+
     },
   },
   effects: {

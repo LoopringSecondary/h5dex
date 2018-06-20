@@ -53,7 +53,7 @@ export const OpenOrderList = ({orders={},dispatch})=>{
         }
         {
           orders.items.length == 0 &&
-          <tr><td colSpan='100'><div className="text-center pt10 pb10">{intl.get('common.list.no_data')}</div></td></tr>
+          <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
         }
         {
           false &&
@@ -103,6 +103,10 @@ export const HistoryOrderList = ()=>{
               </td>
             </tr>
           )
+        }
+        {
+          [].length == 0 &&
+          <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
         }
         <tr hidden className="color-black-2">
           <td colSpan={10} className="zb-b-b p15 text-center">
