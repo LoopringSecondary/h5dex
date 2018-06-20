@@ -9,6 +9,7 @@ import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import {TickerFm} from 'modules/tickers/formatters'
+import {getTokensByMarket} from 'modules/formatter/common'
 import intl from 'react-intl-universal'
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -27,26 +28,9 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
   if(direction === 'none'){
     color = "color-grey-500"
   }
-  const goBack = ()=>{
-    routeActions.goBack()
-  }
+
   return (
     <div className="bg-white">
-      <NavBar
-        className="zb-b-b"
-        mode="light"
-        icon={null && <Icon type="left" />}
-        onLeftClick={() => console.log('onLeftClick')}
-        leftContent={[
-          <Icon key="1" type="left" onClick={goBack} className="color-black-1" />,
-        ]}
-        rightContent={null && [
-          <Icon key="1" type="search" />,
-        ]}
-
-      >
-      {tickers.filters.market}
-      </NavBar>
       <div className={`p10 zb-b-b ${color}`}>
         <span className="fs24 font-weight-bold">
           {tickerFm.getLast()}
@@ -93,14 +77,35 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
 })
 
 class MarketDetail extends React.Component {
-  state = {
-    type: 'money',
-    side: 'buy',
-  }
   render() {
     const dispatch = this.props.dispatch
+    const params = routeActions.match.getParams(this.props)
+    if(!params.market) return null
+    const market = params.market
+    const tokens = getTokensByMarket(market)
+    const gotoTrade = ({side})=>{
+      dispatch({
+        type:"palceOrder/placeOrderChange",
+        payload:{side,market}
+      })
+      routeActions.gotoPath('/dex/placeOrder')
+    }
     return (
       <div className="bg-grey-100">
+        <NavBar
+          className="zb-b-b"
+          mode="light"
+          icon={null && <Icon type="left" />}
+          onLeftClick={() => console.log('onLeftClick')}
+          leftContent={[
+            <Icon key="1" type="left" onClick={routeActions.goBack} className="color-black-1" />,
+          ]}
+          rightContent={null && [
+            <Icon key="1" type="search" />,
+          ]}
+        >
+          {market}
+        </NavBar>
         <TickerItem />
         <div className="no-underline">
           <Tabs
@@ -124,7 +129,7 @@ class MarketDetail extends React.Component {
               <div className="p10">Charts</div>
             </div>
             <div className="">
-              <ListDepth depth={{items:Array(15).fill(1)}} maxRows={8} />
+              <ListDepth />
             </div>
             <div className="" style={{minHeight: '150px'}}>
               <ListFills />
@@ -134,10 +139,10 @@ class MarketDetail extends React.Component {
         <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
           <div className="row ml0 mr0 no-gutters">
             <div className="col-6">
-              <Button onClick={routeActions.gotoPath.bind(this,'/dex/placeOrder')} className="bg-green-500 color-white m5">Buy LRC</Button>
+              <Button onClick={gotoTrade.bind(this,{side:'buy'})} className="bg-green-500 color-white m5">Buy {tokens.left}</Button>
             </div>
             <div className="col-6">
-              <Button onClick={routeActions.gotoPath.bind(this,'/dex/placeOrder')} className="bg-red-500 color-white m5">Sell LRC</Button>
+              <Button onClick={gotoTrade.bind(this,{side:'sell'})} className="bg-red-500 color-white m5">Sell {tokens.left}</Button>
             </div>
           </div>
         </div>
@@ -145,8 +150,7 @@ class MarketDetail extends React.Component {
     );
   }
 }
-
-export default MarketDetail
+export default connect()(MarketDetail)
 
 
 

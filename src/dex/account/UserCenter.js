@@ -7,7 +7,6 @@ import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
-
 const Item = List.Item;
 const Brief = Item.Brief;
 

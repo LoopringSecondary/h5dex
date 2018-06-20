@@ -147,13 +147,10 @@ class PlaceOrder extends React.Component {
           </Containers.Layers>
         </div>
       </LayoutDexHome>
-
     );
   }
 }
 export default connect()(PlaceOrder)
-
-
 
 
 
