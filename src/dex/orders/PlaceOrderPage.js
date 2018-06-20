@@ -16,14 +16,14 @@ import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import PlaceOrderForm from './PlaceOrderForm'
 import LayoutDexHome from '../../layout/LayoutDexHome'
+import {getTokensByMarket} from 'modules/formatter/common'
 
 const Item = List.Item;
-class PlaceOrder extends React.Component {
-  state = {
-    side: 'buy',
-  }
+class PlaceOrderPage extends React.Component {
   render() {
-    const dispatch = this.props.dispatch
+    const {dispatch,placeOrder} = this.props
+    const {side,pair} = placeOrder
+    const pairTokens = getTokensByMarket(pair)
     const showLayer = (payload={})=>{
       dispatch({
         type:'layers/showLayer',
@@ -40,11 +40,13 @@ class PlaceOrder extends React.Component {
         }
       })
     }
-    const {side} = this.state
     const market = "LRC-WETH";
-    const tabChange = (side)=>{
-      this.setState({
-        side
+    const sideChange = (side)=>{
+      dispatch({
+        type:'placeOrder/sideChangeEffects',
+        payload:{
+          side
+        }
       })
     }
    const gotoTrade = ()=>{
@@ -56,30 +58,30 @@ class PlaceOrder extends React.Component {
           <NavBar
             className=""
             mode="light"
-            onLeftClick={() => routeActions.gotoPath('/dex/markets/LRC-WETH')}
+            onLeftClick={() => routeActions.gotoPath(`/dex/markets/${pair}`)}
             leftContent={[
-              <span className="color-black-1" key="1" ><WebIcon type="home" /></span>,
-            ]}
-            rightContent={[
               <span className="color-black-1" key="1"  onClick={gotoTrade}><WebIcon type="line-chart" /></span>
             ]}
+            rightContent={[
+              <span className="color-black-1" key="1" ><WebIcon type="question-circle-o" /></span>,
+            ]}
           >
-            <div className="" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
+            <div className="" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>{pair}<WebIcon className="ml5" type="down" /></div>
           </NavBar>
           <div className="no-underline tabs-no-border h-50 place-order-form">
             <Tabs
               tabs={
                 [
-                  { title: <div className="fs16">Buy LRC</div> },
-                  { title: <div className="fs16">Sell LRC</div> },
+                  { title: <div className="fs16">Buy {pairTokens.left}</div> },
+                  { title: <div className="fs16">Sell {pairTokens.left}</div> },
                 ]
               }
               tabBarBackgroundColor={side === 'buy' ? "#e8f5e9" : "#ffebee"}
               tabBarActiveTextColor={side === 'buy' ? "#43a047" : "#f44336"}
               tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
               tabBarTextStyle={{}}
-              initialPage={0}
-              onChange={(tab, index) => { tabChange(index==0 ? 'buy' : 'sell')}}
+              initialPage={side==='buy'?0:1}
+              onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
               onTabClick={(tab, index) => { }}
             >
               <PlaceOrderForm side="buy" showLayer={showLayer}  />
@@ -150,7 +152,7 @@ class PlaceOrder extends React.Component {
     );
   }
 }
-export default connect()(PlaceOrder)
+export default connect(({placeOrder})=>({placeOrder}))(PlaceOrderPage)
 
 
 

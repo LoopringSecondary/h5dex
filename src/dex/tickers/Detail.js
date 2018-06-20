@@ -85,8 +85,12 @@ class MarketDetail extends React.Component {
     const tokens = getTokensByMarket(market)
     const gotoTrade = ({side})=>{
       dispatch({
-        type:"palceOrder/placeOrderChange",
-        payload:{side,market}
+        type:"placeOrder/pairChangeEffects",
+        payload:{market}
+      })
+      dispatch({
+        type:"placeOrder/sideChangeEffects",
+        payload:{side}
       })
       routeActions.gotoPath('/dex/placeOrder')
     }
