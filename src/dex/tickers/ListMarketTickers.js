@@ -26,7 +26,7 @@ const TickerItem = ({item,actions,key})=>{
     if(!item){ return null }
     const tickerFm = new TickerFm(item)
     const gotoDetail = ()=>{
-      routeActions.gotoPath('/dex/markets/LRC-WETH')
+      routeActions.gotoPath(`/dex/markets/${item.market}`)
     }
     const tokens = tickerFm.getTokens()
     return (
@@ -75,17 +75,14 @@ const TickerItem = ({item,actions,key})=>{
       </div>
     )
 }
-const TickerList = ({items,loading})=>{
-  const actions = {
-    // selectTicker,
-  }
+const TickerList = ({items,loading,dispatch})=>{
   return (
     <div className="bg-white">
       <Spin spinning={loading}>
         <div className="divider 1px zb-b-t"></div>
         <TickerHeader />
         <div className="divider 1px zb-b-t"></div>
-        {items.map((item,index)=><TickerItem key={index} item={item} actions={actions} />)}
+        {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
         {items.length === 0 &&
           <div className="p10 text-center">
             {intl.get('common.list.no_data')}
@@ -107,9 +104,6 @@ class ListMarketTickers extends React.Component {
       const allTickers = tickersFm.getAllTickers()
       const favoredTickers = tickersFm.getFavoredTickers()
       const recentTickers = tickersFm.getRecentTickers()
-      const actions = {
-        // selectTicker,
-      }
       const markets = ['WETH',"LRC"]
       return (
           <Tabs
@@ -118,6 +112,7 @@ class ListMarketTickers extends React.Component {
                 { title: <div className="fs16">Favorites</div> },
                 { title: <div className="fs16">WETH</div> },
                 { title: <div className="fs16">LRC</div> },
+                { title: <div className="fs16">Innovation</div> },
               ]
             }
             tabBarBackgroundColor={"#fff"}
@@ -129,15 +124,10 @@ class ListMarketTickers extends React.Component {
             onChange={(tab, index) => {}}
             onTabClick={(tab, index) => { }}
           >
-            <TickerList items={favoredTickers} loading={list.loading} />
-            {
-              markets.map((symbol,index)=>{
-                const items = getMarketTickersBySymbol(symbol,allTickers)
-                return (
-                  <TickerList key={index} items={items} loading={list.loading} />
-                )
-              })
-            }
+            <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} />
+            <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} />
+            <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} />
+            <TickerList items={[]} loading={list.loading} dispatch={dispatch} />
           </Tabs>
       )
   }

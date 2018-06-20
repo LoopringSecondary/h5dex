@@ -33,32 +33,34 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({pathname,search})=> {
-        if (pathname.indexOf('/trade/')>-1) {
-          const market = pathname.replace('/trade/','')
-          dispatch({
-            type:'orders/filtersChange',
-            payload:{
-              id:'MyOpenOrders',
-              filters:{market,status:'ORDER_OPENED'}
-            }
-          })
-          dispatch({
-            type:'fills/filtersChange',
-            payload:{
-              id:'MyFills',
-              filters:{market}
-            }
-          })
-          dispatch({
-            type:'placeOrder/pairChangeEffects',
-            payload:{
-              pair:market
-            }
-          })
-          dispatch({
-            type:'marketChange',
-            payload:{market}
-          })
+        if (pathname.indexOf('/dex/markets/')>-1) {
+          const market = pathname.replace('/dex/markets/','')
+          if(market.indexOf('-')>-1){
+            dispatch({
+              type:'orders/filtersChange',
+              payload:{
+                id:'MyOpenOrders',
+                filters:{market,status:'ORDER_OPENED'}
+              }
+            })
+            dispatch({
+              type:'fills/filtersChange',
+              payload:{
+                id:'MyFills',
+                filters:{market}
+              }
+            })
+            dispatch({
+              type:'placeOrder/pairChangeEffects',
+              payload:{
+                pair:market
+              }
+            })
+            dispatch({
+              type:'marketChange',
+              payload:{market}
+            })
+          }
         }
       })
     },
