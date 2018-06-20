@@ -29,6 +29,7 @@ const TickerItem = ({item,actions,key})=>{
       routeActions.gotoPath(`/dex/markets/${item.market}`)
     }
     const tokens = tickerFm.getTokens()
+    const direction = tickerFm.getChangeDirection()
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
         <div className="col-5 text-left">
@@ -42,19 +43,19 @@ const TickerItem = ({item,actions,key})=>{
         </div>
         <div className="col-3 text-right">
           {
-            tickerFm.getChangeDirection() === 'up' &&
+            direction === 'up' &&
             <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-500 color-white">
              +{tickerFm.getChange()}
             </Button>
           }
           {
-            tickerFm.getChangeDirection() === 'down' &&
+            direction === 'down' &&
             <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-red-500 color-white">
              {tickerFm.getChange()}
             </Button>
           }
           {
-            tickerFm.getChangeDirection() === 'none' &&
+            direction === 'none' &&
             <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-grey-500 color-white">
              {tickerFm.getChange()}
             </Button>

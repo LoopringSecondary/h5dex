@@ -14,11 +14,24 @@ const Item = List.Item;
 const Brief = Item.Brief;
 
 const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatch})=>{
-  const looprTickerFm = new TickerFm(tickers.item.loopr || {})
-  const tokens = looprTickerFm.getTokens()
+  const tickerFm = new TickerFm(tickers.item.loopr || {})
+  const tokens = tickerFm.getTokens()
+  const direction = tickerFm.getChangeDirection()
+  let color
+  if(direction === 'up'){
+    color = "color-green-500"
+  }
+  if(direction === 'down'){
+    color = "color-red-500"
+  }
+  if(direction === 'none'){
+    color = "color-grey-500"
+  }
+  console.log("tickerFm",tickerFm,direction,color)
   const goBack = ()=>{
     routeActions.goBack()
   }
+
   return (
     <div className="bg-white">
       <NavBar
@@ -36,14 +49,14 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
       >
       {tickers.filters.market}
       </NavBar>
-      <div className="p10 zb-b-b">
-        <span className="fs24 font-weight-bold color-green-600">
-          {looprTickerFm.getLast()}
+      <div className={`p10 zb-b-b ${color}`}>
+        <span className="fs24 font-weight-bold">
+          {tickerFm.getLast()}
         </span>
-        <span className="fs16 color-green-600 ml10">
-          {looprTickerFm.getChange()}
+        <span className="fs16 ml10">
+          {tickerFm.getChange()}
         </span>
-        <span className="fs16 color-green-600 ml10">
+        <span className="fs16 ml10">
           $1.5
         </span>
       </div>
@@ -53,13 +66,13 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
             24H涨跌幅
           </div>
           <div className="col color-black-2">
-            {looprTickerFm.getChange()}
+            {tickerFm.getChange()}
           </div>
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             24H最高价
           </div>
           <div className="col-auto color-black-2">
-            {looprTickerFm.getHigh()}
+            {tickerFm.getHigh()}
           </div>
         </div>
         <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
@@ -67,13 +80,13 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
             24H交易量
           </div>
           <div className="col color-black-2">
-            {looprTickerFm.getVol()} {tokens.right}
+            {tickerFm.getVol()} {tokens.right}
           </div>
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             24H最低价
           </div>
           <div className="col-auto color-black-2">
-            {looprTickerFm.getLow()}
+            {tickerFm.getLow()}
           </div>
         </div>
       </div>
