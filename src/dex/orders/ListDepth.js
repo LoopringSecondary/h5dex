@@ -40,7 +40,7 @@ const ListDepth = ({depth={},maxRows=5})=>{
                   {
                     depth.item && depth.item.buy && depth.item.buy.length == 0 &&
                       <tr>
-                        <td colSpan="10" className="p10 zb-b-b text-center align-middle">
+                        <td colSpan="10" className="p10 zb-b-b text-center align-middle color-black-3">
                           {intl.get('common.list.no_data')}
                         </td>
                       </tr>
@@ -51,18 +51,17 @@ const ListDepth = ({depth={},maxRows=5})=>{
         </div>
         <div className="col-6">
           <Spin spinning={depth.loading}>
-            <table className="w-100 fs13">
+            <table className="w-100 fs13 zb-b-l">
               <thead>
                 <tr className="">
                   <th className="zb-b-b text-left pl5 pr10 pt5 pb5 font-weight-normal color-black-3">Sell</th>
                   <th className="zb-b-b text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Amount</th>
                 </tr>
               </thead>
-
                 <tbody>
                     {
                       depth.item && depth.item.sell && depth.item.sell.map((item,index)=>
-                        <tr key={index}>
+                        <tr key={index} className="">
                           <td className="pl5 pr10 pt10 pb10 zb-b-b text-left color-red-500 align-middle">
                             {Number(item[0]).toFixed(8)}
                             <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
@@ -75,8 +74,8 @@ const ListDepth = ({depth={},maxRows=5})=>{
                     }
                     {
                       depth.item && depth.item.sell && depth.item.sell.length == 0 &&
-                        <tr>
-                          <td colSpan="10" className="p10 zb-b-b text-center align-middle">
+                        <tr className="">
+                          <td colSpan="10" className="p10 zb-b-b text-center align-middle color-black-3">
                             {intl.get('common.list.no_data')}
                           </td>
                         </tr>

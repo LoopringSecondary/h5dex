@@ -85,7 +85,7 @@ const TickerList = ({items,loading,dispatch})=>{
         <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
         {items.length === 0 &&
-          <div className="p10 text-center">
+          <div className="p10 text-center color-black-3">
             {intl.get('common.list.no_data')}
           </div>
         }

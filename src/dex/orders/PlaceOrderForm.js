@@ -28,258 +28,97 @@ if (isIPhone) {
     onTouchStart: e => e.preventDefault(),
   };
 }
-
-class PlaceOrder extends React.Component {
-  state = {
-    type: 'money',
-    side: 'buy',
-  }
-  render() {
-    const dispatch = this.props.dispatch
-    const showLayer = (payload={})=>{
-      dispatch({
-        type:'layers/showLayer',
-        payload:{
-          ...payload
+const PlaceOrderForm = (props)=>{
+  const { side,showLayer,form} = props
+  return (
+    <div>
+       <List className="bg-none no-border">
+        <InputItem
+          {...form.getFieldProps('money3')}
+          type="money"
+          placeholder="00.000000"
+          clear
+          moneyKeyboardAlign="right"
+          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
+        ><div className="fs16">Price</div></InputItem>
+      </List>
+      <List className="bg-none no-border">
+        <InputItem
+          type="money"
+          placeholder="00.000000"
+          clear
+          moneyKeyboardAlign="right"
+          onChange={(v) => { console.log('onChange', v); }}
+          onBlur={(v) => { console.log('onBlur', v); }}
+          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfAmount',side:'sell'})} />}
+        ><div className="fs16">Amount</div></InputItem>
+      </List>
+      <List className="bg-none no-border">
+        <InputItem
+          type="money"
+          placeholder="00.000000"
+          extra={<WebIcon type="exclamation-circle-o" style={{padding:'2px 0px 5px 20px',outline:'5px'}} />}
+          clear
+          moneyKeyboardAlign="right"
+          onChange={(v) => { console.log('onChange', v); }}
+          onBlur={(v) => { console.log('onBlur', v); }}
+          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+          editable={false}
+        ><div className="fs16">Total</div></InputItem>
+      </List>
+      <List className="bg-none no-border">
+        {
+          false &&
+          <InputItem
+            type="money"
+            placeholder="00.000000"
+            extra={<span className="fs16 color-black-4">{null && "LRC"}</span>}
+            clear
+            moneyKeyboardAlign="right"
+            onChange={(v) => { console.log('onChange', v); }}
+            onBlur={(v) => { console.log('onBlur', v); }}
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            editable={false}
+          >LRC Fee</InputItem>
         }
-      })
-    }
-    const hideLayer = (payload={})=>{
-      dispatch({
-        type:'layers/hideLayer',
-        payload:{
-          ...payload
+        {
+          false &&
+          <InputItem
+            type="money"
+            placeholder="06-10 12:00"
+            extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
+            clear
+            moneyKeyboardAlign="left"
+            onChange={(v) => { console.log('onChange', v); }}
+            onBlur={(v) => { console.log('onBlur', v); }}
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            editable={false}
+          >TTL</InputItem>
         }
-      })
-    }
-    const gotoConfirm= ()=>{
-
-    }
-
-
-    const showPriceHelper= ()=>{
-      showLayer({id:'helperOfPrice'})
-    }
-    const { getFieldProps } = this.props.form;
-    const { type } = this.state;
-
-    const PlaceOrderForm = (props)=>{
-      const { side } = props
-      return (
-        <div>
-           <List className="bg-none no-border">
-            <InputItem
-              {...getFieldProps('money3')}
-              type={type}
-              placeholder="00.000000"
-              clear
-              moneyKeyboardAlign="right"
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
-            ><div className="fs16">Price</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
-            <InputItem
-              type={type}
-              placeholder="00.000000"
-              clear
-              moneyKeyboardAlign="right"
-              onChange={(v) => { console.log('onChange', v); }}
-              onBlur={(v) => { console.log('onBlur', v); }}
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfAmount',side:'sell'})} />}
-            ><div className="fs16">Amount</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
-            <InputItem
-              type={type}
-              placeholder="00.000000"
-              extra={<WebIcon type="exclamation-circle-o" style={{padding:'2px 0px 5px 20px',outline:'5px'}} />}
-              clear
-              moneyKeyboardAlign="right"
-              onChange={(v) => { console.log('onChange', v); }}
-              onBlur={(v) => { console.log('onBlur', v); }}
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              editable={false}
-            ><div className="fs16">Total</div></InputItem>
-          </List>
-          <List className="bg-none no-border">
-            {
-              false &&
-              <InputItem
-                type={type}
-                placeholder="00.000000"
-                extra={<span className="fs16 color-black-4">{null && "LRC"}</span>}
-                clear
-                moneyKeyboardAlign="right"
-                onChange={(v) => { console.log('onChange', v); }}
-                onBlur={(v) => { console.log('onBlur', v); }}
-                moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-                editable={false}
-              >LRC Fee</InputItem>
-            }
-            {
-              false &&
-              <InputItem
-                type={type}
-                placeholder="06-10 12:00"
-                extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
-                clear
-                moneyKeyboardAlign="left"
-                onChange={(v) => { console.log('onChange', v); }}
-                onBlur={(v) => { console.log('onBlur', v); }}
-                moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-                editable={false}
-              >TTL</InputItem>
-            }
-            <Item>
-              <div className="row align-items-center ml0 mr0 mb15 mt10">
-                <div className="col color-black-3 fs16 pl0">Advanced</div>
-                <div className="col-auto color-black-3 fs16 pr0">
-                  <WebSwitch onChange={(checked)=>{showLayer({id:'helperOfAdvance',side})}} />
-                </div>
-              </div>
-              {
-                side === 'sell' &&
-                <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
-              }
-              {
-                side === 'buy' &&
-                <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
-              }
-            </Item>
-          </List>
-
-        </div>
-
-      )
-    }
-    const {side} = this.state
-    const market = "LRC-WETH";
-    const tabChange = (side)=>{
-      this.setState({
-        side
-      })
-    }
-   const gotoTrade = ()=>{
-      routeActions.gotoPath(`/dex/markets/${market}`)
-    }
-    return (
-      <div className="bg-grey-100">
-        <NavBar
-          className=""
-          mode="light"
-          onLeftClick={() => routeActions.gotoPath('/dex/markets/LRC-WETH')}
-          leftContent={[
-            <span className="color-black-1" key="1" ><WebIcon type="home" /></span>,
-          ]}
-          rightContent={[
-            <span className="color-black-1" key="1"  onClick={gotoTrade}><WebIcon type="line-chart" /></span>
-          ]}
-        >
-          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
-        </NavBar>
-        <div className="no-underline tabs-no-border h-50 place-order-form">
-          <Tabs
-            tabs={
-              [
-                { title: <div className="fs16">Buy LRC</div> },
-                { title: <div className="fs16">Sell LRC</div> },
-              ]
-            }
-            tabBarBackgroundColor={side === 'buy' ? "#e8f5e9" : "#ffebee"}
-            tabBarActiveTextColor={side === 'buy' ? "#43a047" : "#f44336"}
-            tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-            tabBarTextStyle={{}}
-            initialPage={0}
-            onChange={(tab, index) => { tabChange(index==0 ? 'buy' : 'sell')}}
-            onTabClick={(tab, index) => { }}
-          >
-            <PlaceOrderForm side="buy" />
-            <PlaceOrderForm side="sell" />
-          </Tabs>
-        </div>
-        <div className="no-underline">
-          <Tabs
-            tabs={
-              [
-                { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Orders</Badge> },
-                { title: <Badge className="text-center pt10 pb10 d-block w-100">My Fills</Badge> },
-              ]
-            }
-            tabBarBackgroundColor="#f5f5f5"
-            tabBarActiveTextColor={"#000"}
-            tabBarInactiveTextColor={"#999"}
-            initialPage={0}
-            swipeable={false}
-            onChange={(tab, index) => { console.log('onChange', index, tab); }}
-            onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-          >
-            <div>
-              <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
-                <OpenOrderList />
-              </Containers.Orders>
+        <Item>
+          <div className="row align-items-center ml0 mr0 mb15 mt10">
+            <div className="col color-black-3 fs16 pl0">Advanced</div>
+            <div className="col-auto color-black-3 fs16 pr0">
+              <WebSwitch onChange={(checked)=>{showLayer({id:'helperOfAdvance',side})}} />
             </div>
-            <div>
-              <Containers.Fills id="MyFills" alias="fills" initState={{}}>
-                <ListMyFills />
-              </Containers.Fills>
-            </div>
-          </Tabs>
-          <div className="pb50"></div>
-        </div>
-        <Containers.Layers id="placeOrderSteps">
-          <UiContainers.Popups id="placeOrderSteps">
-            <PlaceOrderSteps />
-          </UiContainers.Popups>
-        </Containers.Layers>
-        <Containers.Layers id="helperOfAdvance">
-          <UiContainers.Popups id="helperOfAdvance">
-            <HelperOfAdvance />
-          </UiContainers.Popups>
-        </Containers.Layers>
-        <Containers.Layers id="helperOfPrice">
-          <UiContainers.Popups id="helperOfPrice">
-            <HelperOfPrice />
-          </UiContainers.Popups>
-        </Containers.Layers>
-        <Containers.Layers id="helperOfAmount">
-          <UiContainers.Popups id="helperOfAmount">
-            <HelperOfAmount />
-          </UiContainers.Popups>
-        </Containers.Layers>
-        <Containers.Layers id="orderDetail">
-          <UiContainers.Popups id="orderDetail">
-            <OrderDetail />
-          </UiContainers.Popups>
-        </Containers.Layers>
-        <Containers.Layers id="placeOrderMarketHelper">
-          <UiContainers.Popups id="placeOrderMarketHelper">
-            <div className="tabs-no-border" style={{height:'80vh'}}>
-              <NavBar
-                className="zb-b-b"
-                mode="light"
-                onLeftClick={() => console.log('onLeftClick')}
-                leftContent={[
-                  <span className="color-black-1 " onClick={hideLayer.bind(this,{id:'placeOrderMarketHelper'})}><WebIcon key="1" type="close" /></span>
-                ]}
-                rightContent={[
-                  <span className="color-black-1"><WebIcon key="1" type="search" /></span>,
-                ]}
-              >
-                Market
-              </NavBar>
-              <ListMarketTickers />
-            </div>
-          </UiContainers.Popups>
-        </Containers.Layers>
+          </div>
+          {
+            side === 'sell' &&
+            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
+          }
+          {
+            side === 'buy' &&
+            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
+          }
+        </Item>
+      </List>
 
-      </div>
-    );
-  }
+    </div>
+  )
 }
-const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
-export default PlaceOrderForm
+export default createForm()(PlaceOrderForm)
 
 
 

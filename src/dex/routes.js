@@ -5,7 +5,7 @@ import Orders from './orders';
 import Markets from './tickers/Markets';
 import MarketDetail from './tickers/Detail';
 import Face2Face from './orders/Face2Face'
-import PlaceOrder from './orders/PlaceOrderForm'
+import PlaceOrder from './orders/PlaceOrderPage'
 import UserCenter from './account/UserCenter'
 import ListTodos from './notifications/ListTodos'
 

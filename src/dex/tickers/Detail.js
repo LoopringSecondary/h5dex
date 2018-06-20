@@ -27,11 +27,9 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
   if(direction === 'none'){
     color = "color-grey-500"
   }
-  console.log("tickerFm",tickerFm,direction,color)
   const goBack = ()=>{
     routeActions.goBack()
   }
-
   return (
     <div className="bg-white">
       <NavBar
