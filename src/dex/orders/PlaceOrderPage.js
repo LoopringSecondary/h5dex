@@ -8,7 +8,7 @@ import PlaceOrderSteps from './PlaceOrderSteps';
 import HelperOfAdvance from './HelperOfAdvance';
 import HelperOfPrice from './HelperOfPrice';
 import HelperOfAmount from './HelperOfAmount';
-import ListMarketTickers from '../tickers/ListMarketTickers';
+import HelperOfMarket from './HelperOfMarket';
 import {OpenOrderList,HistoryOrderList} from './ListOrders';
 import ListMyFills from '../fills/ListMyFills';
 import Containers from 'modules/containers';
@@ -62,7 +62,7 @@ class PlaceOrder extends React.Component {
             <span className="color-black-1" key="1"  onClick={gotoTrade}><WebIcon type="line-chart" /></span>
           ]}
         >
-          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
+          <div className="" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>LRC-WETH <WebIcon className="ml5" type="down" /></div>
         </NavBar>
         <div className="no-underline tabs-no-border h-50 place-order-form">
           <Tabs
@@ -138,32 +138,16 @@ class PlaceOrder extends React.Component {
             <OrderDetail />
           </UiContainers.Popups>
         </Containers.Layers>
-        <Containers.Layers id="placeOrderMarketHelper">
-          <UiContainers.Popups id="placeOrderMarketHelper">
-            <div className="tabs-no-border" style={{height:'80vh'}}>
-              <NavBar
-                className="zb-b-b"
-                mode="light"
-                onLeftClick={() => console.log('onLeftClick')}
-                leftContent={[
-                  <span className="color-black-1 " onClick={hideLayer.bind(this,{id:'placeOrderMarketHelper'})}><WebIcon key="1" type="close" /></span>
-                ]}
-                rightContent={[
-                  <span className="color-black-1"><WebIcon key="1" type="search" /></span>,
-                ]}
-              >
-                Market
-              </NavBar>
-              <ListMarketTickers />
-            </div>
+        <Containers.Layers id="helperOfMarket">
+          <UiContainers.Popups id="helperOfMarket">
+            <HelperOfMarket />
           </UiContainers.Popups>
         </Containers.Layers>
-
       </div>
     );
   }
 }
-export default connect(({layers})=>({layers}))(PlaceOrder)
+export default connect()(PlaceOrder)
 
 
 
