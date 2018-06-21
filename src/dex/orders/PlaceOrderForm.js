@@ -14,6 +14,7 @@ import ListMyFills from '../fills/ListMyFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
+import {getTokensByMarket} from 'modules/formatter/common'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -31,6 +32,7 @@ if (isIPhone) {
 const PlaceOrderForm = (props)=>{
   const {dispatch,placeOrder} = props
   const {side,pair} = placeOrder
+  const tokens = getTokensByMarket(pair)
   const amount = placeOrder.amountInput
   const price = placeOrder.priceInput
   const total = "00.000000"
@@ -73,6 +75,15 @@ const PlaceOrderForm = (props)=>{
          priceInput:value
        }
      })
+  }
+  const showAdvanceChange = (value)=>{
+    dispatch({
+      type:'placeOrder/showAdvanceChange',
+      payload:{
+        showAdvance:true
+      }
+    })
+    showLayer({id:'helperOfAdvance'})
   }
   return (
     <div>
@@ -153,19 +164,13 @@ const PlaceOrderForm = (props)=>{
           <div className="row align-items-center ml0 mr0 mb15 mt10">
             <div className="col color-black-3 fs16 pl0">Total</div>
             <div className="col-auto color-black-3 fs16 pr0">
-              1.101 WETH
-            </div>
-          </div>
-          <div className="row align-items-center ml0 mr0 mb15 mt10">
-            <div className="col color-black-3 fs16 pl0">Balance</div>
-            <div className="col-auto color-black-3 fs16 pr0">
-              1.101 LRC
+              {total} {tokens.right}
             </div>
           </div>
           <div className="row align-items-center ml0 mr0 mb15 mt10">
             <div className="col color-black-3 fs16 pl0">Advanced</div>
             <div className="col-auto color-black-3 fs16 pr0">
-              <WebSwitch onChange={(checked)=>{showLayer({id:'helperOfAdvance',side})}} />
+              <WebSwitch value={placeOrder.showAdvance}onChange={showAdvanceChange} />
             </div>
           </div>
           {

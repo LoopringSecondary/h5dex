@@ -11,6 +11,7 @@ export default {
    pair:'LRC-WETH',
    priceInput: '0',
    amountInput:'0',
+   showAdvance:false,
    sliderMilliLrcFee:0,
    timeToLivePatternSelect: 'easy',
    timeToLivePopularSetting: true,
@@ -101,6 +102,14 @@ export default {
       return {
         ...state,
         side
+      }
+    },
+    showAdvanceChange(state, action) {
+      let {payload} = action
+      let {showAdvance} = payload
+      return {
+        ...state,
+        showAdvance
       }
     },
     priceChange(state, action) {

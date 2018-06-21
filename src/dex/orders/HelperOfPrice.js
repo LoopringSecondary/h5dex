@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'dva';
 import { Input,Icon } from 'antd';
 import { Modal,List,Button,Tabs,Badge,Switch } from 'antd-mobile';
 import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
@@ -9,7 +10,7 @@ import eachLimit from 'async/eachLimit';
 import * as orderFormatter from 'modules/orders/formatters'
 import Notification from 'LoopringUI/components/Notification'
 import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
+import {getTokensByMarket} from 'modules/formatter/common'
 import * as fm from 'LoopringJS/common/formatter'
 import QRCode from 'qrcode.react';
 import Alert from 'LoopringUI/components/Alert'
@@ -38,52 +39,39 @@ const Advance = (
 )
 
 function PlaceOrderPriceHelper(props) {
-  const tabs = [
-    { title: <div className="">Prices</div>},
-    { title: <div className="">Depth</div>},
-  ];
+  const {dispatch,pair} = props
+  const tokens = getTokensByMarket(pair)
+  const changePrice = (value)=>{
+    dispatch({
+      type:'placeOrder/priceChange',
+      payload:{
+        price:value
+      }
+    })
+  }
+  const lastPrice = "0.0001500"
   return (
     <div className="tabs-no-border">
-      <div className="pt15 pb15 fs18 color-black-1 zb-b-b">Price Helper</div>
-      <Tabs tabs={tabs}
-        tabBarActiveTextColor={"#000"}
-        tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
-        swipeable={false}
-        initialPage={0}
-        onChange={(tab, index) => { console.log('onChange', index, tab); }}
-        onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-      >
-        <div className="zb-b-t">
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
-            <div className="col color-black-2 text-left pl10">
-              Last Filled Price
-            </div>
-            <div className="col-auto color-black-2">
-              <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
-            </div>
+      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b">Price Helper</div>
+      <div className="zb-b-t">
+        <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
+          <div className="col color-black-1 text-left pl10">
+            Last Price
           </div>
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
-            <div className="col color-black-2 text-left pl10">
-              Last Sell Price
-            </div>
-            <div className="col-auto color-black-2">
-              <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
-            </div>
-          </div>
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
-            <div className="col color-black-2 text-left pl10">
-              Last Buy Price
-            </div>
-            <div className="col-auto color-black-2">
-              <span className="color-black-4 mr5">￥8.52</span>0.0001500 ETH
-            </div>
+          <div className="col-auto color-black-2" onClick={changePrice.bind(this,lastPrice)}>
+            <span className="color-black-4 mr5">￥8.52</span>{lastPrice} {tokens.right}
           </div>
         </div>
-        <div className="zb-b-t">
+        <div className="bg-grey-100" style={{maxHeight:'50vh',overflow:'auto'}}>
           <ListDepth />
         </div>
-      </Tabs>
+      </div>
     </div>
   )
 }
-export default PlaceOrderPriceHelper
+export default connect(({
+  sockets:{trades},
+  placeOrder:{pair}
+})=>({
+  pair,trades
+}))(PlaceOrderPriceHelper)
