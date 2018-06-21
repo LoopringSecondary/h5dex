@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
+import {Spin} from 'antd';
 import intl from 'react-intl-universal';
 import {getTokensByMarket} from 'modules/formatter/common'
 import HelperOfDepth from './HelperOfDepth'
@@ -23,9 +24,14 @@ function HelperOfPrice(props) {
           <div className="col color-black-1 text-left pl10">
             Last Price
           </div>
-          <div className="col-auto color-black-2" onClick={changePrice.bind(this,lastPrice)}>
-            <span className="color-black-4 mr5">￥8.52</span>{lastPrice} {tokens.right}
-          </div>
+          { lastPrice &&
+            <div className="col-auto color-black-2" onClick={changePrice.bind(this,lastPrice)}>
+              <span className="color-black-4 mr5">￥8.52</span>{lastPrice} {tokens.right}
+            </div>
+          }
+          { !lastPrice &&
+            <Spin spinning={true} />
+          }
         </div>
         <div className="bg-grey-100" style={{maxHeight:'50vh',overflow:'auto'}}>
           <HelperOfDepth />
@@ -38,5 +44,5 @@ export default connect(({
   sockets:{tickers},
   placeOrder:{pair},
 })=>({
-  pair,lastPrice:tickers.item.loopr.last
+  pair,lastPrice:tickers.item.loopr ? tickers.item.loopr.last : null
 }))(HelperOfPrice)

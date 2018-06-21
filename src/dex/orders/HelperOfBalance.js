@@ -45,6 +45,11 @@ const HelperOfBalance = (props)=>{
     // TODO
     // routeActions.gotoPath('/dex/convert')
   }
+  const gotoAll = (payload)=>{
+    // TODO
+    // routeActions.gotoPath('/dex/convert')
+  }
+
   return (
     <div className="fs20">
       <table className="w-100 fs13">
@@ -84,7 +89,7 @@ const HelperOfBalance = (props)=>{
         </tbody>
       </table>
       <div className="p10 zb-b-b mb15">
-        <Button type="" size="" className="d-block w-100">All Tokens</Button>
+        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">View All Tokens</Button>
       </div>
     </div>
   )

@@ -1,23 +1,41 @@
-import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { createForm } from 'rc-form';
-import { connect } from 'dva';
-import OrderDetail from './Detail';
-import PlaceOrderSteps from './PlaceOrderSteps';
-import HelperOfAdvance from './HelperOfAdvance';
-import HelperOfPrice from './HelperOfPrice';
-import HelperOfAmount from './HelperOfAmount';
-import HelperOfMarket from './HelperOfMarket';
-import HelperOfBalance from './HelperOfBalance';
-import {OpenOrderList} from './ListOrders';
-import ListMyFills from '../fills/ListMyFills';
-import Containers from 'modules/containers';
+import React from 'react'
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile'
+import { Icon as WebIcon,Switch as WebSwitch } from 'antd'
+import { connect } from 'dva'
+import OrderDetail from './Detail'
+import PlaceOrderSteps from './PlaceOrderSteps'
+import PlaceOrderForm from './PlaceOrderForm'
+import HelperOfAdvance from './HelperOfAdvance'
+import HelperOfPrice from './HelperOfPrice'
+import HelperOfAmount from './HelperOfAmount'
+import HelperOfMarket from './HelperOfMarket'
+import HelperOfBalance from './HelperOfBalance'
+import HelperOfMyMarketOrders from './HelperOfMyMarketOrders'
+import ListMyFills from '../fills/ListMyFills'
+import Containers from 'modules/containers'
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
-import PlaceOrderForm from './PlaceOrderForm'
+
 import LayoutDexHome from '../../layout/LayoutDexHome'
 import {getTokensByMarket} from 'modules/formatter/common'
+
+const OrderListHeader = ()=>{
+  return (
+    <div className="color-black-2">
+      <div className="row ml0 mr0 fs14">
+        <div className="col text-center pt10 pb10 zb-b-r">
+          Markets <WebIcon className="fs12" type="down" />
+        </div>
+        <div className="col text-center pt10 pb10 zb-b-r">
+          Sides <WebIcon className="fs12" type="down" />
+        </div>
+        <div className="col text-center pt10 pb10 ">
+          Status <WebIcon className="fs12" type="down" />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const Item = List.Item;
 class PlaceOrderPage extends React.Component {
@@ -100,10 +118,10 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
               onTabClick={(tab, index) => { }}
             >
-
               <PlaceOrderForm side="sell" showLayer={showLayer} />
             </Tabs>
           </div>
+          <div className="divider 1px zb-b-t"></div>
           <div className="no-underline tabs-no-border">
             <Tabs
               tabs={
@@ -121,13 +139,11 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div>
+              <div className="zb-b-t">
                 <HelperOfBalance />
               </div>
-              <div>
-                <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
-                  <OpenOrderList />
-                </Containers.Orders>
+              <div className="">
+                <HelperOfMyMarketOrders />
               </div>
               <div>
                 <Containers.Fills id="MyFills" alias="fills" initState={{}}>
