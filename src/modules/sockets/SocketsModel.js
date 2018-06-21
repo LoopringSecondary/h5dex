@@ -228,7 +228,6 @@ export default {
         },
       }
     },
-
     pageChangeStart(state,action){
       let {payload} = action
       let {id} = payload

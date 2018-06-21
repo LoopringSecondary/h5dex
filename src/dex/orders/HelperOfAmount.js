@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Tabs,Slider,Icon } from 'antd-mobile';
+import { Icon as WebIcon } from 'antd';
 import intl from 'react-intl-universal';
 import HelperOfDepth from './HelperOfDepth'
 import {toBig} from 'LoopringJS/common/formatter'
@@ -49,35 +50,35 @@ function HelperOfAmount(props) {
               <span className="d-inline-block" style={{width:'50px'}}>100%</span>
               <span className="color-black-3 ml25">{`${availableAmount.toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountPercentage === 100 && <div className="col-auto"><Icon type="check-circle-o" /></div>}
+            {amountPercentage === 100 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10" onClick={amountPercentageSelect.bind(this, 75)}>
               <span className="d-inline-block" style={{width:'50px'}}>75%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(0.75).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountPercentage === 75 && <div className="col-auto"><Icon type="check-circle-o" /></div>}
+            {amountPercentage === 75 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10" onClick={amountPercentageSelect.bind(this, 50)}>
               <span className="d-inline-block" style={{width:'50px'}}>50%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(0.5).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountPercentage === 50 && <div className="col-auto"><Icon type="check-circle-o" /></div>}
+            {amountPercentage === 50 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt15 pb15 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10" onClick={amountPercentageSelect.bind(this, 25)}>
               <span className="d-inline-block" style={{width:'50px'}}>25%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(0.25).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}C</span>
             </div>
-            {amountPercentage === 25 && <div className="col-auto"><Icon type="check-circle-o" /></div>}
+            {amountPercentage === 25 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt15 pb15 ml0 mr0">
             <div className="col color-black-1 text-left pl10">
               <span className="ml5">{amountSlider}%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(amountSlider).div(100).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountSliderSelected && <div className="col-auto"><Icon type="check-circle-o" /></div>}
+            {amountSliderSelected && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="mt15 pb25">
             <Slider
