@@ -31,10 +31,10 @@ class DexHomeLayout extends React.Component {
               title="Markets"
               key="markets"
               icon={
-                <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
+                <WebIcon type="line-chart" className="fs22" style={{marginTop:'0px'}} />
               }
               selectedIcon={
-                <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
+                <WebIcon type="line-chart" className="fs22" style={{marginTop:'0px'}} />
               }
               selected={pathname === `/dex/markets`}
               onPress={() => {
@@ -42,8 +42,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
-              selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
+              icon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'0px'}} />}
+              selectedIcon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'0px'}} />}
               title="Trade"
               key="placeOrder"
               selected={pathname.indexOf(`/dex/placeOrder`)>-1}
@@ -52,8 +52,19 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
-              selectedIcon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
+              badge="6"
+              icon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
+              selectedIcon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
+              title="Notifications"
+              key="Notifications"
+              selected={pathname === `/dex/todos`}
+              onPress={() => {
+                changeTab('todos')
+              }}
+            />
+            <TabBar.Item
+              icon={<WebIcon type="user" className="fs22" style={{marginTop:'0px'}} />}
+              selectedIcon={<WebIcon type="user" className="fs22" style={{marginTop:'0px'}} />}
               title="My"
               key="userCenter"
               selected={pathname === `/dex/userCenter`}

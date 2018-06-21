@@ -1,26 +1,14 @@
 import React from 'react';
-import { Input,Icon } from 'antd';
 import { connect } from 'dva';
-import { Modal,List,Button,Tabs,Badge,Slider } from 'antd-mobile';
-import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
-import config from 'common/config'
+import { Tabs,Slider } from 'antd-mobile';
 import intl from 'react-intl-universal';
-import * as datas from 'common/config/data'
-import eachLimit from 'async/eachLimit';
-import * as orderFormatter from 'modules/orders/formatters'
-import Notification from 'LoopringUI/components/Notification'
-import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
-import * as fm from 'LoopringJS/common/formatter'
-import QRCode from 'qrcode.react';
-import Alert from 'LoopringUI/components/Alert'
-import ListDepth from './ListDepth'
+import HelperOfDepth from './HelperOfDepth'
 
-function PlaceOrderAmountHelper(props) {
+function HelperOfAmount(props) {
   const tabs = [
     { title: <div className="text-center">Balance</div> },
     { title: <div className="text-center">Depth</div> },
-  ];
+  ]
   return (
     <div className="tabs-no-border">
       <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
@@ -76,7 +64,7 @@ function PlaceOrderAmountHelper(props) {
           </div>
         </div>
         <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
-          <ListDepth />
+          <HelperOfDepth />
         </div>
       </Tabs>
     </div>
@@ -86,7 +74,7 @@ export default connect(({
   placeOrder:{pair,side}
 })=>({
   pair,side
-}))(PlaceOrderAmountHelper)
+}))(HelperOfAmount)
 
 
 
