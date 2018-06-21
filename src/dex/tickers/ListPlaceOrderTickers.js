@@ -1,81 +1,53 @@
 import React from 'react'
 import {connect} from 'dva'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
-import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button,Tabs } from 'antd-mobile'
 import { Spin } from 'antd'
+import { Tabs } from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
+import { TickerHeader } from './ListMarketTickers'
 
-export const TickerHeader = ({list,actions})=>{
-    return (
-        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-          <div className="col-5 fs14 color-black-3 text-left">Market</div>
-          <div className="col-4 text-left pr10">
-            <div className="fs14 color-black-3 ">Price</div>
-          </div>
-          <div className="col-3 text-right">
-            <div className="fs14 color-black-3">Change</div>
-          </div>
-        </div>
-    )
-}
-
-export const TickerItem = ({item,actions,key})=>{
+const TickerItem = ({item,actions,key})=>{
     if(!item){ return null }
     const tickerFm = new TickerFm(item)
-    const gotoDetail = ()=>{
-      routeActions.gotoPath(`/dex/markets/${item.market}`)
+    const changeMarket = ()=>{
+
     }
     const tokens = tickerFm.getTokens()
     const direction = tickerFm.getChangeDirection()
     return (
-      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
+      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={changeMarket}>
         <div className="col-5 text-left">
-          <span className="fs16 color-black-1 font-weight-bold">{tokens.left}</span>
-          <span className="fs14 color-black-3">/{tokens.right}</span>
-          <div className="fs14 color-black-3">Vol {tickerFm.getVol()}</div>
+          <span className="fs14 color-black-2 ">{tokens.left}/{tokens.right}</span>
         </div>
         <div className="col-4 text-left">
-          <div className="fs16 color-black-1 font-weight-bold">{tickerFm.getLast()}</div>
-          <div className="fs14 color-black-3">$0.62</div>
+          <div className="fs14 color-black-2 ">{tickerFm.getLast()}</div>
         </div>
         <div className="col-3 text-right">
           {
             direction === 'up' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-500 color-white">
+            <span className="border-none fs14 color-green-500">
              +{tickerFm.getChange()}
-            </Button>
+            </span>
           }
           {
             direction === 'down' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-red-500 color-white">
+            <span className="border-none fs14 color-red-500">
              {tickerFm.getChange()}
-            </Button>
+            </span>
           }
           {
             direction === 'none' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-grey-500 color-white">
+            <span className="border-none fs14 color-grey-500">
              {tickerFm.getChange()}
-            </Button>
-          }
-          {
-            false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-300 color-white">+28.2%</Button>
-          }
-          {
-            false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-500 color-white">+50.2%</Button>
-          }
-          {
-            false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-700 color-white">+158.2%</Button>
+            </span>
           }
         </div>
       </div>
     )
 }
+
 export const TickerList = ({items,loading,dispatch})=>{
   return (
     <div className="bg-white">
@@ -94,7 +66,7 @@ export const TickerList = ({items,loading,dispatch})=>{
   )
 }
 
-class ListMarketTickers extends React.Component {
+class ListPlaceOrderTickers extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -135,5 +107,5 @@ class ListMarketTickers extends React.Component {
 }
 export default connect(
   ({sockets:{loopringTickers}})=>({loopringTickers})
-)(ListMarketTickers)
+)(ListPlaceOrderTickers)
 

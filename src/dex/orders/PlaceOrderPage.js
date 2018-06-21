@@ -87,13 +87,13 @@ class PlaceOrderPage extends React.Component {
             className=""
             mode="light"
             leftContent={[
-              <span className="color-black-1" key="1" onClick={showLayer.bind(this,{id:'helperOfMarket'})}><WebIcon type="bars" /></span>,
+              <span className="color-black-1" key="1"><WebIcon type="bars" /></span>,
             ]}
             rightContent={[
               <span className="color-black-1" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
             ]}
           >
-            <div>
+            <div onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
               {pair}<WebIcon className="ml5" type="down" />
             </div>
           </NavBar>

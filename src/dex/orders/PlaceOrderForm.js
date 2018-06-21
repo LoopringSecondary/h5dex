@@ -1,23 +1,11 @@
 import React from 'react';
 import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps,Toast } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { createForm } from 'rc-form';
 import { connect } from 'dva';
-import OrderDetail from './Detail';
-import PlaceOrderSteps from './PlaceOrderSteps';
-import HelperOfAdvance from './HelperOfAdvance';
-import HelperOfPrice from './HelperOfPrice';
-import HelperOfAmount from './HelperOfAmount';
-import ListMarketTickers from '../tickers/ListMarketTickers';
-import {OpenOrderList,HistoryOrderList} from './ListOrders';
-import ListMyFills from '../fills/ListMyFills';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
 import {toBig} from 'LoopringJS/common/formatter'
 const Item = List.Item;
-const Brief = Item.Brief;
 
 
 // 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题

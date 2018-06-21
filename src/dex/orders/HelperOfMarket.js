@@ -1,20 +1,10 @@
 import React from 'react';
 import { Input,Icon as WebIcon } from 'antd';
 import { Modal,List,Button,NavBar } from 'antd-mobile';
-import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
-import config from 'common/config'
 import intl from 'react-intl-universal';
-import * as datas from 'common/config/data'
-import eachLimit from 'async/eachLimit';
-import * as orderFormatter from 'modules/orders/formatters'
-import Notification from 'LoopringUI/components/Notification'
-import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
-import * as fm from 'LoopringJS/common/formatter'
-import Alert from 'LoopringUI/components/Alert'
-import ListMarketTickers from '../tickers/ListMarketTickers'
+import ListPlaceOrderTickers from '../tickers/ListPlaceOrderTickers'
 
-function MarketHelperOfPlaceOrder(props) {
+function HelperOfMarket(props) {
   const {helperOfMarket} = props
   return (
     <div className="tabs-no-border" style={{height:'80vh'}}>
@@ -31,8 +21,8 @@ function MarketHelperOfPlaceOrder(props) {
       >
         Market
       </NavBar>
-      <ListMarketTickers />
+      <ListPlaceOrderTickers />
     </div>
   )
 }
-export default MarketHelperOfPlaceOrder
+export default HelperOfMarket

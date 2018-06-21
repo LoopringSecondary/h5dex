@@ -85,12 +85,20 @@ export function fromNow(miliSeconds,suffix) {
   moment(miliSeconds).fromNow(!suffix)
 }
 export function getTokensByMarket(market=''){
-  if(market.indexOf('-') < 0){ console.log('market pair name must has a -')}
   let tokens= market.split('-')
-  return {
-    left:tokens[0].toUpperCase(),
-    right:tokens[1].toUpperCase(),
+  if(!tokens[0] || !tokens[1]){
+    console.error('invalid market',market)
+    return {
+      left:'',
+      right:'',
+    }
+  }else{
+    return {
+      left:tokens[0].toUpperCase(),
+      right:tokens[1].toUpperCase(),
+    }
   }
+
 }
 
 
