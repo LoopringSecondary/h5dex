@@ -1,10 +1,16 @@
 import React from 'react';
 import { Spin } from 'antd';
 import { connect } from 'dva';
-import routeActions from 'common/utils/routeActions'
 import intl from 'react-intl-universal'
-const HelperOfDepth = ({depth={},maxRows=5})=>{
+
+const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
+  const changePrice = ()=>{
+    // TODO
+  }
+  const changeAmount = ()=>{
+    // TODO
+  }
   const maxHeight = 'auto'
   return (
     <div style={{maxHeight,overflow:'auto'}}>
