@@ -97,7 +97,7 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
               onTabClick={(tab, index) => { }}
             >
-              <PlaceOrderForm side="buy" showLayer={showLayer}  />
+
               <PlaceOrderForm side="sell" showLayer={showLayer} />
             </Tabs>
           </div>

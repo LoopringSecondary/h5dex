@@ -7,6 +7,10 @@ import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
+import {OpenOrderList} from '../orders/ListOrders';
+import ListBalance from '../tokens/ListBalance';
+import ListMyFills from '../fills/ListMyFills';
+
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -98,16 +102,51 @@ class UserCenter extends React.Component {
               </div>
             </div>
           </div>
-          <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
-            <div className="col fs16 color-black-1">
-              My Orders
-            </div>
-            <div className="col-auto fs14 color-black-3 pl20">
-              Order & Fills <WebIcon type="right" />
-            </div>
+          <div className="no-underline">
+            <Tabs
+              tabs={
+                [
+                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Assets</Badge> },
+                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Orders</Badge> },
+                  { title: <Badge className="text-center pt10 pb10 d-block w-100">My Fills</Badge> },
+                ]
+              }
+              tabBarBackgroundColor="#fff"
+              tabBarActiveTextColor={"#000"}
+              tabBarInactiveTextColor={"#999"}
+              initialPage={0}
+              swipeable={false}
+              onChange={(tab, index) => { console.log('onChange', index, tab); }}
+              onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+            >
+              <div>
+                <ListBalance />
+              </div>
+              <div>
+                <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
+                  <OpenOrderList />
+                </Containers.Orders>
+              </div>
+              <div>
+                <Containers.Fills id="MyFills" alias="fills" initState={{}}>
+                  <ListMyFills />
+                </Containers.Fills>
+              </div>
+            </Tabs>
+            <div className="pb50"></div>
           </div>
-          <Grid onClick={routeActions.gotoPath.bind(this,'/dex/myOrders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
-          <div className="bg-white mt15">
+          <div hidden>
+            <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
+              <div className="col fs16 color-black-1">
+                My Orders
+              </div>
+              <div className="col-auto fs14 color-black-3 pl20">
+                Order & Fills <WebIcon type="right" />
+              </div>
+            </div>
+            <Grid onClick={routeActions.gotoPath.bind(this,'/dex/myOrders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
+          </div>
+          <div hidden className="bg-white mt15">
             <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
               <div className="col fs16 color-black-1">My Assets</div>
               <div className="col-auto fs14 color-black-3 pl20">

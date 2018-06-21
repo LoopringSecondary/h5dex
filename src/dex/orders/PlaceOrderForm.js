@@ -87,6 +87,10 @@ const PlaceOrderForm = (props)=>{
   }
   return (
     <div>
+       <div hidden className="pl10 pr10 pt10 pb5 bg-white">
+         <div className="divider 1px zb-b-b"></div>
+         <SegmentedControl values={['Buy LRC', 'Sell LRC']} style={{height:'40px'}}/>
+       </div>
        <List className="bg-none no-border">
         <InputItem
           type="money"
@@ -161,7 +165,7 @@ const PlaceOrderForm = (props)=>{
           >TTL</InputItem>
         }
         <Item>
-          <div className="row align-items-center ml0 mr0 mb15 mt10">
+          <div hidden className="row align-items-center ml0 mr0 mb15 mt10">
             <div className="col color-black-3 fs16 pl0">Total</div>
             <div className="col-auto color-black-3 fs16 pr0">
               {total} {tokens.right}
@@ -176,13 +180,13 @@ const PlaceOrderForm = (props)=>{
           {
             side === 'sell' &&
             <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
-            Sell {tokens.left}
+            Total {total} {tokens.right}
             </Button>
           }
           {
             side === 'buy' &&
             <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">
-            Buy {tokens.left}
+            Total {total} {tokens.right}
             </Button>
           }
         </Item>

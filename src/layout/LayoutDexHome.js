@@ -53,7 +53,7 @@ class DexHomeLayout extends React.Component {
             />
             <TabBar.Item
               icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
-              selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
+              selectedIcon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
               title="My"
               key="userCenter"
               selected={pathname === `/dex/userCenter`}

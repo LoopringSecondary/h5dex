@@ -52,7 +52,7 @@ export const OpenOrderList = ({orders={},dispatch})=>{
           })
         }
         {
-          orders.items.length == 0 &&
+          orders.items && orders.items.length == 0 &&
           <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
         }
         {
