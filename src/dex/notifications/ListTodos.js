@@ -58,7 +58,7 @@ const TodoItem = (props)=>{
           {
             item.type === 'allowance' &&
             <div>
-              <Switch size="" defaultChecked={false} />
+              <Switch defaultChecked={false} />
             </div>
           }
           {
