@@ -14,6 +14,24 @@ import ListMyFills from '../fills/ListMyFills';
 const Item = List.Item;
 const Brief = Item.Brief;
 
+const OrderListHeader = ()=>{
+  return (
+    <div className="color-black-2">
+      <div className="row ml0 mr0 fs14">
+        <div className="col text-center pt10 pb10 zb-b-r">
+          Markets <WebIcon className="fs12" type="down" />
+        </div>
+        <div className="col text-center pt10 pb10 zb-b-r">
+          Sides <WebIcon className="fs12" type="down" />
+        </div>
+        <div className="col text-center pt10 pb10 ">
+          Status <WebIcon className="fs12" type="down" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 class UserCenter extends React.Component {
   render() {
     const dispatch = this.props.dispatch
@@ -88,12 +106,13 @@ class UserCenter extends React.Component {
           >
           My Dex
           </NavBar>
-          <div className="pt40 pb40 text-left bg-grey-900">
+          <div className="divider 1px zb-b-b"></div>
+          <div className="pt25 pb25 text-left bg-white">
             <div className="row align-items-center ml0 mr0 no-gutters">
               <div className="col">
-                <div className="text-left color-white-1 fs16 pl15" style={{width:'240px',wordBreak:'break-all'}}>
-                  0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00
-                  <div className="fs14 color-white-3 mt5">
+                <div className="text-center color-black-1 fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
+                  0xeba7136a...b5b65a00
+                  <div className="fs14 color-black-3 mt5">
                     Switch Wallet <WebIcon type="right" />
                   </div>
                 </div>
@@ -102,13 +121,18 @@ class UserCenter extends React.Component {
               </div>
             </div>
           </div>
-          <div className="no-underline">
+          <div className="divider 1px zb-b-b"></div>
+          <div hidden className="pl10 pr10 pt10 pb5 bg-white">
+            <div className="divider 1px zb-b-b"></div>
+            <SegmentedControl values={['Assets','Orders','Fills']} style={{height:'40px'}}/>
+          </div>
+          <div className="no-underline height-auto">
             <Tabs
               tabs={
                 [
-                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Assets</Badge> },
-                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Orders</Badge> },
-                  { title: <Badge className="text-center pt10 pb10 d-block w-100">My Fills</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">Assets</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">Orders</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">Fills</Badge> },
                 ]
               }
               tabBarBackgroundColor="#fff"
@@ -124,6 +148,8 @@ class UserCenter extends React.Component {
               </div>
               <div>
                 <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
+                  <OrderListHeader />
+                  <div className="divider 1px zb-b-b"></div>
                   <OpenOrderList />
                 </Containers.Orders>
               </div>
