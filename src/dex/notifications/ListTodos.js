@@ -188,7 +188,7 @@ class ListTodos extends React.Component {
                 <WebIcon key="1" type="search" className="color-black-1" />,
               ]}
             >
-              <SegmentedControl values={['Todos', 'Messages']} style={{width:'180px',height:'32px'}}/>
+              <SegmentedControl values={['Todos', 'Messages']} style={{width:'220px',height:'32px'}}/>
             </NavBar>
             <NoticeBar  onClick={()=>{}} className="text-left t-error s-lg" icon={<WebIcon type="exclamation-circle-o" />} mode="link" marqueeProps={{ loop: true}} action={<span>Enable All<WebIcon type="right" /></span>}>
                 One click to enable all tokens ?

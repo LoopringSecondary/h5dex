@@ -68,19 +68,22 @@ class PlaceOrderPage extends React.Component {
           <NavBar
             className=""
             mode="light"
-            onLeftClick={() => routeActions.gotoPath(`/dex/markets/${pair}`)}
             leftContent={[
-              <span className="color-black-1" key="1"  onClick={gotoTrade}><WebIcon type="line-chart" /></span>
+              <span className="color-black-1" key="1" onClick={showLayer.bind(this,{id:'helperOfMarket'})}><WebIcon type="bars" /></span>,
             ]}
             rightContent={[
-              <span className="color-black-1" key="1" ><WebIcon type="question-circle-o" /></span>,
+              <span className="color-black-1" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
             ]}
           >
-            <div className="" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
+            <div>
               {pair}<WebIcon className="ml5" type="down" />
             </div>
           </NavBar>
+          <div className="divider 1px zb-b-t"></div>
           <div className="no-underline tabs-no-border h-50 place-order-form">
+            <div hidden className="p10 bg-white" >
+              <SegmentedControl values={['Buy LRC', 'Sell LRC']} style={{height:'36px'}}/>
+            </div>
             <Tabs
               tabs={
                 [
