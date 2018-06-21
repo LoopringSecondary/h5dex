@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps,Toast } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -15,6 +15,7 @@ import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
+import {toBig} from 'LoopringJS/common/formatter'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -35,7 +36,7 @@ const PlaceOrderForm = (props)=>{
   const tokens = getTokensByMarket(pair)
   const amount = placeOrder.amountInput
   const price = placeOrder.priceInput
-  const total = "0.00"
+  const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
    const showLayer = (payload={})=>{
      dispatch({
        type:'layers/showLayer',
@@ -85,6 +86,32 @@ const PlaceOrderForm = (props)=>{
     })
     showLayer({id:'helperOfAdvance'})
   }
+  const onPriceErrorClick = () => {
+    if (Number(placeOrder.priceInput) <= 0) {
+      Toast.info('Please enter valid price');
+    }
+  }
+  const onAmountErrorClick = () => {
+    if (Number(placeOrder.amountInput) <= 0) {
+      Toast.info('Please enter valid amount');
+    }
+  }
+  const toConfirm = () => {
+    if (Number(placeOrder.priceInput) > 0 && Number(placeOrder.amountInput) > 0) {
+      showLayer({id:'placeOrderSteps'})
+    }
+  }
+  const showAmountHelper = () => {
+    if(side === 'buy') {
+      if(Number(price) > 0) {
+        showLayer({id:'helperOfAmount',side:'sell'})
+      } else {
+        console.log('no price')
+      }
+    } else {
+      showLayer({id:'helperOfAmount',side:'sell'})
+    }
+  }
   return (
     <div>
        <div hidden className="pl10 pr10 pt10 pb5 bg-white">
@@ -100,9 +127,9 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
-          onFocus={()=>{}}
           onChange={priceChange}
-          onBlur={()=>{}}
+          error={Number(placeOrder.priceInput) <= 0}
+          onErrorClick={onPriceErrorClick}
         ><div className="fs16">Price</div></InputItem>
       </List>
       <List className="bg-none no-border">
@@ -112,11 +139,11 @@ const PlaceOrderForm = (props)=>{
           value={amount ? amount : null}
           clear
           onChange={amountChange}
-          onFocus={()=>{}}
-          onBlur={(v) => { console.log('onBlur', v); }}
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfAmount',side:'sell'})} />}
+          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showAmountHelper} />}
+          error={Number(placeOrder.amountInput) <= 0}
+          onErrorClick={onAmountErrorClick}
         ><div className="fs16">Amount</div></InputItem>
       </List>
       {
@@ -174,18 +201,18 @@ const PlaceOrderForm = (props)=>{
           <div className="row align-items-center ml0 mr0 mb15 mt10">
             <div className="col color-black-3 fs16 pl0">Advanced</div>
             <div className="col-auto color-black-3 fs16 pr0">
-              <WebSwitch value={placeOrder.showAdvance}onChange={showAdvanceChange} />
+              <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
             </div>
           </div>
           {
             side === 'sell' &&
-            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
+            <Button onClick={toConfirm} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
             Total {total} {tokens.right}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">
+            <Button onClick={toConfirm} className="w-100 d-block mb10 bg-green-500 color-white">
             Total {total} {tokens.right}
             </Button>
           }
