@@ -1,17 +1,12 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid,NoticeBar } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { connect } from 'dva';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
+import { Button } from 'antd-mobile';
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
-const Item = List.Item;
-const Brief = Item.Brief;
 
 const HelperOfBalance = (props)=>{
   const {dispatch,pair,balance} = props
-  const tokens = getTokensByMarket(pair)
+  const marketTokens = getTokensByMarket(pair)
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -20,7 +15,9 @@ const HelperOfBalance = (props)=>{
       }
     })
   }
-  const tokens = [
+  // TODO
+  // get market Related Tokens
+  const relatedTokens = [
     {
       symbol:"LRC",
       name:"Loopring",
@@ -40,6 +37,14 @@ const HelperOfBalance = (props)=>{
       required:0.0001,
     },
   ]
+  const gotoReceive = (payload)=>{
+    // TODO
+    // routeActions.gotoPath('/dex/receive')
+  }
+  const gotoConvert = (payload)=>{
+    // TODO
+    // routeActions.gotoPath('/dex/convert')
+  }
   return (
     <div className="fs20">
       <table className="w-100 fs13">
@@ -52,8 +57,8 @@ const HelperOfBalance = (props)=>{
         </thead>
         <tbody>
             {
-              tokens.map((token,index)=>
-                <tr key={index} onClick={showLayer.bind(this,{id:'tokenNotEnough'})}>
+              relatedTokens.map((token,index)=>
+                <tr key={index} onClick={()=>{}}>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
@@ -62,15 +67,15 @@ const HelperOfBalance = (props)=>{
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
                     {
                       false && token.symbol === 'ETH' &&
-                      <a href="">Convert</a>
+                      <a onClick={gotoConvert.bind(this,{type:"eth2weth"})}>Convert</a>
                     }
                     {
                       token.symbol === 'WETH' &&
-                      <a href="">Convert</a>
+                      <a onClick={gotoConvert.bind(this,{type:"weth2eth"})}>Convert</a>
                     }
                     {
                       token.symbol !== 'WETH' &&
-                      <a href="">Receive</a>
+                      <a onClick={gotoReceive.bind(this,{symbol:token.symbol})}>Receive</a>
                     }
                   </td>
                 </tr>
@@ -78,6 +83,9 @@ const HelperOfBalance = (props)=>{
             }
         </tbody>
       </table>
+      <div className="p10 zb-b-b mb15">
+        <Button type="" size="" className="d-block w-100">All Tokens</Button>
+      </div>
     </div>
   )
 }

@@ -9,8 +9,8 @@ import HelperOfAdvance from './HelperOfAdvance';
 import HelperOfPrice from './HelperOfPrice';
 import HelperOfAmount from './HelperOfAmount';
 import HelperOfMarket from './HelperOfMarket';
+import HelperOfBalance from './HelperOfBalance';
 import {OpenOrderList} from './ListOrders';
-import ListBalance from '../tokens/ListBalance';
 import ListMyFills from '../fills/ListMyFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
@@ -104,16 +104,16 @@ class PlaceOrderPage extends React.Component {
               <PlaceOrderForm side="sell" showLayer={showLayer} />
             </Tabs>
           </div>
-          <div className="no-underline">
+          <div className="no-underline tabs-no-border">
             <Tabs
               tabs={
                 [
-                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Assets</Badge> },
-                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Orders</Badge> },
-                  { title: <Badge className="text-center pt10 pb10 d-block w-100">Fills</Badge> },
+                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">Assets</div></div> },
+                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">Orders</div></div> },
+                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">Fills</div></div> },
                 ]
               }
-              tabBarBackgroundColor="#f6f6f6"
+              tabBarBackgroundColor="#fff"
               tabBarActiveTextColor={"#000"}
               tabBarInactiveTextColor={"#999"}
               initialPage={0}
@@ -122,7 +122,7 @@ class PlaceOrderPage extends React.Component {
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
               <div>
-                <ListBalance />
+                <HelperOfBalance />
               </div>
               <div>
                 <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
