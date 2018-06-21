@@ -20,6 +20,7 @@ export default {
    timeToLiveStart: null,
    timeToLiveEnd: null,
    submitButtonLoading: false,
+   rawOrder: null,
    unsigned:null,
    signed:null,
    confirmButtonState : 1, //1:init, 2:loading, 3:submitted
@@ -226,6 +227,14 @@ export default {
       return {
         ...state,
         confirmButtonState:buttonState
+      }
+    },
+    rawOrderChange(state, action) {
+      const {payload} = action
+      let {rawOrder} = payload
+      return {
+        ...state,
+        rawOrder
       }
     },
   },

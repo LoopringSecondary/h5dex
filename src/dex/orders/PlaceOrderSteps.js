@@ -16,6 +16,7 @@ import Alert from 'LoopringUI/components/Alert'
 import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
 import {getTokensByMarket} from 'modules/formatter/common'
+import moment from 'moment'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -97,7 +98,7 @@ const PlaceOrderResult = ({
   );
 };
 function PlaceOrderSteps(props) {
-  const {placeOrder,dispatch} = props
+  const {placeOrder, settings, dispatch} = props
   const {side, pair, priceInput, amountInput} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
@@ -116,6 +117,33 @@ function PlaceOrderSteps(props) {
         ...payload
       }
     })
+  }
+  const next = (page) => {
+    let order = {};
+    // TODO mock datas
+    order.owner = '0xEF68e7C694F40c8202821eDF525dE3782458639f'
+    order.delegateAddress = config.getDelegateAddress();
+    order.protocol = settings.trading.contract.address;
+    const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
+    const tokenS = side.toLowerCase() === "sell" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
+    order.tokenB = tokenB.address;
+    order.tokenS = tokenS.address;
+    order.amountB = fm.toHex(fm.toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
+    order.amountS = fm.toHex(fm.toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
+    order.lrcFee = fm.toHex(fm.toBig(1).times(1e18));
+    const validSince = moment().unix()
+    const validUntil = moment().add(3600, 'seconds').unix()
+    order.validSince = fm.toHex(validSince);
+    order.validUntil = fm.toHex(validUntil);
+    order.marginSplitPercentage = 50;
+    order.buyNoMoreThanAmountB = side.toLowerCase() === "buy";
+    order.walletAddress = config.getWalletAddress();
+    order.orderType = 'market_order'
+    const authAccount = createWallet()
+    order.authAddr = authAccount.getAddressString();
+    order.authPrivateKey = fm.clearHexPrefix(authAccount.getPrivateKeyString());
+    dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
+    page.gotoPage({id:'wallet'})
   }
   return (
     <div className="">
@@ -168,11 +196,11 @@ function PlaceOrderSteps(props) {
                 <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
                 {
                   side === 'buy' &&
-                  <Button type="" className="bg-grey-900 color-white mt15" onClick={page.gotoPage.bind(this,{id:'wallet'})}>Next</Button>
+                  <Button type="" className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>Next</Button>
                 }
                 {
                   side === 'sell' &&
-                  <Button className="bg-grey-900 color-white mt15" onClick={page.gotoPage.bind(this,{id:'wallet'})}>Next</Button>
+                  <Button className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>Next</Button>
                 }
               </div>
             </div>
@@ -220,6 +248,7 @@ function PlaceOrderSteps(props) {
 function mapToProps(state) {
   return {
     placeOrder:state.placeOrder,
+    settings:state.settings
   }
 }
 export default connect(mapToProps)(PlaceOrderSteps)
