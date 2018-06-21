@@ -3,79 +3,73 @@ import {connect} from 'dva'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl  } from 'antd-mobile'
+import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,NoticeBar  } from 'antd-mobile'
 import { Switch,Icon as WebIcon} from 'antd'
-
-const TodoItem = ({item={},actions,key,index})=>{
-    // if(!item){ return null }
-    // const tickerFm = new TickerFm(item)
-    console.log('todo item',item)
+import LayoutDexHome from '../../layout/LayoutDexHome'
+const TodoItem = (props)=>{
+    const {item={},actions,key,index} = props
     const gotoDetail = ()=>{
       routeActions.gotoPath('/trade/detail')
     }
     return (
-      <div>
-        <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
-          <div className="col-auo pr15 color-black text-center">
-              {false && <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i> }
+      <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
+        <div className="col-auo pr15 color-black text-center">
+            {false && <i className={`icon-${item.symbol} fs24 d-block`} style={{width:'32px',height:'32px',lineHeight:'32px',border:'1px solid #000',borderRadius:'50em'}}></i> }
+            {
+              item.type === 'allowance' && <WebIcon className="color-red-500 fs16" type="close-circle" />
+            }
+            {
+              item.type === 'balance' && <WebIcon className="color-red-500 fs16" type="exclamation-circle" />
+            }
+        </div>
+        <div className="col text-left">
+          <div>
+            <div className="fs16 color-black-2">
               {
-                item.type === 'allowance' && <WebIcon className="color-red-500 fs16" type="close-circle" />
+                item.type === 'allowance' && `${item.symbol} is disabled for orders`
               }
               {
-                item.type === 'balance' && <WebIcon className="color-red-500 fs16" type="exclamation-circle" />
-              }
-          </div>
-          <div className="col text-left">
-            <div>
-              <div className="fs16 color-black-2">
-                {
-                  item.type === 'allowance' && `${item.symbol} is disabled for orders`
-                }
-                {
-                  item.type === 'balance' && `${item.symbol} balance is insufficient`
-                }
-              </div>
-              {
-                item.type === 'balance' &&
-                <div className="fs14 color-black-3">
-                      <div className="lh25">
-                        <span className="d-inline-block" style={{width:'100px'}}>Balance</span>
-                        1000.00 {item.symbol}
-                      </div>
-                      <div className="lh25">
-                        <span className="d-inline-block" style={{width:'100px'}}>Selling</span>
-                        5000.00 {item.symbol}
-                      </div>
-                      <div className="lh25">
-                        <span className="d-inline-block" style={{width:'100px'}}>Lack</span>
-                        4000.00 {item.symbol}
-                      </div>
-                      <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Receive</Button>
-                      <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Buy</Button>
-                      <Button inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
-                </div>
+                item.type === 'balance' && `${item.symbol} balance is insufficient`
               }
             </div>
-          </div>
-          <div className="col-auto">
             {
-              item.type === 'allowance' &&
-              <div>
-                <Switch size="" defaultChecked={false} />
+              item.type === 'balance' &&
+              <div className="fs14 color-black-3">
+                    <div className="lh25">
+                      <span className="d-inline-block" style={{width:'100px'}}>Balance</span>
+                      1000.00 {item.symbol}
+                    </div>
+                    <div className="lh25">
+                      <span className="d-inline-block" style={{width:'100px'}}>Selling</span>
+                      5000.00 {item.symbol}
+                    </div>
+                    <div className="lh25">
+                      <span className="d-inline-block" style={{width:'100px'}}>Lack</span>
+                      4000.00 {item.symbol}
+                    </div>
+                    <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Receive</Button>
+                    <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Buy</Button>
+                    <Button inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
               </div>
             }
-            {
-              false && item.type === 'balance' &&
-              <div>
-                <a className="">Detail</a>
-              </div>
-            }
-
           </div>
         </div>
+        <div className="col-auto">
+          {
+            item.type === 'allowance' &&
+            <div>
+              <Switch size="" defaultChecked={false} />
+            </div>
+          }
+          {
+            false && item.type === 'balance' &&
+            <div>
+              <a className="">Detail</a>
+            </div>
+          }
 
+        </div>
       </div>
-
     )
 }
 
@@ -180,13 +174,14 @@ class ListTodos extends React.Component {
         );
       };
       return (
+        <LayoutDexHome {...this.props}>
           <div className="tabs-no-border no-underline"  style={{height:'100%'}}>
             <NavBar
               className="w-100 zb-b-b"
               mode="light"
               icon={null && <Icon type="left" />}
               onLeftClick={() => routeActions.goBack()}
-              leftContent={ [
+              leftContent={null && [
                 <WebIcon key="1" type="left" className="color-black-1" onClic={goBack}/>,
               ]}
               rightContent={null && [
@@ -195,6 +190,9 @@ class ListTodos extends React.Component {
             >
               <SegmentedControl values={['Todos', 'Messages']} style={{width:'180px',height:'32px'}}/>
             </NavBar>
+            <NoticeBar  onClick={()=>{}} className="text-left t-error s-lg" icon={<WebIcon type="exclamation-circle-o" />} mode="link" marqueeProps={{ loop: true}} action={<span>Enable All<WebIcon type="right" /></span>}>
+                One click to enable all tokens ?
+            </NoticeBar>
             <ListView
               ref={el => this.lv = el}
               dataSource={this.state.dataSource}
@@ -231,14 +229,13 @@ class ListTodos extends React.Component {
                 onChange={(tab, index) => {}}
                 onTabClick={(tab, index) => { }}
               >
-
                 <div className="p50">
                   Messages TODO
                 </div>
               </Tabs>
             }
           </div>
-
+        </LayoutDexHome>
       )
   }
 }

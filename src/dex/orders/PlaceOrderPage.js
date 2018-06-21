@@ -105,9 +105,9 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Assets</Badge> },
-                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Orders</Badge> },
-                  { title: <Badge className="text-center pt10 pb10 d-block w-100">My Fills</Badge> },
+                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Assets</Badge> },
+                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">Orders</Badge> },
+                  { title: <Badge className="text-center pt10 pb10 d-block w-100">Fills</Badge> },
                 ]
               }
               tabBarBackgroundColor="#f6f6f6"
