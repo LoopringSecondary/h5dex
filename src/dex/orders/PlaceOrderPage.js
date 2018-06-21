@@ -10,6 +10,7 @@ import HelperOfPrice from './HelperOfPrice';
 import HelperOfAmount from './HelperOfAmount';
 import HelperOfMarket from './HelperOfMarket';
 import {OpenOrderList} from './ListOrders';
+import ListBalance from '../tokens/ListBalance';
 import ListMyFills from '../fills/ListMyFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
@@ -104,11 +105,12 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
+                  { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Assets</Badge> },
                   { title: <Badge className="pl10 pt10 pb10 text-center d-block w-100">My Orders</Badge> },
                   { title: <Badge className="text-center pt10 pb10 d-block w-100">My Fills</Badge> },
                 ]
               }
-              tabBarBackgroundColor="#f5f5f5"
+              tabBarBackgroundColor="#f6f6f6"
               tabBarActiveTextColor={"#000"}
               tabBarInactiveTextColor={"#999"}
               initialPage={0}
@@ -116,6 +118,9 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
+              <div>
+                <ListBalance />
+              </div>
               <div>
                 <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
                   <OpenOrderList />

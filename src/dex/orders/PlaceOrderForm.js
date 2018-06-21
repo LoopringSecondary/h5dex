@@ -35,7 +35,7 @@ const PlaceOrderForm = (props)=>{
   const tokens = getTokensByMarket(pair)
   const amount = placeOrder.amountInput
   const price = placeOrder.priceInput
-  const total = "00.000000"
+  const total = "0.00"
    const showLayer = (payload={})=>{
      dispatch({
        type:'layers/showLayer',
@@ -175,11 +175,15 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">Place Sell Order</Button>
+            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
+            Sell {tokens.left}
+            </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">Place Buy Order</Button>
+            <Button onClick={showLayer.bind(this,{id:'placeOrderSteps',side})} className="w-100 d-block mb10 bg-green-500 color-white">
+            Buy {tokens.left}
+            </Button>
           }
         </Item>
       </List>

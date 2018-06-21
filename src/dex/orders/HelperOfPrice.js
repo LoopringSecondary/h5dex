@@ -39,7 +39,7 @@ const Advance = (
 )
 
 function PlaceOrderPriceHelper(props) {
-  const {dispatch,pair} = props
+  const {dispatch,pair,lastPrice} = props
   const tokens = getTokensByMarket(pair)
   const changePrice = (value)=>{
     dispatch({
@@ -49,7 +49,6 @@ function PlaceOrderPriceHelper(props) {
       }
     })
   }
-  const lastPrice = "0.0001500"
   return (
     <div className="tabs-no-border">
       <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b">Price Helper</div>
@@ -70,8 +69,8 @@ function PlaceOrderPriceHelper(props) {
   )
 }
 export default connect(({
-  sockets:{trades},
-  placeOrder:{pair}
+  sockets:{tickers},
+  placeOrder:{pair},
 })=>({
-  pair,trades
+  pair,lastPrice:tickers.item.loopr.last
 }))(PlaceOrderPriceHelper)

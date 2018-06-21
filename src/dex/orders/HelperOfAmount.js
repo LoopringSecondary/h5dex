@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input,Icon } from 'antd';
+import { connect } from 'dva';
 import { Modal,List,Button,Tabs,Badge,Slider } from 'antd-mobile';
 import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
 import config from 'common/config'
@@ -22,7 +23,7 @@ function PlaceOrderAmountHelper(props) {
   ];
   return (
     <div className="tabs-no-border">
-      <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
+      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
         tabBarActiveTextColor={"#000"}
         tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
@@ -31,7 +32,7 @@ function PlaceOrderAmountHelper(props) {
         onChange={(tab, index) => { console.log('onChange', index, tab); }}
         onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
       >
-        <div className="zb-b-t p10 pt15 pb15">
+        <div className="bg-grey-100 pt15 pb15">
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10">
               <span className="d-inline-block" style={{width:'50px'}}>100%</span>
@@ -63,7 +64,7 @@ function PlaceOrderAmountHelper(props) {
               <span className="color-black-3 ml25">150.00 LRC</span>
             </div>
           </div>
-          <div className="mt15 pb35">
+          <div className="mt15 pb25">
             <Slider
               className="ml15 mr15"
               defaultValue={10}
@@ -74,17 +75,18 @@ function PlaceOrderAmountHelper(props) {
             />
           </div>
         </div>
-        <div className="zb-b-t">
+        <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
           <ListDepth />
         </div>
       </Tabs>
-
-
     </div>
   )
 }
-export default PlaceOrderAmountHelper
-
+export default connect(({
+  placeOrder:{pair,side}
+})=>({
+  pair,side
+}))(PlaceOrderAmountHelper)
 
 
 
