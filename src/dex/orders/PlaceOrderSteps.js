@@ -15,6 +15,7 @@ import QRCode from 'qrcode.react';
 import Alert from 'LoopringUI/components/Alert'
 import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
+import {getTokensByMarket} from 'modules/formatter/common'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -96,8 +97,10 @@ const PlaceOrderResult = ({
   );
 };
 function PlaceOrderSteps(props) {
-  const {placeOrderSteps,dispatch} = props
-  const {side} = placeOrderSteps
+  const {placeOrder,dispatch} = props
+  const {side, pair, priceInput, amountInput} = placeOrder
+  const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
+  const tokens = getTokensByMarket(pair)
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -134,7 +137,7 @@ function PlaceOrderSteps(props) {
                 <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
                   <div className="col-auto">
                     <div className=" color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                      <i className={`icon-LRC fs24`}/>
+                      <i className={`icon-${side === 'buy' ? tokens.right : tokens.left} fs24`}/>
                     </div>
                   </div>
                   <div className="col-auto pl25 pr25 text-center">
@@ -142,13 +145,25 @@ function PlaceOrderSteps(props) {
                   </div>
                   <div className="col-auto">
                     <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                      <i className={`icon-WETH fs24`}/>
+                      <i className={`icon-${side === 'buy' ? tokens.left : tokens.right} fs24`}/>
                     </div>
                   </div>
                 </div>
-                <OrderMetaItem label="买入" value="10000 LRC" />
-                <OrderMetaItem label="卖出" value="25 ETH" />
-                <OrderMetaItem label="价格" value="0.00025 ETH" />
+                {
+                  side === 'buy' &&
+                  <div>
+                    <OrderMetaItem label={intl.get(`common.buy`)} value={`${amountInput} ${pair.split('-')[0]}`} />
+                    <OrderMetaItem label={intl.get(`common.sell`)} value={`${total} ${pair.split('-')[1]}`} />
+                  </div>
+                }
+                {
+                  side === 'sell' &&
+                  <div>
+                    <OrderMetaItem label={intl.get(`common.sell`)} value={`${amountInput} ${pair.split('-')[0]}`} />
+                    <OrderMetaItem label={intl.get(`common.buy`)} value={`${total} ${pair.split('-')[1]}`} />
+                  </div>
+                }
+                <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
                 <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
                 <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
                 {
@@ -202,4 +217,9 @@ function PlaceOrderSteps(props) {
     </div>
   )
 }
-export default connect()(PlaceOrderSteps)
+function mapToProps(state) {
+  return {
+    placeOrder:state.placeOrder,
+  }
+}
+export default connect(mapToProps)(PlaceOrderSteps)
