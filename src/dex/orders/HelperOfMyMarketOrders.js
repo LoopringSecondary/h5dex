@@ -57,7 +57,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
           {
             orders.items && orders.items.length == 0 &&
             <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-3 fs12">
-            no open {tokens.right} orders
+            no open {market} orders
             </div></td></tr>
           }
           {
@@ -71,7 +71,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
         </tbody>
       </table>
       <div className="p10 zb-b-t mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">View All Orders</Button>
+        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">View all orders</Button>
       </div>
     </div>
 

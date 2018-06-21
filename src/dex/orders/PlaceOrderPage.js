@@ -11,7 +11,7 @@ import HelperOfAmount from './HelperOfAmount'
 import HelperOfMarket from './HelperOfMarket'
 import HelperOfBalance from './HelperOfBalance'
 import HelperOfMyMarketOrders from './HelperOfMyMarketOrders'
-import ListMyFills from '../fills/ListMyFills'
+import HelperOfMyMarketFills from './HelperOfMyMarketFills'
 import Containers from 'modules/containers'
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
@@ -146,9 +146,7 @@ class PlaceOrderPage extends React.Component {
                 <HelperOfMyMarketOrders />
               </div>
               <div>
-                <Containers.Fills id="MyFills" alias="fills" initState={{}}>
-                  <ListMyFills />
-                </Containers.Fills>
+                <HelperOfMyMarketFills />
               </div>
             </Tabs>
             <div className="pb50"></div>
