@@ -24,9 +24,13 @@ class PlaceOrderPage extends React.Component {
     const {dispatch,placeOrder} = this.props
     const {side,pair} = placeOrder
     const params = routeActions.match.getParams(this.props)
-    if(!params.market && !pair) {
-      const defaultMarket = "LRC-WETH"
-      routeActions.gotoPath(`/dex/placeOrder/${defaultMarket}`)
+    if(!params.market) {
+      if(!pair){
+        const defaultMarket = "LRC-WETH" // TODO
+        routeActions.gotoPath(`/dex/placeOrder/${defaultMarket}`)
+      }else{
+        routeActions.gotoPath(`/dex/placeOrder/${pair}`)
+      }
     }
     const pairTokens = getTokensByMarket(pair)
     const showLayer = (payload={})=>{
@@ -45,7 +49,6 @@ class PlaceOrderPage extends React.Component {
         }
       })
     }
-    const market = "LRC-WETH";
     const sideChange = (side)=>{
       dispatch({
         type:'placeOrder/sideChangeEffects',
@@ -53,9 +56,10 @@ class PlaceOrderPage extends React.Component {
           side
         }
       })
-    }
+   }
+
    const gotoTrade = ()=>{
-      routeActions.gotoPath(`/dex/markets/${market}`)
+      routeActions.gotoPath(`/dex/markets/${pair}`)
     }
     return (
       <LayoutDexHome {...this.props}>
@@ -71,7 +75,9 @@ class PlaceOrderPage extends React.Component {
               <span className="color-black-1" key="1" ><WebIcon type="question-circle-o" /></span>,
             ]}
           >
-            <div className="" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>{pair}<WebIcon className="ml5" type="down" /></div>
+            <div className="" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
+              {pair}<WebIcon className="ml5" type="down" />
+            </div>
           </NavBar>
           <div className="no-underline tabs-no-border h-50 place-order-form">
             <Tabs
@@ -85,6 +91,7 @@ class PlaceOrderPage extends React.Component {
               tabBarActiveTextColor={side === 'buy' ? "#43a047" : "#f44336"}
               tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
               tabBarTextStyle={{}}
+              swipeable={false}
               initialPage={side==='buy'?0:1}
               onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
               onTabClick={(tab, index) => { }}
@@ -122,6 +129,11 @@ class PlaceOrderPage extends React.Component {
             </Tabs>
             <div className="pb50"></div>
           </div>
+          <Containers.Layers id="orderDetail">
+            <UiContainers.Popups id="orderDetail">
+              <OrderDetail />
+            </UiContainers.Popups>
+          </Containers.Layers>
           <Containers.Layers id="placeOrderSteps">
             <UiContainers.Popups id="placeOrderSteps">
               <PlaceOrderSteps />
@@ -140,11 +152,6 @@ class PlaceOrderPage extends React.Component {
           <Containers.Layers id="helperOfAmount">
             <UiContainers.Popups id="helperOfAmount">
               <HelperOfAmount />
-            </UiContainers.Popups>
-          </Containers.Layers>
-          <Containers.Layers id="orderDetail">
-            <UiContainers.Popups id="orderDetail">
-              <OrderDetail />
             </UiContainers.Popups>
           </Containers.Layers>
           <Containers.Layers id="helperOfMarket">

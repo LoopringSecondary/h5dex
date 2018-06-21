@@ -26,48 +26,100 @@ let moneyKeyboardWrapProps;
 if (isIPhone) {
   moneyKeyboardWrapProps = {
     onTouchStart: e => e.preventDefault(),
-  };
+  }
 }
 const PlaceOrderForm = (props)=>{
-  const { side,showLayer,form} = props
+  const {dispatch,placeOrder} = props
+  const {side,pair} = placeOrder
+  const amount = placeOrder.amountInput
+  const price = placeOrder.priceInput
+  const total = "00.000000"
+   const showLayer = (payload={})=>{
+     dispatch({
+       type:'layers/showLayer',
+       payload:{
+         ...payload
+       }
+     })
+   }
+   const hideLayer = (payload={})=>{
+     dispatch({
+       type:'layers/hideLayer',
+       payload:{
+         ...payload
+       }
+     })
+   }
+   const sideChange = (side)=>{
+     dispatch({
+       type:'placeOrder/sideChangeEffects',
+       payload:{
+         side
+       }
+     })
+  }
+  const amountChange = (value)=>{
+     dispatch({
+       type:'placeOrder/amountChange',
+       payload:{
+         amountInput:value
+       }
+     })
+  }
+  const priceChange = (value)=>{
+     dispatch({
+       type:'placeOrder/priceChange',
+       payload:{
+         priceInput:value
+       }
+     })
+  }
   return (
     <div>
        <List className="bg-none no-border">
         <InputItem
-          {...form.getFieldProps('money3')}
           type="money"
           placeholder="00.000000"
+          value={price ? price : null}
           clear
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
+          onFocus={()=>{}}
+          onChange={priceChange}
+          onBlur={()=>{}}
         ><div className="fs16">Price</div></InputItem>
       </List>
       <List className="bg-none no-border">
         <InputItem
           type="money"
           placeholder="00.000000"
+          value={amount ? amount : null}
           clear
-          moneyKeyboardAlign="right"
-          onChange={(v) => { console.log('onChange', v); }}
+          onChange={amountChange}
+          onFocus={()=>{}}
           onBlur={(v) => { console.log('onBlur', v); }}
+          moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfAmount',side:'sell'})} />}
         ><div className="fs16">Amount</div></InputItem>
       </List>
-      <List className="bg-none no-border">
-        <InputItem
-          type="money"
-          placeholder="00.000000"
-          extra={<WebIcon type="exclamation-circle-o" style={{padding:'2px 0px 5px 20px',outline:'5px'}} />}
-          clear
-          moneyKeyboardAlign="right"
-          onChange={(v) => { console.log('onChange', v); }}
-          onBlur={(v) => { console.log('onBlur', v); }}
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          editable={false}
-        ><div className="fs16">Total</div></InputItem>
-      </List>
+      {
+        false &&
+        <List className="bg-none no-border">
+          <InputItem
+            type="money"
+            placeholder="00.000000"
+            value={total}
+            clear
+            moneyKeyboardAlign="right"
+            onChange={(v) => { console.log('onChange', v); }}
+            onBlur={(v) => { console.log('onBlur', v); }}
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            editable={false}
+          ><div className="fs16">Total</div></InputItem>
+        </List>
+      }
       <List className="bg-none no-border">
         {
           false &&
@@ -99,6 +151,18 @@ const PlaceOrderForm = (props)=>{
         }
         <Item>
           <div className="row align-items-center ml0 mr0 mb15 mt10">
+            <div className="col color-black-3 fs16 pl0">Total</div>
+            <div className="col-auto color-black-3 fs16 pr0">
+              1.101 WETH
+            </div>
+          </div>
+          <div className="row align-items-center ml0 mr0 mb15 mt10">
+            <div className="col color-black-3 fs16 pl0">Balance</div>
+            <div className="col-auto color-black-3 fs16 pr0">
+              1.101 LRC
+            </div>
+          </div>
+          <div className="row align-items-center ml0 mr0 mb15 mt10">
             <div className="col color-black-3 fs16 pl0">Advanced</div>
             <div className="col-auto color-black-3 fs16 pr0">
               <WebSwitch onChange={(checked)=>{showLayer({id:'helperOfAdvance',side})}} />
@@ -118,7 +182,7 @@ const PlaceOrderForm = (props)=>{
     </div>
   )
 }
-export default createForm()(PlaceOrderForm)
+export default connect(({placeOrder})=>({placeOrder}))(PlaceOrderForm)
 
 
 
