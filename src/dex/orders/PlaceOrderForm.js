@@ -101,6 +101,17 @@ const PlaceOrderForm = (props)=>{
       showLayer({id:'placeOrderSteps'})
     }
   }
+  const showAmountHelper = () => {
+    if(side === 'buy') {
+      if(Number(price) > 0) {
+        showLayer({id:'helperOfAmount',side:'sell'})
+      } else {
+        console.log('no price')
+      }
+    } else {
+      showLayer({id:'helperOfAmount',side:'sell'})
+    }
+  }
   return (
     <div>
        <div hidden className="pl10 pr10 pt10 pb5 bg-white">
@@ -116,9 +127,7 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
-          onFocus={()=>{}}
           onChange={priceChange}
-          onBlur={()=>{}}
           error={Number(placeOrder.priceInput) <= 0}
           onErrorClick={onPriceErrorClick}
         ><div className="fs16">Price</div></InputItem>
@@ -130,11 +139,9 @@ const PlaceOrderForm = (props)=>{
           value={amount ? amount : null}
           clear
           onChange={amountChange}
-          onFocus={()=>{}}
-          onBlur={(v) => { console.log('onBlur', v); }}
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfAmount',side:'sell'})} />}
+          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showAmountHelper} />}
           error={Number(placeOrder.amountInput) <= 0}
           onErrorClick={onAmountErrorClick}
         ><div className="fs16">Amount</div></InputItem>

@@ -71,19 +71,24 @@ export function isValidInteger(int) {
 
 export function formatPriceByMarket(price, marketConfig) {
   const priceArr = price.split(".")
-  if(priceArr.length === 2 && isValidInteger(priceArr[0]) && isValidInteger(priceArr[1]) && priceArr[1].length > marketConfig.pricePrecision) {
-    return fm.toFixed(fm.toBig(price), marketConfig.pricePrecision, false)
+  if(priceArr.length === 2) {
+    if(isValidInteger(priceArr[0]) && isValidInteger(priceArr[1]) && priceArr[1].length > marketConfig.pricePrecision) {
+      return fm.toFixed(fm.toBig(price), marketConfig.pricePrecision, false)
+    }
   }
   return price
 }
 
 export function formatAmountByMarket(amount, tokenConfig, marketConfig) {
-  const amountPrecision = tokenConfig.precision - marketConfig.pricePrecision
-  if (amountPrecision > 0) {
-    return fm.toFixed(amount, amountPrecision, false)
-  } else {
-    return Math.floor(amount)
+  if(amount && amount !== '0') {
+    const amountPrecision = tokenConfig.precision - marketConfig.pricePrecision
+    if (amountPrecision > 0) {
+      return fm.toFixed(amount, amountPrecision, false)
+    } else {
+      return Math.floor(amount)
+    }
   }
+  return amount
 }
 
 export function calculateWorthInLegalCurrency(marketcapItems, symbol, amount) {
