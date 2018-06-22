@@ -10,7 +10,7 @@ function Modals(props) {
   return (
     <div>
       <Containers.Layers id="receiveToken">
-          <UiContianers.Modals id="receiveToken" width="450px" wrapClassName="" className="rs">
+          <UiContianers.Modals id="receiveToken"  className="rs">
             <Receive/>
           </UiContianers.Modals>
       </Containers.Layers>

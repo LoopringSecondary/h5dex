@@ -45,4 +45,8 @@ export default class Wallet {
   signTx(tx) {
     throw new Error('unimplemented')
   }
+
+
+
+
 }
