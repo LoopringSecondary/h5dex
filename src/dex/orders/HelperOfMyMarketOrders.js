@@ -59,9 +59,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
               {
                 orders.items && orders.items.length == 0 && 'Status'
               }
-
             </th>
-
           </tr>
         </thead>
         <tbody>

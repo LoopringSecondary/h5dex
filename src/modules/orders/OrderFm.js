@@ -32,7 +32,7 @@ export class OrderFm {
       token = token || {digits: 18, precision: 6};
       const amount = side === 'buy' ? this.order.originalOrder.amountB : this.order.originalOrder.amountS;
       const symbol = side === 'buy' ? this.order.originalOrder.tokenB : this.order.originalOrder.tokenS;
-      return formatter(toBig(amount).div('1e' + token.digits), token.precision).d
+      return formatter(toBig(amount).div('1e' + token.digits), 4).d
       // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
     }else{
       return null
@@ -73,8 +73,7 @@ export class OrderFm {
       let token = config.getTokenBySymbol('LRC');
       token = token || {digits: 18, precision: 6};
       const total = (toNumber(this.order.originalOrder.lrcFee) / Number('1e' + token.digits)).toFixed(token.precision);
-      return commonFm.getFormatNum(toNumber(total))
-      // return commonFm.getFormatNum(toNumber(total))  + ' LRC'
+      return commonFm.getFormatNum(toNumber(total))  + ' LRC'
     }else{
       return null
     }
