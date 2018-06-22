@@ -5,6 +5,7 @@ import config from "common/config";
 import commonFm from "../formatter/common";
 import TokenFm from "../tokens/TokenFm";
 import {toFixed} from "../../common/loopringjs/src/common/formatter";
+import {formatter} from 'modules/formatter/FormatNumber'
 
 export class FillFm{
   constructor(fill={}){
@@ -42,7 +43,8 @@ export class FillFm{
     const fmS = this.fill.side.toLowerCase() === 'buy' ? new TokenFm({symbol: this.fill.tokenB}) : new TokenFm({symbol: this.fill.tokenS});
     const amount = this.fill.side.toLowerCase() === 'buy' ? fmS.getUnitAmount(this.fill.amountB) : fmS.getUnitAmount(this.fill.amountS);
     const symbol = this.fill.side === 'buy' ? this.fill.tokenB : this.fill.tokenS
-    return commonFm.getFormatNum(fmS.toPricisionFixed(amount)) + '' + symbol
+    // return commonFm.getFormatNum(fmS.toPricisionFixed(amount)) + '' + symbol
+    return formatter(toBig(amount), 4).d
   }
   getSide(){
     return this.fill.side
