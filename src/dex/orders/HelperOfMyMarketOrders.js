@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button,Modal} from 'antd-mobile';
+import { Button,Modal,Toast} from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
@@ -7,9 +7,42 @@ import intl from 'react-intl-universal'
 import {OrderFm} from 'modules/orders/OrderFm'
 import {getTokensByMarket} from 'modules/formatter/common'
 import {renders} from './ListOrders'
+import {FormatAmount} from 'modules/formatter/FormatNumber'
+import config from "common/config";
+import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
+
 const HelperOfMyOrders = ({orders={},dispatch})=>{
   const market = orders.filters.market
   const tokens = getTokensByMarket(market)
+  const changePrice = (item)=>{
+    const tokenB = config.getTokenBySymbol(item.originalOrder.tokenB);
+    const tokenS = config.getTokenBySymbol(item.originalOrder.tokenS);
+    const market = config.getMarketBySymbol(item.originalOrder.tokenB, item.originalOrder.tokenS);
+    const price =  item.originalOrder.side.toLowerCase() === 'buy' ?
+      toBig(item.originalOrder.amountS).div('1e'+tokenS.digits).div(toBig(item.originalOrder.amountB).div('1e'+tokenB.digits)).toFixed(market.pricePrecision) :
+      toBig(item.originalOrder.amountB).div('1e'+tokenB.digits).div(toBig(item.originalOrder.amountS).div('1e'+tokenS.digits)).toFixed(market.pricePrecision);
+    Toast.info('Price has changed', 3, null, false);
+    dispatch({
+      type:'placeOrder/priceChangeEffects',
+      payload:{
+        price
+      }
+    })
+  }
+  const changeAmount = (item)=>{
+    const side = item.originalOrder.side.toLowerCase();
+    let token =  side === 'buy' ? config.getTokenBySymbol(item.originalOrder.tokenB) : config.getTokenBySymbol(item.originalOrder.tokenS);
+    token = token || {digits: 18, precision: 6};
+    const amount = side === 'buy' ? item.originalOrder.amountB : item.originalOrder.amountS;
+    const amountInput = toFixed(toBig(amount).div('1e' + token.digits), token.precision)
+    Toast.info('Amount has changed', 3, null, false);
+    dispatch({
+      type:'placeOrder/amountChange',
+      payload:{
+        amountInput
+      }
+    })
+  }
   const gotoDetail= (item)=>{
       dispatch({
         type:'layers/showLayer',
@@ -57,9 +90,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
               {
                 orders.items && orders.items.length == 0 && 'Status'
               }
-
             </th>
-
           </tr>
         </thead>
         <tbody>
@@ -67,7 +98,12 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
             orders.items && orders.items.map((item,index)=>{
               const orderFm = new OrderFm(item)
               return (
-                <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
+                <tr key={index} className="color-black-2" onClick={() => Modal.alert('Select Your Options', <div></div>, [
+                  { text: 'Fill Price', onPress: () => changePrice(item) },
+                  { text: 'Fill Amount', onPress: () => changeAmount(item) },
+                  { text: 'Order Detail', onPress: () => gotoDetail(item) },
+                ])
+                }>
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                     { orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
                     { orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}

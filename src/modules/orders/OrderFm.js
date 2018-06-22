@@ -3,6 +3,7 @@ import {Icon} from 'antd';
 import {toNumber,toBig} from "LoopringJS/common/formatter";
 import config from "common/config";
 import commonFm from "../formatter/common";
+import {formatter} from 'modules/formatter/FormatNumber'
 
 const status = {
   ORDER_NEW: {},
@@ -31,7 +32,8 @@ export class OrderFm {
       token = token || {digits: 18, precision: 6};
       const amount = side === 'buy' ? this.order.originalOrder.amountB : this.order.originalOrder.amountS;
       const symbol = side === 'buy' ? this.order.originalOrder.tokenB : this.order.originalOrder.tokenS;
-      return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
+      return formatter(toBig(amount).div('1e' + token.digits), 4).d
+      // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
     }else{
       return null
     }
