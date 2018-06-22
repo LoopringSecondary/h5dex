@@ -74,7 +74,7 @@ class PlaceOrder extends React.Component {
         <div className="zb-b-b pt25 pb25 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+              <div className="d-inline-block color-black-1 text-center border-grey-300" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid"}}>
                 <i className={`icon-ETH fs24`}/>
               </div>
             </div>
@@ -82,7 +82,7 @@ class PlaceOrder extends React.Component {
               <WebIcon type="arrow-right" className={`color-black-1 fs20`} />
             </div>
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+              <div className="d-inline-block color-black-1 text-center border-grey-300" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid"}}>
                 <i className={`icon-WETH fs24`}/>
               </div>
             </div>
