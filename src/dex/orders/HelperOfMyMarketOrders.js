@@ -19,19 +19,26 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
         }
       })
   }
-  const gotoAll = ()=>{
-
-  }
+  const gotoAll = ()=>{}
   return (
-    <div>
+    <div className="zb-b-t">
       <table className="w-100 fs13" style={{overflow:'auto'}}>
         <thead>
           <tr>
-            <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
-            <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Amount</th>
-            <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Filled</th>
-            <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-            <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Status</th>
+            <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+              Price
+              <span className="color-black-4 ml5 fs10">{tokens.right}</span>
+            </th>
+            <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+              <span hidden className="color-black-4 mr5 fs10">{tokens.left}</span>
+              Amount
+            </th>
+            <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
+            <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Filled</th>
+            <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">
+              <a className="fs12" onClick={()=>{}}>Cancel All</a>
+            </th>
+
           </tr>
         </thead>
         <tbody>
@@ -40,15 +47,15 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
               const orderFm = new OrderFm(item)
               return (
                 <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
-                  <td className="zb-b-b p10 pl10 text-left">
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                     { orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
                     { orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}
                   </td>
-                  <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getAmount()}</td>
-                  <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
-                  <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
-                  <td className="zb-b-b p10 text-center">
-                    {renders.status(orderFm,item.originalOrder)}
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getAmount()}</td>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-center">
+                    <a className="fs12" onClick={()=>{}}>Cancel</a>
                   </td>
                 </tr>
               )
@@ -56,21 +63,13 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
           }
           {
             orders.items && orders.items.length == 0 &&
-            <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-3 fs12">
+            <tr><td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'><div className="">
             no open {market} orders
             </div></td></tr>
           }
-          {
-            false &&
-            <tr hidden className="color-black-2">
-              <td colSpan={10} className="zb-b-b p15 text-center">
-                  <Button className="color-grey-600">All Orders</Button>
-              </td>
-            </tr>
-          }
         </tbody>
       </table>
-      <div className="p10 zb-b-t mb15">
+      <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">View all orders</Button>
       </div>
     </div>
