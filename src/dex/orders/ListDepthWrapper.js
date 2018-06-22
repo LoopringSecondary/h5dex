@@ -34,7 +34,7 @@ function ListOrderBook(props) {
   const tokens = getTokensByMarket(depth.filters.market)
   const priceSelected = (value, e) => {
     e.preventDefault()
-    props.dispatch({type:'placeOrder/priceChange', payload:{priceInput:value}})
+    props.dispatch({type:'placeOrder/priceChangeEffects', payload:{price:value}})
   }
   const amountSelected = (value, e) => {
     e.preventDefault()

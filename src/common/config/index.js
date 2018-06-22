@@ -1,21 +1,25 @@
 //const config = require('./config.json');
 import fetch from 'dva/fetch';
+import STORAGE from 'modules/storage';
 
 const data = require('./data')
 const config = data.configs
 const tokensIcons = require('./tokens_icons.json');
 
-let tokens = config.tokens || []
-tokens.forEach(token=>{
-  token.icon = tokensIcons[token.symbol]
-});
+let tokens = [{
+  "symbol": "ETH",
+  "digits": 18,
+  "address": "",
+  "precision": 6,
+}, ...STORAGE.settings.getTokensConfig().map(item=>{
+  item.icon = tokensIcons[item.symbol]
+  return item
+})].filter(item=>{
+  return !config.ignoreTokens || !config.ignoreTokens.includes(item.symbol)
+})
 const markets = config.markets
 const txs = config.txs;
 const projects =  data.projects;
-
-// mock some tokens's data read from localstorage
-const localTokens = [];
-tokens = tokens.concat(localTokens)
 
 function requestWhiteList() {
   const url = "//raw.githubusercontent.com/Loopring/mock-relay-data/master/whiteList.json";
@@ -23,7 +27,7 @@ function requestWhiteList() {
 }
 
 async function  isinWhiteList(address) {
- return await requestWhiteList().then(whiteList =>{
+  return await requestWhiteList().then(whiteList =>{
     const result = whiteList.find(add => add.toLowerCase() === address.toLowerCase());
     return !!result;
   });
@@ -63,7 +67,7 @@ function getMarketByPair(pair) {
 
 function getProjectByName(name) {
   if(!name){return {}}
- return  projects.find(project=> project.name.toLowerCase() === name.toLowerCase())
+  return  projects.find(project=> project.name.toLowerCase() === name.toLowerCase())
 }
 
 function getProjectById(id) {

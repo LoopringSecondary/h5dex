@@ -36,7 +36,7 @@ function ListTradesHistory(props) {
   const tokens = getTokensByMarket(trades.filters.market)
   const priceSelected = (value, e) => {
     e.preventDefault()
-    props.dispatch({type:'placeOrder/priceChange', payload:{priceInput:value}})
+    props.dispatch({type:'placeOrder/priceChangeEffects', payload:{price:value}})
   }
   const amountSelected = (value, e) => {
     e.preventDefault()

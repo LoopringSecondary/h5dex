@@ -4,24 +4,25 @@ import { Tabs,Slider,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import intl from 'react-intl-universal';
 import HelperOfDepth from './HelperOfDepth'
-import {toBig} from 'LoopringJS/common/formatter'
+import {toBig, toFixed} from 'LoopringJS/common/formatter'
 import {getTokensByMarket} from 'modules/formatter/common'
+import config from 'common/config'
+import * as tokenFormatter from 'modules/tokens/TokenFm'
+import * as orderFormatter from 'modules/orders/formatters'
 
 function HelperOfAmount(props) {
   const tabs = [
     { title: <div className="text-center">Balance</div> },
     { title: <div className="text-center">Depth</div> },
   ]
-  const {pair,side,amountInput,priceInput,amountPercentage,amountSlider,amountSliderSelected, dispatch} = props
+  const {pair,side,amountInput,priceInput,amountPercentage,amountSlider,amountSliderSelected,balance,dispatch} = props
   const tokens = getTokensByMarket(pair)
-  //TODO mock balance
-  const tokenR = toBig(123)
-  let availableAmount = toBig(0)
-  if(side === 'sell') {
-    availableAmount = tokenR
-  } else {
-    availableAmount = tokenR.div(priceInput)
-  }
+  const balanceL = tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.left, toUnit:true})
+  const balanceR = tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.right, toUnit:true})
+  const right = config.getTokenBySymbol(pair.split('-')[1].toUpperCase())
+  const marketConfig = config.getMarketBySymbol(tokens.left, tokens.right)
+  const amountPrecision = Math.max(0, right.precision - marketConfig.pricePrecision)
+  let availableAmount = toBig(orderFormatter.calculateAvailableAmount(side, priceInput, balanceL, balanceR, amountPrecision))
 
   const amountSliderChange = (amountPercentage) => {
     dispatch({type:'placeOrderHelper/amountSliderEffects', payload:{percentage:amountPercentage}})
@@ -50,28 +51,28 @@ function HelperOfAmount(props) {
               <span className="d-inline-block" style={{width:'50px'}}>100%</span>
               <span className="color-black-3 ml25">{`${availableAmount.toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountPercentage === 100 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
+            {!amountSliderSelected && amountPercentage === 100 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10" onClick={amountPercentageSelect.bind(this, 75)}>
               <span className="d-inline-block" style={{width:'50px'}}>75%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(0.75).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountPercentage === 75 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
+            {!amountSliderSelected && amountPercentage === 75 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt10 pb10 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10" onClick={amountPercentageSelect.bind(this, 50)}>
               <span className="d-inline-block" style={{width:'50px'}}>50%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(0.5).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
             </div>
-            {amountPercentage === 50 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
+            {!amountSliderSelected && amountPercentage === 50 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt15 pb15 ml0 mr0 zb-b-b">
             <div className="col color-black-1 text-left pl10" onClick={amountPercentageSelect.bind(this, 25)}>
               <span className="d-inline-block" style={{width:'50px'}}>25%</span>
               <span className="color-black-3 ml25">{`${availableAmount.times(0.25).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}C</span>
             </div>
-            {amountPercentage === 25 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
+            {!amountSliderSelected && amountPercentage === 25 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
           </div>
           <div className="row pt15 pb15 ml0 mr0">
             <div className="col color-black-1 text-left pl10">
@@ -100,9 +101,10 @@ function HelperOfAmount(props) {
 }
 export default connect(({
   placeOrder:{pair,side,amountInput,priceInput},
-  placeOrderHelper:{amountPercentage, amountSlider,amountSliderSelected}
+  placeOrderHelper:{amountPercentage, amountSlider,amountSliderSelected},
+  sockets,
 })=>({
-  pair,side,amountInput,priceInput,amountPercentage,amountSlider,amountSliderSelected
+  pair,side,amountInput,priceInput,amountPercentage,amountSlider,amountSliderSelected,balance:sockets.balance.items
 }))(HelperOfAmount)
 
 
