@@ -1,15 +1,12 @@
 import React from 'react';
 import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch,Button as WebButton } from 'antd';
-import { createForm } from 'rc-form';
+import { Icon as WebIcon,Button as WebButton,Input } from 'antd';
 import { connect } from 'dva';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 const Item = List.Item;
 const Brief = Item.Brief;
 
-class PlaceOrder extends React.Component {
+class Convert extends React.Component {
   state = {
     type: 'money',
     side: 'buy',
@@ -100,9 +97,7 @@ class PlaceOrder extends React.Component {
           </div>
           <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-center" style={{height:'40px',lineHeight:'40px'}}>
-                <span className="color-black-3">0.0000</span>
-              </Button>
+              <Input type="text" />
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -114,9 +109,7 @@ class PlaceOrder extends React.Component {
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-center" style={{height:'40px',lineHeight:'40px'}}>
-                <span className="color-black-3">0.0000</span>
-              </Button>
+              <Input type="text" />
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -126,7 +119,8 @@ class PlaceOrder extends React.Component {
               }
             </div>
           </div>
-          <div hidden className="row ml0 mr0 mt15 no-gutters">
+          <WebButton className="mt20 b-block w-100" size="large" onClick={()=>{}} type="primary">Convert ETH To WETH</WebButton>
+          <div className="row ml0 mr0 mt15 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">Ratio</div>
             </div>
@@ -134,7 +128,6 @@ class PlaceOrder extends React.Component {
               1 ETH = 1 WETH
             </div>
           </div>
-          <Button className="mt20" onClick={()=>{}} type="primary">Convert ETH To WETH</Button>
           <div className="row ml0 mr0 mt20 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">Gas Fee</div>
@@ -149,8 +142,8 @@ class PlaceOrder extends React.Component {
     );
   }
 }
-const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
-export default PlaceOrderForm
+const ConvertForm = connect(({layers})=>({layers}))(Convert)
+export default ConvertForm
 
 
 

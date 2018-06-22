@@ -1,16 +1,13 @@
 import React from 'react';
 import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { createForm } from 'rc-form';
+import { Icon as WebIcon,Button as WebButton,Input } from 'antd';
 import { connect } from 'dva';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import {OpenOrderList} from './ListOrders'
 const Item = List.Item;
 const Brief = Item.Brief;
 
-class PlaceOrder extends React.Component {
+class Face2Face extends React.Component {
   state = {
     type: 'money',
     side: 'buy',
@@ -49,16 +46,13 @@ class PlaceOrder extends React.Component {
     const showPriceHelper= ()=>{
       showLayer({id:'PlaceOrderPriceHelper'})
     }
-    const { getFieldProps } = this.props.form;
     const { type } = this.state;
 
     const PlaceOrderForm = (props)=>{
       const { side } = props
       return (
         <div>
-
         </div>
-
       )
     }
     const {side} = this.state
@@ -117,9 +111,7 @@ class PlaceOrder extends React.Component {
           </div>
           <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
-                <span className="color-black-3">0.0000</span>
-              </Button>
+              <Input type="text"/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -131,9 +123,7 @@ class PlaceOrder extends React.Component {
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 text-left pl15" style={{height:'40px',lineHeight:'40px'}}>
-                <span className="color-black-3">0.0000</span>
-              </Button>
+              <Input type="text"/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -162,8 +152,8 @@ class PlaceOrder extends React.Component {
     );
   }
 }
-const PlaceOrderForm = createForm()(connect(({layers})=>({layers}))(PlaceOrder))
-export default PlaceOrderForm
+const Face2FaceForm = connect(({layers})=>({layers}))(Face2Face)
+export default Face2FaceForm
 
 
 
