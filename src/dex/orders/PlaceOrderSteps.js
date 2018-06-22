@@ -119,7 +119,9 @@ function PlaceOrderSteps(props) {
   }
   const next = (page) => {
     let order = {};
-    order.owner = window.Wallet.getCurrentAccount()
+    // TODO mock datas
+    // order.owner = window.Wallet.getCurrentAccount()
+    order.owner = '0xEF68e7C694F40c8202821eDF525dE3782458639f'
     order.delegateAddress = config.getDelegateAddress();
     order.protocol = settings.trading.contract.address;
     const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
