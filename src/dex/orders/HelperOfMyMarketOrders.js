@@ -22,7 +22,6 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
       })
   }
   const cancelOrder= (item,e)=>{
-    console.log('arguments',arguments)
     e.stopPropagation()
     Modal.alert("确认取消当前订单？", "Buy 100.00 LRC ",[
       { text: 'No', onPress: () => console.log('cancel'), style: 'default' },
@@ -30,9 +29,8 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
     ])
   }
   const cancelOrderByTokenPair = (e)=>{
-    console.log('arguments',arguments)
     e.stopPropagation()
-    Modal.alert("取消全部 LRC-WETH 订单？", "5 LRC-WETH open orders",[
+    Modal.alert("取消全部 LRC-WETH 订单？", "5 open orders of LRC-WETH",[
       { text: 'No', onPress: () => console.log('cancel'), style: 'default' },
       { text: 'Yes', onPress: () => console.log('ok') },
     ])
@@ -53,8 +51,15 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
             </th>
             <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
             <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Filled</th>
-            <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">
-              <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>Cancel All</a>
+            <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
+              {
+                orders.items && orders.items.length > 0 &&
+                <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>Cancel All</a>
+              }
+              {
+                orders.items && orders.items.length == 0 && 'Status'
+              }
+
             </th>
 
           </tr>
@@ -83,7 +88,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
             orders.items && orders.items.length == 0 &&
             <tr>
               <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'>
-                no open {market} orders
+                no open orders of {market}
               </td>
             </tr>
           }
