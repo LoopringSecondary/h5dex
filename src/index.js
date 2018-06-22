@@ -10,12 +10,6 @@ import Relay from 'LoopringJS/relay/relay';
 import {init} from './init'
 import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
-import MockWallet from './test/MockWallet'
-
-
-//测试时把私钥自己写入
-window.Wallet = new MockWallet('');
-
 
 window.STORAGE = STORAGE;
 const host = STORAGE.settings.get().relay.selected;
