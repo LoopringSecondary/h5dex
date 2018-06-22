@@ -10,7 +10,6 @@ import * as orderFormatter from 'modules/orders/formatters'
 import Notification from 'LoopringUI/components/Notification'
 import {createWallet} from 'LoopringJS/ethereum/account';
 import * as uiFormatter from 'modules/formatter/common'
-import * as fm from 'LoopringJS/common/formatter'
 import QRCode from 'qrcode.react';
 import Alert from 'LoopringUI/components/Alert'
 import {Pages,Page} from 'LoopringUI/components/Pages'
@@ -98,7 +97,7 @@ const PlaceOrderResult = ({
   );
 };
 function PlaceOrderSteps(props) {
-  const {placeOrder, settings, dispatch} = props
+  const {placeOrder, settings, marketcap, dispatch} = props
   const {side, pair, priceInput, amountInput} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
@@ -128,20 +127,21 @@ function PlaceOrderSteps(props) {
     const tokenS = side.toLowerCase() === "sell" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
     order.tokenB = tokenB.address;
     order.tokenS = tokenS.address;
-    order.amountB = fm.toHex(fm.toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
-    order.amountS = fm.toHex(fm.toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
-    order.lrcFee = fm.toHex(fm.toBig(1).times(1e18));
+    order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
+    order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
+    const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
+    order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
     const validSince = moment().unix()
     const validUntil = moment().add(3600, 'seconds').unix()
-    order.validSince = fm.toHex(validSince);
-    order.validUntil = fm.toHex(validUntil);
+    order.validSince = toHex(validSince);
+    order.validUntil = toHex(validUntil);
     order.marginSplitPercentage = 50;
     order.buyNoMoreThanAmountB = side.toLowerCase() === "buy";
     order.walletAddress = config.getWalletAddress();
     order.orderType = 'market_order'
     const authAccount = createWallet()
     order.authAddr = authAccount.getAddressString();
-    order.authPrivateKey = fm.clearHexPrefix(authAccount.getPrivateKeyString());
+    order.authPrivateKey = clearHexPrefix(authAccount.getPrivateKeyString());
     dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
     page.gotoPage({id:'wallet'})
   }
@@ -248,7 +248,8 @@ function PlaceOrderSteps(props) {
 function mapToProps(state) {
   return {
     placeOrder:state.placeOrder,
-    settings:state.settings
+    settings:state.settings,
+    marketcap:state.sockets.marketcap.items
   }
 }
 export default connect(mapToProps)(PlaceOrderSteps)

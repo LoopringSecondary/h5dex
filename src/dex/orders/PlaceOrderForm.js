@@ -7,7 +7,6 @@ import {getTokensByMarket} from 'modules/formatter/common'
 import {toBig} from 'LoopringJS/common/formatter'
 const Item = List.Item;
 
-
 // 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
 // https://github.com/ant-design/ant-design-mobile/issues/307
 // https://github.com/ant-design/ant-design-mobile/issues/163
@@ -19,11 +18,19 @@ if (isIPhone) {
   }
 }
 const PlaceOrderForm = (props)=>{
-  const {dispatch,placeOrder} = props
+  const {dispatch,placeOrder,lastPrice} = props
   const {side,pair} = placeOrder
   const tokens = getTokensByMarket(pair)
-  const amount = placeOrder.amountInput
-  const price = placeOrder.priceInput
+  let amount = placeOrder.amountInput
+  let price = placeOrder.priceInput
+  if(!placeOrder.priceChanged && price === '0' && lastPrice) {
+    dispatch({
+      type:'placeOrder/priceChangeEffects',
+      payload:{
+        price:lastPrice
+      }
+    })
+  }
   const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
    const showLayer = (payload={})=>{
      dispatch({
@@ -59,9 +66,9 @@ const PlaceOrderForm = (props)=>{
   }
   const priceChange = (value)=>{
      dispatch({
-       type:'placeOrder/priceChange',
+       type:'placeOrder/priceChangeEffects',
        payload:{
-         priceInput:value
+         price:value
        }
      })
   }
@@ -74,27 +81,26 @@ const PlaceOrderForm = (props)=>{
     })
     showLayer({id:'helperOfAdvance'})
   }
-  const onPriceErrorClick = () => {
-    if (Number(placeOrder.priceInput) <= 0) {
-      Toast.info('Please enter valid price');
-    }
-  }
-  const onAmountErrorClick = () => {
-    if (Number(placeOrder.amountInput) <= 0) {
-      Toast.info('Please enter valid amount');
-    }
-  }
   const toConfirm = () => {
-    if (Number(placeOrder.priceInput) > 0 && Number(placeOrder.amountInput) > 0) {
-      showLayer({id:'placeOrderSteps'})
+    if (Number(price) <= 0) {
+      Toast.info('Please enter valid price', 3, null, false);
+      return
     }
+    if (Number(amount) <= 0) {
+      Toast.info('Please enter valid amount', 3, null, false);
+      return
+    }
+    if(price !== placeOrder.priceInput) {
+      priceChange(price)
+    }
+    showLayer({id:'placeOrderSteps'})
   }
   const showAmountHelper = () => {
     if(side === 'buy') {
       if(Number(price) > 0) {
         showLayer({id:'helperOfAmount',side:'sell'})
       } else {
-        console.log('no price')
+        Toast.info('Please enter valid price', 3, null, false);
       }
     } else {
       showLayer({id:'helperOfAmount',side:'sell'})
@@ -116,8 +122,6 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
           onChange={priceChange}
-          error={Number(placeOrder.priceInput) <= 0}
-          onErrorClick={onPriceErrorClick}
         ><div className="fs16">Price</div></InputItem>
       </List>
       <List className="bg-none no-border">
@@ -130,8 +134,6 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showAmountHelper} />}
-          error={Number(placeOrder.amountInput) <= 0}
-          onErrorClick={onAmountErrorClick}
         ><div className="fs16">Amount</div></InputItem>
       </List>
       {
@@ -212,7 +214,13 @@ const PlaceOrderForm = (props)=>{
     </div>
   )
 }
-export default connect(({placeOrder})=>({placeOrder}))(PlaceOrderForm)
+export default connect(({
+  placeOrder,
+  sockets:{tickers},
+})=>({
+  placeOrder,
+  lastPrice:tickers.item.loopr ? tickers.item.loopr.last : null
+}))(PlaceOrderForm)
 
 
 

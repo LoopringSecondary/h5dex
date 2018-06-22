@@ -10,7 +10,7 @@ function HelperOfPrice(props) {
   const tokens = getTokensByMarket(pair)
   const changePrice = (value)=>{
     dispatch({
-      type:'placeOrder/priceChange',
+      type:'placeOrder/priceChangeEffects',
       payload:{
         price:value
       }
