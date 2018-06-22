@@ -7,6 +7,8 @@ import intl from 'react-intl-universal'
 import {OrderFm} from 'modules/orders/OrderFm'
 import {getTokensByMarket} from 'modules/formatter/common'
 import {renders} from './ListOrders'
+import {FormatAmount} from 'modules/formatter/FormatNumber'
+
 const HelperOfMyOrders = ({orders={},dispatch})=>{
   const market = orders.filters.market
   const tokens = getTokensByMarket(market)
@@ -57,9 +59,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
               {
                 orders.items && orders.items.length == 0 && 'Status'
               }
-
             </th>
-
           </tr>
         </thead>
         <tbody>
