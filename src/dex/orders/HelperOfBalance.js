@@ -4,6 +4,8 @@ import { Button } from 'antd-mobile';
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
 import * as tokenFormatter from 'modules/tokens/TokenFm'
+import {FormatAmount} from 'modules/formatter/FormatNumber'
+import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
 
 const HelperOfBalance = (props)=>{
   const {dispatch,pair,balance} = props
@@ -21,7 +23,7 @@ const HelperOfBalance = (props)=>{
   const balanceL = {
     symbol:tokens.left,
     name:tokens.left,
-    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.left, toUnit:true})
+    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.left, toUnit:true}),
   }
   const balanceR = {
     symbol:tokens.right,
@@ -66,7 +68,7 @@ const HelperOfBalance = (props)=>{
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
                   </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance.toString(10)}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{toFixed(token.balance, 8)}</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {
                       false && token.symbol === 'ETH' &&

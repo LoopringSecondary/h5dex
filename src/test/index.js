@@ -20,13 +20,14 @@ export default class Test extends React.Component {
       this.setState({address:res.result})
     });
     window.Wallet.getCurrency().then(res => {
-
       this.setState({currency:res.result})
     })
   };
 
   signMessage(){
-    window.Wallet.signMessage('0x00000')
+    window.Wallet.signMessage('0x00000').then(res => {
+      window.imToken.callAPI('native.alert', JSON.stringify(res))
+    })
   }
 
   signTransaction(){

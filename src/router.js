@@ -7,6 +7,7 @@ import Locales from './modules/locales/container'
 import Loopr from './loopr/routes'
 import Imtoken from './imtoken/routes'
 import Test from './test'
+import Mock from './test/routes'
 
 function RouterConfig({ history }) {
   return (
@@ -19,6 +20,7 @@ function RouterConfig({ history }) {
           <Route path="/test" exact component={Test}/>
           <Route path="/loopr" exact component={Loopr}/>
           <Route path="/imtoken" exact component={Imtoken}/>
+          <Route  path="/mock/:pk" component={Mock} />
         </div>
       </Router>
       </Locales>

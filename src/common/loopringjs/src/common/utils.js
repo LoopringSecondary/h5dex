@@ -1,4 +1,5 @@
 import * as fm from './formatter'
+import {hashPersonalMessage,sha3} from 'ethereumjs-util'
 /**
  * trim head space and tail space
  * @param str string
@@ -17,4 +18,8 @@ export function trimAll(str) {
 
 export function calculateGas(gasPrice, gasLimit) {
   return fm.toBig(gasPrice).times(gasLimit).div(1e9);
+}
+export default {
+  hashPersonalMessage,
+  sha3
 }
