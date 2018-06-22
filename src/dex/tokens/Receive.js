@@ -1,15 +1,11 @@
-import React from 'react';
-import { Button,Toast,Card } from 'antd-mobile';
-import QRCode from 'qrcode.react';
-import copy from 'copy-to-clipboard';
-import Notification from '../../common/loopringui/components/Notification'
-import intl from 'react-intl-universal';
-import {toBig,toFixed} from "LoopringJS/common/formatter";
-import {getBalanceBySymbol} from "../../modules/tokens/TokenFm";
-import TokenFormatter from '../../modules/tokens/TokenFm';
+import React from 'react'
+import { Button, Card, Toast } from 'antd-mobile'
+import QRCode from 'qrcode.react'
+import copy from 'copy-to-clipboard'
+import intl from 'react-intl-universal'
+import { toBig, toFixed } from 'LoopringJS/common/formatter'
+import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
-import {connect} from 'dva'
-import routeActions from 'common/utils/routeActions'
 
 export default class Receive extends React.Component {
   state = {
@@ -76,7 +72,6 @@ export default class Receive extends React.Component {
           {symbol  && toBig(amount).gt(0) && toBig(this.getNeeded()).gt(0) && <div className='fs3 color-black-1 text-center mt10 mb10'>
             {intl.get('receive.receive_value_tip')} {this.getNeeded()}  {symbol.toUpperCase()}
           </div>}
-
           <div className="pt10 fs14 text-left" style={{width:'240px',margin:'0 auto',whiteSpace:'wrap',wordBreak:'break-all'}}>
             {address}
             <Button type="primary" size="" className="d-block w-100 mt10" onClick={copyAddress}>{intl.get('common.copy')}</Button>
