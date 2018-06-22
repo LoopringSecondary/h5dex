@@ -17,7 +17,7 @@ export  default function Routes() {
 
   return (
     <Switch>
-      <Redirect from="/imtoken" to="/test"/>
+      <Redirect from="/imtoken" to="/dex"/>
     </Switch>
   );
 
