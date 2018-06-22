@@ -1,68 +1,51 @@
 import React from 'react'
-import {Containers} from 'modules'
-import UiContianers from 'LoopringUI/containers'
-import Detail from './Detail'
+import Containers from 'modules/containers'
+import UiContainers from 'LoopringUI/containers'
+import OrderDetail from './Detail'
 import PlaceOrderSteps from './PlaceOrderSteps'
-import PlaceOrderSign from './PlaceOrderSign'
-import HelperOfLRCFee from './HelperOfLRCFee'
-import HelperOfTTL from './HelperOfTTL'
+import HelperOfAdvance from './HelperOfAdvance'
+import HelperOfPrice from './HelperOfPrice'
+import HelperOfAmount from './HelperOfAmount'
+import HelperOfMarket from './HelperOfMarket'
 import CancelOrderConfirm  from './CancelOrderConfirm'
 
 function Modals(props) {
   return (
     <div>
-      {false && <Containers.Layers id="orderDetail">
-        <UiContianers.Panels id="orderDetail" position="right" width="450px">
-          <Detail />
-        </UiContianers.Panels>
+      <Containers.Layers id="orderDetail">
+        <UiContainers.Popups id="orderDetail">
+          <OrderDetail />
+        </UiContainers.Popups>
       </Containers.Layers>
-      }
       <Containers.Layers id="placeOrderSteps">
-        <UiContianers.Modals id="placeOrderSteps" position="left" width="600px"  className="rs" wrapClassName="theme-blue">
-          <Containers.Settings>
-            <Containers.Wallet>
-              <Containers.Layers>
-                <Containers.PlaceOrder>
-                  <Containers.Sockets id="balance">
-                    <Containers.Sockets id="marketcap">
-                      <Containers.Sockets id="pendingTx">
-                        <PlaceOrderSteps />
-                      </Containers.Sockets>
-                    </Containers.Sockets>
-                  </Containers.Sockets>
-                </Containers.PlaceOrder>
-              </Containers.Layers>
-            </Containers.Wallet>
-          </Containers.Settings>
-        </UiContianers.Modals>
+        <UiContainers.Popups id="placeOrderSteps">
+          <PlaceOrderSteps />
+        </UiContainers.Popups>
       </Containers.Layers>
-      <Containers.Layers id="placeOrderSign">
-        <UiContianers.Modals id="placeOrderSign" width="650px">
-          <PlaceOrderSign />
-        </UiContianers.Modals>
+      <Containers.Layers id="helperOfAdvance">
+        <UiContainers.Popups id="helperOfAdvance">
+          <HelperOfAdvance />
+        </UiContainers.Popups>
       </Containers.Layers>
-      <Containers.Layers id="helperOfLRCFee">
-        <UiContianers.Modals id="helperOfLRCFee" className="rs">
-          <HelperOfLRCFee />
-        </UiContianers.Modals>
+      <Containers.Layers id="helperOfPrice">
+        <UiContainers.Popups id="helperOfPrice">
+          <HelperOfPrice />
+        </UiContainers.Popups>
       </Containers.Layers>
-      <Containers.Layers id="helperOfTTL">
-        <UiContianers.Modals id="helperOfTTL" className="rs">
-          <Containers.Ttl>
-            <HelperOfTTL />
-          </Containers.Ttl>
-        </UiContianers.Modals>
+      <Containers.Layers id="helperOfAmount">
+        <UiContainers.Popups id="helperOfAmount">
+          <HelperOfAmount />
+        </UiContainers.Popups>
+      </Containers.Layers>
+      <Containers.Layers id="helperOfMarket">
+        <UiContainers.Popups id="helperOfMarket">
+          <HelperOfMarket />
+        </UiContainers.Popups>
       </Containers.Layers>
       <Containers.Layers id="cancelOrderConfirm">
-        <UiContianers.Modals id="cancelOrderConfirm" className="rs">
-          <Containers.Settings>
-            <Containers.Wallet>
-            <Containers.Gas>
-              <CancelOrderConfirm />
-            </Containers.Gas>
-            </Containers.Wallet>
-          </Containers.Settings>
-        </UiContianers.Modals>
+        <UiContainers.Popups id="cancelOrderConfirm">
+          <CancelOrderConfirm />
+        </UiContainers.Popups>
       </Containers.Layers>
     </div>
   )

@@ -22,7 +22,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
   const gotoAll = ()=>{
   }
   return (
-    <div>
+    <div className="zb-b-t">
       <table className="w-100 fs13" style={{overflow:'auto'}}>
         <thead>
           <tr className="">
@@ -66,16 +66,14 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
             {
               fills.items && fills.items.length == 0 &&
               <tr>
-                <td colSpan='100'>
-                <div className="text-center pt10 pb10 color-black-3 fs12">
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'>
                   no {market} fills
-                </div>
-              </td>
+                </td>
               </tr>
             }
         </tbody>
       </table>
-      <div className="p10 zb-b-t mb15">
+      <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">
           View all fills
         </Button>

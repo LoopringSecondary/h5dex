@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd-mobile';
+import { Button,Modal} from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
@@ -19,6 +19,22 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
         }
       })
   }
+  const cancelOrder= (item,e)=>{
+    console.log('arguments',arguments)
+    e.stopPropagation()
+    Modal.alert("确认取消当前订单？", "Buy 100.00 LRC ",[
+      { text: 'No', onPress: () => console.log('cancel'), style: 'default' },
+      { text: 'Yes', onPress: () => console.log('ok') },
+    ])
+  }
+  const cancelOrderByTokenPair = (e)=>{
+    console.log('arguments',arguments)
+    e.stopPropagation()
+    Modal.alert("取消全部 LRC-WETH 订单？", "5 LRC-WETH open orders",[
+      { text: 'No', onPress: () => console.log('cancel'), style: 'default' },
+      { text: 'Yes', onPress: () => console.log('ok') },
+    ])
+  }
   const gotoAll = ()=>{}
   return (
     <div className="zb-b-t">
@@ -36,7 +52,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
             <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
             <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Filled</th>
             <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">
-              <a className="fs12" onClick={()=>{}}>Cancel All</a>
+              <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>Cancel All</a>
             </th>
 
           </tr>
@@ -55,7 +71,7 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-center">
-                    <a className="fs12" onClick={()=>{}}>Cancel</a>
+                    <a className="fs12" onClick={cancelOrder.bind(this,item)}>Cancel</a>
                   </td>
                 </tr>
               )
@@ -63,9 +79,11 @@ const HelperOfMyOrders = ({orders={},dispatch})=>{
           }
           {
             orders.items && orders.items.length == 0 &&
-            <tr><td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'><div className="">
-            no open {market} orders
-            </div></td></tr>
+            <tr>
+              <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'>
+                no open {market} orders
+              </td>
+            </tr>
           }
         </tbody>
       </table>

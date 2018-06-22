@@ -56,8 +56,8 @@ const HelperOfBalance = (props)=>{
         <thead>
           <tr className="">
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Actions</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
+            <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -68,8 +68,8 @@ const HelperOfBalance = (props)=>{
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
                   </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{token.balance}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {
                       false && token.symbol === 'ETH' &&
                       <a onClick={gotoConvert.bind(this,{type:"eth2weth"})}>Convert</a>
@@ -88,7 +88,7 @@ const HelperOfBalance = (props)=>{
             }
         </tbody>
       </table>
-      <div className="p10 zb-b-b mb15">
+      <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">View all assets</Button>
       </div>
     </div>

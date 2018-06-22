@@ -26,20 +26,24 @@ const Logged = ()=>{
   const isLogged = true
   if(isLogged){
     return (
-      <Switch>
-        <Route path={`/dex/myOrders`} exact component={Orders.ListMyOrders} />
-        <Route path={`/dex/myFills`} exact component={Pages.Todo} />
-        <Route path={`/dex/settings`} exact component={Pages.Todo} />
-        <Route path={`/dex/todos`} exact component={ListTodos} />
-        <Route path={`/dex/messages`} exact component={Pages.Todo} />
-        <Route path={`/dex/face2face`} exact component={Face2Face} />
-        <Route path={`/dex/markets`} exact component={Markets} />
-        <Route path={`/dex/markets/:market`} component={MarketDetail} />
-        <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
-        <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
-        <Route path={`/dex/usercenter`} exact component={UserCenter} />
-        <Redirect from="/dex" to="/dex/markets" />
-      </Switch>
+      <div>
+        <Switch>
+          <Route path={`/dex/myOrders`} exact component={Orders.ListMyOrders} />
+          <Route path={`/dex/myFills`} exact component={Pages.Todo} />
+          <Route path={`/dex/settings`} exact component={Pages.Todo} />
+          <Route path={`/dex/todos`} exact component={ListTodos} />
+          <Route path={`/dex/messages`} exact component={Pages.Todo} />
+          <Route path={`/dex/face2face`} exact component={Face2Face} />
+          <Route path={`/dex/markets`} exact component={Markets} />
+          <Route path={`/dex/markets/:market`} component={MarketDetail} />
+          <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
+          <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
+          <Route path={`/dex/usercenter`} exact component={UserCenter} />
+          <Redirect from="/dex" to="/dex/markets" />
+        </Switch>
+        <Orders.Modals />
+      </div>
+
     )
   }else{
     return <Redirect to="/dex" />
