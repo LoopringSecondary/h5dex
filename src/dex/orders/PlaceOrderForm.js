@@ -189,9 +189,11 @@ const PlaceOrderForm = (props)=>{
             </div>
           </div>
           <div className="row align-items-center ml0 mr0 mb15 mt10">
-            <div className="col color-black-3 fs16 pl0">Advanced</div>
+            <div className="col color-black-3 fs16 pl0">
+              Total {total} {tokens.right}
+            </div>
             <div className="col-auto color-black-3 fs16 pr0">
-              <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
+              Advance <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
             </div>
           </div>
           {

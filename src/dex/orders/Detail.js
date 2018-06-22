@@ -12,6 +12,7 @@ import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
 import routeActions from 'common/utils/routeActions'
 import {OrderFm} from 'modules/orders/OrderFm';
+import DetailFills from './DetailFills';
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -116,7 +117,7 @@ function OrderDetail(props) {
           </div>
         </div>
         <div className="p20 bg-white">
-          成交记录 todo
+          <DetailFills order={order}/>
         </div>
         <div className="pt15 pl20 pr20 bg-white text-left">
           <div className="pt15 pb0">
