@@ -12,7 +12,7 @@ let sortedRelays = relays.map((item, i) => {
 })
 const get = ()=>{
   if(localStorage.settings){
-     return JSON.parse(localStorage.settings)
+    return JSON.parse(localStorage.settings)
   }else{
     const userAgent = new UserAgent();
     return {
@@ -42,8 +42,8 @@ const get = ()=>{
 const getRelay = ()=>{
   const defaultHost = sortedRelays[0].value
   if(localStorage.settings){
-     const settings = JSON.parse(localStorage.settings)
-     return settings.relay.selected || defaultHost
+    const settings = JSON.parse(localStorage.settings)
+    return settings.relay.selected || defaultHost
   }else{
     return defaultHost
   }
@@ -51,8 +51,8 @@ const getRelay = ()=>{
 const getContractVersion = ()=>{
   const defaultVersion = latestContract.version
   if(localStorage.settings){
-     const settings = JSON.parse(localStorage.settings)
-     return settings.trading.contract.version || defaultVersion
+    const settings = JSON.parse(localStorage.settings)
+    return settings.trading.contract.version || defaultVersion
   }else{
     return defaultVersion
   }
@@ -78,6 +78,18 @@ const getGas = ()=>{
   }
 }
 
+const setTokensConfig = (tokens)=>{
+  localStorage.tokensConfig = JSON.stringify(tokens)
+}
+
+const getTokensConfig = ()=>{
+  if(localStorage.tokensConfig){
+    return JSON.parse(localStorage.tokensConfig)
+  }else{
+    return []
+  }
+}
+
 export default {
   set,
   get,
@@ -85,5 +97,7 @@ export default {
   getGas,
   getRelay,
   getContractVersion,
+  setTokensConfig,
+  getTokensConfig
 }
 

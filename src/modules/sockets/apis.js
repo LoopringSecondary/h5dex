@@ -1,6 +1,7 @@
 import io from 'socket.io-client'
 import {store} from '../../index.js'
 import config from 'common/config'
+import storage from '../storage/'
 
 const updateItems = (items,id)=>{
   const dispatch = require('../../index.js').default._store.dispatch
@@ -67,7 +68,7 @@ const transfromers = {
     queryTransformer:(payload)=>{
       const {filters} = payload
       return JSON.stringify({
-         "currency": filters.currency,
+        "currency": filters.currency || storage.settings.get().preference.currency,
       })
     },
     resTransformer:(id,res)=>{

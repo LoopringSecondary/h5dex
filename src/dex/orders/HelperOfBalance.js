@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Button } from 'antd-mobile';
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
+import * as tokenFormatter from 'modules/tokens/TokenFm'
 
 const HelperOfBalance = (props)=>{
   const {dispatch,pair,balance} = props
@@ -15,28 +16,27 @@ const HelperOfBalance = (props)=>{
       }
     })
   }
-  // TODO
-  // get market Related Tokens
-  const relatedTokens = [
-    {
-      symbol:"LRC",
-      name:"Loopring",
-      balance:12680.0001,
-      required:15000.0001,
-    },
-    {
-      symbol:"WETH",
-      name:"Wrap ETH",
-      balance:21.3652,
-      required:20.1278,
-    },
-    {
-      symbol:"ETH",
-      name:"Ethereum",
-      balance:85.0001,
-      required:0.0001,
-    },
-  ]
+  const tokens = getTokensByMarket(pair)
+  const relatedTokens = new Array()
+  const balanceL = {
+    symbol:tokens.left,
+    name:tokens.left,
+    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.left, toUnit:true})
+  }
+  const balanceR = {
+    symbol:tokens.right,
+    name:tokens.right,
+    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.right, toUnit:true})
+  }
+  relatedTokens.push(balanceL)
+  relatedTokens.push(balanceR)
+  if(tokens.right === 'WETH') {
+    relatedTokens.push({
+      symbol:'ETH',
+      name:'ETH',
+      ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
+    })
+  }
   const gotoReceive = (payload)=>{
     // TODO
     // routeActions.gotoPath('/dex/receive')
@@ -68,7 +68,7 @@ const HelperOfBalance = (props)=>{
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
                   </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.balance.toString(10)}</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {
                       false && token.symbol === 'ETH' &&
@@ -96,9 +96,9 @@ const HelperOfBalance = (props)=>{
 }
 export default connect(({
   placeOrder:{pair},
-  balance,
+  sockets,
 })=>({
-  pair,balance
+  pair,balance:sockets.balance.items
 }))(HelperOfBalance)
 
 

@@ -10,6 +10,7 @@ export default {
    side:'buy',
    pair:'LRC-WETH',
    priceInput: '0',
+   priceChanged:false,
    amountInput:'0',
    showAdvance:false,
    sliderMilliLrcFee:0,
@@ -44,6 +45,11 @@ export default {
         yield put({ type: 'sideChange',payload:{side}});
         yield put({ type: 'amountChange',payload:{amountInput:0}});
       }
+    },
+    *priceChangeEffects({ payload={} }, { put }) {
+      const {price} = payload
+      yield put({ type: 'priceChange',payload:{priceInput:price}});
+      yield put({ type: 'priceChangedChange',payload:{priceChanged:true}});
     },
     *timeToLivePatternChangeEffects({ payload={} }, { select, put }) {
       const {timeToLivePatternSelect} = payload
@@ -126,6 +132,14 @@ export default {
       return {
         ...state,
         priceInput : price
+      }
+    },
+    priceChangedChange(state, action) {
+      let {payload} = action
+      let {priceChanged} = payload
+      return {
+        ...state,
+        priceChanged
       }
     },
     amountChange(state, action) {

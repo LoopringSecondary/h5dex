@@ -2,14 +2,27 @@ import React from 'react';
 import { Spin } from 'antd';
 import { connect } from 'dva';
 import intl from 'react-intl-universal'
+import { Toast } from 'antd-mobile';
 
 const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
-  const changePrice = ()=>{
-    // TODO
+  const changePrice = (value)=>{
+    Toast.info('Price has changed', 3, null, false);
+    dispatch({
+      type:'placeOrder/priceChangeEffects',
+      payload:{
+        price:value
+      }
+    })
   }
-  const changeAmount = ()=>{
-    // TODO
+  const changeAmount = (value)=>{
+    Toast.info('Amount has changed', 3, null, false);
+    dispatch({
+      type:'placeOrder/amountChange',
+      payload:{
+        amountInput:value
+      }
+    })
   }
   const maxHeight = 'auto'
   return (
@@ -28,10 +41,10 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                   {
                     depth.item && depth.item.buy && depth.item.buy.map((item,index)=>
                       <tr key={index}>
-                        <td className="pl10 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle">
+                        <td className="pl10 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                           {Number(item[1]).toFixed(4)}
                         </td>
-                        <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-green-500 align-middle">
+                        <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-green-500 align-middle" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                           {Number(item[0]).toFixed(8)}
                           <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                         </td>
@@ -63,11 +76,11 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                     {
                       depth.item && depth.item.sell && depth.item.sell.map((item,index)=>
                         <tr key={index} className="">
-                          <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle">
+                          <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                             {Number(item[0]).toFixed(8)}
                             <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                           </td>
-                          <td className="pl5 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle">
+                          <td className="pl5 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                             {Number(item[1]).toFixed(4)}
                           </td>
                         </tr>
