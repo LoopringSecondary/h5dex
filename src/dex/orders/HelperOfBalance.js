@@ -38,8 +38,7 @@ const HelperOfBalance = (props)=>{
     })
   }
   const gotoReceive = (payload)=>{
-    // TODO
-    // routeActions.gotoPath('/dex/receive')
+    showLayer({id:'receiveToken'})
   }
   const gotoConvert = (payload)=>{
     // TODO

@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch,Redirect} from 'dva/router';
 import Pages from './pages';
 import Orders from './orders';
+import Tokens from './tokens';
 import Markets from './tickers/Markets';
 import MarketDetail from './tickers/Detail';
 import Face2Face from './orders/Face2Face'
@@ -42,6 +43,7 @@ const Logged = ()=>{
           <Redirect from="/dex" to="/dex/markets" />
         </Switch>
         <Orders.Modals />
+        <Tokens.Modals />
       </div>
 
     )
