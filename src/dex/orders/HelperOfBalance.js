@@ -37,28 +37,6 @@ const HelperOfBalance = (props)=>{
       ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
     })
   }
-  // TODO
-  // get market Related Tokens
-  // const relatedTokens = [
-  //   {
-  //     symbol:"LRC",
-  //     name:"Loopring",
-  //     balance:12680.0001,
-  //     required:15000.0001,
-  //   },
-  //   {
-  //     symbol:"WETH",
-  //     name:"Wrap ETH",
-  //     balance:21.3652,
-  //     required:20.1278,
-  //   },
-  //   {
-  //     symbol:"ETH",
-  //     name:"Ethereum",
-  //     balance:85.0001,
-  //     required:0.0001,
-  //   },
-  // ]
   const gotoReceive = (payload)=>{
     // TODO
     // routeActions.gotoPath('/dex/receive')
