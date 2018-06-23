@@ -38,6 +38,14 @@ const TokenListComp = (props)=>{
       required:0.0001,
     },
   ]
+
+  const showReceive = (symbol) => {
+    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken',symbol}});
+  }
+
+  const showConvert = (token) => {
+    dispatch({type: 'layers/showLayer', payload: {id: 'convertToken',token}});
+  }
   return (
     <div className="fs20">
       <table className="w-100 fs13">
@@ -59,16 +67,16 @@ const TokenListComp = (props)=>{
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{token.balance}</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
                     {
-                      false && token.symbol === 'ETH' &&
-                      <a href="">Convert</a>
+                      token.symbol === 'ETH' &&
+                      <a onClick={() => showConvert('WETH')}>Convert</a>
                     }
                     {
                       token.symbol === 'WETH' &&
-                      <a href="">Convert</a>
+                      <a onClick={() => showConvert('ETH')}>Convert</a>
                     }
                     {
                       token.symbol !== 'WETH' &&
-                      <a href="">Receive</a>
+                      <a onClick={() => showReceive(token.symbol)}>Receive</a>
                     }
                   </td>
                 </tr>

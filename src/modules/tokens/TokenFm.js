@@ -128,7 +128,7 @@ export const sorter = (tokenA,tokenB)=>{
 };
 
 const integerReg = new RegExp("^[0-9]*$")
-const numberReg = new RegExp("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$")
+const numberReg = new RegExp("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*)|(0))$")
 
 export function isValidNumber(number) {
   return numberReg.test(number)

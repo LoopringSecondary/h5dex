@@ -41,13 +41,11 @@ function Modals(props) {
         </UiContianers.Panels>
       </Containers.Layers>
       <Containers.Layers id="convertToken" >
-        <UiContianers.Panels id="convertToken" position="right" width="450px">
-              <Containers.Wallet>
+        <UiContianers.Modals id="convertToken">
                 <Containers.Convert >
                   <Convert/>
                 </Containers.Convert>
-              </Containers.Wallet>
-        </UiContianers.Panels>
+        </UiContianers.Modals>
       </Containers.Layers>
     </div>
   )
