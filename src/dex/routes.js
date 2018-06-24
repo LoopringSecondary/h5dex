@@ -11,6 +11,7 @@ import UserCenter from './account/UserCenter'
 import ListTodos from './notifications/ListTodos'
 import Face2FacePage from '../face2face/Face2FacePage'
 import Face2FaceModals from '../face2face/Modals'
+import CommonModals from '../components/Modals'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -45,6 +46,7 @@ const Logged = ()=>{
           <Route path={`/dex/settings`} exact component={Pages.Todo} />
           <Redirect from="/dex" to="/dex/markets" />
         </Switch>
+        <CommonModals />
         <Orders.Modals />
         <Tokens.Modals />
         <Face2FaceModals />
