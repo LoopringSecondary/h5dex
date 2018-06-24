@@ -28,16 +28,9 @@ class Face2FaceForm extends React.Component {
         }
       })
     }
-    const gotoConfirm= ()=>{
-
-    }
-    const gotoOrderDetail= (payload)=>{
-      dispatch({
-        type:'layers/showLayer',
-        payload:{
-          id:'orderDetail',
-          ...payload
-        }
+    const submitOrder = ()=>{
+      showLayer({
+        id:'face2FaceConfirm'
       })
     }
     return (
@@ -104,7 +97,7 @@ class Face2FaceForm extends React.Component {
               20.0000 EOS/LRC
             </div>
           </div>
-          <Button className="" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
+          <Button className="" onClick={submitOrder} type="primary">Exchange EOS To LRC</Button>
         </div>
       </div>
     );

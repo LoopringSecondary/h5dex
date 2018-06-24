@@ -2,6 +2,7 @@ import React from 'react'
 import Containers from 'modules/containers'
 import UiContainers from 'LoopringUI/containers'
 import HelperOfTokens from './HelperOfTokens'
+import Face2FaceConfirm from './Face2FaceConfirm'
 
 function Modals(props) {
   return (
@@ -11,7 +12,11 @@ function Modals(props) {
           <HelperOfTokens />
         </UiContainers.Popups>
       </Containers.Layers>
-
+      <Containers.Layers id="face2FaceConfirm">
+        <UiContainers.Popups id="face2FaceConfirm">
+          <Face2FaceConfirm />
+        </UiContainers.Popups>
+      </Containers.Layers>
     </div>
   )
 }
