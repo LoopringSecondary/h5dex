@@ -45,8 +45,6 @@ const PlaceOrderForm = (props)=>{
     sell = {token : tokens.left}
     buy = {token : tokens.right}
   }
-  // TODO
-  const gasPrice = 10
    const showLayer = (payload={})=>{
      dispatch({
        type:'layers/showLayer',

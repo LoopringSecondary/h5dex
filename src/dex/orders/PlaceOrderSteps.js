@@ -120,6 +120,7 @@ function PlaceOrderSteps(props) {
     })
   }
   const next = async (page) => {
+    hideLayer({id:'placeOrderSteps'})
     let order = {};
     order.owner = window.Wallet.address
     order.delegateAddress = config.getDelegateAddress();
