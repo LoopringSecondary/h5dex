@@ -1,3 +1,6 @@
+import { getOrderHash } from '../loopringjs/src/relay/rpc/order'
+import {toHex} from '../loopringjs/src/common/formatter'
+
 export default class Wallet {
 
   /**
@@ -44,6 +47,11 @@ export default class Wallet {
 
   signTx (tx) {
     throw new Error('unimplemented')
+  }
+
+  signOrder (order) {
+    const hash = getOrderHash(order);
+    return this.signMessage(toHex(hash))
   }
 
   setConfigs = async () => {
