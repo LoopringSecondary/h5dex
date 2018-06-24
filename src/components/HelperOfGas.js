@@ -35,15 +35,19 @@ function HelperOfGas(props) {
   }
   return (
     <div className="">
-      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Gas Setting</div>
-      <div className="bg-grey-100 pt15 pb15">
-        <div className="row pt10 pb10 ml0 mr0 zb-b-b">
+      <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
+      <div className="bg-grey-100">
+        <div className="row pt15 pb15 ml0 mr0 zb-b-b">
           <div className="col color-black-1 text-left pl10" onClick={()=>{}}>
-            <span className="d-inline-block" style={{width:'50px'}}>推荐值</span>
+            <span className="d-inline-block">推荐Gas</span>
             <span className="color-black-3 ml25">0.0005ETH ≈ $1.5</span>
           </div>
         </div>
-        <div className="mt15 pb25">
+        <div className="pt15 pb35">
+          <div className="color-black-1 pl10 pb25 text-left">
+            自定义Gas
+            <span className="color-black-3 ml25">0.0005ETH ≈ $1.5</span>
+          </div>
           <Slider
             className="ml15 mr15"
             defaultValue={0}
