@@ -3,8 +3,6 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Button as WebButton,Input } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
-import HelperOfOrders from './HelperOfOrders'
-import HelperOfBalance from './HelperOfBalance'
 
 const Item = List.Item;
 const Brief = Item.Brief;

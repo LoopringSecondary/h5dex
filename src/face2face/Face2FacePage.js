@@ -4,8 +4,8 @@ import { Icon as WebIcon,Switch as WebSwitch } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
-import HelperOfOrders from './HelperOfOrders'
-import HelperOfBalance from './HelperOfBalance'
+import Face2FaceOrders from './Face2FaceOrders'
+import Face2FaceBalances from './Face2FaceBalances'
 import Face2FaceForm from './Face2FaceForm'
 
 const Item = List.Item;
@@ -63,7 +63,7 @@ class Face2FacePage extends React.Component {
               <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
             ]}
           >
-            <div onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
+            <div>
               Face To Face
             </div>
           </NavBar>
@@ -89,10 +89,10 @@ class Face2FacePage extends React.Component {
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
               <div className="zb-b-t">
-                <HelperOfBalance />
+                <Face2FaceBalances />
               </div>
               <div className="">
-                <HelperOfOrders />
+                <Face2FaceOrders />
               </div>
             </Tabs>
             <div className="pb50"></div>

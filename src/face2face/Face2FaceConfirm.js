@@ -30,72 +30,6 @@ const OrderMetaItem = (props) => {
     </div>
   )
 }
-const WalletItem = (props) => {
-  const {title, description,icon,layout,showArrow} = props
-  if(layout === 'vertical'){
-    return (
-      <div className="pl10 pr10 pt15 pb15">
-        <div className="text-center color-black-1">
-          <i className={`fs28 icon-${icon}`}></i>
-        </div>
-        <div className="fs18">{title}</div>
-      </div>
-    )
-  }else{
-    return (
-      <div className="row pt15 pb15 pl10 pr10 ml0 mr0 align-items-center zb-b-b no-gutters">
-        <div className="col-auto pr5 text-center color-black-1 fs24" style={{minWidth:'40px'}}>
-          {typeof icon === 'string' &&
-            <i className={`icon-${icon}`}></i>
-          }
-          {typeof icon !== 'string' && icon}
-        </div>
-        <div className="col pl10">
-          <div className="fs16 color-black-1 text-wrap text-left">{title}</div>
-          { description && <div className="fs14 color-black-3 text-left">{description}</div> }
-        </div>
-        {showArrow &&
-          <div className="col-auto text-right color-black-3">
-            <Icon type="right" />
-          </div>
-        }
-      </div>
-     )
-  }
-}
-
-const PlaceOrderResult = ({
-  }) => {
-  return (
-    <div className="">
-        {
-          true &&
-          <div className="text-center p15">
-            <i className={`fs50 icon-success`}></i>
-            <div className="fs24 color-black-1">订单提交成功！</div>
-            <div className="row no-gutters mt15">
-              <div className="col-6">
-                <Button className="m5 fs18" size="" type="default"> 查看订单 </Button>
-              </div>
-              <div className="col-6">
-                <Button className="m5 fs18" size="" type="default"> 继续下单 </Button>
-              </div>
-            </div>
-          </div>
-        }
-        {
-          false &&
-          <div className="text-center p15">
-            <Icon type="close-circle" className="fs50 text-error" />
-            <div className="fs18 color-black-1 mt15">您取消了订单提交</div>
-            <div className="mt10">
-
-            </div>
-          </div>
-        }
-    </div>
-  );
-};
 function PlaceOrderSteps(props) {
   const {placeOrder, settings, marketcap, dispatch} = props
   const {side, pair, priceInput, amountInput} = placeOrder
@@ -153,7 +87,7 @@ function PlaceOrderSteps(props) {
             <div>
               <div className="p15 color-black-1 fs18 zb-b-b text-center">
                 <div className="row">
-                  <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'placeOrderSteps'})}>
+                  <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'face2FaceConfirm'})}>
                     <Icon type="close" />
                   </div>
                   <div className="col">Place Order</div>
@@ -215,20 +149,6 @@ function PlaceOrderSteps(props) {
               <div className="bg-white p15">
                 <img style={{width:'240px',height:'240px'}} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAIAAAAI7H7bAAAFNElEQVR4nO3dQW4jORAAQWux//+y97onYlCTpqrliKthqdVSgocCm6/v7+8v4O/88+4LgE8gJAgICQJCgoCQICAkCAgJAkKCwL+Hv71er2vXkfvUQfPhSzl85Py/DvIXXOL8i7IiQUBIEBASBIQEASFBQEgQEBIEhASB00D2YMm4czbgWzLTXHIPZ/KLX3I3xiNjKxIEhAQBIUFASBAQEgSEBAEhQUBIEBgOZA/yXZCPnv0tmTPOLLn4/b+oLysSJIQEASFBQEgQEBIEhAQBIUFASBDoB7KPtmQb7CNGkPyfFQkCQoKAkCAgJAgICQJCgoCQICAkCBjI/qmbDx+eDX+Ncd/IigQBIUFASBAQEgSEBAEhQUBIEBASBPqB7P4p3s3Rar7l9uBTD8Dd/4v6siJBQkgQEBIEhAQBIUFASBAQEgSEBIHhQDbfjLnf/unkzanr/qc0X2ZFgoCQICAkCAgJAkKCgJAgICQICAkCr0dsP2zt3yG7xKMv/jIrEgSEBAEhQUBIEBASBIQEASFBQEgQ2HKG7M0Nkje3i36qJY9invmJQbMVCQJCgoCQICAkCAgJAkKCgJAgICQInHbILjnJdCYfki65wv2X8anj6fOdtyJBQEgQEBIEhAQBIUFASBAQEgSEBIEtjyxeMsXLzz/dPz+dvdf+n83lj2xFgoCQICAkCAgJAkKCgJAgICQICAkC/SOLb07x8qHbkl2rS97rYM8ktH2vMSsSBIQEASFBQEgQEBIEhAQBIUFASBAYPrJ4yTmh+RUad77rBZewQxbeSUgQEBIEhAQBIUFASBAQEgSEBIHhDtkl+xlvzv5uDn9vvuDM/gH65YdgW5EgICQICAkCQoKAkCAgJAgICQJCgsDHniG7ZGI4s2TOuP8e5lc4fi8rEgSEBAEhQUBIEBASBIQEASFBQEgQGD6yOLfknNCbE8MlL/ipLj+z2ooEASFBQEgQEBIEhAQBIUFASBAQEgSGO2SXPLI4t+Tk2V945Ov+KzyzIkFASBAQEgSEBAEhQUBIEBASBIQEgdMZsrNJ6JKHD8/kF79/zrj/+1py8qxHFsOPExIEhAQBIUFASBAQEgSEBAEhQeA0kL15QGf+grOLX/KRb27UXfKRD5ZsWz6zIkFASBAQEgSEBAEhQUBIEBASBIQEgeEji4dvtmMzZr538qZHTCdbNyfyY1YkCAgJAkKCgJAgICQICAkCQoKAkCBwGsjuH4TtH0Hm93DJXHg/A1l4HiFBQEgQEBIEhAQBIUFASBAQEgSu7pBdYslM8+b23tkLzuw/Q/ZgfPFWJAgICQJCgoCQICAkCAgJAkKCgJAgcDpDdsngcmbJgar79wvf3I1780Zd/iqtSBAQEgSEBAEhQUBIEBASBIQEASFB4DSQPViyr3bJyPjRW1Mfsf90cBk3J/JfViRICAkCQoKAkCAgJAgICQJCgoCQIDAcyB4smTPO3JxOHszea8l5tTen5DdH4XbIwo8TEgSEBAEhQUBIEBASBIQEASFBoB/I7nfz6bj5THPJ3uSZ2Y3K/+vADll4JyFBQEgQEBIEhAQBIUFASBAQEgR+40A2d3N+un8P76M5QxbeSUgQEBIEhAQBIUFASBAQEgSEBIF+IPsLR3Wz/9o/q/3Ur/InWJEgICQICAkCQoKAkCAgJAgICQJCgsBwIHvznND98iNfDy9483jZ3JLtvQceWQzvJCQICAkCQoKAkCAgJAgICQJCgsDLLkj4e1YkCAgJAkKCgJAgICQICAkCQoKAkCAgJAj8B6HZGCr9Rw1/AAAAAElFTkSuQmCC" />
               </div>
-            </div>
-          }/>
-          <Page id="result" render={({page})=>
-            <div className="div">
-              <div className="p15 color-black-1 fs22 zb-b-b text-center">
-                <div className="row">
-                  <div className="col text-left">
-                    <Icon type="close"/>
-                  </div>
-                  <div className="col-auto">Result</div>
-                  <div className="col"></div>
-                </div>
-              </div>
-              <PlaceOrderResult />
             </div>
           }/>
         </Pages>

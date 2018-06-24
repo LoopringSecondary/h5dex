@@ -13,7 +13,7 @@ import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
 import moment from 'moment'
 import { keccakHash } from 'LoopringJS/common/utils'
 
-const HelperOfMyOrders = ({orders = {}, dispatch}) => {
+const Face2FaceOrders = ({orders = {}, dispatch}) => {
   const market = orders.filters.market
   const tokens = getTokensByMarket(market)
   const changePrice = (item) => {
@@ -209,5 +209,6 @@ export default connect(({
                           orders,
                         }) => ({
   orders: orders.MyOpenOrders
-}))(HelperOfMyOrders)
+}))(Face2FaceOrders)
+
 
