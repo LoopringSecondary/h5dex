@@ -3,15 +3,13 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Button as WebButton,Input } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
-import {OpenOrderList} from './ListOrders'
+import HelperOfOrders from './HelperOfOrders'
+import HelperOfBalance from './HelperOfBalance'
+
 const Item = List.Item;
 const Brief = Item.Brief;
 
-class Face2Face extends React.Component {
-  state = {
-    type: 'money',
-    side: 'buy',
-  }
+class Face2FaceForm extends React.Component {
   render() {
     const dispatch = this.props.dispatch
     const showLayer = (payload={})=>{
@@ -42,43 +40,8 @@ class Face2Face extends React.Component {
         }
       })
     }
-
-    const showPriceHelper= ()=>{
-      showLayer({id:'PlaceOrderPriceHelper'})
-    }
-    const { type } = this.state;
-
-    const PlaceOrderForm = (props)=>{
-      const { side } = props
-      return (
-        <div>
-        </div>
-      )
-    }
-    const {side} = this.state
-    const tabChange = (side)=>{
-      this.setState({
-        side
-      })
-    }
-   const gotoTrade = ()=>{
-      routeActions.gotoPath('/trade/detail')
-    }
     return (
-      <div className="bg-white">
-        <NavBar
-          className="zb-b-b"
-          mode="light"
-          onLeftClick={() => routeActions.goBack()}
-          leftContent={[
-            <span className="color-black-1"><WebIcon key="1" type="left" /></span>,
-          ]}
-          rightContent={[
-            <span className="color-black-1 " onClick={()=>{}}><WebIcon key="1" type="question-circle-o" /></span>
-          ]}
-        >
-          <div className="" onClick={showLayer.bind(this,{id:'placeOrderMarketHelper'})}>Face To Face</div>
-        </NavBar>
+      <div className="">
         <div className="zb-b-b pt25 pb25 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
@@ -97,14 +60,14 @@ class Face2Face extends React.Component {
           </div>
           <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+              <Button onClick={showLayer.bind(this,{id:'helperOfTokens'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
                 <span>Sell EOS</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+              <Button onClick={showLayer.bind(this,{id:'helperOfTokens'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
                 <span>Buy LRC</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
@@ -143,17 +106,11 @@ class Face2Face extends React.Component {
           </div>
           <Button className="" onClick={()=>{}} type="primary">Exchange EOS To LRC</Button>
         </div>
-        <div className="bg-grey-100">
-          <div className="color-black-2 fs14 p10 zb-b-b">My Exchanges</div>
-          <OpenOrderList />
-        </div>
-
       </div>
     );
   }
 }
-const Face2FaceForm = connect(({layers})=>({layers}))(Face2Face)
-export default Face2FaceForm
+export default connect()(Face2FaceForm)
 
 
 
