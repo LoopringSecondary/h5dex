@@ -57,7 +57,7 @@ class Face2FacePage extends React.Component {
             className=""
             mode="light"
             leftContent={[
-              <span className="color-black-1" key="1"><WebIcon type="left" /></span>,
+              <span onClick={routeActions.goBack} className="color-black-1" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
               <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
