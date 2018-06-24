@@ -101,6 +101,8 @@ function PlaceOrderSteps(props) {
   const {side, pair, priceInput, amountInput} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
+  const validSince = moment()
+  const validUntil = moment().add(1, 'months')
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -117,11 +119,9 @@ function PlaceOrderSteps(props) {
       }
     })
   }
-  const next = (page) => {
+  const next = async (page) => {
     let order = {};
-    // TODO mock datas
-    // order.owner = window.Wallet.getCurrentAccount()
-    order.owner = '0xEF68e7C694F40c8202821eDF525dE3782458639f'
+    order.owner = window.Wallet.address
     order.delegateAddress = config.getDelegateAddress();
     order.protocol = settings.trading.contract.address;
     const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
@@ -132,10 +132,8 @@ function PlaceOrderSteps(props) {
     order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
     const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
     order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
-    const validSince = moment().unix()
-    const validUntil = moment().add(3600, 'seconds').unix()
-    order.validSince = toHex(validSince);
-    order.validUntil = toHex(validUntil);
+    order.validSince = toHex(validSince.unix());
+    order.validUntil = toHex(validUntil.unix());
     order.marginSplitPercentage = 50;
     order.buyNoMoreThanAmountB = side.toLowerCase() === "buy";
     order.walletAddress = config.getWalletAddress();
@@ -144,7 +142,34 @@ function PlaceOrderSteps(props) {
     order.authAddr = authAccount.getAddressString();
     order.authPrivateKey = clearHexPrefix(authAccount.getPrivateKeyString());
     dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
-    page.gotoPage({id:'wallet'})
+    // TODO 验证钱包类型
+    // page.gotoPage({id:'wallet'})
+    const signResult = await window.Wallet.signOrder(order)
+    if(signResult.error) {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:signResult.error.message,
+        type:'error'
+      })
+      return
+    }
+    const signedOrder = {...order, ...signResult.result};
+    signedOrder.powNonce = 100;
+    const response = await window.RELAY.order.placeOrder(signedOrder)
+    // console.log('...submit order :', response)
+    if (response.error) {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:response.error.message,
+        type:'error'
+      })
+    } else {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:'successfully submit order',
+        type:'info'
+      })
+    }
   }
   return (
     <div className="">
@@ -193,8 +218,8 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
-                <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
-                <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
+                <OrderMetaItem label="矿工撮合费" value="0 LRC" />
+                <OrderMetaItem label="订单有效期" value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`} />
                 {
                   side === 'buy' &&
                   <Button type="" className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>Next</Button>
