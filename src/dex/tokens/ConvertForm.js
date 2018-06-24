@@ -9,6 +9,8 @@ import TokenFormatter, { getBalanceBySymbol, getPriceBySymbol, isValidNumber } f
 import config from '../../common/config'
 import intl from 'react-intl-universal'
 
+
+
 const WETH = Contracts.WETH;
 const Item = List.Item;
 const Brief = Item.Brief;

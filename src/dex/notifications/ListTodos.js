@@ -7,7 +7,7 @@ import { Switch, ListView, Button, Tabs, NavBar, Icon, SegmentedControl, NoticeB
 import { Icon as WebIcon } from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
 import { toBig, toHex } from '../../common/loopringjs/src/common/formatter'
-import TokenFormatter from '../../modules/tokens/TokenFm'
+import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
 import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
@@ -20,7 +20,7 @@ const tf = new TokenFormatter({symbol: 'ETH'})
 const gasFee = tf.getUnitAmount(toBig(gasPrice).times(gasLimit))
 
 const TodoItem = (props) => {
-  const {item = {}, actions, key, index, dispatch} = props
+  const {item = {}, actions, key, index, balance, dispatch} = props
   const gotoDetail = () => {
     routeActions.gotoPath('/trade/detail')
   }
@@ -30,33 +30,54 @@ const TodoItem = (props) => {
 
   const enable = async (item, checked) => {
     if (checked) {
+      const assets = getBalanceBySymbol(item.symbol)
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
-      const data = ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount})
-      const tx = {
+      const txs = []
+      if (assets.allowance !== 0) {
+        txs.push({
+          gasLimit: gasLimit,
+          data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
+          to: token.address,
+          gasPrice: gasPrice,
+          chainId: config.getChainId(),
+          value: '0x0',
+          nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
+        })
+      }
+      txs.push({
         gasLimit: gasLimit,
-        data,
+        data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
         to: token.address,
         gasPrice: gasPrice,
         chainId: config.getChainId(),
         value: '0x0',
         nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
-      }
-      window.Wallet.signTx(tx).then(res => {
-        if (res.result) {
-          window.ETH.sendRawTransaction(res.result).then(resp => {
-            if (resp.result) {
-              window.RELAY.account.notifyTransactionSubmitted({
-                txHash: resp.result,
-                rawTx: tx,
-                from: window.Wallet.address
-              })
-            }
-          })
-        }
       })
 
+      eachLimit(txs, 1, async (tx, callback) => {
+        window.Wallet.signTx(tx).then(res => {
+          if (res.result) {
+            window.ETH.sendRawTransaction(res.result).then(resp => {
+              if (resp.result) {
+                window.RELAY.account.notifyTransactionSubmitted({
+                  txHash: resp.result,
+                  rawTx: tx,
+                  from: window.Wallet.address
+                })
+                callback()
+              } else {
+                callback(res.error)
+              }
+            })
+          } else {
+            callback(res.error)
+          }
+        })
+      }, function (error) {
+        Modal.alert(error.message)
+      })
     }
   }
 
@@ -222,33 +243,50 @@ class ListTodos extends React.Component {
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
-      const data = ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount})
-      const tx = {
+      const assets = getBalanceBySymbol(item.symbol)
+      const txs = []
+      if (assets.allowance !== 0) {
+        txs.push({
+          gasLimit: gasLimit,
+          data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
+          to: token.address,
+          gasPrice: gasPrice,
+          chainId: config.getChainId(),
+          value: '0x0',
+          nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
+        })
+      }
+      txs.push({
         gasLimit: gasLimit,
-        data,
+        data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
         to: token.address,
         gasPrice: gasPrice,
         chainId: config.getChainId(),
         value: '0x0',
         nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
-      }
-      window.Wallet.signTx(tx).then(res => {
-        if (res.result) {
-          window.ETH.sendRawTransaction(res.result).then(resp => {
-            if (resp.result) {
-              window.RELAY.account.notifyTransactionSubmitted({
-                txHash: resp.result,
-                rawTx: tx,
-                from: window.Wallet.address
-              })
-              callback()
-            } else {
-              callback(res.error)
-            }
-          })
-        } else {
-          callback(res.error)
-        }
+      })
+
+      eachLimit(txs, 1, async (tx, callback) => {
+        window.Wallet.signTx(tx).then(res => {
+          if (res.result) {
+            window.ETH.sendRawTransaction(res.result).then(resp => {
+              if (resp.result) {
+                window.RELAY.account.notifyTransactionSubmitted({
+                  txHash: resp.result,
+                  rawTx: tx,
+                  from: window.Wallet.address
+                })
+                callback()
+              } else {
+                callback(res.error)
+              }
+            })
+          } else {
+            callback(res.error)
+          }
+        })
+      }, function (error) {
+        Modal.alert(error.message)
       })
     }, function (error) {
       Modal.alert(error.message)
@@ -257,7 +295,7 @@ class ListTodos extends React.Component {
 
   render () {
 
-    const {dispatch} = this.props
+    const {dispatch,balance} = this.props
     const goBack = () => {
       routeActions.goBack()
     }
@@ -268,7 +306,7 @@ class ListTodos extends React.Component {
       }
       const obj = data[index--]
       return (
-        <TodoItem key={rowID} index={rowID} item={obj} dispatch={dispatch}/>
+        <TodoItem key={rowID} index={rowID} item={obj} balance = {balance} dispatch={dispatch}/>
       )
     }
     return (
@@ -341,5 +379,11 @@ class ListTodos extends React.Component {
   }
 }
 
-export default connect()(ListTodos)
+function mapStateToProps (state) {
+  return {
+    balance: state.sockets.balance,
+  }
+}
+
+export default connect(mapStateToProps)(ListTodos)
 
