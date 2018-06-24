@@ -3,6 +3,10 @@ import Wallet from '../common/wallets/wallet'
 
 export default class Loopr extends Wallet{
 
+  constructor(){
+    super();
+    this.walletType='loopr'
+  }
   getLanguage() {
    return new Promise((resolve) => {
       request('getLanguage', null, (error,result) => {
