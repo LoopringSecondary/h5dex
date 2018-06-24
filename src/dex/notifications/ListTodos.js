@@ -3,14 +3,18 @@ import {connect} from 'dva'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,NoticeBar  } from 'antd-mobile'
+import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,NoticeBar,Modal } from 'antd-mobile'
 import { Switch,Icon as WebIcon} from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
 const TodoItem = (props)=>{
-    const {item={},actions,key,index} = props
+    const {item={},actions,key,index,dispatch} = props
     const gotoDetail = ()=>{
       routeActions.gotoPath('/trade/detail')
     }
+  const showReceive = (symbol) => {
+    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken',symbol}});
+  }
+
     return (
       <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={()=>{}}>
         <div className="col-auo pr15 color-black text-center">
@@ -47,7 +51,7 @@ const TodoItem = (props)=>{
                       <span className="d-inline-block" style={{width:'100px'}}>Lack</span>
                       4000.00 {item.symbol}
                     </div>
-                    <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Receive</Button>
+                    <Button inline={true} type="primary" size="small" className="mr5 mt5" onClick={() => showReceive(item.symbol)}>Receive</Button>
                     <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Buy</Button>
                     <Button inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
               </div>
@@ -160,6 +164,8 @@ class ListTodos extends React.Component {
       }, 1000);
   }
   render(){
+
+    const {dispatch} = this.props;
       const goBack = ()=>{
         routeActions.goBack()
       }
@@ -170,7 +176,7 @@ class ListTodos extends React.Component {
         }
         const obj = data[index--];
         return (
-          <TodoItem key={rowID} index={rowID} item={obj} />
+          <TodoItem key={rowID} index={rowID} item={obj} dispatch={dispatch} />
         );
       };
       return (

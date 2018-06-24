@@ -1,8 +1,8 @@
-# Ring++ - Loopring DEX & DApp Widget
+# About
 
-### Development 
+## Development 
 
-##### Stack
+### Stack
 
 - React
 - React-Router
@@ -13,7 +13,7 @@
 - Dva: Lightweight front-end framework based on redux, redux-saga and react-router. [Link](https://github.com/dvajs/dva)
 
 
-#### start
+### Build & Deploy
 
 ```
 ## install  dependencies

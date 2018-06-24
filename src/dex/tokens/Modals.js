@@ -10,7 +10,7 @@ function Modals(props) {
   return (
     <div>
       <Containers.Layers id="receiveToken">
-          <UiContianers.Modals id="receiveToken" width="450px" wrapClassName="" className="rs">
+          <UiContianers.Modals id="receiveToken"  className="rs">
             <Receive/>
           </UiContianers.Modals>
       </Containers.Layers>
@@ -41,13 +41,11 @@ function Modals(props) {
         </UiContianers.Panels>
       </Containers.Layers>
       <Containers.Layers id="convertToken" >
-        <UiContianers.Panels id="convertToken" position="right" width="450px">
-              <Containers.Wallet>
+        <UiContianers.Modals id="convertToken">
                 <Containers.Convert >
                   <Convert/>
                 </Containers.Convert>
-              </Containers.Wallet>
-        </UiContianers.Panels>
+        </UiContianers.Modals>
       </Containers.Layers>
     </div>
   )
