@@ -6,8 +6,9 @@ import intl from 'react-intl-universal'
 import { toBig, toFixed } from 'LoopringJS/common/formatter'
 import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
+import { connect } from 'dva'
 
-export default class Receive extends React.Component {
+ class Receive extends React.Component {
   state = {
     symbol: null,
     amount: toBig(0),
@@ -81,4 +82,11 @@ export default class Receive extends React.Component {
     )
   }
 }
+function mapStateToProps(state) {
 
+  return {
+    balance:state.sockets.balance,
+  }
+}
+
+export default connect(mapStateToProps)(Receive)

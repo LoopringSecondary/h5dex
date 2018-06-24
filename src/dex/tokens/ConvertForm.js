@@ -9,6 +9,8 @@ import TokenFormatter, { getBalanceBySymbol, getPriceBySymbol, isValidNumber } f
 import config from '../../common/config'
 import intl from 'react-intl-universal'
 
+
+
 const WETH = Contracts.WETH;
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -91,10 +93,10 @@ class Convert extends React.Component {
         gasLimit: toHex(gasLimit),
         data,
         to,
-        gasPrice: toHex(toBig(gasPrice).times(1e9)),
+        gasPrice: toHex(gasPrice),
         chainId: config.getChainId(),
         value,
-        nonce: toHex(await window.STORAGE.wallet.getNonce(address))
+        nonce: toHex(await window.RELAY.account.getNonce(address))
       }
       window.Wallet.signTx(tx).then(res => {
         if(res.result){

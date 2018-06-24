@@ -7,8 +7,8 @@ export default class Imtoken extends Wallet {
   constructor(imtoken) {
     super();
     this.imtoken = imtoken;
+    this.walletType = 'imtoken'
   }
-
   getLanguage() {
     return new Promise((resolve) => {
       this.imtoken.callAPI('device.getCurrentLanguage', (error,result) => {

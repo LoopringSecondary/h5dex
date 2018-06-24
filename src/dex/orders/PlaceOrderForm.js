@@ -4,7 +4,12 @@ import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
-import {toBig} from 'LoopringJS/common/formatter'
+import {toBig,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
+import intl from 'react-intl-universal';
+import * as orderFormatter from 'modules/orders/formatters'
+import moment from 'moment'
+import config from 'common/config'
+import Notification from 'LoopringUI/components/Notification'
 const Item = List.Item;
 
 // 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
@@ -18,7 +23,7 @@ if (isIPhone) {
   }
 }
 const PlaceOrderForm = (props)=>{
-  const {dispatch,placeOrder,lastPrice} = props
+  const {dispatch,placeOrder,lastPrice,marketcap,balance,preference,trading} = props
   const {side,pair} = placeOrder
   const tokens = getTokensByMarket(pair)
   let amount = placeOrder.amountInput
@@ -32,6 +37,14 @@ const PlaceOrderForm = (props)=>{
     })
   }
   const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
+  let sell = {}, buy = {}
+  if(side === 'buy') {
+    sell = {token : tokens.right}
+    buy = {token : tokens.left}
+  } else {
+    sell = {token : tokens.left}
+    buy = {token : tokens.right}
+  }
    const showLayer = (payload={})=>{
      dispatch({
        type:'layers/showLayer',
@@ -81,7 +94,7 @@ const PlaceOrderForm = (props)=>{
     })
     showLayer({id:'helperOfAdvance'})
   }
-  const toConfirm = () => {
+  const toConfirm = async () => {
     if (Number(price) <= 0) {
       Toast.info('Please enter valid price', 3, null, false);
       return
@@ -92,6 +105,54 @@ const PlaceOrderForm = (props)=>{
     }
     if(price !== placeOrder.priceInput) {
       priceChange(price)
+    }
+    if(!window.Wallet.getCurrentAccount()) {
+      Notification.open({
+        message: intl.get('notifications.title.place_order_failed'),
+        type: "error",
+        description: intl.get('notifications.message.wallet_locked')
+      });
+      return
+    }
+    if(!balance || !marketcap) {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:intl.get('notifications.message.failed_fetch_data_from_server'),
+        type:'error'
+      })
+      return
+    }
+    const total = toBig(price).times(amount)
+    const totalWorth = orderFormatter.calculateWorthInLegalCurrency(marketcap, tokens.right, total)
+    if(!totalWorth.gt(0)) {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:intl.get('notifications.message.failed_fetch_data_from_server'),
+        type:'error'
+      })
+      return
+    }
+    let allowed = false
+    let currency = preference.currency;
+    let priceSymbol = getDisplaySymbol(currency)
+    if(currency === 'USD') {
+      priceSymbol = '100' + priceSymbol
+      if(totalWorth.gt(100)) {
+        allowed = true
+      }
+    } else {
+      priceSymbol = '500' + priceSymbol
+      if(totalWorth.gt(500)) {
+        allowed = true
+      }
+    }
+    if(!allowed) {
+      Notification.open({
+        message:intl.get('notifications.title.not_allowed_place_order_worth'),
+        description:intl.get('notifications.message.not_allowed_place_order_worth', {worth: priceSymbol}),
+        type:'error'
+      })
+      return
     }
     showLayer({id:'placeOrderSteps'})
   }
@@ -216,10 +277,14 @@ const PlaceOrderForm = (props)=>{
 }
 export default connect(({
   placeOrder,
-  sockets:{tickers},
+  sockets:{tickers, balance, marketcap},
+  settings:{preference,trading}
 })=>({
   placeOrder,
-  lastPrice:tickers.item.loopr ? tickers.item.loopr.last : null
+  lastPrice:tickers.item.loopr ? tickers.item.loopr.last : null,
+  balance:balance.items ? balance.items : null,
+  marketcap:marketcap.items ? marketcap.items : null,
+  preference,trading
 }))(PlaceOrderForm)
 
 
