@@ -225,18 +225,19 @@ export function storeDatasInShortTerm (host, hash, origin)
  */
 export function cancelOrder (host, {sign, orderHash, tokenS, tokenB, cutoff, type})
 {
-    const {address, r, s, v} = sign;
+    const {owner, r, s, v} = sign;
     try
     {
-        validator.validate({value: address, type: 'ETH_ADDRESS'});
-        validator.validate({value: v, type: 'NUM'});
-        validator.validate({value: s, type: 'ETH_DATA'});
-        validator.validate({value: r, type: 'ETH_DATA'});
-        validator.validate({value: type, type: 'CANCEL_ORDER_TYPE'});
+       // validator.validate({value: owner, type: 'ETH_ADDRESS'});
+       //  validator.validate({value: v, type: 'NUM'});
+       //  validator.validate({value: s, type: 'ETH_DATA'});
+       //  validator.validate({value: r, type: 'ETH_DATA'});
+       //  validator.validate({value: type, type: 'CANCEL_ORDER_TYPE'});
         switch (type)
         {
             case 1:
-                validator.validate({value: orderHash, type: 'ETH_DATA'});
+              console.log(orderHash)
+                validator.validate({value: orderHash, type: 'HASH'});
                 break;
             case 2:
                 break;

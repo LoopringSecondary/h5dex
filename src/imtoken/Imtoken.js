@@ -1,13 +1,14 @@
 import Wallet from '../common/wallets/wallet';
 import config from './config'
+import {toNumber,addHexPrefix} from '../common/loopringjs/src/common/formatter'
 
 export default class Imtoken extends Wallet {
 
   constructor(imtoken) {
     super();
     this.imtoken = imtoken;
+    this.walletType = 'imtoken'
   }
-
   getLanguage() {
     return new Promise((resolve) => {
       this.imtoken.callAPI('device.getCurrentLanguage', (error,result) => {
@@ -51,7 +52,10 @@ export default class Imtoken extends Wallet {
         if(error){
           resolve({error})
         }else{
-          resolve({result})
+          const r = result.slice(0, 66);
+          const s = addHexPrefix(result.slice(66, 130));
+          const v = toNumber(addHexPrefix(result.slice(130, 132)));
+          resolve({result:{r,s,v}})
         }
       })
     })

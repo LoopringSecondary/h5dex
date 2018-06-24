@@ -52,7 +52,7 @@ export const OpenOrderList = ({orders={},dispatch})=>{
           })
         }
         {
-          orders.items && orders.items.length == 0 &&
+          orders.items && orders.items.length === 0 &&
           <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
         }
         {
@@ -86,12 +86,12 @@ export const HistoryOrderList = ()=>{
           [1,2,3,4,5,6,7,8,9].map((item,index)=>
             <tr key={index} className="color-black-2">
               <td hidden className="zb-b-b p10 text-center">
-                {index%2 == 0 && <span className="color-green-500">Buy</span>}
-                {index%2 == 1 && <span className="color-red-500">Sell</span>}
+                {index%2 === 0 && <span className="color-green-500">Buy</span>}
+                {index%2 === 1 && <span className="color-red-500">Sell</span>}
               </td>
               <td className="zb-b-b p10 pl10 text-left">
-                {index%2 == 0 && <span className="color-green-500">0.00095000</span>}
-                {index%2 == 1 && <span className="color-red-500">0.00095000</span>}
+                {index%2 === 0 && <span className="color-green-500">0.00095000</span>}
+                {index%2 === 1 && <span className="color-red-500">0.00095000</span>}
               </td>
               <td className="zb-b-b p10 text-right">1000.0000</td>
               <td className="zb-b-b p10 text-right">80%</td>
@@ -105,7 +105,7 @@ export const HistoryOrderList = ()=>{
           )
         }
         {
-          [].length == 0 &&
+          [].length === 0 &&
           <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
         }
         <tr hidden className="color-black-2">
