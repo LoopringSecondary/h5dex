@@ -9,6 +9,7 @@ import intl from 'react-intl-universal';
 import * as orderFormatter from 'modules/orders/formatters'
 import moment from 'moment'
 import config from 'common/config'
+import Notification from 'LoopringUI/components/Notification'
 const Item = List.Item;
 
 // 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
