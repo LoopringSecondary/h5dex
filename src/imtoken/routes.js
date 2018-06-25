@@ -2,8 +2,9 @@ import React from 'react'
 import Imtoken from './Imtoken'
 import {Toast, Button} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
+import {connect} from 'dva'
 
-export default class Routes extends React.Component {
+class Routes extends React.Component {
 
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
@@ -12,12 +13,35 @@ export default class Routes extends React.Component {
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
+
+        let language = 'en-US'
+        let currency = 'USD'
+        if(window.Wallet.language.indexOf('zh')){
+          language = 'zh-CN'
+        }
+        if(window.Wallet.currency === 'CNY'){
+          currency = 'CNY'
+        }
+        this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
+        this.props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+        this.props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
       })
     } else {
       window.addEventListener('sdkReady', function () {
         window.Wallet = new Imtoken(window.imToken)
         window.Wallet.setConfigs().then(res => {
+          let language = 'en-US'
+          let currency = 'USD'
+          if(window.Wallet.language.indexOf('zh')){
+            language = 'zh-CN'
+          }
+          if(window.Wallet.currency === 'CNY'){
+            currency = 'CNY'
+          }
+          this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
+          this.props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+          this.props.dispatch({type: 'sockets/unlocked'});
          Toast.hide()
         })
       })
@@ -40,3 +64,5 @@ export default class Routes extends React.Component {
   }
 
 }
+
+export default connect()(Routes)
