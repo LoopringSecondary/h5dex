@@ -32,10 +32,9 @@ const routes = ()=>{
             <Redirect to={`/${url}/address`} />
           </Switch>
         )
-        break;
+      break;
     }
 }
-
 export default routes
 
 
