@@ -26,8 +26,7 @@ const UnLogged = ()=>{
   }
 }
 const Logged = ()=>{
-  // const isLogged =  !!window.WALLET && !!window.WALLET.address
-  const isLogged = true
+  const isLogged =  !!window.Wallet && !!window.Wallet.address
   if(isLogged){
     return (
       <div>
@@ -53,7 +52,7 @@ const Logged = ()=>{
       </div>
     )
   }else{
-    return <Redirect to="/dex" />
+    return <Redirect to="/auth" />
   }
 }
 
@@ -68,7 +67,6 @@ export default class Routes extends React.Component {
     return (
       <Switch>
         <Route path={`/dex`}  component={Logged} />
-        {false && <Redirect from="/" to="/dex" />}
       </Switch>
     );
   }
