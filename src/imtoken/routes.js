@@ -14,7 +14,6 @@ class Routes extends React.Component {
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
-
         let language = 'en-US'
         let currency = 'USD'
         if(window.Wallet.language.indexOf('zh')){
@@ -40,7 +39,6 @@ class Routes extends React.Component {
           if(window.Wallet.currency === 'CNY'){
             currency = 'CNY'
           }
-          Toast.info(JSON.stringify(this.props), 1, null, false);
           _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
           _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
           _props.dispatch({type: 'sockets/unlocked'});

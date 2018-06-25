@@ -35,8 +35,7 @@ function PlaceOrderSteps(props) {
   const {p2pOrder, balance, settings, marketcap, pendingTx, dispatch} = props
   const gasPrice = 10
   const {tokenS, tokenB, amountS, amountB} = p2pOrder
-  const balanceS = tokenS ? tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokenS, toUnit:true}).balance : toBig(0)
-  const balanceB = tokenB ? tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokenB, toUnit:true}).balance : toBig(0)
+
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -115,7 +114,7 @@ function PlaceOrderSteps(props) {
       return
     }
     try {
-      const {order, unsigned} = await orderFormatter.signP2POrder(tradeInfo, window.Wallet.adress)
+      const {order, unsigned} = await orderFormatter.signP2POrder(tradeInfo, window.Wallet.address)
       const signResult = await window.Wallet.signOrder(order)
       if(signResult.error) {
         Notification.open({
@@ -137,10 +136,16 @@ function PlaceOrderSteps(props) {
         })
       } else {
         Notification.open({
-          message:intl.get('notifications.title.place_order_failed'),
+          message:intl.get('notifications.title.place_order_success'),
           description:'successfully submit order',
           type:'info'
         })
+        signedOrder.orderHash = response.result
+        dispatch({type:'p2pOrder/loadingChange', payload:{loading:false}})
+        const unsignedOrder = unsigned.find(item => item.type === 'order')
+        const qrcode = JSON.stringify({type:'p2p_order', value:{authPrivateKey:unsignedOrder.completeOrder.authPrivateKey, orderHash:signedOrder.orderHash}})
+        dispatch({type:'p2pOrder/qrcodeChange', payload:{qrcode}})
+        page.gotoPage({id:'qrcode'})
       }
     } catch (e) {
       console.log(e)
@@ -189,7 +194,7 @@ function PlaceOrderSteps(props) {
               </div>
             </div>
           }/>
-          <Page id="wallet" render={({page})=>
+          <Page id="qrcode" render={({page})=>
             <div className="div">
               <div className="p15 color-black-1 fs18 zb-b-b text-center no-gutters">
                 <div className="row">
@@ -203,7 +208,7 @@ function PlaceOrderSteps(props) {
                 </div>
               </div>
               <div className="bg-white p15">
-                <img style={{width:'240px',height:'240px'}} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAIAAAAI7H7bAAAFNElEQVR4nO3dQW4jORAAQWux//+y97onYlCTpqrliKthqdVSgocCm6/v7+8v4O/88+4LgE8gJAgICQJCgoCQICAkCAgJAkKCwL+Hv71er2vXkfvUQfPhSzl85Py/DvIXXOL8i7IiQUBIEBASBIQEASFBQEgQEBIEhASB00D2YMm4czbgWzLTXHIPZ/KLX3I3xiNjKxIEhAQBIUFASBAQEgSEBAEhQUBIEBgOZA/yXZCPnv0tmTPOLLn4/b+oLysSJIQEASFBQEgQEBIEhAQBIUFASBDoB7KPtmQb7CNGkPyfFQkCQoKAkCAgJAgICQJCgoCQICAkCBjI/qmbDx+eDX+Ncd/IigQBIUFASBAQEgSEBAEhQUBIEBASBPqB7P4p3s3Rar7l9uBTD8Dd/4v6siJBQkgQEBIEhAQBIUFASBAQEgSEBIHhQDbfjLnf/unkzanr/qc0X2ZFgoCQICAkCAgJAkKCgJAgICQICAkCr0dsP2zt3yG7xKMv/jIrEgSEBAEhQUBIEBASBIQEASFBQEgQ2HKG7M0Nkje3i36qJY9invmJQbMVCQJCgoCQICAkCAgJAkKCgJAgICQInHbILjnJdCYfki65wv2X8anj6fOdtyJBQEgQEBIEhAQBIUFASBAQEgSEBIEtjyxeMsXLzz/dPz+dvdf+n83lj2xFgoCQICAkCAgJAkKCgJAgICQICAkC/SOLb07x8qHbkl2rS97rYM8ktH2vMSsSBIQEASFBQEgQEBIEhAQBIUFASBAYPrJ4yTmh+RUad77rBZewQxbeSUgQEBIEhAQBIUFASBAQEgSEBIHhDtkl+xlvzv5uDn9vvuDM/gH65YdgW5EgICQICAkCQoKAkCAgJAgICQJCgsDHniG7ZGI4s2TOuP8e5lc4fi8rEgSEBAEhQUBIEBASBIQEASFBQEgQGD6yOLfknNCbE8MlL/ipLj+z2ooEASFBQEgQEBIEhAQBIUFASBAQEgSGO2SXPLI4t+Tk2V945Ov+KzyzIkFASBAQEgSEBAEhQUBIEBASBIQEgdMZsrNJ6JKHD8/kF79/zrj/+1py8qxHFsOPExIEhAQBIUFASBAQEgSEBAEhQeA0kL15QGf+grOLX/KRb27UXfKRD5ZsWz6zIkFASBAQEgSEBAEhQUBIEBASBIQEgeEji4dvtmMzZr538qZHTCdbNyfyY1YkCAgJAkKCgJAgICQICAkCQoKAkCBwGsjuH4TtH0Hm93DJXHg/A1l4HiFBQEgQEBIEhAQBIUFASBAQEgSu7pBdYslM8+b23tkLzuw/Q/ZgfPFWJAgICQJCgoCQICAkCAgJAkKCgJAgcDpDdsngcmbJgar79wvf3I1780Zd/iqtSBAQEgSEBAEhQUBIEBASBIQEASFB4DSQPViyr3bJyPjRW1Mfsf90cBk3J/JfViRICAkCQoKAkCAgJAgICQJCgoCQIDAcyB4smTPO3JxOHszea8l5tTen5DdH4XbIwo8TEgSEBAEhQUBIEBASBIQEASFBoB/I7nfz6bj5THPJ3uSZ2Y3K/+vADll4JyFBQEgQEBIEhAQBIUFASBAQEgR+40A2d3N+un8P76M5QxbeSUgQEBIEhAQBIUFASBAQEgSEBIF+IPsLR3Wz/9o/q/3Ur/InWJEgICQICAkCQoKAkCAgJAgICQJCgsBwIHvznND98iNfDy9483jZ3JLtvQceWQzvJCQICAkCQoKAkCAgJAgICQJCgsDLLkj4e1YkCAgJAkKCgJAgICQICAkCQoKAkCAgJAj8B6HZGCr9Rw1/AAAAAElFTkSuQmCC" />
+                <QRCode value={p2pOrder.qrcode} size={240} level='H'/>
               </div>
             </div>
           }/>

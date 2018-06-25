@@ -55,11 +55,11 @@ class Face2FaceForm extends React.Component {
       }
     }
     const submitOrder = ()=>{
-      if(!isValidNumber(p2pOrder.tokenB)) {
+      if(!isValidNumber(p2pOrder.amountB)) {
         Toast.info('Please enter valid amount', 3, null, false);
         return
       }
-      if(!validateAmountS(p2pOrder.tokenS)){
+      if(!validateAmountS(p2pOrder.amountS)){
         Toast.info('You have insufficient balance of '+p2pOrder.tokenS, 3, null, false);
         return
       }

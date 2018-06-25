@@ -6,6 +6,7 @@ import {isApproving} from '../transactions/formatters'
 import contracts from 'LoopringJS/ethereum/contracts/Contracts'
 import {createWallet} from 'LoopringJS/ethereum/account';
 import * as tokenFormatter from 'modules/tokens/TokenFm'
+import Notification from 'LoopringUI/components/Notification'
 
 const integerReg = new RegExp("^[0-9]*$")
 const amountReg = new RegExp("^(([0-9]+\\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\\.[0-9]+)|([0-9]*[1-9][0-9]*))$")
@@ -324,9 +325,9 @@ export async function p2pVerification(balances, tradeInfo, txs, gasPrice) {
   tradeInfo.warn = warn
 }
 
-export async function signP2POrder(tradeInfo, walletAddress) {
+export async function signP2POrder(tradeInfo, address) {
   let order = {};
-  order.owner = walletAddress
+  order.owner = address
   order.delegateAddress = tradeInfo.delegateAddress;
   order.protocol = tradeInfo.protocol;
   const tokenB = config.getTokenBySymbol(tradeInfo.tokenB);
@@ -347,19 +348,19 @@ export async function signP2POrder(tradeInfo, walletAddress) {
   const completeOrder = {...order}
   completeOrder.authPrivateKey = fm.clearHexPrefix(authAccount.getPrivateKeyString());
   // sign orders and txs
-  const unsigned = generateSignData({tradeInfo, order, completeOrder, walletAddress})
+  const unsigned = await generateSignData({tradeInfo, order, completeOrder, address})
   return {order, unsigned}
 }
 
 async function generateSignData({tradeInfo, order, completeOrder, address}) {
-  const unsigned = new Array()
+  let unsigned = new Array()
   // sign orders and txs
   unsigned.push({type: 'order', data:order, completeOrder:completeOrder, description: `Sign Order`, address})
   const approveWarn = tradeInfo.warn.filter(item => item.type === "AllowanceNotEnough");
-  if (approveWarn) {
+  if (approveWarn && approveWarn.length > 0) {
     const gasLimit = tradeInfo.gasLimit;
     const gasPrice = tradeInfo.gasPrice;
-    let nonce = await window.STORAGE.wallet.getNonce(address)
+    let nonce = await window.RELAY.account.getNonce(address)
     if(nonce.error) {
       throw new Error(nonce.error.message)
     }
