@@ -13,7 +13,6 @@ const Brief = Item.Brief;
 class Face2FaceForm extends React.Component {
   render() {
     const {balance, p2pOrder, dispatch} = this.props
-    Toast.info(window.Wallet.address, 3, null, false);
     const showLayer = (payload={})=>{
       dispatch({
         type:'layers/showLayer',
