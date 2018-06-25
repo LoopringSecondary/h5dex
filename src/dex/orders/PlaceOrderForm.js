@@ -106,7 +106,7 @@ const PlaceOrderForm = (props)=>{
     if(price !== placeOrder.priceInput) {
       priceChange(price)
     }
-    if(!window.Wallet.getCurrentAccount()) {
+    if(!window.Wallet.address) {
       Notification.open({
         message: intl.get('notifications.title.place_order_failed'),
         type: "error",
