@@ -10,6 +10,7 @@ export default class MockWallet extends Wallet {
   constructor(key) {
     super();
     this.wallet = fromPrivateKey(key);
+    this.walletType='mock'
   }
 
   getLanguage() {

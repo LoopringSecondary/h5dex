@@ -1,4 +1,4 @@
-export default function request(functionName, data, callback) {
+export default function request(method, data, callback) {
 
   if (callback) {
     const tt = new Date().getTime();
@@ -8,13 +8,13 @@ export default function request(functionName, data, callback) {
       delete window[t]
     };
     window.webkit.messageHandlers.nativeCallbackHandler.postMessage(JSON.stringify({
-      functionName,
+      method,
       data,
       callback: t
     }));
   } else {
     window.webkit.messageHandlers.nativeCallbackHandler.postMessage(JSON.stringify({
-      functionName,
+      method,
       data,
     }));
   }

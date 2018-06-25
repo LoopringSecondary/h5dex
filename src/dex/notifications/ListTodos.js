@@ -3,7 +3,7 @@ import { connect } from 'dva'
 import { TickersFm, TickerFm } from 'modules/tickers/formatters'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { Switch, ListView, Button, Tabs, NavBar, Icon, SegmentedControl, NoticeBar, Modal } from 'antd-mobile'
+import { Switch, ListView, Button, Tabs, NavBar, Icon, SegmentedControl, NoticeBar, Modal,Toast } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
 import { toBig, toHex } from '../../common/loopringjs/src/common/formatter'
@@ -30,8 +30,8 @@ const TodoItem = (props) => {
 
   const enable = async (item, checked) => {
     if (checked) {
-      let nonce  = await window.RELAY.account.getNonce(window.Wallet.address)
-      const assets = getBalanceBySymbol({balances:balance.items,symbol:item.symbol})
+      let nonce = await window.RELAY.account.getNonce(window.Wallet.address)
+      const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
@@ -152,36 +152,36 @@ const TodoItem = (props) => {
   )
 }
 
-const data = [
-  {
-    symbol: 'EOS',
-    title: 'EOS balance is insufficient for orders',
-    type: 'balance',
-
-  },
-  {
-    symbol: 'WETH',
-    title: 'WETH balance is insufficient for orders',
-    type: 'balance',
-  },
-  {
-    symbol: 'LRC',
-    title: 'LRC balance is insufficient for orders',
-    type: 'balance',
-  },
-  {
-    symbol: 'EOS',
-    type: 'allowance',
-  },
-  {
-    symbol: 'WETH',
-    type: 'allowance',
-  },
-  {
-    symbol: 'LRC',
-    type: 'allowance',
-  },
-]
+// const data = [
+//   {
+//     symbol: 'EOS',
+//     title: 'EOS balance is insufficient for orders',
+//     type: 'balance',
+//
+//   },
+//   {
+//     symbol: 'WETH',
+//     title: 'WETH balance is insufficient for orders',
+//     type: 'balance',
+//   },
+//   {
+//     symbol: 'LRC',
+//     title: 'LRC balance is insufficient for orders',
+//     type: 'balance',
+//   },
+//   {
+//     symbol: 'EOS',
+//     type: 'allowance',
+//   },
+//   {
+//     symbol: 'WETH',
+//     type: 'allowance',
+//   },
+//   {
+//     symbol: 'LRC',
+//     type: 'allowance',
+//   },
+// ]
 const NUM_ROWS = 15
 let pageIndex = 0
 
@@ -204,22 +204,38 @@ class ListTodos extends React.Component {
     this.state = {
       dataSource,
       isLoading: true,
+      data: []
     }
   }
 
   componentDidMount () {
-    // you can scroll to the specified position
-    // setTimeout(() => this.lv.scrollTo(0, 120), 800);
-
-    // simulate initial Ajax
-    setTimeout(() => {
-      // this.rData = genData();
-      this.rData = data
+    const {balance} = this.props
+    Toast.loading('Loading...', 0, () => {
+      Toast.success('Load complete !!!')
+    })
+    window.RELAY.account.getAllEstimatedAllocatedAmount({
+      owner: window.Wallet.address,
+      delegateAddress: config.getDelegateAddress()
+    }).then(res => {
+      const data = []
+      if (!res.error && res.result) {
+        res.result.forEach((value, key) => {
+          const assets = getBalanceBySymbol({balances: balance.items, symbol: key})
+          if (assets.balance.lt(toBig(value))) {
+            data.push({symbol: key, type: 'balance', title: `${key} balance is insufficient for orders`})
+          }
+          if (assets.allowance.lt(toBig(value))) {
+            data.push({symbol: key, type: 'allowance', title: `${key} allowance is insufficient for orders`})
+          }
+        })
+      }
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.rData),
+        dataSource: this.state.dataSource.cloneWithRows(data),
         isLoading: false,
+        data
       })
-    }, 600)
+      Toast.hide()
+    })
   }
 
   onEndReached = (event) => {
@@ -240,15 +256,16 @@ class ListTodos extends React.Component {
   }
 
   enableAll = async () => {
-    const {balance} = this.props;
-    let nonce =  await window.RELAY.account.getNonce(window.Wallet.address)
+    const {balance} = this.props
+    const {data} = this.state
+    let nonce = await window.RELAY.account.getNonce(window.Wallet.address)
     const approveJobs = data.filter(item => item.type === 'allowance')
     const txs = []
     eachLimit(approveJobs, 1, async (item, callback) => {
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
-      const assets = getBalanceBySymbol({balances:balance.items,symbol:item.symbol})
+      const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
       if (assets.allowance !== 0) {
         txs.push({
           gasLimit: gasLimit,
@@ -259,7 +276,7 @@ class ListTodos extends React.Component {
           value: '0x0',
           nonce: toHex(nonce)
         })
-        nonce = nonce +1
+        nonce = nonce + 1
       }
       txs.push({
         gasLimit: gasLimit,
@@ -270,7 +287,7 @@ class ListTodos extends React.Component {
         value: '0x0',
         nonce: toHex(nonce)
       })
-      nonce = nonce +1
+      nonce = nonce + 1
     }, function (error) {
       Modal.alert(error.message)
     })
@@ -301,7 +318,8 @@ class ListTodos extends React.Component {
 
   render () {
 
-    const {dispatch,balance} = this.props
+    const {dispatch, balance} = this.props
+    const {data} = this.state
     const goBack = () => {
       routeActions.goBack()
     }
@@ -312,7 +330,7 @@ class ListTodos extends React.Component {
       }
       const obj = data[index--]
       return (
-        <TodoItem key={rowID} index={rowID} item={obj} balance = {balance} dispatch={dispatch}/>
+        <TodoItem key={rowID} index={rowID} item={obj} balance={balance} dispatch={dispatch}/>
       )
     }
     return (
@@ -332,11 +350,12 @@ class ListTodos extends React.Component {
           >
             <SegmentedControl values={['Todos', 'Messages']} style={{width: '220px', height: '32px'}}/>
           </NavBar>
+          {data.length > 0 && (window.Wallet.walletType === 'loopr' || window.Wallet.walletType === 'mock') &&
           <NoticeBar onClick={this.enableAll} className="text-left t-error s-lg"
                      icon={<WebIcon type="exclamation-circle-o"/>}
                      mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
             One click to enable all tokens ?
-          </NoticeBar>
+          </NoticeBar>}
           <ListView
             ref={el => this.lv = el}
             dataSource={this.state.dataSource}
