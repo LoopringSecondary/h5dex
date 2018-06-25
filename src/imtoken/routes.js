@@ -10,6 +10,7 @@ class Routes extends React.Component {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
     })
+    const _props = this.props
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
@@ -22,9 +23,9 @@ class Routes extends React.Component {
         if(window.Wallet.currency === 'CNY'){
           currency = 'CNY'
         }
-        this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
-        this.props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
-        this.props.dispatch({type: 'sockets/unlocked'});
+        _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
+        _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+        _props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
       })
     } else {
@@ -39,9 +40,10 @@ class Routes extends React.Component {
           if(window.Wallet.currency === 'CNY'){
             currency = 'CNY'
           }
-          this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
-          this.props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
-          this.props.dispatch({type: 'sockets/unlocked'});
+          Toast.info(JSON.stringify(this.props), 1, null, false);
+          _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
+          _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+          _props.dispatch({type: 'sockets/unlocked'});
          Toast.hide()
         })
       })

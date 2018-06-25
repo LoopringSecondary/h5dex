@@ -13,6 +13,7 @@ const Brief = Item.Brief;
 class Face2FaceForm extends React.Component {
   render() {
     const {balance, p2pOrder, dispatch} = this.props
+    Toast.info(window.Wallet.address, 3, null, false);
     const showLayer = (payload={})=>{
       dispatch({
         type:'layers/showLayer',
@@ -30,12 +31,14 @@ class Face2FaceForm extends React.Component {
       })
     }
     function validateAmountS(value) {
-      if(p2pOrder.tokenS && isValidNumber(value)) {
-        const tokenBalance = getBalanceBySymbol({balances:balance, symbol:p2pOrder.tokenS, toUnit:true})
-        return tokenBalance.balance.gt(value)
-      } else {
-        return false
-      }
+      // if(p2pOrder.tokenS && isValidNumber(value)) {
+      //   const tokenBalance = getBalanceBySymbol({balances:balance, symbol:p2pOrder.tokenS, toUnit:true})
+      //   return tokenBalance.balance.gt(value)
+      // } else {
+      //   return false
+      // }
+      // TODO mock
+      return true
     }
     function amountChange(side, e) {
       if(side === 'buy') {
