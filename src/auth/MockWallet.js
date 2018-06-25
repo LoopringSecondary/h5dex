@@ -1,8 +1,7 @@
-import Wallet from '../common/wallets/wallet'
-import {fromPrivateKey} from '../common/loopringjs/src/ethereum/account'
-import util from '../common/loopringjs/src/common/utils'
-import {toBuffer} from "../common/loopringjs/src/common/formatter";
-
+import Wallet from 'common/wallets/wallet'
+import {fromPrivateKey} from 'LoopringJS/ethereum/account'
+import util from 'LoopringJS/common/utils'
+import {toBuffer} from "LoopringJS/common/formatter";
 
 export default class MockWallet extends Wallet {
 

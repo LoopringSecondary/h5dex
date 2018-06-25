@@ -9,7 +9,8 @@ export default {
    tokenB:'WETH',
    amountS:toBig(0),
    amountB:toBig(0),
-   loading:false
+   loading:false,
+   qrcode:"",
   },
   effects:{
     *init({ payload={} }, { put }) {
@@ -41,6 +42,14 @@ export default {
       return {
         ...state,
         loading
+      }
+    },
+    qrcodeChange(state, action) {
+      let {payload} = action
+      const {qrcode} = payload
+      return {
+        ...state,
+        qrcode
       }
     },
   },

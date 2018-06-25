@@ -12,12 +12,15 @@ export default class Routes extends React.Component{
     })
       window.Wallet = new Loopr();
       window.Wallet.setConfigs().then(res => {
+        this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+        this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.language.currency}})
+        this.props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
       })
   }
 
   goToDex = () => {
-    routeActions.gotoPath('/dex')
+    routeActions.gotoPath('/test')
   }
 
   render () {

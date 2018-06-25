@@ -1,15 +1,18 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
+import { List,Button,Toast } from 'antd-mobile';
 import { Icon as WebIcon,Button as WebButton,Input } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
+import Notification from 'LoopringUI/components/Notification'
+import {isValidNumber, getBalanceBySymbol} from 'modules/tokens/TokenFm'
+import {toBig,toHex,toFixed,getDisplaySymbol} from 'LoopringJS/common/formatter'
 
 const Item = List.Item;
 const Brief = Item.Brief;
 
 class Face2FaceForm extends React.Component {
   render() {
-    const dispatch = this.props.dispatch
+    const {balance, p2pOrder, dispatch} = this.props
     const showLayer = (payload={})=>{
       dispatch({
         type:'layers/showLayer',
@@ -26,11 +29,39 @@ class Face2FaceForm extends React.Component {
         }
       })
     }
-    const submitOrder = ()=>{
-      showLayer({
-        id:'face2FaceConfirm'
-      })
+    function validateAmountS(value) {
+      if(p2pOrder.tokenS && isValidNumber(value)) {
+        const tokenBalance = getBalanceBySymbol({balances:balance, symbol:p2pOrder.tokenS, toUnit:true})
+        return tokenBalance.balance.gt(value)
+      } else {
+        return false
+      }
     }
+    function amountChange(side, e) {
+      if(side === 'buy') {
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
+        if(!isValidNumber(e.target.value)) {
+          Toast.info('Please enter valid amount', 3, null, false);
+        }
+      } else {
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
+        if(!validateAmountS(e.target.value)){
+          Toast.info('You have insufficient balance of '+p2pOrder.tokenS, 3, null, false);
+        }
+      }
+    }
+    const submitOrder = ()=>{
+      if(!isValidNumber(p2pOrder.amountB)) {
+        Toast.info('Please enter valid amount', 3, null, false);
+        return
+      }
+      if(!validateAmountS(p2pOrder.amountS)){
+        Toast.info('You have insufficient balance of '+p2pOrder.tokenS, 3, null, false);
+        return
+      }
+      showLayer({id:'face2FaceConfirm'})
+    }
+    const price = p2pOrder.amountB && p2pOrder.amountB.gt(0) && p2pOrder.amountS && p2pOrder.amountS.gt(0) ? toFixed(p2pOrder.amountB.div(p2pOrder.amountS), 8) : toBig(0)
     return (
       <div className="">
         <div className="zb-b-b pt25 pb25 pl15 pr15">
@@ -51,21 +82,21 @@ class Face2FaceForm extends React.Component {
           </div>
           <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button onClick={showLayer.bind(this,{id:'helperOfTokens'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
-                <span>Sell EOS</span> <WebIcon className="color-black-3" type="down"/>
+              <Button onClick={showLayer.bind(this,{id:'helperOfTokens', side:'sell'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+                <span>Sell {p2pOrder.tokenS}</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Button onClick={showLayer.bind(this,{id:'helperOfTokens'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
-                <span>Buy LRC</span> <WebIcon className="color-black-3" type="down"/>
+              <Button onClick={showLayer.bind(this,{id:'helperOfTokens', side:'buy'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+                <span>Buy {p2pOrder.tokenB}</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
           </div>
           <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Input type="text"/>
+              <Input type="text" onChange={amountChange.bind(this, 'sell')}/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -77,7 +108,7 @@ class Face2FaceForm extends React.Component {
             <div className="col-auto text-center" style={{width:'30px'}}>
             </div>
             <div className="col text-center">
-              <Input type="text"/>
+              <Input type="text" onChange={amountChange.bind(this, 'buy')}/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -92,16 +123,22 @@ class Face2FaceForm extends React.Component {
               <div className="color-black-2 fs14">Exchage Price</div>
             </div>
             <div className="col-auto fs14 color-black-3">
-              20.0000 EOS/LRC
+              {`${price.toString(10)} ${p2pOrder.tokenS}/${p2pOrder.tokenB}`}
             </div>
           </div>
-          <Button className="" onClick={submitOrder} type="primary">Exchange EOS To LRC</Button>
+          <Button className="" onClick={submitOrder} type="primary">{`Exchange ${p2pOrder.tokenS} To ${p2pOrder.tokenB}`}</Button>
         </div>
       </div>
     );
   }
 }
-export default connect()(Face2FaceForm)
+export default connect(({
+  sockets,
+  p2pOrder
+}) => ({
+  p2pOrder:p2pOrder,
+  balance:sockets.balance.items,
+}))(Face2FaceForm)
 
 
 

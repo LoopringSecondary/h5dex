@@ -12,21 +12,22 @@ export default class Test extends React.Component {
   };
 
   getSettings = () => {
-
     window.Wallet.getLanguage().then(res => {
       this.setState({language:res.result})
     });
-    window.Wallet.getCurrentAccount().then(res => {
-      this.setState({address:res.result})
-    });
-    window.Wallet.getCurrency().then(res => {
-      this.setState({currency:res.result})
-    })
+
+    // window.Wallet.getCurrentAccount().then(res => {
+    //   this.setState({address:res.result})
+    // });
+    //
+    // window.Wallet.getCurrency().then(res => {
+    //   this.setState({currency:res.result})
+    // })
   };
 
   signMessage(){
     window.Wallet.signMessage('0x00000').then(res => {
-      window.imToken.callAPI('native.alert', JSON.stringify(res))
+
     })
   }
 

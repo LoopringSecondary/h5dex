@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link, Redirect, Route, Switch} from 'dva/router'
 import routeActions from 'common/utils/routeActions'
-import AuthByAddress from './AuthByAddress'
-import AuthByLoopr from './AuthByLoopr'
-import AuthByImToken from './AuthByImToken'
+import AuthByAddress from './address/AuthByAddress'
+import AuthByLoopr from './loopr/AuthByLoopr'
+import AuthByImtoken from './imtoken/AuthByImtoken'
 
 const routes = ()=>{
   const walletType = ''
@@ -12,7 +12,7 @@ const routes = ()=>{
       case 'imtoken':
         return (
           <Switch>
-            <Route path={`/${url}/imtoken`} exact component={AuthByImToken} />
+            <Route path={`/${url}/imtoken`} exact component={AuthByImtoken} />
             <Redirect to={`/${url}/imtoken`} />
           </Switch>
         )
