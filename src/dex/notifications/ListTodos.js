@@ -30,6 +30,7 @@ const TodoItem = (props) => {
 
   const enable = async (item, checked) => {
     if (checked) {
+      let nonce  = await window.RELAY.account.getNonce(window.Wallet.address)
       const assets = getBalanceBySymbol(item.symbol)
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
@@ -43,8 +44,9 @@ const TodoItem = (props) => {
           gasPrice: gasPrice,
           chainId: config.getChainId(),
           value: '0x0',
-          nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
+          nonce: toHex(nonce)
         })
+        nonce = nonce + 1
       }
       txs.push({
         gasLimit: gasLimit,
@@ -53,7 +55,7 @@ const TodoItem = (props) => {
         gasPrice: gasPrice,
         chainId: config.getChainId(),
         value: '0x0',
-        nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
+        nonce: toHex(nonce)
       })
 
       eachLimit(txs, 1, async (tx, callback) => {
@@ -238,13 +240,14 @@ class ListTodos extends React.Component {
   }
 
   enableAll = async () => {
+    let nonce =  await window.RELAY.account.getNonce(window.Wallet.address)
     const approveJobs = data.filter(item => item.type === 'allowance')
+    const txs = []
     eachLimit(approveJobs, 1, async (item, callback) => {
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
       const assets = getBalanceBySymbol(item.symbol)
-      const txs = []
       if (assets.allowance !== 0) {
         txs.push({
           gasLimit: gasLimit,
@@ -253,8 +256,9 @@ class ListTodos extends React.Component {
           gasPrice: gasPrice,
           chainId: config.getChainId(),
           value: '0x0',
-          nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
+          nonce: toHex(nonce)
         })
+        nonce = nonce +1
       }
       txs.push({
         gasLimit: gasLimit,
@@ -263,30 +267,31 @@ class ListTodos extends React.Component {
         gasPrice: gasPrice,
         chainId: config.getChainId(),
         value: '0x0',
-        nonce: toHex(await window.RELAY.account.getNonce(window.Wallet.address))
+        nonce: toHex(nonce)
       })
+      nonce = nonce +1
+    }, function (error) {
+      Modal.alert(error.message)
+    })
 
-      eachLimit(txs, 1, async (tx, callback) => {
-        window.Wallet.signTx(tx).then(res => {
-          if (res.result) {
-            window.ETH.sendRawTransaction(res.result).then(resp => {
-              if (resp.result) {
-                window.RELAY.account.notifyTransactionSubmitted({
-                  txHash: resp.result,
-                  rawTx: tx,
-                  from: window.Wallet.address
-                })
-                callback()
-              } else {
-                callback(res.error)
-              }
-            })
-          } else {
-            callback(res.error)
-          }
-        })
-      }, function (error) {
-        Modal.alert(error.message)
+    eachLimit(txs, 1, async (tx, callback) => {
+      window.Wallet.signTx(tx).then(res => {
+        if (res.result) {
+          window.ETH.sendRawTransaction(res.result).then(resp => {
+            if (resp.result) {
+              window.RELAY.account.notifyTransactionSubmitted({
+                txHash: resp.result,
+                rawTx: tx,
+                from: window.Wallet.address
+              })
+              callback()
+            } else {
+              callback(res.error)
+            }
+          })
+        } else {
+          callback(res.error)
+        }
       })
     }, function (error) {
       Modal.alert(error.message)
