@@ -31,7 +31,7 @@ const TodoItem = (props) => {
   const enable = async (item, checked) => {
     if (checked) {
       let nonce  = await window.RELAY.account.getNonce(window.Wallet.address)
-      const assets = getBalanceBySymbol(item.symbol)
+      const assets = getBalanceBySymbol({balances:balance.items,symbol:item.symbol})
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
@@ -240,6 +240,7 @@ class ListTodos extends React.Component {
   }
 
   enableAll = async () => {
+    const {balance} = this.props;
     let nonce =  await window.RELAY.account.getNonce(window.Wallet.address)
     const approveJobs = data.filter(item => item.type === 'allowance')
     const txs = []
@@ -247,7 +248,7 @@ class ListTodos extends React.Component {
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
-      const assets = getBalanceBySymbol(item.symbol)
+      const assets = getBalanceBySymbol({balances:balance.items,symbol:item.symbol})
       if (assets.allowance !== 0) {
         txs.push({
           gasLimit: gasLimit,
