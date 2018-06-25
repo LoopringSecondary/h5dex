@@ -56,7 +56,7 @@ function ConvertForm(props) {
           gasPrice: toHex(toBig(gasPrice).times(1e9)),
           chainId: config.getChainId(),
           value,
-          nonce: toHex(await window.STORAGE.wallet.getNonce(address))
+          nonce: toHex(await window.RELAY.account.getNonce(address))
       };
         const signTx = await account.signEthereumTx(tx);
         window.ETH.sendRawTransaction(signTx).then(res => {

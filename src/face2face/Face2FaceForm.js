@@ -39,25 +39,23 @@ class Face2FaceForm extends React.Component {
     }
     function amountChange(side, e) {
       if(side === 'buy') {
-        if(isValidNumber(e.target.value)) {
-          dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
-        } else {
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
+        if(!isValidNumber(e.target.value)) {
           Toast.info('Please enter valid amount', 3, null, false);
         }
       } else {
-        if(validateAmountS(e.target.value)){
-          dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
-        } else {
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
+        if(!validateAmountS(e.target.value)){
           Toast.info('You have insufficient balance of '+p2pOrder.tokenS, 3, null, false);
         }
       }
     }
     const submitOrder = ()=>{
-      if(!isValidNumber(p2pOrder.tokenB)) {
+      if(!isValidNumber(p2pOrder.amountB)) {
         Toast.info('Please enter valid amount', 3, null, false);
         return
       }
-      if(!validateAmountS(p2pOrder.tokenS)){
+      if(!validateAmountS(p2pOrder.amountS)){
         Toast.info('You have insufficient balance of '+p2pOrder.tokenS, 3, null, false);
         return
       }

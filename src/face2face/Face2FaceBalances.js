@@ -8,8 +8,7 @@ import {FormatAmount} from 'modules/formatter/FormatNumber'
 import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
 
 const HelperOfBalance = (props)=>{
-  const {dispatch,pair,balance} = props
-  const marketTokens = getTokensByMarket(pair)
+  const {dispatch,tokenS,tokenB,balance} = props
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -18,21 +17,20 @@ const HelperOfBalance = (props)=>{
       }
     })
   }
-  const tokens = getTokensByMarket(pair)
   const relatedTokens = new Array()
-  const balanceL = {
-    symbol:tokens.left,
-    name:tokens.left,
-    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.left, toUnit:true}),
+  const balanceS = {
+    symbol:tokenS,
+    name:tokenS,
+    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokenS, toUnit:true}),
   }
-  const balanceR = {
-    symbol:tokens.right,
-    name:tokens.right,
-    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokens.right, toUnit:true})
+  const balanceB = {
+    symbol:tokenB,
+    name:tokenB,
+    ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:tokenB, toUnit:true})
   }
-  relatedTokens.push(balanceL)
-  relatedTokens.push(balanceR)
-  if(tokens.right === 'WETH') {
+  relatedTokens.push(balanceS)
+  relatedTokens.push(balanceB)
+  if(tokenS === 'WETH' || tokenB === 'WETH') {
     relatedTokens.push({
       symbol:'ETH',
       name:'ETH',
@@ -95,10 +93,10 @@ const HelperOfBalance = (props)=>{
   )
 }
 export default connect(({
-  placeOrder:{pair},
+  p2pOrder:{tokenS,tokenB},
   sockets,
 })=>({
-  pair,balance:sockets.balance.items
+  tokenS,tokenB,balance:sockets.balance.items
 }))(HelperOfBalance)
 
 

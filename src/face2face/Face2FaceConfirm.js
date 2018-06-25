@@ -1,7 +1,6 @@
 import React from 'react';
 import { Input,Icon,Button as WebButton } from 'antd';
 import { Modal,List,Button,Accordion,Steps} from 'antd-mobile';
-import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
 import config from 'common/config'
 import intl from 'react-intl-universal';
 import * as datas from 'common/config/data'
@@ -16,6 +15,8 @@ import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
 import {getTokensByMarket} from 'modules/formatter/common'
 import moment from 'moment'
+import * as tokenFormatter from 'modules/tokens/TokenFm'
+import {toBig,toHex,toFixed,getDisplaySymbol,clearHexPrefix} from 'LoopringJS/common/formatter'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -31,10 +32,10 @@ const OrderMetaItem = (props) => {
   )
 }
 function PlaceOrderSteps(props) {
-  const {placeOrder, settings, marketcap, dispatch} = props
-  const {side, pair, priceInput, amountInput} = placeOrder
-  const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
-  const tokens = getTokensByMarket(pair)
+  const {p2pOrder, balance, settings, marketcap, pendingTx, dispatch} = props
+  const gasPrice = 10
+  const {tokenS, tokenB, amountS, amountB} = p2pOrder
+
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -51,34 +52,109 @@ function PlaceOrderSteps(props) {
       }
     })
   }
-  const next = (page) => {
-    let order = {};
-    // TODO mock datas
-    // order.owner = window.Wallet.getCurrentAccount()
-    order.owner = '0xEF68e7C694F40c8202821eDF525dE3782458639f'
-    order.delegateAddress = config.getDelegateAddress();
-    order.protocol = settings.trading.contract.address;
-    const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
-    const tokenS = side.toLowerCase() === "sell" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
-    order.tokenB = tokenB.address;
-    order.tokenS = tokenS.address;
-    order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
-    order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
-    const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
-    order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
-    const validSince = moment().unix()
-    const validUntil = moment().add(3600, 'seconds').unix()
-    order.validSince = toHex(validSince);
-    order.validUntil = toHex(validUntil);
-    order.marginSplitPercentage = 50;
-    order.buyNoMoreThanAmountB = side.toLowerCase() === "buy";
-    order.walletAddress = config.getWalletAddress();
-    order.orderType = 'market_order'
-    const authAccount = createWallet()
-    order.authAddr = authAccount.getAddressString();
-    order.authPrivateKey = clearHexPrefix(authAccount.getPrivateKeyString());
-    dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
-    page.gotoPage({id:'wallet'})
+  const next = async (page) => {
+    const tradeInfo = {}
+    tradeInfo.amountB = amountB
+    tradeInfo.amountS = amountS
+    tradeInfo.tokenB = tokenB
+    tradeInfo.tokenS = tokenS
+    tradeInfo.validSince = moment().unix()
+    tradeInfo.validUntil = moment().add(1, 'months').unix()
+    tradeInfo.marginSplit = 0
+    tradeInfo.milliLrcFee = 0
+    tradeInfo.lrcFee = 0
+    tradeInfo.delegateAddress = config.getDelegateAddress();
+    tradeInfo.protocol = settings.trading.contract.address;
+    tradeInfo.gasLimit = config.getGasLimitByType('approve').gasLimit;
+    tradeInfo.gasPrice = toHex(Number(gasPrice) * 1e9);
+    tradeInfo.orderType = 'p2p_order'
+    try {
+      await orderFormatter.p2pVerification(balance, tradeInfo, pendingTx ? pendingTx.items : [], gasPrice)
+    } catch(e) {
+      console.log(e)
+      Notification.open({
+        message: intl.get('notifications.title.place_order_failed'),
+        description: e.message,
+        type:'error'
+      })
+      dispatch({type:'p2pOrder/loadingChange', payload:{loading:false}})
+      return
+    }
+    if(tradeInfo.error) {
+      tradeInfo.error.map(item=>{
+        if(item.value.symbol === 'ETH') {
+          Notification.open({
+            message: intl.get('notifications.title.place_order_failed'),
+            description: intl.get('notifications.message.eth_is_required_when_place_order', {required:item.value.required}),
+            type:'error',
+            actions:(
+              <div>
+                <Button className="alert-btn mr5" onClick={() => dispatch({type:'layers/showLayer', payload: {id: 'receiveToken', symbol:'ETH'}})}>
+                  {`${intl.get('actions.receive')} ETH`}
+                </Button>
+              </div>
+            )
+          })
+        } else if (item.value.symbol === 'LRC') {
+          Notification.open({
+            message: intl.get('notifications.title.place_order_failed'),
+            description: intl.get('notifications.message.lrcfee_is_required_when_place_order', {required:item.value.required}),
+            type:'error',
+            actions:(
+              <div>
+                <Button className="alert-btn mr5" onClick={() => dispatch({type:'layers/showLayer', payload: {id: 'receiveToken', symbol:'LRC'}})}>
+                  {`${intl.get('actions.receive')} LRC`}
+                </Button>
+              </div>
+            )
+          })
+        }
+      })
+      dispatch({type:'p2pOrder/loadingChange', payload:{loading:false}})
+      return
+    }
+    try {
+      const {order, unsigned} = await orderFormatter.signP2POrder(tradeInfo, window.Wallet.address)
+      const signResult = await window.Wallet.signOrder(order)
+      if(signResult.error) {
+        Notification.open({
+          message:intl.get('notifications.title.place_order_failed'),
+          description:signResult.error.message,
+          type:'error'
+        })
+        return
+      }
+      const signedOrder = {...order, ...signResult.result};
+      signedOrder.powNonce = 100;
+      const response = await window.RELAY.order.placeOrder(signedOrder)
+      // console.log('...submit order :', response)
+      if (response.error) {
+        Notification.open({
+          message:intl.get('notifications.title.place_order_failed'),
+          description:response.error.message,
+          type:'error'
+        })
+      } else {
+        Notification.open({
+          message:intl.get('notifications.title.place_order_success'),
+          description:'successfully submit order',
+          type:'info'
+        })
+        signedOrder.orderHash = response.result
+        dispatch({type:'p2pOrder/loadingChange', payload:{loading:false}})
+        const unsignedOrder = unsigned.find(item => item.type === 'order')
+        const qrcode = JSON.stringify({type:'p2p_order', value:{authPrivateKey:unsignedOrder.completeOrder.authPrivateKey, orderHash:signedOrder.orderHash}})
+        dispatch({type:'p2pOrder/qrcodeChange', payload:{qrcode}})
+        page.gotoPage({id:'qrcode'})
+      }
+    } catch (e) {
+      console.log(e)
+      Notification.open({
+        message: intl.get('notifications.title.place_order_failed'),
+        description:e.message,
+        type:'error'
+      })
+    }
   }
   return (
     <div className="">
@@ -100,7 +176,7 @@ function PlaceOrderSteps(props) {
                 <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
                   <div className="col-auto">
                     <div className=" color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                      <i className={`icon-${side === 'buy' ? tokens.right : tokens.left} fs24`}/>
+                      <i className={`icon-${tokenS} fs24`}/>
                     </div>
                   </div>
                   <div className="col-auto pl25 pr25 text-center">
@@ -108,32 +184,17 @@ function PlaceOrderSteps(props) {
                   </div>
                   <div className="col-auto">
                     <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                      <i className={`icon-${side === 'buy' ? tokens.left : tokens.right} fs24`}/>
+                      <i className={`icon-${tokenB} fs24`}/>
                     </div>
                   </div>
                 </div>
-                {
-                  side === 'buy' &&
-                  <div>
-                    <OrderMetaItem label={intl.get(`common.buy`)} value={`${amountInput} ${pair.split('-')[0]}`} />
-                    <OrderMetaItem label={intl.get(`common.sell`)} value={`${total} ${pair.split('-')[1]}`} />
-                  </div>
-                }
-                {
-                  side === 'sell' &&
-                  <div>
-                    <OrderMetaItem label={intl.get(`common.sell`)} value={`${amountInput} ${pair.split('-')[0]}`} />
-                    <OrderMetaItem label={intl.get(`common.buy`)} value={`${total} ${pair.split('-')[1]}`} />
-                  </div>
-                }
-                <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
                 <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
                 <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
                 <Button type="" className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>签名</Button>
               </div>
             </div>
           }/>
-          <Page id="wallet" render={({page})=>
+          <Page id="qrcode" render={({page})=>
             <div className="div">
               <div className="p15 color-black-1 fs18 zb-b-b text-center no-gutters">
                 <div className="row">
@@ -147,7 +208,7 @@ function PlaceOrderSteps(props) {
                 </div>
               </div>
               <div className="bg-white p15">
-                <img style={{width:'240px',height:'240px'}} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYCAIAAAAI7H7bAAAFNElEQVR4nO3dQW4jORAAQWux//+y97onYlCTpqrliKthqdVSgocCm6/v7+8v4O/88+4LgE8gJAgICQJCgoCQICAkCAgJAkKCwL+Hv71er2vXkfvUQfPhSzl85Py/DvIXXOL8i7IiQUBIEBASBIQEASFBQEgQEBIEhASB00D2YMm4czbgWzLTXHIPZ/KLX3I3xiNjKxIEhAQBIUFASBAQEgSEBAEhQUBIEBgOZA/yXZCPnv0tmTPOLLn4/b+oLysSJIQEASFBQEgQEBIEhAQBIUFASBDoB7KPtmQb7CNGkPyfFQkCQoKAkCAgJAgICQJCgoCQICAkCBjI/qmbDx+eDX+Ncd/IigQBIUFASBAQEgSEBAEhQUBIEBASBPqB7P4p3s3Rar7l9uBTD8Dd/4v6siJBQkgQEBIEhAQBIUFASBAQEgSEBIHhQDbfjLnf/unkzanr/qc0X2ZFgoCQICAkCAgJAkKCgJAgICQICAkCr0dsP2zt3yG7xKMv/jIrEgSEBAEhQUBIEBASBIQEASFBQEgQ2HKG7M0Nkje3i36qJY9invmJQbMVCQJCgoCQICAkCAgJAkKCgJAgICQInHbILjnJdCYfki65wv2X8anj6fOdtyJBQEgQEBIEhAQBIUFASBAQEgSEBIEtjyxeMsXLzz/dPz+dvdf+n83lj2xFgoCQICAkCAgJAkKCgJAgICQICAkC/SOLb07x8qHbkl2rS97rYM8ktH2vMSsSBIQEASFBQEgQEBIEhAQBIUFASBAYPrJ4yTmh+RUad77rBZewQxbeSUgQEBIEhAQBIUFASBAQEgSEBIHhDtkl+xlvzv5uDn9vvuDM/gH65YdgW5EgICQICAkCQoKAkCAgJAgICQJCgsDHniG7ZGI4s2TOuP8e5lc4fi8rEgSEBAEhQUBIEBASBIQEASFBQEgQGD6yOLfknNCbE8MlL/ipLj+z2ooEASFBQEgQEBIEhAQBIUFASBAQEgSGO2SXPLI4t+Tk2V945Ov+KzyzIkFASBAQEgSEBAEhQUBIEBASBIQEgdMZsrNJ6JKHD8/kF79/zrj/+1py8qxHFsOPExIEhAQBIUFASBAQEgSEBAEhQeA0kL15QGf+grOLX/KRb27UXfKRD5ZsWz6zIkFASBAQEgSEBAEhQUBIEBASBIQEgeEji4dvtmMzZr538qZHTCdbNyfyY1YkCAgJAkKCgJAgICQICAkCQoKAkCBwGsjuH4TtH0Hm93DJXHg/A1l4HiFBQEgQEBIEhAQBIUFASBAQEgSu7pBdYslM8+b23tkLzuw/Q/ZgfPFWJAgICQJCgoCQICAkCAgJAkKCgJAgcDpDdsngcmbJgar79wvf3I1780Zd/iqtSBAQEgSEBAEhQUBIEBASBIQEASFB4DSQPViyr3bJyPjRW1Mfsf90cBk3J/JfViRICAkCQoKAkCAgJAgICQJCgoCQIDAcyB4smTPO3JxOHszea8l5tTen5DdH4XbIwo8TEgSEBAEhQUBIEBASBIQEASFBoB/I7nfz6bj5THPJ3uSZ2Y3K/+vADll4JyFBQEgQEBIEhAQBIUFASBAQEgR+40A2d3N+un8P76M5QxbeSUgQEBIEhAQBIUFASBAQEgSEBIF+IPsLR3Wz/9o/q/3Ur/InWJEgICQICAkCQoKAkCAgJAgICQJCgsBwIHvznND98iNfDy9483jZ3JLtvQceWQzvJCQICAkCQoKAkCAgJAgICQJCgsDLLkj4e1YkCAgJAkKCgJAgICQICAkCQoKAkCAgJAj8B6HZGCr9Rw1/AAAAAElFTkSuQmCC" />
+                <QRCode value={p2pOrder.qrcode} size={240} level='H'/>
               </div>
             </div>
           }/>
@@ -157,9 +218,12 @@ function PlaceOrderSteps(props) {
 }
 function mapToProps(state) {
   return {
-    placeOrder:state.placeOrder,
+    p2pOrder:state.p2pOrder,
+    balance:state.sockets.balance.items,
+    marketcap:state.sockets.marketcap.items,
+    tokens:state.tokens.items,
     settings:state.settings,
-    marketcap:state.sockets.marketcap.items
+    pendingTx:state.pendingTx
   }
 }
 export default connect(mapToProps)(PlaceOrderSteps)
