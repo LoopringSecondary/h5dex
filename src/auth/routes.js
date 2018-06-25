@@ -4,17 +4,24 @@ import routeActions from 'common/utils/routeActions'
 import AuthByAddress from './address/AuthByAddress'
 import AuthByLoopr from './loopr/AuthByLoopr'
 import AuthByImtoken from './imtoken/AuthByImtoken'
+import AuthByMock from './mock/AuthByMock'
 
 const routes = ()=>{
-  const walletType = ''
-  const url = 'auth'
+  const walletType = 'mock'
   switch (walletType) {
+      case 'mock':
+        return (
+          <Switch>
+            <Route path={`/auth`} exact component={AuthByMock} />
+            <Route path={`/auth/mock`} exact component={AuthByMock} />
+          </Switch>
+        )
+        break;
       case 'imtoken':
         return (
           <Switch>
             <Route path={`/auth`} exact component={AuthByImtoken} />
             <Route path={`/auth/imtoken`} exact component={AuthByImtoken} />
-
           </Switch>
         )
         break;

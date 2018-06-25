@@ -4,7 +4,7 @@ import {Toast, Button} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
 
-class Routes extends React.Component {
+class AuthByImtoken extends React.Component {
 
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
@@ -65,4 +65,4 @@ class Routes extends React.Component {
 
 }
 
-export default connect()(Routes)
+export default connect()(AuthByImtoken)

@@ -89,9 +89,12 @@ class UserCenter extends React.Component {
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
-          <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
-                Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
-          </NoticeBar>
+          {
+            false &&
+            <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
+                  Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
+            </NoticeBar>
+          }
           <NavBar
             className=""
             mode="light"
