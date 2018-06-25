@@ -42,9 +42,7 @@ function Modals(props) {
       </Containers.Layers>
       <Containers.Layers id="convertToken" >
         <UiContianers.Modals id="convertToken">
-                <Containers.Convert >
-                  <Convert/>
-                </Containers.Convert>
+          <Convert/>
         </UiContianers.Modals>
       </Containers.Layers>
     </div>
