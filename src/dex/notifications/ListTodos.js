@@ -11,6 +11,7 @@ import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm
 import config from '../../common/config'
 import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
+import {isApproving} from '../../modules/transactions/formatters'
 
 const ERC20 = Contracts.ERC20Token
 
@@ -20,7 +21,7 @@ const tf = new TokenFormatter({symbol: 'ETH'})
 const gasFee = tf.getUnitAmount(toBig(gasPrice).times(gasLimit))
 
 const TodoItem = (props) => {
-  const {item = {}, actions, key, index, balance, dispatch} = props
+  const {item = {}, actions, key, index, balance, dispatch,pendingTxs} = props
   const gotoDetail = () => {
     routeActions.gotoPath('/trade/detail')
   }
@@ -36,7 +37,11 @@ const TodoItem = (props) => {
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
       const txs = []
-      if (assets.allowance !== 0) {
+      let allowance = assets.allowance
+      if(isApproving(pendingTxs,item.symbol)){
+        allowance = isApproving(pendingTxs,item.symbol)
+      }
+      if (allowance.gt(0)) {
         txs.push({
           gasLimit: gasLimit,
           data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
@@ -209,7 +214,7 @@ class ListTodos extends React.Component {
   }
 
   componentDidMount () {
-    const {balance} = this.props
+    const {balance,txs} = this.props
     Toast.loading('Loading...', 0, () => {
       Toast.success('Load complete !!!')
     })
@@ -224,7 +229,11 @@ class ListTodos extends React.Component {
           if (assets.balance.lt(toBig(value))) {
             data.push({symbol: key, type: 'balance', title: `${key} balance is insufficient for orders`})
           }
-          if (assets.allowance.lt(toBig(value))) {
+          let allowance = assets.allowance
+          if(isApproving(txs,key)){
+            allowance = isApproving(txs,key)
+          }
+          if (allowance.lt(toBig(value))) {
             data.push({symbol: key, type: 'allowance', title: `${key} allowance is insufficient for orders`})
           }
         })
@@ -266,7 +275,11 @@ class ListTodos extends React.Component {
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
       const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
-      if (assets.allowance !== 0) {
+      let allowance = assets.allowance
+      if(isApproving(txs,item.symbol)){
+        allowance = isApproving(txs,item.symbol)
+      }
+      if (allowance.gt(0)) {
         txs.push({
           gasLimit: gasLimit,
           data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
@@ -407,6 +420,7 @@ class ListTodos extends React.Component {
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
+    txs:state.socket.pendingTx.items
   }
 }
 
