@@ -9,7 +9,7 @@ export default class Loopr extends Wallet{
   }
   getLanguage() {
    return new Promise((resolve) => {
-      request('getLanguage', null, (error,result) => {
+      request('getLanguage', null, ({error,result}) => {
         if(error){
           resolve({error})
         }else{
@@ -21,7 +21,7 @@ export default class Loopr extends Wallet{
 
   getCurrency() {
     return new Promise((resolve) => {
-      request('getCurrency', null, (error,result) => {
+      request('getCurrency', null, ({error,result}) => {
         if(error){
           resolve({error})
         }else{
@@ -33,7 +33,7 @@ export default class Loopr extends Wallet{
 
   getLrcFee() {
     return new Promise((resolve) => {
-      request('getLrcFee', null, (error,result) => {
+      request('getLrcFee', null, ({error,result}) => {
         if(error){
           resolve({error})
         }else{
@@ -45,7 +45,7 @@ export default class Loopr extends Wallet{
 
   getCurrentAccount() {
     return new Promise((resolve) => {
-      request('getCurrentAccount', null, (error,result) => {
+      request('getCurrentAccount', null, ({error,result}) => {
         if(error){
           resolve({error})
         }else{
@@ -58,7 +58,7 @@ export default class Loopr extends Wallet{
   signMessage(message) {
 
     return new Promise((resolve) => {
-      request('signMessage', message, (error,result) => {
+      request('signMessage', message, ({error,result}) => {
         if(error){
           resolve({error})
         }else{
@@ -70,7 +70,7 @@ export default class Loopr extends Wallet{
 
   signTx(tx) {
     return new Promise((resolve) => {
-      request('signTx', tx, (error,result) => {
+      request('signTx', tx, ({error,result}) => {
         if(error){
           resolve({error})
         }else{

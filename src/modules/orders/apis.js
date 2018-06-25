@@ -14,7 +14,7 @@ export async function fetchList(payload){
       filter.pageSize = page.size
     }
     filter.delegateAddress = config.getDelegateAddress();
-    filter.owner = storage.wallet.getUnlockedAddress()
+    filter.owner = window.Wallet.address
     const host = storage.settings.get().relay.selected
     console.log('getOrders req',filter)
     return getOrders(host,filter).then(res=>{
