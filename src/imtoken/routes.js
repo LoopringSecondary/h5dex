@@ -27,10 +27,14 @@ export default class Routes extends React.Component {
   goToDex = () => {
     routeActions.gotoPath('/dex');
   }
+  goToFace2Face = () => {
+    routeActions.gotoPath('/face2face');
+  }
   render () {
     return (
       <div>
-        <Button type="primary"  onClick={this.goToDex}>进去DEX</Button>
+        <Button type="primary"  onClick={this.goToDex}>进入DEX</Button>
+        <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button>
       </div>
     )
   }
