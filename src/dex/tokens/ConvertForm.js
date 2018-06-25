@@ -27,11 +27,11 @@ class Convert extends React.Component {
     if(convertToken && convertToken.token){
       this.setState({token:convertToken.token})
     }
-    window.Wallet.getCurrentAccount().then(res => {
-      if (res.result) {
-        this.setState({address: res.result})
-      }
-    })
+    // window.Wallet.getCurrentAccount().then(res => {
+    //   if (res.result) {
+    //     this.setState({address: res.result})
+    //   }
+    // })
 
   }
 
@@ -57,6 +57,11 @@ class Convert extends React.Component {
         payload:{
           ...payload
         }
+      })
+    }
+    const setGas = ()=>{
+      showLayer({
+        id:"helperOfGas"
       })
     }
 
@@ -186,7 +191,7 @@ class Convert extends React.Component {
               1 ETH = 1 WETH
             </div>
           </div>
-          <div className="row ml0 mr0 mt20 no-gutters">
+          <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
             <div className="col">
               <div className="color-black-2 fs14">Gas Fee</div>
             </div>

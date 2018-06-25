@@ -5,11 +5,13 @@ import Orders from './orders';
 import Tokens from './tokens';
 import Markets from './tickers/Markets';
 import MarketDetail from './tickers/Detail';
-import Face2Face from './orders/Face2Face'
 import Convert from './tokens/ConvertForm'
 import PlaceOrder from './orders/PlaceOrderPage'
 import UserCenter from './account/UserCenter'
 import ListTodos from './notifications/ListTodos'
+import Face2FacePage from '../face2face/Face2FacePage'
+import Face2FaceModals from '../face2face/Modals'
+import CommonModals from '../components/Modals'
 
 const UnLogged = ()=>{
   const isLogged = !!window.WALLET && !!window.WALLET.address
@@ -36,18 +38,19 @@ const Logged = ()=>{
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
           <Route path={`/dex/todos`} exact component={ListTodos} />
           <Route path={`/dex/usercenter`} exact component={UserCenter} />
-          <Route path={`/dex/face2face`} exact component={Face2Face} />
           <Route path={`/dex/convert`} exact component={Convert} />
+          <Route path={`/dex/face2face`} exact component={Face2FacePage} />
           <Route path={`/dex/messages`} exact component={Pages.Todo} />
           <Route path={`/dex/myOrders`} exact component={Orders.ListMyOrders} />
           <Route path={`/dex/myFills`} exact component={Pages.Todo} />
           <Route path={`/dex/settings`} exact component={Pages.Todo} />
           <Redirect from="/dex" to="/dex/markets" />
         </Switch>
+        <CommonModals />
         <Orders.Modals />
         <Tokens.Modals />
+        <Face2FaceModals />
       </div>
-
     )
   }else{
     return <Redirect to="/dex" />

@@ -5,13 +5,19 @@ class CurrencyContainer extends React.Component {
     return nextProps.currency !== this.props.currency;
   }
   render() {
-    let currency = {};
-    if(this.props.currency === 'USD'){
-        return '$'
-    }else{
-      return "￥"
+    const {amount,currency,token}= this.props
+    let currencySymbol
+    if(currency === 'USD'){
+      currencySymbol = '$'
     }
+    if(currency === 'CNY'){
+      currencySymbol = '$'
+    }
+    return currencySymbol
   }
 }
 
-export default connect(({settings})=>({currency:settings.preference.currency}))(CurrencyContainer)
+export default connect(({settings,sockets})=>({
+  currency:settings.preference.currency,
+  marketcap:sockets.marketcap
+}))(CurrencyContainer)
