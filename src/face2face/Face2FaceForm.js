@@ -30,26 +30,22 @@ class Face2FaceForm extends React.Component {
       })
     }
     function validateAmountS(value) {
-      // if(p2pOrder.tokenS && isValidNumber(value)) {
-      //   const tokenBalance = getBalanceBySymbol({balances:balance, symbol:p2pOrder.tokenS, toUnit:true})
-      //   return tokenBalance.balance.gt(value)
-      // } else {
-      //   return false
-      // }
-      // TODO mock
-      return true
+      if(p2pOrder.tokenS && isValidNumber(value)) {
+        const tokenBalance = getBalanceBySymbol({balances:balance, symbol:p2pOrder.tokenS, toUnit:true})
+        return tokenBalance.balance.gt(value)
+      } else {
+        return false
+      }
     }
     function amountChange(side, e) {
       if(side === 'buy') {
-        if(isValidNumber(e.target.value)) {
-          dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
-        } else {
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
+        if(!isValidNumber(e.target.value)) {
           Toast.info('Please enter valid amount', 3, null, false);
         }
       } else {
-        if(validateAmountS(e.target.value)){
-          dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
-        } else {
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
+        if(!validateAmountS(e.target.value)){
           Toast.info('You have insufficient balance of '+p2pOrder.tokenS, 3, null, false);
         }
       }
