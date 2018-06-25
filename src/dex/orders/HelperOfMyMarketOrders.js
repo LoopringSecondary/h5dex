@@ -63,25 +63,19 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         window.Wallet.signMessage(hash).then(res => {
           if (res.result) {
             const sig = res.result
-            window.Wallet.getCurrentAccount().then(resp => {
-              if (resp.result) {
                 window.RELAY.order.cancelOrder({
-                  sign: {...sig, timestamp, owner: resp.result},
+                  sign: {...sig, timestamp, owner: window.Wallet.address},
                   orderHash:item.originalOrder.hash,
                   type:1
                 }).then(response => {
                   if (response.error) {
-                    Toast.fail(`relay cancel failed:${response.error.message}`)
+                    Toast.fail(` cancel failed:${response.error.message}`)
                   } else {
                     Toast.success(`succeed to cancel order`)
                   }
                 })
-              } else {
-                Toast.fail(`local cancel failed:${resp.error.message}`)
-              }
-            })
           } else {
-            Toast.fail(`sign cancel failed:${res.error.message}`)
+            Toast.fail(` cancel failed:${res.error.message}`)
           }
         })
       }
@@ -104,10 +98,8 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
               const tokens = market.split('-')
               const tokenS = config.getTokenBySymbol(tokens[0]).address
               const tokenB = config.getTokenBySymbol(tokens[1]).address
-              window.Wallet.getCurrentAccount().then(resp => {
-                if (resp.result) {
                   window.RELAY.order.cancelOrder({
-                    sign: {...sig, timestamp, owner: resp.result},
+                    sign: {...sig, timestamp, owner: window.Wallet.address},
                     type:4,
                     tokenS,
                     tokenB
@@ -118,10 +110,6 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                       Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`)
                     }
                   })
-                } else {
-                  Toast.fail(`cancel failed:${resp.error.message}`)
-                }
-              })
             } else {
               Toast.fail(`cancel failed:${res.error.message}`)
             }
