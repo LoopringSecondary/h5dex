@@ -4,6 +4,7 @@ import {Icon as WebIcon} from 'antd'
 import {Toast, Button,NavBar} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
+import storage from 'modules/storage';
 
 class Routes extends React.Component{
 
@@ -15,6 +16,7 @@ class Routes extends React.Component{
     const _this = this
       window.Wallet = new Loopr();
       window.Wallet.setConfigs().then(res => {
+        storage.wallet.storeUnlockedAddress("loopr", window.Wallet.address)
         _this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
         _this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
         _this.props.dispatch({type: 'sockets/unlocked'});

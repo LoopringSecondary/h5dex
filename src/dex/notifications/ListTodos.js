@@ -12,6 +12,9 @@ import config from '../../common/config'
 import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
 import {isApproving} from '../../modules/transactions/formatters'
+import storage from 'modules/storage'
+
+
 
 const ERC20 = Contracts.ERC20Token
 
@@ -31,7 +34,7 @@ const TodoItem = (props) => {
 
   const enable = async (item, checked) => {
     if (checked) {
-      let nonce = await window.RELAY.account.getNonce(window.Wallet.address)
+      let nonce = await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())
       const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
@@ -71,7 +74,7 @@ const TodoItem = (props) => {
                 window.RELAY.account.notifyTransactionSubmitted({
                   txHash: resp.result,
                   rawTx: tx,
-                  from: window.Wallet.address
+                  from: storage.wallet.getUnlockedAddress()
                 })
                 callback()
               } else {
@@ -219,7 +222,7 @@ class ListTodos extends React.Component {
       Toast.success('Load complete !!!')
     })
     window.RELAY.account.getAllEstimatedAllocatedAmount({
-      owner: window.Wallet.address,
+      owner: storage.wallet.getUnlockedAddress(),
       delegateAddress: config.getDelegateAddress()
     }).then(res => {
       const data = []
@@ -267,7 +270,7 @@ class ListTodos extends React.Component {
   enableAll = async () => {
     const {balance} = this.props
     const {data} = this.state
-    let nonce = await window.RELAY.account.getNonce(window.Wallet.address)
+    let nonce = await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())
     const approveJobs = data.filter(item => item.type === 'allowance')
     const txs = []
     eachLimit(approveJobs, 1, async (item, callback) => {
@@ -313,7 +316,7 @@ class ListTodos extends React.Component {
               window.RELAY.account.notifyTransactionSubmitted({
                 txHash: resp.result,
                 rawTx: tx,
-                from: window.Wallet.address
+                from: storage.wallet.getUnlockedAddress()
               })
               callback()
             } else {
@@ -420,7 +423,7 @@ class ListTodos extends React.Component {
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
-    txs:state.socket.pendingTx.items
+    txs:state.sockets.pendingTx.items
   }
 }
 

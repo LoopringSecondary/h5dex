@@ -10,6 +10,10 @@ import * as orderFormatter from 'modules/orders/formatters'
 import moment from 'moment'
 import config from 'common/config'
 import Notification from 'LoopringUI/components/Notification'
+import storage from 'modules/storage'
+
+
+
 const Item = List.Item;
 
 // 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
@@ -106,7 +110,7 @@ const PlaceOrderForm = (props)=>{
     if(price !== placeOrder.priceInput) {
       priceChange(price)
     }
-    if(!window.Wallet.address) {
+    if(!storage.wallet.getUnlockedAddress()) {
       Notification.open({
         message: intl.get('notifications.title.place_order_failed'),
         type: "error",

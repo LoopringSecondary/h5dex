@@ -1,21 +1,17 @@
-import React from 'react';
-import { Input,Icon,Button as WebButton } from 'antd';
-import { Modal,List,Button,Accordion,Steps} from 'antd-mobile';
-import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
+import React from 'react'
+import { Icon } from 'antd'
+import { Button } from 'antd-mobile'
+import { clearHexPrefix, toBig, toHex } from 'LoopringJS/common/formatter'
 import config from 'common/config'
-import intl from 'react-intl-universal';
-import * as datas from 'common/config/data'
-import eachLimit from 'async/eachLimit';
+import intl from 'react-intl-universal'
 import * as orderFormatter from 'modules/orders/formatters'
 import Notification from 'LoopringUI/components/Notification'
-import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
-import QRCode from 'qrcode.react';
-import Alert from 'LoopringUI/components/Alert'
-import {Pages,Page} from 'LoopringUI/components/Pages'
-import {connect} from 'dva'
-import {getTokensByMarket} from 'modules/formatter/common'
+import { createWallet } from 'LoopringJS/ethereum/account'
+import { getTokensByMarket } from 'modules/formatter/common'
+import { Page, Pages } from 'LoopringUI/components/Pages'
+import { connect } from 'dva'
 import moment from 'moment'
+import storage from 'modules/storage'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -122,7 +118,7 @@ function PlaceOrderSteps(props) {
   const next = async (page) => {
     hideLayer({id:'placeOrderSteps'})
     let order = {};
-    order.owner = window.Wallet.address
+    order.owner = storage.wallet.getUnlockedAddress()
     order.delegateAddress = config.getDelegateAddress();
     order.protocol = settings.trading.contract.address;
     const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
