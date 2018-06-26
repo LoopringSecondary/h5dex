@@ -23,6 +23,8 @@ class AuthByImtoken extends React.Component {
         if(window.Wallet.currency === 'CNY'){
           currency = 'CNY'
         }
+
+        window.STORAGE.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
         _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
         _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
         _props.dispatch({type: 'sockets/unlocked'});
