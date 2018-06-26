@@ -31,6 +31,8 @@ function PlaceOrderSteps(props) {
   const {p2pOrder, balance, settings, marketcap, pendingTx, dispatch} = props
   const gasPrice = 10
   const {tokenS, tokenB, amountS, amountB} = p2pOrder
+  const validSince = moment()
+  const validUntil = moment().add(1, 'months')
 
   const showLayer = (payload={})=>{
     dispatch({
@@ -54,8 +56,8 @@ function PlaceOrderSteps(props) {
     tradeInfo.amountS = amountS
     tradeInfo.tokenB = tokenB
     tradeInfo.tokenS = tokenS
-    tradeInfo.validSince = moment().unix()
-    tradeInfo.validUntil = moment().add(1, 'months').unix()
+    tradeInfo.validSince = validSince.unix()
+    tradeInfo.validUntil = validUntil.unix()
     tradeInfo.marginSplit = 0
     tradeInfo.milliLrcFee = 0
     tradeInfo.lrcFee = 0
@@ -184,8 +186,7 @@ function PlaceOrderSteps(props) {
                     </div>
                   </div>
                 </div>
-                <OrderMetaItem label="矿工撮合费" value="2.2 LRC" />
-                <OrderMetaItem label="订单有效期" value="06-10 10:38 ~ 06-30 10:38" />
+                <OrderMetaItem label="订单有效期" value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`} />
                 <Button type="" className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>签名</Button>
               </div>
             </div>
