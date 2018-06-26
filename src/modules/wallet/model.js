@@ -13,52 +13,13 @@ import {mnemonictoPrivatekey} from "LoopringJS/ethereum/mnemonic";
 import {formatKey} from "LoopringJS/common/formatter";
 import storage from '../storage/'
 import intl from 'react-intl-universal';
-import Notification from 'LoopringUI/components/Notification'
-
-const unlockWithMetaMask = () => {
-  if (window.web3 && window.web3.eth.accounts[0]) {
-    window.web3.version.getNetwork((err, netId) => {
-      if (netId !== '1') {
-        Notification.open({
-          message:intl.get('notifications.title.unlock_fail'),
-          description:intl.get('wallet_meta.mainnet_tip'),
-          type:'error'
-        })
-        return
-      }
-      window.WALLET = {address:window.web3.eth.accounts[0], unlockType:'metaMask'};
-      window.account = new MetaMaskAccount(window.web3);
-      Notification.open({type:'success',message:intl.get('notifications.title.unlock_suc')});
-    })
-  } else {
-    let content = intl.get('wallet_meta.install_tip')
-    if(window.web3 && !window.web3.eth.accounts[0]) { // locked
-      content = intl.get('wallet_meta.unlock_tip')
-    }
-    Notification.open({
-      message:intl.get('notifications.title.unlock_fail'),
-      description:content,
-      type:'error'
-    })
-  }
-}
 
 let unlockedType = storage.wallet.getUnlockedType()
 let unlockedAddress = storage.wallet.getUnlockedAddress()
-if(unlockedType && unlockedType === 'metaMask' && window.web3 && window.web3.eth.accounts[0] && window.web3.eth.accounts[0] === unlockedAddress) {
-  unlockWithMetaMask()
+if(unlockedAddress) {
+  unlockedType = 'address'
 } else {
-  if(unlockedAddress) {
-    unlockedType = 'address'
-    window.WALLET = {address:unlockedAddress, unlockType:unlockedType};
-    Notification.open({
-      type:'info',
-      message:intl.get('notifications.title.in_watch_only_mode'),
-      description:intl.get('notifications.message.unlock_by_cookie_address')
-    });
-  } else {
-    unlockedType = ''
-  }
+  unlockedType = ''
 }
 
 export default {
