@@ -4,8 +4,10 @@ import {Icon as WebIcon} from 'antd'
 import {Toast, Button,NavBar} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
+import storage from 'modules/storage';
 
-class AuthByMock extends React.Component {
+class AuthByImtoken extends React.Component {
+
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
@@ -13,15 +15,16 @@ class AuthByMock extends React.Component {
     const _props = this.props
     window.Wallet = new Mock()
     window.Wallet.setConfigs().then(res => {
-      console.log('after setConfigs',window.Wallet)
       let language = 'en-US'
       let currency = 'USD'
-      if(window.Wallet.language.indexOf('zh')){
+      if(window.Wallet.language.indexOf('zh') !== -1){
         language = 'zh-CN'
       }
       if(window.Wallet.currency === 'CNY'){
         currency = 'CNY'
       }
+
+      storage.wallet.storeUnlockedAddress("mock", window.Wallet.address)
       _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
       _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
       _props.dispatch({type: 'sockets/unlocked'});
@@ -49,17 +52,16 @@ class AuthByMock extends React.Component {
           ]}
         >
           <div>
-            Auth By Mock
+            Auth By Imtoken
           </div>
         </NavBar>
-        <div className="p15">
-          <Button type="primary"  onClick={this.goToDex}>进入DEX</Button>
-          <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button>
-        </div>
+        <div className="p15"></div>
+        <Button type="primary"  onClick={this.goToDex}>进入DEX</Button>
+        <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button>
       </div>
     )
   }
 
 }
 
-export default connect()(AuthByMock)
+export default connect()(AuthByImtoken)
