@@ -8,6 +8,7 @@ import { ListView,Button,Tabs } from 'antd-mobile'
 import { Spin } from 'antd'
 import { getMarketTickersBySymbol } from './formatters'
 import Worth from 'modules/settings/Worth'
+import {formatPrice} from 'modules/orders/formatters'
 
 export const TickerHeader = ({list,actions})=>{
     return (
@@ -39,8 +40,8 @@ export const TickerItem = ({item,actions,key})=>{
           <div className="fs14 color-black-3">Vol {tickerFm.getVol()}</div>
         </div>
         <div className="col-4 text-left">
-          <div className="fs16 color-black-1 font-weight-bold">{tickerFm.getLast()}</div>
-          <div className="fs14 color-black-3"><Worth amount={tickerFm.getLast()} symbol={tokens.right}/></div>
+          <div className="fs16 color-black-1 font-weight-bold">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
+          <div className="fs14 color-black-3"><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
         </div>
         <div className="col-3 text-right">
           {

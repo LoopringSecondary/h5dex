@@ -200,22 +200,6 @@ const PlaceOrderForm = (props)=>{
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showAmountHelper} />}
         ><div className="fs16">Amount</div></InputItem>
       </List>
-      {
-        false &&
-        <List className="bg-none no-border">
-          <InputItem
-            type="money"
-            placeholder="00.000000"
-            value={total}
-            clear
-            moneyKeyboardAlign="right"
-            onChange={(v) => { console.log('onChange', v); }}
-            onBlur={(v) => { console.log('onBlur', v); }}
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            editable={false}
-          ><div className="fs16">Total</div></InputItem>
-        </List>
-      }
       <List className="bg-none no-border">
         {
           false &&
@@ -246,30 +230,31 @@ const PlaceOrderForm = (props)=>{
           >TTL</InputItem>
         }
         <Item>
-          <div hidden className="row align-items-center ml0 mr0 mb15 mt10">
-            <div className="col color-black-3 fs16 pl0">Total</div>
-            <div className="col-auto color-black-3 fs16 pr0">
-              {total} {tokens.right}
+          <div className="row align-items-center ml0 mr0 mb15 mt10 fs16">
+            <div className="col color-black-1 pl0 fs16">Total</div>
+            <div className="col-auto pr0">
+              <span className="color-black-3"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
+              <span className="color-black-1">{total} {tokens.right}</span>
             </div>
           </div>
-          <div className="row align-items-center ml0 mr0 mb15 mt10">
-            <div className="col color-black-3 fs16 pl0">
-              Total {total} {tokens.right} ≈ <Worth amount={total} symbol={tokens.right}/>
+          <div className="row align-items-center ml0 mr0 mb15 mt10 fs16">
+            <div className="col color-black-1 pl0">
+              Advance
             </div>
-            <div className="col-auto color-black-3 fs16 pr0">
-              Advance <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
+            <div className="col-auto color-black-3 pr0">
+              <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
             </div>
           </div>
           {
             side === 'sell' &&
             <Button onClick={toConfirm} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
-            Total {total} {tokens.right}
+            Sell {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
             <Button onClick={toConfirm} className="w-100 d-block mb10 bg-green-500 color-white">
-            Total {total} {tokens.right}
+            Buy {amount} {tokens.left}
             </Button>
           }
         </Item>
