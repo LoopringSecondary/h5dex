@@ -27,7 +27,7 @@ const transfromers = {
     queryTransformer:(payload)=>{
       const {filters,page} = payload
       return JSON.stringify({
-        owner:window.Wallet.address,
+        owner:storage.wallet.getUnlockedAddress(),
         symbol:filters.token,
         status:filters.status,
         txType:filters.type,

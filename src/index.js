@@ -4,19 +4,19 @@ import { models } from './modules'
 import { message } from 'antd'
 import './assets/css/index.less'
 import {setLocale} from "./common/utils/localeSetting";
-import STORAGE from './modules/storage';
+import storage from './modules/storage';
 import Eth from 'LoopringJS/ethereum/eth';
 import Relay from 'LoopringJS/relay/relay';
 import {init} from './init'
 import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
 
-window.STORAGE = STORAGE;
-const host = STORAGE.settings.get().relay.selected;
+
+const host = storage.settings.get().relay.selected;
 
 window.ETH = new Eth(`${host}/eth`);
 window.RELAY = new Relay(`${host}/rpc/v2`);
-setLocale(window.STORAGE.settings.get().preference.language);
+setLocale(storage.settings.get().preference.language);
 
 
 // 1. Initialize
@@ -68,7 +68,7 @@ init().then(res=>{
       })
     }
   })
-  STORAGE.settings.setTokensConfig(tokens)
+  storage.settings.setTokensConfig(tokens)
   store.dispatch({type:'tokens/itemsChange', payload:{items:tokens}})
 }).catch(error=> {
   console.log(error)
