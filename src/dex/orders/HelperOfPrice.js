@@ -4,6 +4,7 @@ import {Spin} from 'antd';
 import intl from 'react-intl-universal';
 import {getTokensByMarket} from 'modules/formatter/common'
 import HelperOfDepth from './HelperOfDepth'
+import Worth from 'modules/settings/Worth'
 
 function HelperOfPrice(props) {
   const {dispatch,pair,lastPrice} = props
@@ -26,7 +27,7 @@ function HelperOfPrice(props) {
           </div>
           { lastPrice &&
             <div className="col-auto color-black-2" onClick={changePrice.bind(this,lastPrice)}>
-              <span className="color-black-4 mr5">￥8.52</span>{lastPrice} {tokens.right}
+              <span className="color-black-4 mr5"><Worth amount={lastPrice} symbol={tokens.right}/></span>{lastPrice} {tokens.right}
             </div>
           }
           { !lastPrice &&

@@ -11,8 +11,7 @@ import moment from 'moment'
 import config from 'common/config'
 import Notification from 'LoopringUI/components/Notification'
 import storage from 'modules/storage'
-
-
+import Worth from 'modules/settings/Worth'
 
 const Item = List.Item;
 
@@ -255,7 +254,7 @@ const PlaceOrderForm = (props)=>{
           </div>
           <div className="row align-items-center ml0 mr0 mb15 mt10">
             <div className="col color-black-3 fs16 pl0">
-              Total {total} {tokens.right}
+              Total {total} {tokens.right} ≈ <Worth amount={total} symbol={tokens.right}/>
             </div>
             <div className="col-auto color-black-3 fs16 pr0">
               Advance <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />

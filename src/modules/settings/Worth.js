@@ -10,7 +10,7 @@ class Worth extends React.Component {
     if(!symbol) return null
     let worth = calculateWorthInLegalCurrency(marketcap.items,symbol,amount)
     let currencySymbol = getDisplaySymbol(currency)
-    return `${currencySymbol} ${toFixed(worth, 2)}`
+    return `${currencySymbol}${toFixed(worth, 2)}`
   }
 }
 export default connect(({settings,sockets})=>({

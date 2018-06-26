@@ -7,6 +7,7 @@ import routeActions from 'common/utils/routeActions'
 import { ListView,Button,Tabs } from 'antd-mobile'
 import { Spin } from 'antd'
 import { getMarketTickersBySymbol } from './formatters'
+import Worth from 'modules/settings/Worth'
 
 export const TickerHeader = ({list,actions})=>{
     return (
@@ -39,7 +40,7 @@ export const TickerItem = ({item,actions,key})=>{
         </div>
         <div className="col-4 text-left">
           <div className="fs16 color-black-1 font-weight-bold">{tickerFm.getLast()}</div>
-          <div className="fs14 color-black-3">$0.62</div>
+          <div className="fs14 color-black-3"><Worth amount={tickerFm.getLast()} symbol={tokens.right}/></div>
         </div>
         <div className="col-3 text-right">
           {
