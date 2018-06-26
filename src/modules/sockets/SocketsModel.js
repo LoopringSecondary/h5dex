@@ -116,22 +116,34 @@ export default {
     *connect({payload},{call,select,put}){
       const {url} = yield select(({ [namespace]:model }) => model )
       const socket = yield call(apis.connect, {url})
+      console.log('mocktest conenct effects',socket)
       yield put({type:'socketChange',payload:{socket}})
       yield put({type:'fetch',payload:{id:'marketcap'}})
       yield put({type:'fetch',payload:{id:'depth'}})
       yield put({type:'fetch',payload:{id:'trades'}})
       yield put({type:'fetch',payload:{id:'tickers'}})
       yield put({type:'fetch',payload:{id:'loopringTickers'}})
-      if(window.WALLET && window.WALLET.address){
-        yield put({type:'unlocked'})
+      // Todo get address by storage
+      if(window.Wallet && window.Wallet.address){
+         yield put({type:'unlocked'})
       }
+      if(!window.emitEvents) window.emitEvents = []
+      for (var i =  window.emitEvents.length - 1; i >= 0; i--) {
+        yield put(window.emitEvents[i])
+      }
+      delete window.emitEvents
+      if(!window.onEvents) window.onEvents = []
+      for (var i =  window.onEvents.length - 1; i >= 0; i--) {
+        yield put(window.onEvents[i])
+      }
+      delete window.onEvents
     },
     *unlocked({payload},{call,select,put}){
-      console.log('mocktest unlocked effects')
       yield put({type:'fetch',payload:{id:'transaction'}})
       yield put({type:'fetch',payload:{id:'balance'}})
       yield put({type:'fetch',payload:{id:'pendingTx'}})
     },
+
     *fetch({payload},{call,select,put}){
       yield put({type:'onEvent',payload})
       yield put({type:'emitEvent',payload})
@@ -156,15 +168,18 @@ export default {
     *emitEvent({ payload={} },{call,select,put}) {
       let {id} = payload
       // todo idValidator
-
       const {socket,[id]:{page,filters,sort}} = yield select(({ [namespace]:model }) => model )
-      console.log('mockTest eimitEvent',id,payload,socket)
       if(socket){
-        console.log('mockTest eimitEvent',id,payload)
+        console.log('mockTest emitEvent',id)
         let new_payload = {page,filters,sort,socket,id}
         yield call(apis.emitEvent, new_payload)
       }else{
-        console.log('mockTest socket is not connected!')
+        console.log('mockTest socket is not connected! emitEvent',id)
+        if(!window.emitEvents) window.emitEvents = []
+        window.emitEvents.push({
+          type:'emitEvent',
+          payload
+        })
       }
     },
     *onEvent({ payload={} }, { call, select, put }) {
@@ -174,7 +189,12 @@ export default {
         let new_payload = {page,filters,sort,socket,id}
         yield call(apis.onEvent, new_payload)
       }else{
-        console.log('socket is not connected!')
+        console.log('mockTest socket is not connected! onEvent',id)
+        if(!window.onEvents) window.onEvents = []
+        window.onEvents.push({
+          type:'onEvent',
+          payload
+        })
       }
     },
   },

@@ -5,6 +5,7 @@ import {connect} from 'dva'
 class SocketProvider extends React.Component {
   constructor(props) {
     super(props)
+    console.log('mockTest connect')
     props.dispatch({
       type:'sockets/connect',
     })

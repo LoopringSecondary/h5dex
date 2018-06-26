@@ -218,7 +218,7 @@ const connect = (payload)=>{
   })
   return new Promise((resolve,reject)=>{
     socket.on('connect',()=>{
-      console.log('socket connect success!')
+      console.log('mockTest socket connect success!')
       resolve(socket)
     })
   })
