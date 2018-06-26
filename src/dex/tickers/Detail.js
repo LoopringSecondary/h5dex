@@ -12,6 +12,7 @@ import {TickerFm} from 'modules/tickers/formatters'
 import {getTokensByMarket} from 'modules/formatter/common'
 import intl from 'react-intl-universal'
 import Worth from 'modules/settings/Worth'
+import {formatPrice} from 'modules/orders/formatters'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -19,6 +20,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
   const tickerFm = new TickerFm(tickers.item.loopr || {})
   const tokens = tickerFm.getTokens()
   const direction = tickerFm.getChangeDirection()
+  const price = tickerFm.getLast() && formatPrice(tokens.left, tokens.right, tickerFm.getLast())
   let color
   if(direction === 'up'){
     color = "color-green-500"
@@ -34,13 +36,13 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
     <div className="bg-white">
       <div className={`p10 zb-b-b ${color}`}>
         <span className="fs24 font-weight-bold">
-          {tickerFm.getLast()}
+          {price}
         </span>
         <span className="fs16 ml10">
           {tickerFm.getChange()}
         </span>
         <span className="fs16 ml10">
-          <Worth amount={tickerFm.getLast()} symbol={tokens.right}/>
+          <Worth amount={price} symbol={tokens.right}/>
         </span>
       </div>
       <div className="pl10 pr10 pt15 pb15 zb-b-b">

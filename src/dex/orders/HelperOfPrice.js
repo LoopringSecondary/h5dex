@@ -5,10 +5,12 @@ import intl from 'react-intl-universal';
 import {getTokensByMarket} from 'modules/formatter/common'
 import HelperOfDepth from './HelperOfDepth'
 import Worth from 'modules/settings/Worth'
+import {formatPrice} from 'modules/orders/formatters'
 
 function HelperOfPrice(props) {
   const {dispatch,pair,lastPrice} = props
   const tokens = getTokensByMarket(pair)
+  const priceDisplay = lastPrice && formatPrice(tokens.left, tokens.right, lastPrice)
   const changePrice = (value)=>{
     dispatch({
       type:'placeOrder/priceChangeEffects',
@@ -25,12 +27,12 @@ function HelperOfPrice(props) {
           <div className="col color-black-1 text-left pl10">
             Last Price
           </div>
-          { lastPrice &&
-            <div className="col-auto color-black-2" onClick={changePrice.bind(this,lastPrice)}>
-              <span className="color-black-4 mr5"><Worth amount={lastPrice} symbol={tokens.right}/></span>{lastPrice} {tokens.right}
+          { priceDisplay &&
+            <div className="col-auto color-black-2" onClick={changePrice.bind(this,priceDisplay)}>
+              <span className="color-black-4 mr5"><Worth amount={priceDisplay} symbol={tokens.right}/></span>{priceDisplay} {tokens.right}
             </div>
           }
-          { !lastPrice &&
+          { !priceDisplay &&
             <Spin spinning={true} />
           }
         </div>

@@ -70,6 +70,16 @@ export function isValidInteger(int) {
   return int && integerReg.test(int)
 }
 
+export function formatPrice(tokenL, tokenR, price) {
+  if(price) {
+    const marketConfig = config.getMarketBySymbol(tokenL, tokenR)
+    if(marketConfig) {
+      return fm.toFixed(fm.toBig(price), marketConfig.pricePrecision, false)
+    }
+  }
+  return price
+}
+
 export function formatPriceByMarket(price, marketConfig) {
   if(price && price.toString() !== '0') {
     const priceArr = price.toString().split(".")

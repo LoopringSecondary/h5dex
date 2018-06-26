@@ -7,6 +7,7 @@ import { Spin } from 'antd'
 import { Tabs } from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
+import {formatPrice} from 'modules/orders/formatters'
 
 const TickerItem = ({item,actions,key,dispatch})=>{
     if(!item){ return null }
@@ -28,7 +29,7 @@ const TickerItem = ({item,actions,key,dispatch})=>{
           <span className="fs14 color-black-2 ">{tokens.left}-{tokens.right}</span>
         </div>
         <div className="col-4 text-left">
-          <div className="fs14 color-black-2 ">{tickerFm.getLast()}</div>
+          <div className="fs14 color-black-2 ">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
         </div>
         <div className="col-3 text-right">
           {
