@@ -55,7 +55,8 @@ class Convert extends React.Component {
     }
     const setGas = () => {
       showLayer({
-        id: 'helperOfGas'
+        id: 'helperOfGas',
+        gasLimit
       })
     }
 
