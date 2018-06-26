@@ -11,6 +11,7 @@ import routeActions from 'common/utils/routeActions'
 import {TickerFm} from 'modules/tickers/formatters'
 import {getTokensByMarket} from 'modules/formatter/common'
 import intl from 'react-intl-universal'
+import Worth from 'modules/settings/Worth'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -39,7 +40,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
           {tickerFm.getChange()}
         </span>
         <span className="fs16 ml10">
-          $1.5
+          <Worth amount={tickerFm.getLast()} symbol={tokens.right}/>
         </span>
       </div>
       <div className="pl10 pr10 pt15 pb15 zb-b-b">

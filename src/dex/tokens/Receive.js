@@ -64,7 +64,7 @@ import { connect } from 'dva'
 
   render(){
     const {address,symbol,amount} =  this.state
-    const copyAddress = ()=>{ copy(address) ?  Toast.info('复制成功') : Toast.fail(' 复制失败') }
+    const copyAddress = ()=>{ copy(address) ?  Toast.info(intl.get('notifications.title.copy_suc')) : Toast.fail(intl.get('notifications.title.copy_fail')) }
     return (
       <Card >
         <Card.Header  title = {<div className="fs18">{intl.get('receive.receive_title')}</div>}/>
