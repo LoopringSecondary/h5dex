@@ -1,22 +1,18 @@
-import React from 'react';
-import { Input,Icon,Button as WebButton } from 'antd';
-import { Modal,List,Button,Accordion,Steps} from 'antd-mobile';
+import React from 'react'
+import { Icon } from 'antd'
+import { Button } from 'antd-mobile'
 import config from 'common/config'
-import intl from 'react-intl-universal';
-import * as datas from 'common/config/data'
-import eachLimit from 'async/eachLimit';
+import intl from 'react-intl-universal'
 import * as orderFormatter from 'modules/orders/formatters'
 import Notification from 'LoopringUI/components/Notification'
-import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
-import QRCode from 'qrcode.react';
-import Alert from 'LoopringUI/components/Alert'
-import {Pages,Page} from 'LoopringUI/components/Pages'
-import {connect} from 'dva'
-import {getTokensByMarket} from 'modules/formatter/common'
+import QRCode from 'qrcode.react'
+import { Page, Pages } from 'LoopringUI/components/Pages'
+import { connect } from 'dva'
 import moment from 'moment'
-import * as tokenFormatter from 'modules/tokens/TokenFm'
-import {toBig,toHex,toFixed,getDisplaySymbol,clearHexPrefix} from 'LoopringJS/common/formatter'
+import {toHex } from 'LoopringJS/common/formatter'
+import storage from 'modules/storage'
+
+
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -114,7 +110,7 @@ function PlaceOrderSteps(props) {
       return
     }
     try {
-      const {order, unsigned} = await orderFormatter.signP2POrder(tradeInfo, window.Wallet.address)
+      const {order, unsigned} = await orderFormatter.signP2POrder(tradeInfo, storage.wallet.getUnlockedAddress())
       const signResult = await window.Wallet.signOrder(order)
       if(signResult.error) {
         Notification.open({

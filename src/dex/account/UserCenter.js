@@ -1,14 +1,16 @@
-import React from 'react';
-import {Badge, Grid, List, NavBar, NoticeBar, SegmentedControl, Tabs} from 'antd-mobile';
-import {Icon as WebIcon} from 'antd';
-import {createForm} from 'rc-form';
-import {connect} from 'dva';
-import Containers from 'modules/containers';
+import React from 'react'
+import { Badge, Grid, List, NavBar, NoticeBar, SegmentedControl, Tabs } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
+import { createForm } from 'rc-form'
+import { connect } from 'dva'
+import Containers from 'modules/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
-import {OpenOrderList} from '../orders/ListOrders';
-import ListBalance from '../tokens/ListBalance';
-import ListMyFills from '../fills/ListMyFills';
+import { OpenOrderList } from '../orders/ListOrders'
+import ListBalance from '../tokens/ListBalance'
+import ListMyFills from '../fills/ListMyFills'
+import { getShortAddress } from '../../modules/formatter/common'
+import storage from 'modules/storage'
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -113,7 +115,7 @@ class UserCenter extends React.Component {
             <div className="row align-items-center ml0 mr0 no-gutters">
               <div className="col">
                 <div className="text-center color-black-1 fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
-                  0xeba7136a...b5b65a00
+                  {getShortAddress(storage.wallet.getUnlockedAddress())}
                   <div className="fs14 color-black-3 mt5">
                     Switch Wallet <WebIcon type="right" />
                   </div>

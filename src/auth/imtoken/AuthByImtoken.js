@@ -4,6 +4,7 @@ import {Icon as WebIcon} from 'antd'
 import {Toast, Button,NavBar} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
+import storage from 'modules/storage';
 
 class AuthByImtoken extends React.Component {
 
@@ -23,6 +24,8 @@ class AuthByImtoken extends React.Component {
         if(window.Wallet.currency === 'CNY'){
           currency = 'CNY'
         }
+
+        storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
         _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
         _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
         _props.dispatch({type: 'sockets/unlocked'});

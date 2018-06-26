@@ -13,17 +13,6 @@ const getWallet = (address) => {
   return wallets.find((wallet) => wallet.address.toLowerCase() === address.toLowerCase())
 };
 
-const getNonce = async (address) => {
-  try {
-    validator.validate({value: address, type: "ETH_ADDRESS"});
-    const nonce = toNumber((await window.ETH.getTransactionCount({address})).result) || 0;
-    const localNonce = getWallet(address) && getWallet(address).nonce ? getWallet(address).nonce : 0;
-    return Math.max(nonce,localNonce)
-  } catch (e) {
-    throw  new Error(e.message)
-  }
-};
-
 const storeUnlockedAddress = (unlockType, address) => {
   localStorage.unlockedType = unlockType;
   localStorage.unlockedAddress = address
@@ -31,7 +20,6 @@ const storeUnlockedAddress = (unlockType, address) => {
 
 const getUnlockedAddress = () => {
   return localStorage.unlockedAddress || ''
-  // return localStorage.unlockedAddress || '0xebA7136A36DA0F5e16c6bDBC739c716Bb5B65a00'
 };
 
 const getUnlockedType = () => {
@@ -47,7 +35,6 @@ const clearUnlockedAddress = () => {
 export default {
   setWallet,
   getWallet,
-  getNonce,
   storeUnlockedAddress,
   getUnlockedAddress,
   getUnlockedType,

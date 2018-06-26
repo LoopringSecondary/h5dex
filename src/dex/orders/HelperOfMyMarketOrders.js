@@ -12,6 +12,9 @@ import config from 'common/config'
 import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
 import moment from 'moment'
 import { keccakHash } from '../../common/loopringjs/src/common/utils'
+import storage from 'modules/storage'
+
+
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   const market = orders.filters.market
@@ -64,7 +67,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           if (res.result) {
             const sig = res.result
                 window.RELAY.order.cancelOrder({
-                  sign: {...sig, timestamp, owner: window.Wallet.address},
+                  sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
                   orderHash:item.originalOrder.hash,
                   type:1
                 }).then(response => {
@@ -99,7 +102,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
               const tokenS = config.getTokenBySymbol(tokens[0]).address
               const tokenB = config.getTokenBySymbol(tokens[1]).address
                   window.RELAY.order.cancelOrder({
-                    sign: {...sig, timestamp, owner: window.Wallet.address},
+                    sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
                     type:4,
                     tokenS,
                     tokenB

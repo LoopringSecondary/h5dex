@@ -39,7 +39,7 @@ const transfromers = {
     queryTransformer:(payload)=>{
       const {filters,page} = payload
       return JSON.stringify({
-        owner:window.Wallet.address,
+        owner:storage.wallet.getUnlockedAddress(),
         symbol:filters.token,
         status:filters.status,
         txType:filters.type,
@@ -62,7 +62,7 @@ const transfromers = {
     queryTransformer:(payload)=>{
       return JSON.stringify({
          delegateAddress: config.getDelegateAddress(),
-         owner:window.Wallet.address
+         owner:storage.wallet.getUnlockedAddress()
       })
     },
     resTransformer:(id,res)=>{
@@ -174,7 +174,7 @@ const transfromers = {
   pendingTx:{
     queryTransformer:(payload)=>{
       return JSON.stringify({
-         owner:window.Wallet.address
+         owner:storage.wallet.getUnlockedAddress()
       })
     },
     resTransformer:(id,res)=>{

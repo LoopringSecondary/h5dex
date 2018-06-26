@@ -8,6 +8,8 @@ import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
 import TokenFormatter, { getBalanceBySymbol, getPriceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
 import intl from 'react-intl-universal'
+import storage from 'modules/storage'
+
 
 const WETH = Contracts.WETH
 const Item = List.Item
@@ -29,7 +31,7 @@ class Convert extends React.Component {
   render () {
     const {dispatch, balance, prices, amount} = this.props
     const {token} = this.state;
-    const address = window.Wallet.address
+    const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
     const gasPrice = '0x2540be400'
     const gasLimit = '0x249f0'
