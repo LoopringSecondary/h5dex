@@ -130,14 +130,16 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         <thead>
         <tr>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            Price
+            Side
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
           </th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            <span hidden className="color-black-4 mr5 fs10">{tokens.left}</span>
-            Amount
+          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+            Price<span className="fs10">/{tokens.right}</span>
           </th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
+          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+            Amount<span className="fs10">/{tokens.left}</span>
+          </th>
+          <th hidden className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
           <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Filled</th>
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
             {
@@ -155,18 +157,23 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           orders.items && orders.items.map((item, index) => {
             const orderFm = new OrderFm(item)
             return (
-              <tr key={index} className="color-black-2" onClick={() => Modal.alert('Select Your Options', <div></div>, [
-                {text: 'Fill Price', onPress: () => changePrice(item)},
-                {text: 'Fill Amount', onPress: () => changeAmount(item)},
+              <tr key={index} className="color-black-2" onClick={() => Modal.alert('Options', null, [
+                {text: 'Set Price', onPress: () => changePrice(item)},
+                {text: 'Set Amount', onPress: () => changeAmount(item)},
                 {text: 'Order Detail', onPress: () => gotoDetail(item)},
+                {text: 'Cancel', onPress: () => {}},
               ])
               }>
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                  {orderFm.getSide() === 'buy' && <span className="color-green-500">Buy</span>}
+                  {orderFm.getSide() === 'sell' && <span className="color-red-500">Sell</span>}
+                </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                   {orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
                   {orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}
                 </td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getAmount()}</td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap">{orderFm.getAmount()}</td>
+                <td hidden className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-center">
                   <a className="fs12" onClick={cancelOrder.bind(this, item)}>Cancel</a>

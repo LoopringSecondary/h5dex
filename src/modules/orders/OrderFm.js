@@ -25,14 +25,19 @@ export class OrderFm {
   getSide(){
     return this.order.originalOrder && this.order.originalOrder.side
   }
-  getAmount(){
+  getAmount(ifFormatted){
     if(this.order.originalOrder){
       const side = this.order.originalOrder.side.toLowerCase();
       let token =  side === 'buy' ? config.getTokenBySymbol(this.order.originalOrder.tokenB) : config.getTokenBySymbol(this.order.originalOrder.tokenS);
       token = token || {digits: 18, precision: 6};
       const amount = side === 'buy' ? this.order.originalOrder.amountB : this.order.originalOrder.amountS;
       const symbol = side === 'buy' ? this.order.originalOrder.tokenB : this.order.originalOrder.tokenS;
-      return formatter(toBig(amount).div('1e' + token.digits), 4).d
+      if(ifFormatted){
+        return formatter(toBig(amount).div('1e' + token.digits), 4).d
+      }else{
+        return toBig(amount).div('1e' + token.digits).toFixed(4)
+      }
+
       // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
     }else{
       return null

@@ -53,7 +53,7 @@ export class FillFm{
     const fmS = this.fill.side.toLowerCase() === 'buy' ? new TokenFm({symbol: this.fill.tokenS}) : new TokenFm({symbol: this.fill.tokenB});
     const amount = this.fill.side.toLowerCase() === 'buy' ? fmS.getUnitAmount(this.fill.amountS) : fmS.getUnitAmount(this.fill.amountB);
     const symbol = this.fill.side === 'buy' ? this.fill.tokenS : this.fill.tokenB
-    return commonFm.getFormatNum(fmS.toPricisionFixed(amount)) + '' + symbol
+    return commonFm.getFormatNum(fmS.toPricisionFixed(amount))
   }
   getPrice(){
     const tokenB = new TokenFm({symbol:this.fill.tokenB});
