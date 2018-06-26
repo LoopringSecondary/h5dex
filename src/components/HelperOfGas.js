@@ -38,8 +38,11 @@ function HelperOfGas(props) {
       const gas = calculateGas(gasPrice, gasLimit);
       return (
         <div>
-          <div className="row justify-content-start">{`${title} ${gas.toString(10)} ETH`} ≈ <Worth amount={gas} symbol="ETH"/></div>
-          <div className="row justify-content-start fs14 color-black-3">{`Gas(${toNumber(gasLimit)}) * Gas Price(${gasPrice} Gwei)`}</div>
+          <div className="">
+            <span className="mr10">{title}</span>
+            {`${gas.toString(10)} ETH`} ≈ <Worth amount={gas} symbol="ETH"/>
+          </div>
+          <div className="fs14 color-black-3">{`Gas(${toNumber(gasLimit)}) * Gas Price(${gasPrice} Gwei)`}</div>
         </div>
       )
     }
@@ -50,18 +53,18 @@ function HelperOfGas(props) {
     <div className="">
       <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
       <div className="bg-grey-100">
-        <div className="row pt15 pb15 ml0 mr0 zb-b-b">
-          <div className="col color-black-1 text-left pl10" onClick={tabChanged.bind(this, 'estimate')}>
+        <div className="row p15 ml0 mr0 zb-b-b">
+          <div className="col color-black-1 text-left pl15" onClick={tabChanged.bind(this, 'estimate')}>
             {gasShow(gasPriceStore.estimate, '推荐Gas')}
           </div>
           {gas.tabSelected === 'estimate' && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
         </div>
-        <div className="pt15 pb35" onClick={tabChanged.bind(this, 'custom')}>
-          <div className="color-black-1 pl10 pb25 text-left">
+        <div className="p15 pb35" onClick={tabChanged.bind(this, 'custom')}>
+          <div className="color-black-1 pl15 pb25 text-left">
             {gasShow(gasPriceStore.current, '自定义Gas')}
           </div>
           <Slider
-            className="ml15 mr15"
+            className="ml15 mr10"
             defaultValue={gasPriceStore.current}
             min={1}
             max={100}

@@ -16,7 +16,7 @@ import storage from 'modules/storage'
 
 
 const UnLogged = ()=>{
-  const isLogged = !!window.WALLET && !!storage.wallet.getUnlockedAddress()
+  const isLogged = !!storage.wallet.getUnlockedAddress()
   if(isLogged){
     return <Redirect to="/wallet" />
   }else{
@@ -28,7 +28,7 @@ const UnLogged = ()=>{
   }
 }
 const Logged = ()=>{
-  const isLogged =  !!window.Wallet && !!window.Wallet.address
+  const isLogged =  !!storage.wallet.getUnlockedAddress()
   if(isLogged){
     return (
       <div>

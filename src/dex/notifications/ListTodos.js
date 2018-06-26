@@ -14,8 +14,6 @@ import eachLimit from 'async/eachLimit'
 import {isApproving} from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
 
-
-
 const ERC20 = Contracts.ERC20Token
 
 const gasPrice = '0x2540be400'
@@ -160,36 +158,36 @@ const TodoItem = (props) => {
   )
 }
 
-// const data = [
-//   {
-//     symbol: 'EOS',
-//     title: 'EOS balance is insufficient for orders',
-//     type: 'balance',
-//
-//   },
-//   {
-//     symbol: 'WETH',
-//     title: 'WETH balance is insufficient for orders',
-//     type: 'balance',
-//   },
-//   {
-//     symbol: 'LRC',
-//     title: 'LRC balance is insufficient for orders',
-//     type: 'balance',
-//   },
-//   {
-//     symbol: 'EOS',
-//     type: 'allowance',
-//   },
-//   {
-//     symbol: 'WETH',
-//     type: 'allowance',
-//   },
-//   {
-//     symbol: 'LRC',
-//     type: 'allowance',
-//   },
-// ]
+const mockData = [
+  {
+    symbol: 'EOS',
+    type: 'allowance',
+  },
+  {
+    symbol: 'WETH',
+    type: 'allowance',
+  },
+  {
+    symbol: 'LRC',
+    type: 'allowance',
+  },
+  {
+    symbol: 'EOS',
+    title: 'EOS balance is insufficient for orders',
+    type: 'balance',
+
+  },
+  {
+    symbol: 'WETH',
+    title: 'WETH balance is insufficient for orders',
+    type: 'balance',
+  },
+  {
+    symbol: 'LRC',
+    title: 'LRC balance is insufficient for orders',
+    type: 'balance',
+  },
+]
 const NUM_ROWS = 15
 let pageIndex = 0
 
@@ -205,17 +203,11 @@ function genData (pIndex = 0) {
 class ListTodos extends React.Component {
   constructor (props) {
     super(props)
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    })
-
     this.state = {
-      dataSource,
-      isLoading: true,
-      data: []
+      data: [],
+      loading:false,
     }
   }
-
   componentDidMount () {
     const {balance,txs} = this.props
     Toast.loading('Loading...', 0, () => {
@@ -242,29 +234,10 @@ class ListTodos extends React.Component {
         })
       }
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(data),
-        isLoading: false,
         data
       })
       Toast.hide()
     })
-  }
-
-  onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading && !this.state.hasMore) {
-      return
-    }
-    console.log('reach end', event)
-    this.setState({isLoading: true})
-    setTimeout(() => {
-      this.rData = {...this.rData, ...genData(++pageIndex)}
-      this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(this.rData),
-        isLoading: false,
-      })
-    }, 1000)
   }
 
   enableAll = async () => {
@@ -339,16 +312,6 @@ class ListTodos extends React.Component {
     const goBack = () => {
       routeActions.goBack()
     }
-    let index = data.length - 1
-    const row = (rowData, sectionID, rowID) => {
-      if (index < 0) {
-        index = data.length - 1
-      }
-      const obj = data[index--]
-      return (
-        <TodoItem key={rowID} index={rowID} item={obj} balance={balance} dispatch={dispatch}/>
-      )
-    }
     return (
       <LayoutDexHome {...this.props}>
         <div className="tabs-no-border no-underline" style={{height: '100%'}}>
@@ -364,55 +327,28 @@ class ListTodos extends React.Component {
               <WebIcon key="1" type="search" className="color-black-1"/>,
             ]}
           >
-            <SegmentedControl values={['Todos', 'Messages']} style={{width: '220px', height: '32px'}}/>
+            {
+              false &&
+              <SegmentedControl values={['Todos', 'Messages']} style={{width: '220px', height: '32px'}}/>
+            }
+            Todos
           </NavBar>
-          {data.length > 0 && (window.Wallet.walletType === 'loopr' || window.Wallet.walletType === 'mock') &&
+          {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
           <NoticeBar onClick={this.enableAll} className="text-left t-error s-lg"
                      icon={<WebIcon type="exclamation-circle-o"/>}
                      mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
             One click to enable all tokens ?
           </NoticeBar>}
-          <ListView
-            ref={el => this.lv = el}
-            dataSource={this.state.dataSource}
-            renderHeader={() => null}
-            renderFooter={() => (
-              <div className="text-center pt10 pb45 mb10">{this.state.isLoading ? 'Loading...' : 'Loaded'}</div>)}
-            renderRow={row}
-            className="am-list"
-            pageSize={5}
-            useBodyScroll={true}
-            style={{
-              height: '100%',
-              overflow: 'auto',
-            }}
-            onScroll={() => { console.log('scroll') }}
-            scrollRenderAheadDistance={300}
-            onEndReached={this.onEndReached}
-            onEndReachedThreshold={10}
-          />
           {
-            false &&
-            <Tabs
-              tabs={
-                [
-                  {title: <div className="fs20">Todos</div>},
-                  {title: <div className="fs20">Messages</div>},
-                ]
-              }
-              swipeable={false}
-              tabBarBackgroundColor={'#fff'}
-              tabBarActiveTextColor={'#000'}
-              tabBarInactiveTextColor={'rgba(0,0,0,0.3)'}
-              tabBarTextStyle={{}}
-              initialPage={0}
-              onChange={(tab, index) => {}}
-              onTabClick={(tab, index) => { }}
-            >
-              <div className="p50">
-                Messages TODO
-              </div>
-            </Tabs>
+            data.map((item,index)=>
+              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch}/>
+            )
+          }
+          {
+            data.length == 0 &&
+            <div className="color-black-3 p15 fs12 text-center">
+              {intl.get('common.list.no_data')}
+            </div>
           }
         </div>
       </LayoutDexHome>
@@ -426,6 +362,5 @@ function mapStateToProps (state) {
     txs:state.sockets.pendingTx.items
   }
 }
-
 export default connect(mapStateToProps)(ListTodos)
 

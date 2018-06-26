@@ -1,5 +1,5 @@
 import apis from './apis'
-import STORAGE from 'modules/storage';
+import storage from 'modules/storage';
 
 const namespace = 'sockets'
 let initState = {
@@ -19,7 +19,7 @@ let initState = {
 export default {
   namespace,
   state: {
-    'url':STORAGE.settings.get().relay.selected,
+    'url':storage.settings.get().relay.selected,
     'socket':null,
     'transaction':{...initState,filters:{token:'LRC'}},
     'balance':{...initState,filters:{currency:'usd'}},
@@ -125,8 +125,7 @@ export default {
       yield put({type:'fetch',payload:{id:'tickers'}})
       yield put({type:'fetch',payload:{id:'loopringTickers'}})
       yield put({type:'fetch',payload:{id:'estimatedGasPrice'}})
-      // Todo get address by storage
-      if(window.Wallet && STORAGE.wallet.getUnlockedAddress()){
+      if(storage.wallet.getUnlockedAddress()){
          yield put({type:'unlocked'})
       }
       if(!window.emitEvents) window.emitEvents = []
