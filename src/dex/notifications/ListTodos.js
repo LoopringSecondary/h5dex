@@ -342,11 +342,14 @@ class ListTodos extends React.Component {
                      mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
             One click to enable all tokens ?
           </NoticeBar>}
-          {
-            data.map((item,index)=>
-              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch}/>
-            )
-          }
+          <div className="bg-white">
+            {
+              data.map((item,index)=>
+                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch}/>
+              )
+            }
+          </div>
+
           {
             data.length == 0 &&
             <div className="color-black-3 p15 fs12 text-center">

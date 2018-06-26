@@ -56,7 +56,8 @@ const HelperOfBalance = (props)=>{
         <thead>
           <tr className="">
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Selling</th>
             <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Actions</th>
           </tr>
         </thead>
@@ -68,7 +69,8 @@ const HelperOfBalance = (props)=>{
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
                   </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{toFixed(token.balance, 8)}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance, 8)}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">0.00</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {
                       false && token.symbol === 'ETH' &&

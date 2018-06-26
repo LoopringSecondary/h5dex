@@ -169,8 +169,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                   {orderFm.getSide() === 'sell' && <span className="color-red-500">Sell</span>}
                 </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
-                  {orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
-                  {orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}
+                  {orderFm.getPrice()}
                 </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap">{orderFm.getAmount()}</td>
                 <td hidden className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
