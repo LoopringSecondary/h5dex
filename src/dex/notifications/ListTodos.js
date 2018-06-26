@@ -420,7 +420,7 @@ class ListTodos extends React.Component {
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
-    txs:state.socket.pendingTx.items
+    txs:state.sockets.pendingTx.items
   }
 }
 
