@@ -6,6 +6,7 @@ import { Toast } from 'antd-mobile';
 
 const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
+  const sell = depth.item && depth.item.sell ? [...depth.item.sell].reverse() : []
   const changePrice = (value)=>{
     Toast.info('Price has changed', 3, null, false);
     dispatch({
@@ -74,7 +75,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
               </thead>
                 <tbody>
                     {
-                      depth.item && depth.item.sell && depth.item.sell.reverse().map((item,index)=>
+                      sell && sell && sell.map((item,index)=>
                         <tr key={index} className="">
                           <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                             {Number(item[0]).toFixed(8)}
