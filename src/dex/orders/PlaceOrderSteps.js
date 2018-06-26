@@ -128,7 +128,7 @@ function PlaceOrderSteps(props) {
     order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
     order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
     const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
-    order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
+    order.lrcFee = toHex(0);
     order.validSince = toHex(validSince.unix());
     order.validUntil = toHex(validUntil.unix());
     order.marginSplitPercentage = 50;
@@ -162,7 +162,7 @@ function PlaceOrderSteps(props) {
       })
     } else {
       Notification.open({
-        message:intl.get('notifications.title.place_order_failed'),
+        message:intl.get('notifications.title.place_order_success'),
         description:'successfully submit order',
         type:'info'
       })
