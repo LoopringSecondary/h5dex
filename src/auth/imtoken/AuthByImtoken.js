@@ -1,6 +1,7 @@
 import React from 'react'
 import Imtoken from './Imtoken'
-import {Toast, Button} from 'antd-mobile'
+import {Icon as WebIcon} from 'antd'
+import {Toast, Button,NavBar} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
 
@@ -57,6 +58,21 @@ class AuthByImtoken extends React.Component {
   render () {
     return (
       <div>
+        <NavBar
+          className=""
+          mode="light"
+          leftContent={null &&[
+            <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
+          ]}
+          rightContent={null && [
+            <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
+          ]}
+        >
+          <div>
+            Auth By Imtoken
+          </div>
+        </NavBar>
+        <div className="p15"></div>
         <Button type="primary"  onClick={this.goToDex}>进入DEX</Button>
         <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button>
       </div>

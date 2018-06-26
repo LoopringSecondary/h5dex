@@ -7,41 +7,15 @@ import AuthByImtoken from './imtoken/AuthByImtoken'
 import AuthByMock from './mock/AuthByMock'
 
 const routes = ()=>{
-  const walletType = 'mock'
-  switch (walletType) {
-      case 'mock':
-        return (
-          <Switch>
-            <Route path={`/auth`} exact component={AuthByMock} />
-            <Route path={`/auth/mock`} exact component={AuthByMock} />
-          </Switch>
-        )
-        break;
-      case 'imtoken':
-        return (
-          <Switch>
-            <Route path={`/auth`} exact component={AuthByImtoken} />
-            <Route path={`/auth/imtoken`} exact component={AuthByImtoken} />
-          </Switch>
-        )
-        break;
-      case 'loopr':
-        return (
-          <Switch>
-            <Route path={`/auth`} exact component={AuthByLoopr} />
-            <Route path={`/auth/loopr`} exact component={AuthByLoopr} />
-          </Switch>
-        )
-        break;
-      default:
-        return (
-          <Switch>
-            <Route path={`/auth`} exact component={AuthByAddress} />
-            <Route path={`/auth/address`} exact component={AuthByAddress} />
-          </Switch>
-        )
-      break;
-    }
+ return (
+  <Switch>
+     <Route path={`/auth`} exact component={AuthByAddress} />
+     <Route path={`/auth/mock`} exact component={AuthByMock} />
+     <Route path={`/auth/loopr`} exact component={AuthByLoopr} />
+     <Route path={`/auth/imtoken`} exact component={AuthByImtoken} />
+     <Route path={`/auth/address`} exact component={AuthByAddress} />
+   </Switch>
+ )
 }
 export default routes
 
