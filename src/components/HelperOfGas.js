@@ -33,6 +33,17 @@ function HelperOfGas(props) {
     const amount = availableAmount.times(percentage).div(100).toString(10)
     dispatch({type:'placeOrder/amountChange', payload:{amountInput:amount}})
   }
+  const modeChange = (mode) => {
+    let p = 0
+    switch(mode) {
+      case 'estimate':
+        p = gasPriceStore.estimate
+        break;
+      case 'custom':
+        p = form.getFieldValue('gasPriceSlider')
+        break;
+    }
+  }
   return (
     <div className="">
       <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
