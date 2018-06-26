@@ -1,5 +1,5 @@
 import React from 'react'
-import Imtoken from './imtoken'
+import Imtoken from './Imtoken'
 import {Icon as WebIcon} from 'antd'
 import {Toast, Button,NavBar} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
@@ -17,7 +17,7 @@ class AuthByImtoken extends React.Component {
       window.Wallet.setConfigs().then(res => {
         let language = 'en-US'
         let currency = 'USD'
-        if(window.Wallet.language.indexOf('zh')){
+        if(window.Wallet.language.indexOf('zh') !== -1){
           language = 'zh-CN'
         }
         if(window.Wallet.currency === 'CNY'){
@@ -34,7 +34,7 @@ class AuthByImtoken extends React.Component {
         window.Wallet.setConfigs().then(res => {
           let language = 'en-US'
           let currency = 'USD'
-          if(window.Wallet.language.indexOf('zh')){
+          if(window.Wallet.language.indexOf('zh') !== -1){
             language = 'zh-CN'
           }
           if(window.Wallet.currency === 'CNY'){

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Card,Form,Input,Button,message} from 'antd'
+import {Card,Form,Input,Button} from 'antd'
+import {Modal} from 'antd-mobile'
 
 const Item = Form.Item;
 
@@ -16,23 +17,25 @@ export default class Test extends React.Component {
       this.setState({language:res.result})
     });
 
-    // window.Wallet.getCurrentAccount().then(res => {
-    //   this.setState({address:res.result})
-    // });
-    //
-    // window.Wallet.getCurrency().then(res => {
-    //   this.setState({currency:res.result})
-    // })
+    window.Wallet.getCurrentAccount().then(res => {
+      this.setState({address:res.result})
+    });
+
+    window.Wallet.getCurrency().then(res => {
+      this.setState({currency:res.result})
+    })
   };
 
   signMessage(){
     window.Wallet.signMessage('0x00000').then(res => {
-
+      Modal.alert(JSON.stringify(res.result))
     })
   }
 
   signTransaction(){
-    window.Wallet.signTx({to:'0xb94065482ad64d4c2b9252358d746b39e820a582',value: '0x0'})
+    window.Wallet.signTx({to:'0xb94065482ad64d4c2b9252358d746b39e820a582',value: '0x0',chainId:1,nonce:0,gasPrice:'0x2540be400',gasLimit:'0x5208'}).then(res=>{
+      Modal.alert(res.result)
+    })
   }
   render() {
     const {address,language,currency}  = this.state;
