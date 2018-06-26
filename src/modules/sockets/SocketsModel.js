@@ -127,6 +127,7 @@ export default {
       }
     },
     *unlocked({payload},{call,select,put}){
+      console.log('mocktest unlocked effects')
       yield put({type:'fetch',payload:{id:'transaction'}})
       yield put({type:'fetch',payload:{id:'balance'}})
       yield put({type:'fetch',payload:{id:'pendingTx'}})
@@ -155,18 +156,19 @@ export default {
     *emitEvent({ payload={} },{call,select,put}) {
       let {id} = payload
       // todo idValidator
+
       const {socket,[id]:{page,filters,sort}} = yield select(({ [namespace]:model }) => model )
-      console.log('filtersChange emitEvent',id,filters)
+      console.log('mockTest eimitEvent',id,payload,socket)
       if(socket){
+        console.log('mockTest eimitEvent',id,payload)
         let new_payload = {page,filters,sort,socket,id}
         yield call(apis.emitEvent, new_payload)
       }else{
-        console.log('socket is not connected!')
+        console.log('mockTest socket is not connected!')
       }
     },
     *onEvent({ payload={} }, { call, select, put }) {
       let {id} = payload
-      // todo idValidator
       const {socket,[id]:{page,filters,sort}} = yield select(({ [namespace]:model }) => model )
       if(socket){
         let new_payload = {page,filters,sort,socket,id}

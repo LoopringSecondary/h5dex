@@ -12,7 +12,7 @@ class AuthByMock extends React.Component {
     const _props = this.props
     window.Wallet = new Mock()
     window.Wallet.setConfigs().then(res => {
-      console.log('mock res',res)
+      console.log('after setConfigs',window.Wallet)
       let language = 'en-US'
       let currency = 'USD'
       if(window.Wallet.language.indexOf('zh')){

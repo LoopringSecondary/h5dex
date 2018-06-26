@@ -194,6 +194,7 @@ const getResTransformer = (id)=>{
 
 const emitEvent = (payload)=>{
   let {id,socket} = payload
+  console.log('mocktest emit',id,payload)
   const transfromer = getQueryTransformer(id)
   socket.emit(`${id}_req`,transfromer(payload))
 }
