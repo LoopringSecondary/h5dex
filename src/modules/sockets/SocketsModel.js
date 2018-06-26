@@ -29,6 +29,7 @@ export default {
     'tickers':{...initState,filters:{market:'LRC-WETH'}},
     'loopringTickers':{...initState},
     'pendingTx':{...initState},
+    'estimatedGasPrice':{...initState,filters:{}},
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -123,6 +124,7 @@ export default {
       yield put({type:'fetch',payload:{id:'trades'}})
       yield put({type:'fetch',payload:{id:'tickers'}})
       yield put({type:'fetch',payload:{id:'loopringTickers'}})
+      yield put({type:'fetch',payload:{id:'estimatedGasPrice'}})
       // Todo get address by storage
       if(window.Wallet && STORAGE.wallet.getUnlockedAddress()){
          yield put({type:'unlocked'})
