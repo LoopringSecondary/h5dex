@@ -13,8 +13,7 @@ import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
 import moment from 'moment'
 import { keccakHash } from '../../common/loopringjs/src/common/utils'
 import storage from 'modules/storage'
-
-
+import {signMessage} from '../../common/utils/signUtils'
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   const market = orders.filters.market
@@ -63,7 +62,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         text: 'Yes', onPress: () => {
         const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
         const hash = keccakHash(timestamp)
-        window.Wallet.signMessage(hash).then(res => {
+        signMessage(hash).then(res => {
           if (res.result) {
             const sig = res.result
                 window.RELAY.order.cancelOrder({
@@ -95,7 +94,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           text: 'Yes', onPress: () => {
           const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
           const hash = keccakHash(timestamp)
-          window.Wallet.signMessage(hash).then(res => {
+          signMessage(hash).then(res => {
             if (res.result) {
               const sig = res.result
               const tokens = market.split('-')

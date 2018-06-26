@@ -13,6 +13,7 @@ import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
 import {isApproving} from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
+import {signTx} from '../../common/utils/signUtils'
 
 const ERC20 = Contracts.ERC20Token
 
@@ -65,7 +66,7 @@ const TodoItem = (props) => {
       })
 
       eachLimit(txs, 1, async (tx, callback) => {
-        window.Wallet.signTx(tx).then(res => {
+        signTx(tx,true).then(res => {
           if (res.result) {
             window.ETH.sendRawTransaction(res.result).then(resp => {
               if (resp.result) {
@@ -282,7 +283,7 @@ class ListTodos extends React.Component {
     })
 
     eachLimit(txs, 1, async (tx, callback) => {
-      window.Wallet.signTx(tx).then(res => {
+      signTx(tx,true).then(res => {
         if (res.result) {
           window.ETH.sendRawTransaction(res.result).then(resp => {
             if (resp.result) {

@@ -12,6 +12,7 @@ import { Page, Pages } from 'LoopringUI/components/Pages'
 import { connect } from 'dva'
 import moment from 'moment'
 import storage from 'modules/storage'
+import {signOrder} from '../../common/utils/signUtils'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -141,7 +142,7 @@ function PlaceOrderSteps(props) {
     dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
     // TODO 验证钱包类型
     // page.gotoPage({id:'wallet'})
-    const signResult = await window.Wallet.signOrder(order)
+    const signResult = await signOrder(order)
     if(signResult.error) {
       Notification.open({
         message:intl.get('notifications.title.place_order_failed'),

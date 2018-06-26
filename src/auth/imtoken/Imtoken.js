@@ -61,9 +61,13 @@ export default class Imtoken extends Wallet {
     })
   }
 
-  signTx(tx) {
+  signTx(tx,feeCustomizable) {
+    tx.gas = tx.gasLimit;
+    delete  tx.gasLimit;
+    tx.from = window.web3.eth.defaultAccount
+    tx.feeCustomizable = !!feeCustomizable
     return new Promise((resolve) => {
-      this.imtoken.callAPI('transaction.signTransaction', {...tx,from:window.web3.eth.defaultAccount}, (error,result) => {
+      this.imtoken.callAPI('transaction.signTransaction', tx, (error,result) => {
         if(error){
           resolve({error})
         }else{

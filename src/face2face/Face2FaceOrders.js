@@ -12,6 +12,8 @@ import config from 'common/config'
 import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
 import moment from 'moment'
 import { keccakHash } from 'LoopringJS/common/utils'
+import { signMessage } from '../common/utils/signUtils'
+import storage from 'modules/storage'
 
 const Face2FaceOrders = ({orders = {}, dispatch}) => {
   const market = orders.filters.market
@@ -60,24 +62,18 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
         text: 'Yes', onPress: () => {
         const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
         const hash = keccakHash(timestamp)
-        window.Wallet.signMessage(hash).then(res => {
+        signMessage(hash).then(res => {
           if (res.result) {
             const sig = res.result
-            window.Wallet.getCurrentAccount().then(resp => {
-              if (resp.result) {
-                window.RELAY.order.cancelOrder({
-                  sign: {...sig, timestamp, owner: resp.result},
-                  orderHash:item.originalOrder.hash,
-                  type:1
-                }).then(response => {
-                  if (response.error) {
-                    Toast.fail(`relay cancel failed:${response.error.message}`)
-                  } else {
-                    Toast.success(`succeed to cancel order`)
-                  }
-                })
+            window.RELAY.order.cancelOrder({
+              sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
+              orderHash: item.originalOrder.hash,
+              type: 1
+            }).then(response => {
+              if (response.error) {
+                Toast.fail(`relay cancel failed:${response.error.message}`)
               } else {
-                Toast.fail(`local cancel failed:${resp.error.message}`)
+                Toast.success(`succeed to cancel order`)
               }
             })
           } else {
@@ -98,28 +94,22 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
           text: 'Yes', onPress: () => {
           const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
           const hash = keccakHash(timestamp)
-          window.Wallet.signMessage(hash).then(res => {
+          signMessage(hash).then(res => {
             if (res.result) {
               const sig = res.result
               const tokens = market.split('-')
               const tokenS = config.getTokenBySymbol(tokens[0]).address
               const tokenB = config.getTokenBySymbol(tokens[1]).address
-              window.Wallet.getCurrentAccount().then(resp => {
-                if (resp.result) {
-                  window.RELAY.order.cancelOrder({
-                    sign: {...sig, timestamp, owner: resp.result},
-                    type:4,
-                    tokenS,
-                    tokenB
-                  }).then(response => {
-                    if (response.error) {
-                      Toast.fail(`cancel failed:${response.error.message}`)
-                    } else {
-                      Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`)
-                    }
-                  })
+              window.RELAY.order.cancelOrder({
+                sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
+                type: 4,
+                tokenS,
+                tokenB
+              }).then(response => {
+                if (response.error) {
+                  Toast.fail(`cancel failed:${response.error.message}`)
                 } else {
-                  Toast.fail(`cancel failed:${resp.error.message}`)
+                  Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`)
                 }
               })
             } else {

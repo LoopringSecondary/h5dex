@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, List, NavBar, Toast } from 'antd-mobile'
+import { Button, List, NavBar, Toast,Modal} from 'antd-mobile'
 import { Button as WebButton, Icon as WebIcon, Input } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
@@ -9,7 +9,8 @@ import TokenFormatter, { getBalanceBySymbol, getPriceBySymbol, isValidNumber } f
 import config from '../../common/config'
 import intl from 'react-intl-universal'
 import storage from 'modules/storage'
-
+import Worth from 'modules/settings/Worth'
+import {signTx,signMessage} from '../../common/utils/signUtils'
 
 const WETH = Contracts.WETH
 const Item = List.Item
@@ -29,14 +30,14 @@ class Convert extends React.Component {
 
 
   render () {
-    const {dispatch, balance, prices, amount} = this.props
+    const {dispatch, balance, prices, amount,gas} = this.props
     const {token} = this.state;
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
-    const gasPrice = '0x2540be400'
-    const gasLimit = '0x249f0'
+    const gasPrice = gas.tabSelected === 'estimate' ? gas.gasPrice.estimate : gas.gasPrice.current
+    const gasLimit = token.toLowerCase() === 'eth' ? config.getGasLimitByType('deposit').gasLimit : config.getGasLimitByType('withdraw').gasLimit
     const tf = new TokenFormatter({symbol: token})
-    const gasFee = tf.getUnitAmount(toBig(gasPrice).times(gasLimit))
+    const gasFee = toBig(gasPrice).times(gasLimit).div(1e9)
     const showLayer = (payload = {}) => {
       dispatch({
         type: 'layers/showLayer',
@@ -68,15 +69,15 @@ class Convert extends React.Component {
       dispatch({type: 'convert/setMax', payload: {amount: max, amount1: max}})
     }
     const gotoConfirm = async () => {
-      if (!isValidNumber(amount)) {
-        Toast.info('请输入合法的数字')
-        return
-      }
-
-      if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-        Toast.info('余额不足')
-        return
-      }
+      // if (!isValidNumber(amount)) {
+      //   Toast.info('请输入合法的数字')
+      //   return
+      // }
+      //
+      // if (toBig(amount).plus(gasFee).gt(assets.balance)) {
+      //   Toast.info('余额不足')
+      //   return
+      // }
 
       let data = ''
       let value = ''
@@ -89,15 +90,16 @@ class Convert extends React.Component {
       }
       const to = config.getTokenBySymbol('WETH').address
       const tx = {
-        gasLimit: toHex(gasLimit),
+        gasLimit,
         data,
         to,
-        gasPrice: toHex(gasPrice),
+        gasPrice: toHex(toBig(gasPrice).times(1e9)),
         chainId: config.getChainId(),
         value,
-        nonce: toHex(await window.RELAY.account.getNonce(address))
+        nonce: toHex((await window.RELAY.account.getNonce(address)).result)
       }
-      window.Wallet.signTx(tx).then(res => {
+
+      signTx(tx).then(res => {
         if (res.result) {
           window.ETH.sendRawTransaction(res.result).then(resp => {
             if (resp.result) {
@@ -212,8 +214,7 @@ class Convert extends React.Component {
               <div className="color-black-2 fs14">Gas Fee</div>
             </div>
             <div className="col-auto fs14 color-black-2">
-              ${tf.toPricisionFixed(gasFee.times(getPriceBySymbol({prices, symbol: 'ETH', ifFormat: true}).price))}
-              ≈ {toNumber(gasFee)} ETH
+                <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
               <WebIcon type="right"/>
             </div>
           </div>
@@ -228,7 +229,8 @@ function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
     prices: state.sockets.marketcap.items,
-    amount: state.convert.amount
+    amount: state.convert.amount,
+    gas:state.gas
   }
 }
 

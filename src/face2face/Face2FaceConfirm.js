@@ -11,8 +11,7 @@ import { connect } from 'dva'
 import moment from 'moment'
 import {toHex } from 'LoopringJS/common/formatter'
 import storage from 'modules/storage'
-
-
+import {signOrder} from '../common/utils/signUtils'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -111,7 +110,7 @@ function PlaceOrderSteps(props) {
     }
     try {
       const {order, unsigned} = await orderFormatter.signP2POrder(tradeInfo, storage.wallet.getUnlockedAddress())
-      const signResult = await window.Wallet.signOrder(order)
+      const signResult = await signOrder(order)
       if(signResult.error) {
         Notification.open({
           message:intl.get('notifications.title.place_order_failed'),

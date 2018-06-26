@@ -56,7 +56,6 @@ export default class Loopr extends Wallet{
   }
 
   signMessage(message) {
-
     return new Promise((resolve) => {
       request('signMessage', message, ({error,result}) => {
         if(error){
@@ -68,7 +67,7 @@ export default class Loopr extends Wallet{
     })
   }
 
-  signTx(tx) {
+  signTx(tx,feeCustomizable) {
     return new Promise((resolve) => {
       request('signTx', tx, ({error,result}) => {
         if(error){

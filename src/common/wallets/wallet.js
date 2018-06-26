@@ -42,10 +42,11 @@ export default class Wallet {
   /**
    *
    * @param tx rawTx
+   * @param feeCustomizable bool
    * @return (error,result) {error:{errorCode:,message:''},result:'0x112121212'}
    */
 
-  signTx (tx) {
+  signTx (tx,feeCustomizable) {
     throw new Error('unimplemented')
   }
 
