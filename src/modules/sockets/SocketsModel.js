@@ -124,7 +124,7 @@ export default {
       yield put({type:'fetch',payload:{id:'tickers'}})
       yield put({type:'fetch',payload:{id:'loopringTickers'}})
       // Todo get address by storage
-      if(window.Wallet && window.Wallet.address){
+      if(window.Wallet && STORAGE.wallet.getUnlockedAddress()){
          yield put({type:'unlocked'})
       }
       if(!window.emitEvents) window.emitEvents = []

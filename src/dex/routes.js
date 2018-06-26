@@ -12,9 +12,11 @@ import ListTodos from './notifications/ListTodos'
 import Face2FacePage from '../face2face/Face2FacePage'
 import Face2FaceModals from '../face2face/Modals'
 import CommonModals from '../components/Modals'
+import storage from 'modules/storage'
+
 
 const UnLogged = ()=>{
-  const isLogged = !!window.WALLET && !!window.WALLET.address
+  const isLogged = !!window.WALLET && !!storage.wallet.getUnlockedAddress()
   if(isLogged){
     return <Redirect to="/wallet" />
   }else{

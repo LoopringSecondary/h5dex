@@ -50,7 +50,7 @@ const transfromers = {
     queryTransformer:(payload)=>{
       return JSON.stringify({
          delegateAddress: config.getDelegateAddress(),
-         owner:window.Wallet.address
+         owner:storage.wallet.getUnlockedAddress()
       })
     },
     resTransformer:(id,res)=>{
@@ -162,7 +162,7 @@ const transfromers = {
   pendingTx:{
     queryTransformer:(payload)=>{
       return JSON.stringify({
-         owner:window.Wallet.address
+         owner:storage.wallet.getUnlockedAddress()
       })
     },
     resTransformer:(id,res)=>{
