@@ -70,10 +70,8 @@ const getGas = ()=>{
       gasPrice:{
         last:0,
         estimate:configs.defaultGasPrice,
-        current:0
+        current:1
       },
-      fixedGasLimit:configs.defaultGasLimit,
-      gasLimit:0,
     }
   }
 }

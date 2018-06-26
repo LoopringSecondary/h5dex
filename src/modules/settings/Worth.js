@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getDisplaySymbol} from 'LoopringJS/common/formatter'
+import {toFixed, getDisplaySymbol} from 'LoopringJS/common/formatter'
 import {calculateWorthInLegalCurrency} from '../orders/formatters'
 
 class Worth extends React.Component {
@@ -10,7 +10,7 @@ class Worth extends React.Component {
     if(!symbol) return null
     let worth = calculateWorthInLegalCurrency(marketcap.items,symbol,amount)
     let currencySymbol = getDisplaySymbol(currency)
-    return `${currencySymbol} ${worth}`
+    return `${currencySymbol} ${toFixed(worth, 2)}`
   }
 }
 export default connect(({settings,sockets})=>({
