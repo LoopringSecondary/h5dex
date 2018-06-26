@@ -4,16 +4,16 @@ import {Toast, Button} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
 
-class Routes extends React.Component {
+class AuthByImtoken extends React.Component {
 
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
     })
+    const _props = this.props
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
-
         let language = 'en-US'
         let currency = 'USD'
         if(window.Wallet.language.indexOf('zh')){
@@ -22,9 +22,9 @@ class Routes extends React.Component {
         if(window.Wallet.currency === 'CNY'){
           currency = 'CNY'
         }
-        this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
-        this.props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
-        this.props.dispatch({type: 'sockets/unlocked'});
+        _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
+        _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+        _props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
       })
     } else {
@@ -39,9 +39,9 @@ class Routes extends React.Component {
           if(window.Wallet.currency === 'CNY'){
             currency = 'CNY'
           }
-          this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
-          this.props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
-          this.props.dispatch({type: 'sockets/unlocked'});
+          _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
+          _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+          _props.dispatch({type: 'sockets/unlocked'});
          Toast.hide()
         })
       })
@@ -65,4 +65,4 @@ class Routes extends React.Component {
 
 }
 
-export default connect()(Routes)
+export default connect()(AuthByImtoken)

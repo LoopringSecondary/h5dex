@@ -1,5 +1,5 @@
 import request from './bridge'
-import Wallet from '../common/wallets/wallet'
+import Wallet from 'common/wallets/wallet'
 
 export default class Loopr extends Wallet{
 

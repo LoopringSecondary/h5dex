@@ -1,5 +1,4 @@
-import {id} from '../common/loopringjs/src/common/request'
-
+import {id} from 'LoopringJS/common/request'
 export default function request (method, data, callback) {
 
   if (callback) {

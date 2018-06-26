@@ -1,6 +1,6 @@
-import Wallet from '../common/wallets/wallet';
+import Wallet from 'common/wallets/wallet';
 import config from './config'
-import {toNumber,addHexPrefix} from '../common/loopringjs/src/common/formatter'
+import {toNumber,addHexPrefix} from 'LoopringJS/common/formatter'
 
 export default class Imtoken extends Wallet {
 
