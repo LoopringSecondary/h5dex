@@ -162,7 +162,7 @@ function PlaceOrderSteps(props) {
       })
     } else {
       Notification.open({
-        message:intl.get('notifications.title.place_order_failed'),
+        message:intl.get('notifications.title.place_order_success'),
         description:'successfully submit order',
         type:'info'
       })
