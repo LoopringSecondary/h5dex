@@ -16,7 +16,7 @@ class AuthByImtoken extends React.Component {
       window.Wallet.setConfigs().then(res => {
         let language = 'en-US'
         let currency = 'USD'
-        if(window.Wallet.language.indexOf('zh')){
+        if(window.Wallet.language.indexOf('zh') !== -1){
           language = 'zh-CN'
         }
         if(window.Wallet.currency === 'CNY'){
@@ -33,7 +33,7 @@ class AuthByImtoken extends React.Component {
         window.Wallet.setConfigs().then(res => {
           let language = 'en-US'
           let currency = 'USD'
-          if(window.Wallet.language.indexOf('zh')){
+          if(window.Wallet.language.indexOf('zh') !== -1){
             language = 'zh-CN'
           }
           if(window.Wallet.currency === 'CNY'){
