@@ -220,17 +220,19 @@ class ListTodos extends React.Component {
     }).then(res => {
       const data = []
       if (!res.error && res.result) {
-        res.result.forEach((value, key) => {
-          const assets = getBalanceBySymbol({balances: balance.items, symbol: key})
+        const symbols = Object.keys(res.result)
+        symbols.forEach((symbol, index) => {
+          const value = res.result[symbol]
+          const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
           if (assets.balance.lt(toBig(value))) {
-            data.push({symbol: key, type: 'balance', title: `${key} balance is insufficient for orders`})
+            data.push({symbol: symbol, type: 'balance', title: `${symbol} balance is insufficient for orders`})
           }
           let allowance = assets.allowance
-          if(isApproving(txs,key)){
-            allowance = isApproving(txs,key)
+          if(isApproving(txs,symbol)){
+            allowance = isApproving(txs,symbol)
           }
           if (allowance.lt(toBig(value))) {
-            data.push({symbol: key, type: 'allowance', title: `${key} allowance is insufficient for orders`})
+            data.push({symbol: symbol, type: 'allowance', title: `${symbol} allowance is insufficient for orders`})
           }
         })
       }
