@@ -3,20 +3,19 @@ import { connect } from 'dva';
 import { Tabs,Slider,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import intl from 'react-intl-universal';
-import {toBig, toFixed} from 'LoopringJS/common/formatter'
+import {toBig, toNumber, toFixed} from 'LoopringJS/common/formatter'
 import {getTokensByMarket} from 'modules/formatter/common'
-import config from 'common/config'
-import * as tokenFormatter from 'modules/tokens/TokenFm'
-import * as orderFormatter from 'modules/orders/formatters'
+import Worth from 'modules/settings/Worth'
+import {calculateGas} from 'LoopringJS/common/utils'
 
 function HelperOfGas(props) {
   const tabs = [
     { title: <div className="text-center">Balance</div> },
     { title: <div className="text-center">Depth</div> },
   ]
-  const {gas,dispatch} = props
+  const {gas,helperOfGas,dispatch} = props
+  const {gasLimit} = helperOfGas
   const gasPriceStore = gas.gasPrice
-  console.log(11111, props)
 
   const tabChanged = (tab) => {
     switch(tab) {
@@ -33,21 +32,33 @@ function HelperOfGas(props) {
     dispatch({type:'gas/tabChange', payload:{'tabSelected':'custom'}})
     dispatch({type:'gas/currentGasChange', payload:{'gasPrice':value}})
   }
+
+  const gasShow = (gasPrice, title) => {
+    if(gasPrice && gasLimit) {
+      const gas = calculateGas(gasPrice, gasLimit);
+      return (
+        <div>
+          <div className="row justify-content-start">{`${title} ${gas.toString(10)} ETH`} ≈ <Worth amount={gas} symbol="ETH"/></div>
+          <div className="row justify-content-start fs14 color-black-3">{`Gas(${toNumber(gasLimit)}) * Gas Price(${gasPrice} Gwei)`}</div>
+        </div>
+      )
+    }
+    return <div>{`${title} 无`}</div>
+  }
+
   return (
     <div className="">
       <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
       <div className="bg-grey-100">
         <div className="row pt15 pb15 ml0 mr0 zb-b-b">
           <div className="col color-black-1 text-left pl10" onClick={tabChanged.bind(this, 'estimate')}>
-            <span className="d-inline-block">推荐Gas</span>
-            <span className="color-black-3 ml25">{gasPriceStore.estimate}ETH ≈ $1.5</span>
+            {gasShow(gasPriceStore.estimate, '推荐Gas')}
           </div>
           {gas.tabSelected === 'estimate' && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
         </div>
         <div className="pt15 pb35" onClick={tabChanged.bind(this, 'custom')}>
           <div className="color-black-1 pl10 pb25 text-left">
-            自定义Gas
-            <span className="color-black-3 ml25">{gasPriceStore.current}ETH ≈ $1.5</span>
+            {gasShow(gasPriceStore.current, '自定义Gas')}
           </div>
           <Slider
             className="ml15 mr15"
