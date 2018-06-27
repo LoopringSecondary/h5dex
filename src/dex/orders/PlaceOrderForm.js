@@ -187,7 +187,11 @@ const PlaceOrderForm = (props)=>{
           clear
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
+          extra={
+            <div style={{width:'25px',textAlign:'right'}}>
+              <WebIcon className="color-black-2" type="profile" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
+            </div>
+          }
           onChange={priceChange}
         ><div className="fs16">{intl.get("common.price")}</div></InputItem>
       </List>
@@ -200,52 +204,20 @@ const PlaceOrderForm = (props)=>{
           onChange={amountChange}
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showAmountHelper} />}
+          extra={
+            <div style={{width:'25px',textAlign:'right'}}>
+              <WebIcon className="color-black-2" type="profile" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+            </div>
+          }
         ><div className="fs16">{intl.get("common.amount")}</div></InputItem>
       </List>
       <List className="bg-none no-border">
-        {
-          false &&
-          <InputItem
-            type="money"
-            placeholder="00.000000"
-            extra={<span className="fs16 color-black-4">{null && "LRC"}</span>}
-            clear
-            moneyKeyboardAlign="right"
-            onChange={(v) => { console.log('onChange', v); }}
-            onBlur={(v) => { console.log('onBlur', v); }}
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            editable={false}
-          >LRC Fee</InputItem>
-        }
-        {
-          false &&
-          <InputItem
-            type="money"
-            placeholder="06-10 12:00"
-            extra={<span className="fs16 color-black-4">{null && "WETH"}</span>}
-            clear
-            moneyKeyboardAlign="left"
-            onChange={(v) => { console.log('onChange', v); }}
-            onBlur={(v) => { console.log('onBlur', v); }}
-            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-            editable={false}
-          >TTL</InputItem>
-        }
         <Item>
-          <div className="row align-items-center ml0 mr0 mb15 mt10 fs16">
+          <div className="row align-items-center ml0 mr0 mb15 mt10 fs16 no-gutters">
             <div className="col color-black-1 pl0 fs16">{intl.get("common.total")}</div>
             <div className="col-auto pr0">
-              <span className="color-black-4"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
+              <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
               <span className="color-black-1">{total} {tokens.right}</span>
-            </div>
-          </div>
-          <div hidden className="row align-items-center ml0 mr0 mb15 mt10 fs16">
-            <div className="col color-black-1 pl0">
-              {intl.get("common.advanced")}
-            </div>
-            <div className="col-auto color-black-3 pr0">
-              <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
             </div>
           </div>
           {

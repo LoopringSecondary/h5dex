@@ -241,7 +241,6 @@ const getResTransformer = (id)=>{
 
 const emitEvent = (payload)=>{
   let {id,socket} = payload
-  console.log('mocktest emit',id,payload)
   const transfromer = getQueryTransformer(id)
   socket.emit(`${id}_req`,transfromer(payload))
 }
@@ -265,7 +264,7 @@ const connect = (payload)=>{
   })
   return new Promise((resolve,reject)=>{
     socket.on('connect',()=>{
-      console.log('mockTest socket connect success!')
+      console.log('socket connect success!')
       resolve(socket)
     })
   })

@@ -17,7 +17,6 @@ import {signMessage} from '../../common/utils/signUtils'
 import TokenFm from '../../modules/tokens/TokenFm'
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
-  console.log('HelperOfMyOrders',orders)
   const market = orders.filters.market
   const tokens = getTokensByMarket(market)
   const changePrice = (item) => {

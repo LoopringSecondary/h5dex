@@ -126,7 +126,6 @@ export default {
     *connect({payload},{call,select,put}){
       const {url} = yield select(({ [namespace]:model }) => model )
       const socket = yield call(apis.connect, {url})
-      console.log('mocktest conenct effects',socket)
       yield put({type:'socketChange',payload:{socket}})
       yield put({type:'fetch',payload:{id:'marketcap'}})
       yield put({type:'fetch',payload:{id:'depth'}})
@@ -178,14 +177,13 @@ export default {
     },
     *emitEvent({ payload={} },{call,select,put}) {
       let {id} = payload
-      // todo idValidator
       const {socket,[id]:{page,filters,sort}} = yield select(({ [namespace]:model }) => model )
       if(socket){
-        console.log('mockTest emitEvent',id)
+        // console.log('emitEvent',id)
         let new_payload = {page,filters,sort,socket,id}
         yield call(apis.emitEvent, new_payload)
       }else{
-        console.log('mockTest socket is not connected! emitEvent',id)
+        // console.log('socket is not connected! emitEvent',id)
         if(!window.emitEvents) window.emitEvents = []
         window.emitEvents.push({
           type:'emitEvent',
@@ -200,7 +198,7 @@ export default {
         let new_payload = {page,filters,sort,socket,id}
         yield call(apis.onEvent, new_payload)
       }else{
-        console.log('mockTest socket is not connected! onEvent',id)
+        // console.log('socket is not connected! onEvent',id)
         if(!window.onEvents) window.onEvents = []
         window.onEvents.push({
           type:'onEvent',
