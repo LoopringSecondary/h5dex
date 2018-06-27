@@ -66,6 +66,7 @@ const validation_messages = {
   invalid_integer: 'Please provide an integer value',
   token_not_select: "Please select token",
   invalid_eth_address: "Invalid Ethereum address",
+  invalid_item: "Please provide a valid {item}"
 }
 
 const notifications = {
@@ -527,7 +528,7 @@ export default {
   price_chart:{
     price_chart:'Price Chart',
   },
-  notifications: {
+  todos: {
     tab_title: "Notifications"
   },
   market: {
