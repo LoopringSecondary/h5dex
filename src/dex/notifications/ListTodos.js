@@ -102,94 +102,101 @@ const TodoItem = (props) => {
     routeActions.gotoPath(`/dex/placeOrder`)
   }
 
-  return (
-    <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
-      <div className="col-auo pr15 color-black text-center">
-        {
-          item.type === 'allowance' && <WebIcon className="color-red-500 fs16" type="close-circle"/>
-        }
-        {
-          item.type === 'balance' && <WebIcon className="color-red-500 fs16" type="exclamation-circle"/>
-        }
-      </div>
-      <div className="col text-left">
-        <div>
-          <div className="fs16 color-black-2">
-            {
-              item.type === 'allowance' && `${item.symbol} is disabled for orders`
-            }
-            {
-              item.type === 'balance' && `${item.symbol} balance is insufficient for orders`
-            }
-          </div>
-          {
-            item.type === 'balance' &&
-            <div className="fs13 color-black-3">
-              <div className="">
-                <div className="row no-gutters ml0 mr0">
-                  <div className="col-auto">
-                    Balance
-                  </div>
-                  <div className="col text-right">
-                    {item.balance}
-                  </div>
-                  <div className="col-auto pr15 pl5">
-                    {item.symbol}
-                  </div>
-                </div>
-                <div className="row no-gutters ml0 mr0">
-                  <div className="col-auto">
-                    Selling
-                  </div>
-                  <div className="col text-right">
-                    {item.selling}
-                  </div>
-                  <div className="col-auto pr15 pl5">
-                    {item.symbol}
-                  </div>
-                </div>
-                <div className="row no-gutters ml0 mr0">
-                  <div className="col-auto">
-                    Lack
-                  </div>
-                  <div className="col text-right">
-                    {item.lack}
-                  </div>
-                  <div className="col-auto pr15 pl5">
-                    {item.symbol}
-                  </div>
-                </div>
-              </div>
-            </div>
-          }
+  if(item.type === 'allowance'){
+    return (
+      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+        <div className="col-auo pr15 color-black text-center">
+          <WebIcon className="color-red-500 fs16" type="close-circle"/>
         </div>
-      </div>
-      <div className="col-auto">
-        {
-          item.type === 'allowance' &&
+        <div className="col text-left">
+          <div>
+            <div className="fs16 color-black-2">
+             {`${item.symbol} is disabled for Loopring Dex`}
+            </div>
+          </div>
+        </div>
+        <div className="col-auto">
           <div>
             { false && <Switch onChange={enable.bind(this, item)}/> }
             <Button disabled={true} inline={true} style={{width: '80px'}} type="ghost" size="small" className="" onClick={() => {}}>
               授权中...
             </Button>
-
           </div>
-        }
-        {
-          item.type === 'balance' &&
-          <div>
-            <Button inline={true} style={{width: '80px'}} type="ghost" size="small" className=""onClick={() => {}}>
-              Buy <WebIcon type="down" />
-            </Button>
-            <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
-                    onClick={() => showReceive(item.symbol)}>Receive</Button>
-            <Button hidden inline={true} type="primary" size="small" className="mr5 mt5" onClick={gotoTrading}>Buy</Button>
-            <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
-          </div>
-        }
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+  if(item.type === 'balance'){
+    return (
+      <div className="">
+        <div className="row ml0 mr0 pl10 pr10 pt15 align-items-center no-gutters" onClick={() => {}}>
+          <div className="col-auo pr15 color-black text-center">
+            <WebIcon className="color-red-500 fs16" type="exclamation-circle"/>
+          </div>
+          <div className="col text-left">
+            <div>
+              <div className="fs16 color-black-2">
+                {`${item.symbol} balance is insufficient for orders`}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row ml0 mr0 pl10 pr10 pb15 pt5 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+          <div className="col-auo pr15 text-center color-white">
+            <WebIcon className="color-white fs16" type="exclamation-circle"/>
+          </div>
+          <div className="col fs14 color-black-3 pr30">
+            <div className="row no-gutters ml0 mr0 ">
+              <div className="col-auto">
+                Balance
+              </div>
+              <div className="col text-right">
+                {item.balance}
+              </div>
+              <div className="col-auto pl5">
+                {item.symbol}
+              </div>
+            </div>
+            <div className="row no-gutters ml0 mr0">
+              <div className="col-auto">
+                Selling
+              </div>
+              <div className="col text-right">
+                {item.selling}
+              </div>
+              <div className="col-auto pl5">
+                {item.symbol}
+              </div>
+            </div>
+            <div className="row no-gutters ml0 mr0">
+              <div className="col-auto">
+                Lack
+              </div>
+              <div className="col text-right">
+                {item.lack}
+              </div>
+              <div className="col-auto pl5">
+                {item.symbol}
+              </div>
+            </div>
+          </div>
+          <div className="col-auto">
+            <div>
+              <Button inline={true} style={{width: '80px'}} type="ghost" size="small" className=""onClick={() => {}}>
+                买入 <WebIcon type="down" />
+              </Button>
+              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
+                      onClick={() => showReceive(item.symbol)}>Receive</Button>
+              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5" onClick={gotoTrading}>Buy</Button>
+              <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    )
+  }
+
 }
 
 const mockData = [
@@ -384,7 +391,7 @@ class ListTodos extends React.Component {
             }
           </div>
           {
-            data.length == 0 &&
+            !this.state.loading && data.length == 0 &&
             <div className="color-black-3 p15 fs12 text-center">
               {intl.get('common.list.no_data')}
             </div>
