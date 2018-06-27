@@ -15,7 +15,8 @@ export default class MockWallet extends Wallet {
 
   getLanguage() {
     return new Promise((resolve) => {
-      resolve({result: 'zh-CN'})
+      // resolve({result: 'zh-CN'})
+      resolve({result: 'en-US'})
     })
   }
 

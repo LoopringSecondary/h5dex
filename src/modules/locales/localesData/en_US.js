@@ -13,6 +13,7 @@ const words = {
   gas: 'Gas',
   price: 'Price',
   total: 'Total',
+  advanced: "Advanced",
   worth: "Worth",
   lrc_fee: 'LRC Fee',
   lrc_fee_tips: 'xxxxx',
@@ -160,6 +161,8 @@ export default {
     completed: 'Completed',
     canceled: 'Canceled',
     expired: 'Expired',
+    pending: "Pending",
+    canceling: "Canceling"
   },
   order_side: {
     sell: words.sell,
@@ -170,6 +173,8 @@ export default {
     my_open_orders:'Open Orders',
     my_all_orders:'All Orders',
     order_book:'Order Book',
+    no_open_orders: "No open orders of {market}",
+    view_all_orders: "View all orders"
   },
   order_detail: {
     title: 'Order Detail',
@@ -180,6 +185,9 @@ export default {
     order_type: 'Order Type',
     order_since: "Valid Since",
     order_until: "Valid Until",
+    assets: "Assets",
+    orders: "Orders",
+    fills: "Fills"
   },
   settings: {
     title: 'Settings',
@@ -233,6 +241,9 @@ export default {
     instruction: '1. 以您希望的兑换率生成一个订单，把不包含鉴权数据（没有这部分数据任何人都无法撮合您的订单）的订单信息提交给relay，同时将生成的订单hash和鉴权信息生成二维码。</br>2. 您可以把这个二维码发送给您的朋友，任何人拿到这个二维码都有可能吃掉您的订单，请注意以安全的方式传播。</br>3. 对方使用Circulr移动端扫描二维码，下一个与您买入卖出量完全匹配的对手单，发送以太坊交易吃掉这个订单，因此吃单方需要消耗油费。',
     notice: '* P2P订单不需要支付LRC手续费</br>',
     user_center_p2p:'P2P Trade'
+  },
+  helper_of_amount: {
+    depth: "Depth"
   },
   sign: {
     not_signed: "You may have some items not signed",

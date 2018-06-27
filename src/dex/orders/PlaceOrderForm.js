@@ -29,6 +29,9 @@ const PlaceOrderForm = (props)=>{
   const {dispatch,placeOrder,lastPrice,marketcap,balance,preference,trading} = props
   const {side,pair} = placeOrder
   const tokens = getTokensByMarket(pair)
+  const marketConfig = config.getMarketBySymbol(tokens.left, tokens.right)
+  const right = config.getTokenBySymbol(tokens.right)
+  const amountPrecision = Math.max(0, right.precision - marketConfig.pricePrecision)
   let amount = placeOrder.amountInput
   let price = placeOrder.priceInput
   if(!placeOrder.priceChanged && price === '0' && lastPrice) {
@@ -179,26 +182,26 @@ const PlaceOrderForm = (props)=>{
        <List className="bg-none no-border">
         <InputItem
           type="money"
-          placeholder="00.000000"
+          placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
           value={price ? price : null}
           clear
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />}
           onChange={priceChange}
-        ><div className="fs16">Price</div></InputItem>
+        ><div className="fs16">{intl.get("common.price")}</div></InputItem>
       </List>
       <List className="bg-none no-border">
         <InputItem
           type="money"
-          placeholder="00.000000"
+          placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
           value={amount ? amount : null}
           clear
           onChange={amountChange}
           moneyKeyboardAlign="right"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={<WebIcon type="profile" style={{padding:'2px 0px 5px 20px',outline:'5px'}} onClick={showAmountHelper} />}
-        ><div className="fs16">Amount</div></InputItem>
+        ><div className="fs16">{intl.get("common.amount")}</div></InputItem>
       </List>
       <List className="bg-none no-border">
         {
@@ -231,7 +234,7 @@ const PlaceOrderForm = (props)=>{
         }
         <Item>
           <div className="row align-items-center ml0 mr0 mb15 mt10 fs16">
-            <div className="col color-black-1 pl0 fs16">Total</div>
+            <div className="col color-black-1 pl0 fs16">{intl.get("common.total")}</div>
             <div className="col-auto pr0">
               <span className="color-black-3"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
               <span className="color-black-1">{total} {tokens.right}</span>
@@ -239,7 +242,7 @@ const PlaceOrderForm = (props)=>{
           </div>
           <div className="row align-items-center ml0 mr0 mb15 mt10 fs16">
             <div className="col color-black-1 pl0">
-              Advance
+              {intl.get("common.advanced")}
             </div>
             <div className="col-auto color-black-3 pr0">
               <WebSwitch value={placeOrder.showAdvance} onChange={showAdvanceChange} />
@@ -248,13 +251,13 @@ const PlaceOrderForm = (props)=>{
           {
             side === 'sell' &&
             <Button onClick={toConfirm} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
-            Sell {amount} {tokens.left}
+              {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
             <Button onClick={toConfirm} className="w-100 d-block mb10 bg-green-500 color-white">
-            Buy {amount} {tokens.left}
+              {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }
         </Item>
