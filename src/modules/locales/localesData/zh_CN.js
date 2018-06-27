@@ -382,7 +382,7 @@ export default {
     title_loopring_tickers: '路印 DEX 交易所行情',
     title_reference_tickers: '第三方交易所行情',
     title_recent: '最近',
-    title_favorites: '收藏',
+    title_favorites: '自选',
     title_innovation: "创新区",
   },
   // -----------

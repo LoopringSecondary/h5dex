@@ -12,7 +12,7 @@ import {formatPrice} from 'modules/orders/formatters'
 
 export const TickerHeader = ({list,actions})=>{
     return (
-        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
+        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters bg-grey-100">
           <div className="col-5 fs14 color-black-3 text-left">{intl.get('common.market')}</div>
           <div className="col-4 text-left pr10">
             <div className="fs14 color-black-3 ">{intl.get('common.price')}</div>
@@ -82,9 +82,7 @@ export const TickerList = ({items,loading,dispatch})=>{
   return (
     <div className="bg-white">
       <Spin spinning={loading}>
-        <div className="divider 1px zb-b-t"></div>
         <TickerHeader />
-        <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
         {items.length === 0 &&
           <div className="p10 text-center color-black-3">
@@ -120,7 +118,7 @@ class ListMarketTickers extends React.Component {
             }
             tabBarBackgroundColor={"#fff"}
             tabBarActiveTextColor={"#000"}
-            tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+            tabBarInactiveTextColor={"rgba(0,0,0,0.4)"}
             tabBarTextStyle={{}}
             initialPage={1}
             swipeable={false}
