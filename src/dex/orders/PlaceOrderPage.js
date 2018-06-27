@@ -51,9 +51,10 @@ class PlaceOrderPage extends React.Component {
       })
    }
 
-   const gotoTrade = ()=>{
+    const gotoTrade = ()=>{
       routeActions.gotoPath(`/dex/markets/${pair}`)
     }
+
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
@@ -61,7 +62,7 @@ class PlaceOrderPage extends React.Component {
             className=""
             mode="light"
             leftContent={[
-              <span className="color-black-1" key="1"><WebIcon type="bars" /></span>,
+              <span onClick={routeActions.goBack} className="color-black-1" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
               <span className="color-black-1" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
