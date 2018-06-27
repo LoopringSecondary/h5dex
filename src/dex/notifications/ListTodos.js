@@ -110,8 +110,8 @@ const TodoItem = (props) => {
         </div>
         <div className="col text-left">
           <div>
-            <div className="fs16 color-black-2">
-             {`${item.symbol} is disabled for Loopring Dex`}
+            <div className="fs16 color-black-1">
+            {intl.get('todo_list.allowance_not_enough_title',{symbol:item.symbol})}
             </div>
           </div>
         </div>
@@ -119,7 +119,7 @@ const TodoItem = (props) => {
           <div>
             { false && <Switch onChange={enable.bind(this, item)}/> }
             <Button disabled={true} inline={true} style={{width: '80px'}} type="ghost" size="small" className="" onClick={() => {}}>
-              授权中...
+              {intl.get('todo_list.actions.enable')}
             </Button>
           </div>
         </div>
@@ -135,8 +135,8 @@ const TodoItem = (props) => {
           </div>
           <div className="col text-left">
             <div>
-              <div className="fs16 color-black-2">
-                {`${item.symbol} balance is insufficient for orders`}
+              <div className="fs16 color-black-1">
+                {intl.get('todo_list.balance_not_enough_title',{symbol:item.symbol})}
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ const TodoItem = (props) => {
           <div className="col fs14 color-black-3 pr30">
             <div className="row no-gutters ml0 mr0 ">
               <div className="col-auto">
-                Balance
+                {intl.get('todo_list.balance')}
               </div>
               <div className="col text-right">
                 {item.balance}
@@ -159,7 +159,7 @@ const TodoItem = (props) => {
             </div>
             <div className="row no-gutters ml0 mr0">
               <div className="col-auto">
-                Selling
+                {intl.get('todo_list.selling')}
               </div>
               <div className="col text-right">
                 {item.selling}
@@ -170,7 +170,7 @@ const TodoItem = (props) => {
             </div>
             <div className="row no-gutters ml0 mr0">
               <div className="col-auto">
-                Lack
+                {intl.get('todo_list.lack')}
               </div>
               <div className="col text-right">
                 {item.lack}
@@ -183,7 +183,7 @@ const TodoItem = (props) => {
           <div className="col-auto">
             <div>
               <Button inline={true} style={{width: '80px'}} type="ghost" size="small" className=""onClick={() => {}}>
-                买入 <WebIcon type="down" />
+                {intl.get('todo_list.actions.buy')} <WebIcon type="down" />
               </Button>
               <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
                       onClick={() => showReceive(item.symbol)}>Receive</Button>
@@ -370,11 +370,9 @@ class ListTodos extends React.Component {
               <WebIcon key="1" type="question-circle-o" className="color-black-1"/>,
             ]}
           >
-            {
-              false &&
-              <SegmentedControl values={['Todos', 'Messages']} style={{width: '220px', height: '32px'}}/>
-            }
-            Todos
+
+            <SegmentedControl values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]} style={{width: '220px', height: '32px'}}/>
+
           </NavBar>
           {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
           <NoticeBar onClick={this.enableAll} className="text-left t-error s-lg"

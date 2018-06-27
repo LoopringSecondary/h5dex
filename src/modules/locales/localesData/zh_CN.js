@@ -533,6 +533,21 @@ export default {
   },
   notifications: {
     tab_title: "通知"
+  },
+  message_list:{
+    message_list_title:'消息',
+  },
+  todo_list:{
+    todo_list_title:'待做',
+    allowance_not_enough_title:"{symbol} 未开启交易",
+    balance_not_enough_title:"{symbol} 余额不足",
+    balance:"当前余额",
+    selling:"出售数量",
+    lack:"缺少数量",
+    actions_enable:"开启交易",
+    actions_buy:words.buy,
+    actions_receive:words.receive,
+    // balance_not_enount_title:"{symbol} balance is insufficient for orders",
   }
 }
 

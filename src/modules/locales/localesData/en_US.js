@@ -528,5 +528,12 @@ export default {
   },
   notifications: {
     tab_title: "Notifications"
+  },
+  todo_list:{
+    allowance_not_enough_title:"{symbol} 未开启交易",
+    balance_not_enough_title:"{symbol} 余额不足",
+    selling:"卖出",
+    lack:"缺少",
+    // balance_not_enount_title:"{symbol} balance is insufficient for orders",
   }
 }
