@@ -9,7 +9,7 @@ export default class MockWallet extends Wallet {
     // if(key){
     //   this.wallet = fromPrivateKey(key);
     // }
-   this.wallet = fromPrivateKey('f8627ed13ef88e1ca6263a291a57fcaf0936cb40e5db6c53b0415092f0256e9f')
+   this.wallet = fromPrivateKey('')
     this.walletType='mock'
   }
 
