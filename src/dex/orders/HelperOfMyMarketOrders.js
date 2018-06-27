@@ -141,22 +141,22 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       return <a className="fs12" onClick={cancelOrder.bind(this, item)}>{intl.get("common.cancel")}</a>
     }
     if (item.status === 'ORDER_FINISHED') {
-      return intl.get("order_status.completed")
+      return <span className="color-green-500"><WebIcon type="check-circle" /></span>
     }
     if (item.status === 'ORDER_CANCELLED') {
-      return intl.get("order_status.canceled")
+      return <span className="color-black-4">{intl.get("order_status.canceled")}</span>
     }
     if (item.status === 'ORDER_CUTOFF') {
-      return intl.get("order_status.canceled")
+      return <span className="color-black-4">{intl.get("order_status.canceled")}</span>
     }
     if (item.status === 'ORDER_EXPIRE') {
-      return intl.get("order_status.expired")
+      return <span className="color-black-4">{intl.get("order_status.expired")}</span>
     }
     if (item.status === 'ORDER_PENDING') {
-      return intl.get("order_status.pending")
+      return <span className="color-black-1">{intl.get("order_status.pending")}</span>
     }
     if (item.status === 'ORDER_CANCELLING') {
-      return intl.get("order_status.canceling")
+      return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
     }
   }
   const gotoAll = () => {}
@@ -176,7 +176,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
             {intl.get("common.amount")}<span className="fs10">/{tokens.left}</span>
           </th>
           <th hidden className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
+          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
             {
               orders.items && orders.items.length > 0 &&
@@ -203,7 +203,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                 </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap">{orderFm.getAmount()}</td>
                 <td hidden className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap">{orderFm.getFilledPercent()}%</td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-center">
                   {orderStatus(item)}
                 </td>
@@ -223,7 +223,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       </table>
       <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                className="d-block w-100 fs14 bg-none">{intl.get("order_list.view_all_orders")}</Button>
+                className="d-block w-100 fs13 bg-none color-black-2">{intl.get("order_list.view_all_orders")}</Button>
       </div>
     </div>
 

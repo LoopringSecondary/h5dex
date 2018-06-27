@@ -159,7 +159,7 @@ export default {
     total: words.total,
     LRCFee: words.lrc_fee,
     marginSplit: words.margin_split,
-    filled: '成交数量',
+    filled: '成交量',
     validSince: '订单生效时间',
     validUntil: '订单失效时间',
     status: words.status,
