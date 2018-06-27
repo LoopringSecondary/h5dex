@@ -1,6 +1,6 @@
 import React from 'react';
 import {Icon} from 'antd';
-import {toNumber,toBig} from "LoopringJS/common/formatter";
+import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
 import config from "common/config";
 import commonFm from "../formatter/common";
 import {formatter} from 'modules/formatter/FormatNumber'
@@ -25,23 +25,28 @@ export class OrderFm {
   getSide(){
     return this.order.originalOrder && this.order.originalOrder.side
   }
+  getAmountSymbol() {
+    return this.order.originalOrder.side.toLowerCase() === 'buy' ? this.order.originalOrder.tokenB : this.order.originalOrder.tokenS;
+  }
   getAmount(ifFormatted){
     if(this.order.originalOrder){
       const side = this.order.originalOrder.side.toLowerCase();
       let token =  side === 'buy' ? config.getTokenBySymbol(this.order.originalOrder.tokenB) : config.getTokenBySymbol(this.order.originalOrder.tokenS);
       token = token || {digits: 18, precision: 6};
       const amount = side === 'buy' ? this.order.originalOrder.amountB : this.order.originalOrder.amountS;
-      const symbol = side === 'buy' ? this.order.originalOrder.tokenB : this.order.originalOrder.tokenS;
       if(ifFormatted){
         return formatter(toBig(amount).div('1e' + token.digits), 4).d
       }else{
-        return toBig(amount).div('1e' + token.digits).toFixed(4)
+        return toFixed(toBig(amount).div('1e' + token.digits), 4)
       }
 
       // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
     }else{
       return null
     }
+  }
+  getMarketPair() {
+    return this.order.originalOrder.side.toLowerCase() === 'buy' ? `${this.order.originalOrder.tokenB}-${this.order.originalOrder.tokenS}` : `${this.order.originalOrder.tokenS}-${this.order.originalOrder.tokenB}`
   }
   getPrice(){
     if(this.order.originalOrder){
