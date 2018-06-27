@@ -131,7 +131,7 @@ function OrderDetail(props) {
             }
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
             <OrderMetaItem label={intl.get('order.price')} value={`${orderFm.getPrice()} ${orderFm.getMarketPair()}`}/>
-            <OrderMetaItem label={intl.get('order.amount')} value={orderFm.getAmount()}/>
+            <OrderMetaItem label={intl.get('order.amount')} value={`${orderFm.getAmount()} ${orderFm.getAmountSymbol()}`}/>
             <OrderMetaItem label={intl.get('order.total')} value={orderFm.getTotal()}/>
             <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
