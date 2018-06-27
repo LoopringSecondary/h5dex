@@ -15,15 +15,24 @@ import storage from 'modules/storage'
 import {signOrder} from '../../common/utils/signUtils'
 
 const OrderMetaItem = (props) => {
-  const {label, value} = props
+  const {label, value,showArrow=false,onClick=()=>{}} = props
   return (
-    <div className="row ml0 mr0 pl0 pr0 zb-b-t no-gutters" style={{padding:'7px 0px'}}>
+    <div onClick={onClick} className="row ml0 mr0 pl0 pr0 zb-b-t no-gutters" style={{padding:'7px 0px'}}>
       <div className="col">
-        <div className="fs14 color-black-1 lh25 text-left">{label}</div>
+        <div className="fs14 color-black-2 lh30 text-left">{label}</div>
       </div>
       <div className="col-auto text-right">
-        <div className="fs14 color-black-2 text-wrap lh25 text-left">{value}</div>
+        <div className="fs14 color-black-1 text-wrap lh30 text-left">{value}</div>
       </div>
+      {
+        !!showArrow &&
+        <div className="col-auto text-right">
+          <div className="fs14 color-black-1 text-wrap lh30 text-left">
+            <Icon type="right" />
+          </div>
+        </div>
+      }
+
     </div>
   )
 }
@@ -174,7 +183,7 @@ function PlaceOrderSteps(props) {
         <Pages active="order">
           <Page id="order" render={({page})=>
             <div>
-              <div className="p15 color-black-1 fs18 zb-b-b text-center">
+              <div hidden className="p15 color-black-1 fs18 zb-b-b text-center">
                 <div className="row">
                   <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'placeOrderSteps'})}>
                     <Icon type="close" />
@@ -185,7 +194,7 @@ function PlaceOrderSteps(props) {
                   </div>
                 </div>
               </div>
-              <div className="p20 bg-white">
+              <div className="p15 bg-white">
                 <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
                   <div className="col-auto">
                     <div className=" color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
@@ -216,8 +225,8 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
-                <OrderMetaItem label="矿工撮合费" value="0 LRC" />
-                <OrderMetaItem label="订单有效期" value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`} />
+                <OrderMetaItem showArrow={true} onClick={()=>{}} label="矿工撮合费" value="0 LRC"  />
+                <OrderMetaItem showArrow={true} onClick={()=>{}} label="订单有效期" value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
                 <div className="pt15 pb15 clor-black-3 fs14 zb-b-t">
                   <Icon className="mr5" type="exclamation-circle-o" />签名和下单不会消耗油费
                 </div>

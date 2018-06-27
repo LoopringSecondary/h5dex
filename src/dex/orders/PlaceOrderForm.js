@@ -240,7 +240,7 @@ const PlaceOrderForm = (props)=>{
               <span className="color-black-1">{total} {tokens.right}</span>
             </div>
           </div>
-          <div className="row align-items-center ml0 mr0 mb15 mt10 fs16">
+          <div hidden className="row align-items-center ml0 mr0 mb15 mt10 fs16">
             <div className="col color-black-1 pl0">
               {intl.get("common.advanced")}
             </div>
