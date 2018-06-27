@@ -118,6 +118,7 @@ const actions = {
   transfer_send: "是的，马上发送",
   place_buy_order: "提交买单",
   place_sell_order: "提交卖单",
+  all_assets: "全部资产"
 }
 
 const time_unit = {
@@ -191,6 +192,9 @@ export default {
     orders: "订单",
     fills: "成交",
     help: "帮助"
+  },
+  helper_of_market_order: {
+    selling: "挂单数量"
   },
   helper_of_amount: {
     depth: "深度"
