@@ -370,6 +370,7 @@ export default {
     title_reference_tickers: 'Reference Markets',
     title_recent: 'Recent',
     title_favorites: 'Favorites',
+    title_innovation: "Innovation"
   },
   // -----------
   // token
@@ -528,5 +529,10 @@ export default {
   },
   notifications: {
     tab_title: "Notifications"
+  },
+  market: {
+    tab_charts: "Charts",
+    tab_depth: "Depth",
+    tab_fills: "Fills"
   }
 }

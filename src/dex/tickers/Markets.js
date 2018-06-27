@@ -26,7 +26,7 @@ class Markets extends React.Component {
               <WebIcon key="1" type="search" className="color-black-1" />,
             ]}
           >
-          Markets
+            {intl.get('common.markets')}
           </NavBar>
           <ListMarketTickers />
         </div>
