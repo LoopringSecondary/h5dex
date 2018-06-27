@@ -374,6 +374,7 @@ export default {
     title_reference_tickers: '第三方交易所行情',
     title_recent: '最近',
     title_favorites: '收藏',
+    title_innovation: "创新区",
   },
   // -----------
   // token
@@ -533,6 +534,11 @@ export default {
   },
   notifications: {
     tab_title: "通知"
+  },
+  market: {
+    tab_charts: "图表",
+    tab_depth: "深度",
+    tab_fills: "成交"
   }
 }
 
