@@ -12,8 +12,8 @@ import * as orderFormatter from 'modules/orders/formatters'
 
 function HelperOfAmount(props) {
   const tabs = [
-    { title: <div className="text-center">Balance</div> },
-    { title: <div className="text-center">Depth</div> },
+    { title: <div className="text-center">{intl.get("common.balance")}</div> },
+    { title: <div className="text-center">{intl.get("helper_of_amount.depth")}</div> },
   ]
   const {pair,side,amountInput,priceInput,amountPercentage,amountSlider,amountSliderSelected,balance,dispatch} = props
   const tokens = getTokensByMarket(pair)
