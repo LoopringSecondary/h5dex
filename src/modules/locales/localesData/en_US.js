@@ -58,6 +58,7 @@ const words = {
   fills:'成交',
   list:{
     no_data:'No Data',
+    loading:'Loading...',
   }
 }
 const types = {
@@ -187,8 +188,9 @@ export default {
   },
   order_detail: {
     title: 'Order Detail',
-    tabs_basic: 'Basic Detail',
-    tabs_fills: 'Fill Detail',
+    tabs_basic: 'Order Detail',
+    tabs_fills: 'Order Fills',
+    tabs_logs: 'Order Logs',
   },
   place_order: {
     order_type: 'Order Type',

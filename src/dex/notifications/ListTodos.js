@@ -388,11 +388,18 @@ class ListTodos extends React.Component {
             }
           </div>
           {
-            !balance.loading && data.length == 0 &&
+            !(this.state.loading || balance.loading) && data.length == 0 &&
             <div className="color-black-3 p15 fs12 text-center">
               {intl.get('common.list.no_data')}
             </div>
           }
+          {
+            (this.state.loading || balance.loading) &&
+            <div className="color-black-3 p15 fs12 text-center">
+              {intl.get('common.list.loading')}
+            </div>
+          }
+
           <div className="pt50"></div>
         </div>
       </LayoutDexHome>

@@ -59,6 +59,7 @@ const words = {
   fills:'成交',
   list:{
     no_data:'暂无数据',
+    loading:'加载中...',
   }
 }
 
@@ -189,8 +190,9 @@ export default {
   },
   order_detail: {
     title: '订单详情',
-    tabs_basic: '基础信息',
-    tabs_fills: '成交信息',
+    tabs_basic: '订单详情',
+    tabs_fills: '订单成交',
+    tabs_logs: '订单日志',
   },
   place_order: {
     order_type: '订单类型',

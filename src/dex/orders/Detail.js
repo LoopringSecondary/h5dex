@@ -88,10 +88,9 @@ function OrderDetail(props) {
       </div>
       <Tabs
         tabs={[
-          { title: <div className="text-center">Order Detail</div> },
-          //{ title: <div className="text-center">Fills</div> },
-          { title: <div className="text-center">Order Logs</div> },
-          // { title: <div className="text-center">Status</div> },
+          { title: <div className="text-center">{intl.get('order_detail.tabs_basic')}</div> },
+          //{ title: <div className="text-center">{intl.get('order_detail.tabs_fills')}</div> },
+          // { title: <div className="text-center">{intl.get('order_detail.tabs_logs')}</div> },
         ]}
         tabBarActiveTextColor={"#000"}
         tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
