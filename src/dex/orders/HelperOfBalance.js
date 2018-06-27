@@ -40,7 +40,7 @@ const HelperOfBalance = (props)=>{
     })
   }
   const gotoReceive = (payload)=>{
-    showLayer({id:'receiveToken'})
+    showLayer({id:'receiveToken',...payload})
   }
   const gotoConvert = (payload)=>{
     routeActions.gotoPath('/dex/convert')
