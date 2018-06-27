@@ -240,7 +240,7 @@ class ListTodos extends React.Component {
           const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
           const unitBalance =  tf.toPricisionFixed(tf.getUnitAmount(assets.balance));
            const selling= tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)));
-          if (unitBalance < selling) {
+          if (toNumber(unitBalance) < toNumber(selling)) {
             data.push({
               symbol: symbol,
               type: 'balance',
