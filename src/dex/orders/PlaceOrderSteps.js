@@ -218,14 +218,10 @@ function PlaceOrderSteps(props) {
                 <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
                 <OrderMetaItem label="矿工撮合费" value="0 LRC" />
                 <OrderMetaItem label="订单有效期" value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`} />
-                {
-                  side === 'buy' &&
-                  <Button type="" className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>Next</Button>
-                }
-                {
-                  side === 'sell' &&
-                  <Button className="bg-grey-900 color-white mt15" onClick={next.bind(this, page)}>Next</Button>
-                }
+                <div className="pt15 pb15 clor-black-3 fs14 zb-b-t">
+                  <Icon className="mr5" type="exclamation-circle-o" />签名和下单不会消耗油费
+                </div>
+                <Button type="" className="bg-grey-900 color-white" onClick={next.bind(this, page)}>签名并下单</Button>
               </div>
             </div>
           }/>

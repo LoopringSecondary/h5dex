@@ -68,7 +68,7 @@ function OrderDetail(props) {
         tabs={[
           { title: <div className="text-center">Detail</div> },
           { title: <div className="text-center">Fills</div> },
-          { title: <div className="text-center">Logs</div> },
+          // { title: <div className="text-center">Logs</div> },
           // { title: <div className="text-center">Status</div> },
         ]}
         tabBarActiveTextColor={"#000"}
