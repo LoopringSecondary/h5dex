@@ -14,6 +14,7 @@ import moment from 'moment'
 import { keccakHash } from '../../common/loopringjs/src/common/utils'
 import storage from 'modules/storage'
 import {signMessage} from '../../common/utils/signUtils'
+import TokenFm from '../../modules/tokens/TokenFm'
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   console.log('HelperOfMyOrders',orders)
@@ -57,7 +58,20 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   }
   const cancelOrder = (item, e) => {
     e.stopPropagation()
-    Modal.alert('确认取消当前订单？', 'Buy 100.00 LRC ', [
+    const tokenb = item.originalOrder.tokenB
+    const tokens = item.originalOrder.tokenS
+    let description = ''
+    if(item.originalOrder.side.toLowerCase() ==='sell' ){
+     const tf = new TokenFm({symbol:tokens})
+      description = `Sell ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountS))} ${tokens}`
+    }else{
+      const tf = new TokenFm({symbol:tokens})
+      description = `Buy ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
+    }
+
+console.log(item)
+
+    Modal.alert('确认取消当前订单？', description, [
       {text: 'No', onPress: () => {}, style: 'default'},
       {
         text: 'Yes', onPress: () => {
@@ -87,8 +101,8 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   }
   const cancelOrderByTokenPair = (e) => {
     e.stopPropagation()
-    if (orders.items && orders.items.length > 0 && orders.items.find(item => item.status === 'open')) {
-      const openOrders = orders.items.filter(item => item.status === 'open')
+    if (orders.items && orders.items.find(item => item.status === "ORDER_OPENED")) {
+      const openOrders = orders.items.filter(item => item.status === 'ORDER_OPENED')
       Modal.alert(`取消全部${market}订单？`, `${openOrders.length} open orders of LRC-WETH will be canceled`, [
         {text: 'No', onPress: () => {}, style: 'default'},
         {

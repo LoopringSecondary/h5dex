@@ -9,8 +9,7 @@ export default class MockWallet extends Wallet {
     // if(key){
     //   this.wallet = fromPrivateKey(key);
     // }
-   // this.wallet = fromPrivateKey('')
-    console.log('mock this',this)
+   this.wallet = fromPrivateKey('f8627ed13ef88e1ca6263a291a57fcaf0936cb40e5db6c53b0415092f0256e9f')
     this.walletType='mock'
   }
 
@@ -35,8 +34,8 @@ export default class MockWallet extends Wallet {
 
   getCurrentAccount() {
     return new Promise((resolve) => {
-    //  resolve({result: this.wallet.getAddress()})
-      resolve({result: "0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00"})
+    resolve({result: this.wallet.getAddress()})
+      // resolve({result: "0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00"})
     })
   }
 
