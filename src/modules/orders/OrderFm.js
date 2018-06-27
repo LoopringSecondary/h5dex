@@ -1,6 +1,6 @@
 import React from 'react';
 import {Icon} from 'antd';
-import {toNumber,toBig} from "LoopringJS/common/formatter";
+import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
 import config from "common/config";
 import commonFm from "../formatter/common";
 import {formatter} from 'modules/formatter/FormatNumber'
@@ -33,9 +33,9 @@ export class OrderFm {
       const amount = side === 'buy' ? this.order.originalOrder.amountB : this.order.originalOrder.amountS;
       const symbol = side === 'buy' ? this.order.originalOrder.tokenB : this.order.originalOrder.tokenS;
       if(ifFormatted){
-        return formatter(toBig(amount).div('1e' + token.digits), 4).d
+        return formatter(toBig(amount).div('1e' + token.digits), 4).d + ' ' + symbol
       }else{
-        return toBig(amount).div('1e' + token.digits).toFixed(4)
+        return toFixed(toBig(amount).div('1e' + token.digits), 4) + ' ' + symbol
       }
 
       // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
@@ -51,7 +51,8 @@ export class OrderFm {
       const price =  this.order.originalOrder.side.toLowerCase() === 'buy' ?
         toBig(this.order.originalOrder.amountS).div('1e'+tokenS.digits).div(toBig(this.order.originalOrder.amountB).div('1e'+tokenB.digits)).toFixed(market.pricePrecision) :
         toBig(this.order.originalOrder.amountB).div('1e'+tokenB.digits).div(toBig(this.order.originalOrder.amountS).div('1e'+tokenS.digits)).toFixed(market.pricePrecision);
-      return commonFm.getFormatNum(price)
+      const pair = this.order.originalOrder.side.toLowerCase() === 'buy' ? `${this.order.originalOrder.tokenB}-${this.order.originalOrder.tokenS}` : `${this.order.originalOrder.tokenS}-${this.order.originalOrder.tokenB}`
+      return `${commonFm.getFormatNum(price)} ${pair}`
     }else{
       return null
     }
