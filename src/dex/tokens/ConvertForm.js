@@ -11,6 +11,8 @@ import intl from 'react-intl-universal'
 import storage from 'modules/storage'
 import Worth from 'modules/settings/Worth'
 import {signTx,signMessage} from '../../common/utils/signUtils'
+import Notification from 'LoopringUI/components/Notification'
+
 
 const WETH = Contracts.WETH
 const Item = List.Item
@@ -30,7 +32,7 @@ class Convert extends React.Component {
 
 
   render () {
-    const {dispatch, balance, prices, amount,gas} = this.props
+    const {dispatch, balance, amount,gas} = this.props
     const {token} = this.state;
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
@@ -69,19 +71,18 @@ class Convert extends React.Component {
       dispatch({type: 'convert/setMax', payload: {amount: max, amount1: max}})
     }
     const gotoConfirm = async () => {
-      // if (!isValidNumber(amount)) {
-      //   Toast.info('请输入合法的数字')
-      //   return
-      // }
-      //
-      // if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-      //   Toast.info('余额不足')
-      //   return
-      // }
+      if (!isValidNumber(amount)) {
+        Toast.info('请输入合法的数字')
+        return
+      }
 
+      if (toBig(amount).plus(gasFee).gt(assets.balance)) {
+        Toast.info('余额不足')
+        return
+      }
       let data = ''
       let value = ''
-      if (token.toLowerCase() === 'Eth') {
+      if (token.toLowerCase() === 'eth') {
         data = WETH.encodeInputs('deposit')
         value = toHex(tf.getDecimalsAmount(amount))
       } else {
@@ -108,8 +109,13 @@ class Convert extends React.Component {
                 rawTx: tx,
                 from: address
               })
+              Modal.alert('convert success')
+            }else{
+              Modal.alert(resp.error.message)
             }
           })
+        }else{
+          Modal.alert(res.error.message)
         }
       })
     }

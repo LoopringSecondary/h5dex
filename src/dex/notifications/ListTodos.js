@@ -222,50 +222,6 @@ class ListTodos extends React.Component {
     }
   }
 
-  componentDidMount () {
-    const {balance, txs} = this.props
-    Toast.loading('Loading...', 0, () => {
-      Toast.success('Load complete !!!')
-    })
-    window.RELAY.account.getAllEstimatedAllocatedAmount({
-      owner: storage.wallet.getUnlockedAddress(),
-      delegateAddress: config.getDelegateAddress()
-    }).then(res => {
-      const data = []
-      if (!res.error && res.result) {
-        const symbols = Object.keys(res.result)
-        symbols.forEach((symbol, index) => {
-          const value = res.result[symbol]
-          const tf = new TokenFormatter({symbol})
-          const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-          const unitBalance =  tf.toPricisionFixed(tf.getUnitAmount(assets.balance));
-           const selling= tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)));
-          if (toNumber(unitBalance) < toNumber(selling)) {
-            data.push({
-              symbol: symbol,
-              type: 'balance',
-              balance:unitBalance,
-              selling,
-              lack:selling - unitBalance,
-              title: `${symbol} balance is insufficient for orders`
-            })
-          }
-          let allowance = assets.allowance
-          if (isApproving(txs, symbol)) {
-            allowance = isApproving(txs, symbol)
-          }
-          if (allowance.lt(toBig(value))) {
-            data.push({symbol: symbol, type: 'allowance', title: `${symbol} allowance is insufficient for orders`})
-          }
-        })
-      }
-      this.setState({
-        data:data.sort((a,b) => {return a.type < b.type ? -1 :1})
-      })
-      Toast.hide()
-    })
-  }
-
   componentWillReceiveProps(newProps){
     const {balance, txs} = newProps
     if(newProps !== this.props){

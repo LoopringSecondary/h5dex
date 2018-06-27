@@ -71,7 +71,7 @@ export default class Imtoken extends Wallet {
         if(error){
           resolve({error})
         }else{
-          resolve({result})
+          resolve({result:addHexPrefix(result)})
         }
       })
     })

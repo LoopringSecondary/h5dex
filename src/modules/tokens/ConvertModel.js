@@ -58,7 +58,7 @@ export default {
   effects: {
     * amountChange({payload}, {put}) {
       const {amount} = payload;
-      yield put({type: "setAmount", payload: {amount:toBig(amount)}});
+      yield put({type: "setAmount", payload: {amount}});
     },
     * gasPriceChange({payload}, {select, put}) {
       const {gasPrice,token,gasLimit,balance} = payload;
