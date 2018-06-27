@@ -187,7 +187,8 @@ export default {
     order_until: "Valid Until",
     assets: "Assets",
     orders: "Orders",
-    fills: "Fills"
+    fills: "Fills",
+    help: "Help"
   },
   settings: {
     title: 'Settings',
@@ -410,7 +411,7 @@ export default {
     notification_fail_title:'Failed to Convert {value} {token}'
   },
   receive: {
-    receive_title: 'My Ethereum Address',
+    receive_title: 'My {token} Address',
     receive_value_tip: 'Recommended value',
   },
   // -----------

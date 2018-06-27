@@ -144,7 +144,7 @@ class Convert extends React.Component {
                     onClick={swap}><WebIcon type="swap"/></Button>,
           ]}
         >
-          Convert {token}
+          {intl.get('common.convert')} {token}
         </NavBar>
         <div className="zb-b-b pt25 pb25 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
@@ -197,7 +197,7 @@ class Convert extends React.Component {
             </div>
           </div>
           <div className='mt20'>
-            <a onClick={setMax}>最大数量</a>
+            <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
           <WebButton className="mt20 b-block w-100" size="large" onClick={gotoConfirm}
                      type="primary">{token.toLowerCase() === 'eth' ? 'Convert ETH To WETH' : 'Convert WETH To ETH'}</WebButton>

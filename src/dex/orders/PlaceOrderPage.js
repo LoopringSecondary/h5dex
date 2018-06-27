@@ -8,6 +8,7 @@ import {getTokensByMarket} from 'modules/formatter/common'
 import HelperOfMyMarketOrders from './HelperOfMyMarketOrders'
 import HelperOfMyMarketFills from './HelperOfMyMarketFills'
 import HelperOfBalance from './HelperOfBalance'
+import HelperOfFAQ from './HelperOfFAQ'
 import PlaceOrderForm from './PlaceOrderForm'
 import {toBig,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal';
@@ -52,9 +53,10 @@ class PlaceOrderPage extends React.Component {
       })
    }
 
-   const gotoTrade = ()=>{
+    const gotoTrade = ()=>{
       routeActions.gotoPath(`/dex/markets/${pair}`)
     }
+
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
@@ -62,7 +64,7 @@ class PlaceOrderPage extends React.Component {
             className=""
             mode="light"
             leftContent={[
-              <span className="color-black-1" key="1"><WebIcon type="bars" /></span>,
+              <span onClick={routeActions.goBack} className="color-black-1" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
               <span className="color-black-1" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
@@ -96,14 +98,14 @@ class PlaceOrderPage extends React.Component {
               <PlaceOrderForm side="sell" showLayer={showLayer} />
             </Tabs>
           </div>
-          <div className="divider 1px zb-b-t"></div>
-          <div className="no-underline tabs-no-border">
+          <div className="tabs-no-border">
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.assets")}</div></div> },
-                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.orders")}</div></div> },
-                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.fills")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.assets")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.orders")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.fills")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.help")}</div></div> },
                 ]
               }
               tabBarBackgroundColor="#fff"
@@ -117,11 +119,14 @@ class PlaceOrderPage extends React.Component {
               <div className="zb-b-t">
                 <HelperOfBalance />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfMyMarketOrders />
               </div>
-              <div>
+              <div className="zb-b-t">
                 <HelperOfMyMarketFills />
+              </div>
+              <div className="zb-b-t">
+                 <HelperOfFAQ />
               </div>
             </Tabs>
             <div className="pb50"></div>

@@ -189,7 +189,8 @@ export default {
     order_until: "订单失效时间",
     assets: "资产",
     orders: "订单",
-    fills: "成交"
+    fills: "成交",
+    help: "帮助"
   },
   helper_of_amount: {
     depth: "深度"
@@ -405,7 +406,7 @@ export default {
     assets_title: '总资产',
   },
   receive:{
-    receive_title: '我的以太坊地址',
+    receive_title: '我的{token}地址',
     receive_value_tip: '推荐值',
   },
   convert:{
