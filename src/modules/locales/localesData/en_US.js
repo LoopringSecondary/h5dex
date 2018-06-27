@@ -116,7 +116,8 @@ const actions = {
   transfer_send: "Yes, Send Now",
   place_buy_order: "Place Buy Order",
   place_sell_order: "Place Sell Order",
-  all_assets: "All Assets"
+  all_assets: "All Assets",
+  fills_of_all_markets: "Fills of all markets"
 }
 
 const time_unit = {
@@ -196,6 +197,7 @@ export default {
   },
   helper_of_market_order: {
     selling: "Selling",
+    no_fills_of_market: "No fills of {market}",
   },
   settings: {
     title: 'Settings',
@@ -515,7 +517,8 @@ export default {
   },
   user_center:{
     receive:'Receive',
-    send:'Send'
+    send:'Send',
+    tab_title: "My"
   },
   kline_chart:{
     kline_chart:'Kline Chart',
@@ -523,4 +526,7 @@ export default {
   price_chart:{
     price_chart:'Price Chart',
   },
+  notifications: {
+    tab_title: "Notifications"
+  }
 }

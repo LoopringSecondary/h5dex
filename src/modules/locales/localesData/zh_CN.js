@@ -118,7 +118,8 @@ const actions = {
   transfer_send: "是的，马上发送",
   place_buy_order: "提交买单",
   place_sell_order: "提交卖单",
-  all_assets: "全部资产"
+  all_assets: "全部资产",
+  fills_of_all_markets: "查看全部市场成交"
 }
 
 const time_unit = {
@@ -176,7 +177,7 @@ export default {
     my_open_orders:'最近订单',
     my_all_orders:'全部订单',
     order_book:'最新挂单',
-    no_open_orders: "{market}市场没有有效订单",
+    no_open_orders: "{market}暂无有效订单",
     view_all_orders: "查看全部订单"
   },
   order_detail: {
@@ -194,7 +195,8 @@ export default {
     help: "帮助"
   },
   helper_of_market_order: {
-    selling: "挂单数量"
+    selling: "挂单数量",
+    no_fills_of_market: "{market}暂无成交",
   },
   helper_of_amount: {
     depth: "深度"
@@ -520,7 +522,8 @@ export default {
 
   user_center:{
     receive:'收款',
-    send:'转账'
+    send:'转账',
+    tab_title: "我的"
   },
   kline_chart:{
     kline_chart:'K线图',
@@ -528,5 +531,8 @@ export default {
   price_chart:{
     price_chart:'价格行情',
   },
+  notifications: {
+    tab_title: "通知"
+  }
 }
 

@@ -37,7 +37,7 @@ class Home extends React.Component {
                   className="position-fixed"
                 >
                   <TabBar.Item
-                    title="Markets"
+                    title={intl.get("common.markets")}
                     key="markets"
                     icon={
                       <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />
@@ -53,7 +53,7 @@ class Home extends React.Component {
                   <TabBar.Item
                     icon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="sync" className="fs22" style={{marginTop:'4px'}} />}
-                    title="Trade"
+                    title={intl.get("common.trade")}
                     key="placeOrder"
                     selected={pathname === `${url}/placeOrder`}
                     onPress={() => {
@@ -63,7 +63,7 @@ class Home extends React.Component {
                   <TabBar.Item
                     icon={<WebIcon type="user" className="fs22" style={{marginTop:'4px'}} />}
                     selectedIcon={<WebIcon type="setting" className="fs22" style={{marginTop:'4px'}} />}
-                    title="My"
+                    title={intl.get("user_center.tab_title")}
                     key="userCenter"
                     selected={pathname === `${url}/userCenter`}
                     onPress={() => {
