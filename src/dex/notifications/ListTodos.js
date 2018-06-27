@@ -119,7 +119,7 @@ const TodoItem = (props) => {
           <div>
             { false && <Switch onChange={enable.bind(this, item)}/> }
             <Button disabled={true} inline={true} style={{width: '80px'}} type="ghost" size="small" className="" onClick={() => {}}>
-              {intl.get('todo_list.actions.enable')}
+              {intl.get('todo_list.actions_enable')}
             </Button>
           </div>
         </div>
@@ -183,7 +183,7 @@ const TodoItem = (props) => {
           <div className="col-auto">
             <div>
               <Button inline={true} style={{width: '80px'}} type="ghost" size="small" className=""onClick={() => {}}>
-                {intl.get('todo_list.actions.buy')} <WebIcon type="down" />
+                {intl.get('todo_list.actions_buy')} <WebIcon type="down" />
               </Button>
               <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
                       onClick={() => showReceive(item.symbol)}>Receive</Button>
@@ -388,7 +388,7 @@ class ListTodos extends React.Component {
             }
           </div>
           {
-            !this.state.loading && data.length == 0 &&
+            !balance.loading && data.length == 0 &&
             <div className="color-black-3 p15 fs12 text-center">
               {intl.get('common.list.no_data')}
             </div>

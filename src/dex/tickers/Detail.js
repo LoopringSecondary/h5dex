@@ -114,9 +114,9 @@ class MarketDetail extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs16 pt5 pb5">Charts</div> },
-                { title: <div className="fs16 pt5 pb5">Depth</div> },
-                { title: <div className="fs16 pt5 pb5">Fills</div> },
+                { title: <div className="fs16 pt5 pb5">{intl.get("market.tab_charts")}</div> },
+                { title: <div className="fs16 pt5 pb5">{intl.get("market.tab_depth")}</div> },
+                { title: <div className="fs16 pt5 pb5">{intl.get("market.tab_fills")}</div> },
               ]
             }
             tabBarBackgroundColor={'#fff'}
@@ -142,10 +142,10 @@ class MarketDetail extends React.Component {
         <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
           <div className="row ml0 mr0 no-gutters">
             <div className="col-6">
-              <Button onClick={gotoTrade.bind(this,{side:'buy'})} className="bg-green-500 color-white m5">Buy {tokens.left}</Button>
+              <Button onClick={gotoTrade.bind(this,{side:'buy'})} className="bg-green-500 color-white m5">{intl.get("common.buy")} {tokens.left}</Button>
             </div>
             <div className="col-6">
-              <Button onClick={gotoTrade.bind(this,{side:'sell'})} className="bg-red-500 color-white m5">Sell {tokens.left}</Button>
+              <Button onClick={gotoTrade.bind(this,{side:'sell'})} className="bg-red-500 color-white m5">{intl.get("common.sell")} {tokens.left}</Button>
             </div>
           </div>
         </div>

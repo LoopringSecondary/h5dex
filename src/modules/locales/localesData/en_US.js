@@ -50,6 +50,12 @@ const words = {
   help:'Help',
   feedback:"Feedback",
   quit:'Quit',
+  asset:'资产',
+  assets:'资产',
+  order:'订单',
+  orders:'订单',
+  fill:'成交',
+  fills:'成交',
   list:{
     no_data:'No Data',
   }
@@ -66,6 +72,7 @@ const validation_messages = {
   invalid_integer: 'Please provide an integer value',
   token_not_select: "Please select token",
   invalid_eth_address: "Invalid Ethereum address",
+  invalid_item: "Please provide a valid {item}"
 }
 
 const notifications = {
@@ -370,6 +377,7 @@ export default {
     title_reference_tickers: 'Reference Markets',
     title_recent: 'Recent',
     title_favorites: 'Favorites',
+    title_innovation: "Innovation"
   },
   // -----------
   // token
@@ -526,14 +534,30 @@ export default {
   price_chart:{
     price_chart:'Price Chart',
   },
-  notifications: {
+  todos: {
     tab_title: "Notifications"
   },
+  message_list:{
+    message_list_title:'Messages',
+  },
   todo_list:{
-    allowance_not_enough_title:"{symbol} 未开启交易",
-    balance_not_enough_title:"{symbol} 余额不足",
-    selling:"卖出",
-    lack:"缺少",
-    // balance_not_enount_title:"{symbol} balance is insufficient for orders",
+    todo_list_title:'Todos',
+    allowance_not_enough_title:"{symbol} is disabled to trade",
+    balance_not_enough_title:"{symbol} balance is insufficient",
+    balance:"Balance",
+    selling:"Selling",
+    lack:"Lack",
+    actions_enable:"Enable",
+    actions_buy:words.buy,
+    actions_receive:words.receive,
+  },
+  usercenter:{
+    page_title:'我的交易',
+    actions_switch_wallet:'切换钱包',
+  },
+  market: {
+    tab_charts: "Charts",
+    tab_depth: "Depth",
+    tab_fills: "Fills"
   }
 }

@@ -51,6 +51,12 @@ const words = {
   help:'帮助',
   feedback:"反馈",
   quit:'退出',
+  asset:'资产',
+  assets:'资产',
+  order:'订单',
+  orders:'订单',
+  fill:'成交',
+  fills:'成交',
   list:{
     no_data:'暂无数据',
   }
@@ -68,6 +74,7 @@ const validation_messages = {
   invalid_integer: '请输入合法的整数',
   token_not_select: "请选择代币",
   invalid_eth_address: "不合法的以太坊地址",
+  invalid_item: "请输入合法的{item}"
 }
 
 const notifications = {
@@ -374,6 +381,7 @@ export default {
     title_reference_tickers: '第三方交易所行情',
     title_recent: '最近',
     title_favorites: '收藏',
+    title_innovation: "创新区",
   },
   // -----------
   // token
@@ -531,7 +539,7 @@ export default {
   price_chart:{
     price_chart:'价格行情',
   },
-  notifications: {
+  todos: {
     tab_title: "通知"
   },
   message_list:{
@@ -539,15 +547,24 @@ export default {
   },
   todo_list:{
     todo_list_title:'待做',
-    allowance_not_enough_title:"{symbol} 未开启交易",
+    allowance_not_enough_title:"{symbol} 还未授权交易",
     balance_not_enough_title:"{symbol} 余额不足",
     balance:"当前余额",
     selling:"出售数量",
     lack:"缺少数量",
-    actions_enable:"开启交易",
+    actions_enable:"授权",
     actions_buy:words.buy,
     actions_receive:words.receive,
     // balance_not_enount_title:"{symbol} balance is insufficient for orders",
+  },
+  usercenter:{
+    page_title:'我的交易',
+    actions_switch_wallet:'切换钱包',
+  },
+  market: {
+    tab_charts: "图表",
+    tab_depth: "深度",
+    tab_fills: "成交"
   }
 }
 

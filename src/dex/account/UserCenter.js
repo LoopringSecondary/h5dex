@@ -11,6 +11,7 @@ import ListBalance from '../tokens/ListBalance'
 import ListMyFills from '../fills/ListMyFills'
 import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
+import intl from 'react-intl-universal';
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -100,15 +101,14 @@ class UserCenter extends React.Component {
           <NavBar
             className=""
             mode="light"
-            onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
-            leftContent={[
+            leftContent={null && [
               <span className="color-black-1" key="1"><WebIcon type="home" /></span>,
             ]}
             rightContent={[
               <span className="color-black-1" key="1" onClick={()=>{}}><WebIcon type="setting" /></span>
             ]}
           >
-          My Dex
+          {intl.get('usercenter.page_title')}
           </NavBar>
           <div className="divider 1px zb-b-b"></div>
           <div className="pt25 pb25 text-left bg-white">
@@ -117,7 +117,7 @@ class UserCenter extends React.Component {
                 <div className="text-center color-black-1 fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
                   <div className="fs14 color-black-3 mt5">
-                    Switch Wallet <WebIcon type="right" />
+                    {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
                   </div>
                 </div>
               </div>
@@ -130,13 +130,13 @@ class UserCenter extends React.Component {
             <div className="divider 1px zb-b-b"></div>
             <SegmentedControl values={['Assets','Orders','Fills']} style={{height:'40px'}}/>
           </div>
-          <div className="no-underline height-auto">
+          <div className="height-auto tabs-no-border">
             <Tabs
               tabs={
                 [
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">Assets</Badge> },
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">Orders</Badge> },
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">Fills</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.assets')}</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.orders')}</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.fills')}</Badge> },
                 ]
               }
               tabBarBackgroundColor="#fff"
