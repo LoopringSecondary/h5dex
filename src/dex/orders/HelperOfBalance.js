@@ -6,6 +6,7 @@ import {getTokensByMarket} from 'modules/formatter/common'
 import * as tokenFormatter from 'modules/tokens/TokenFm'
 import {FormatAmount} from 'modules/formatter/FormatNumber'
 import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
+import intl from 'react-intl-universal'
 
 const HelperOfBalance = (props)=>{
   const {dispatch,pair,balance} = props
@@ -55,10 +56,10 @@ const HelperOfBalance = (props)=>{
       <table className="w-100 fs13">
         <thead>
           <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Selling</th>
-            <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Actions</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.token')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.balance')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('helper_of_market_order.selling')}</th>
+            <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.actions')}</th>
           </tr>
         </thead>
         <tbody>
@@ -74,15 +75,15 @@ const HelperOfBalance = (props)=>{
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {
                       false && token.symbol === 'ETH' &&
-                      <a onClick={gotoConvert.bind(this,{type:"eth2weth"})}>Convert</a>
+                      <a onClick={gotoConvert.bind(this,{type:"eth2weth"})}>{intl.get('common.convert')}</a>
                     }
                     {
                       token.symbol === 'WETH' &&
-                      <a onClick={gotoConvert.bind(this,{type:"weth2eth"})}>Convert</a>
+                      <a onClick={gotoConvert.bind(this,{type:"weth2eth"})}>{intl.get('common.convert')}</a>
                     }
                     {
                       token.symbol !== 'WETH' &&
-                      <a onClick={gotoReceive.bind(this,{symbol:token.symbol})}>Receive</a>
+                      <a onClick={gotoReceive.bind(this,{symbol:token.symbol})}>{intl.get('common.receive')}</a>
                     }
                   </td>
                 </tr>
@@ -91,7 +92,7 @@ const HelperOfBalance = (props)=>{
         </tbody>
       </table>
       <div className="p10 mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs13 bg-none color-black-2">all assets</Button>
+        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}} className="d-block w-100 fs13 bg-none color-black-2">{intl.get("actions.all_assets")}</Button>
       </div>
     </div>
   )
