@@ -223,7 +223,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       </table>
       <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                className="d-block w-100 fs14 bg-none">{intl.get("view_all_orders")}</Button>
+                className="d-block w-100 fs14 bg-none">{intl.get("order_list.view_all_orders")}</Button>
       </div>
     </div>
 
