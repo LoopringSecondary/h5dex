@@ -118,7 +118,7 @@ const TodoItem = (props) => {
         <div className="col-auto">
           <div>
             { false && <Switch onChange={enable.bind(this, item)}/> }
-            <Button disabled={true} inline={true} style={{width: '80px'}} type="ghost" size="small" className="" onClick={() => {}}>
+            <Button disabled={false} inline={true} style={{width: '80px'}} type="primary" size="small" className="" onClick={() => {}}>
               {intl.get('todo_list.actions_enable')}
             </Button>
           </div>
@@ -182,7 +182,7 @@ const TodoItem = (props) => {
           </div>
           <div className="col-auto">
             <div>
-              <Button inline={true} style={{width: '80px'}} type="ghost" size="small" className=""onClick={() => {}}>
+              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""onClick={() => {}}>
                 {intl.get('todo_list.actions_buy')} <WebIcon type="down" />
               </Button>
               <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
@@ -370,9 +370,10 @@ class ListTodos extends React.Component {
               <WebIcon key="1" type="question-circle-o" className="color-black-1"/>,
             ]}
           >
-
-            <SegmentedControl values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]} style={{width: '220px', height: '32px'}}/>
-
+            { false && <SegmentedControl values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]} style={{width: '220px', height: '32px'}}/> }
+            {
+              intl.get('todo_list.todo_list_title')
+            }
           </NavBar>
           {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
           <NoticeBar onClick={this.enableAll} className="text-left t-error s-lg"

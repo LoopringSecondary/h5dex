@@ -173,11 +173,12 @@ const PlaceOrderForm = (props)=>{
       showLayer({id:'helperOfAmount',side:'sell'})
     }
   }
+  const menu1 = `${intl.get("common.buy")} ${tokens.left}`
+  const menu2 = `${intl.get("common.sell")} ${tokens.right}`
   return (
     <div>
-       <div hidden className="pl10 pr10 pt10 pb5 bg-white">
-         <div className="divider 1px zb-b-b"></div>
-         <SegmentedControl values={['Buy LRC', 'Sell LRC']} style={{height:'40px'}}/>
+       <div className="pl10 pr10 pt10 pb5 bg-white">
+         <SegmentedControl values={[menu1, menu2]} style={{height:'36px'}}/>
        </div>
        <List className="bg-none no-border">
         <InputItem
@@ -213,7 +214,7 @@ const PlaceOrderForm = (props)=>{
       </List>
       <List className="bg-none no-border">
         <Item>
-          <div className="row align-items-center ml0 mr0 mb15 mt10 fs16 no-gutters">
+          <div className="row align-items-center ml0 mr0 mb10 mt5 fs16 no-gutters">
             <div className="col color-black-1 pl0 fs16">{intl.get("common.total")}</div>
             <div className="col-auto pr0">
               <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
@@ -222,13 +223,13 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb10 color-white bg-red-500" type="warning">
+            <Button onClick={toConfirm} className="w-100 d-block mb5 color-white bg-red-500" type="warning">
               {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb10 bg-green-500 color-white">
+            <Button onClick={toConfirm} className="w-100 d-block mb5 bg-green-500 color-white">
               {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }
