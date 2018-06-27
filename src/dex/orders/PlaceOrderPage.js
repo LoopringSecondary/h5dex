@@ -57,6 +57,12 @@ class PlaceOrderPage extends React.Component {
       routeActions.gotoPath(`/dex/markets/${pair}`)
     }
 
+    const tabChange = (tab) => {
+      if(tab === 'fills') {
+        dispatch({type:"fills/fetch", payload:{id:"MyFills"}})
+      }
+    }
+
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
@@ -102,10 +108,10 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.assets")}</div></div> },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.orders")}</div></div> },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.fills")}</div></div> },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.help")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.assets")}</div></div>, tab:'assets' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.orders")}</div></div>, tab:'orders' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.fills")}</div></div>, tab:'fills' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.help")}</div></div>, tab:'help' },
                 ]
               }
               tabBarBackgroundColor="#fff"
@@ -113,7 +119,7 @@ class PlaceOrderPage extends React.Component {
               tabBarInactiveTextColor={"#999"}
               initialPage={0}
               swipeable={false}
-              onChange={(tab, index) => { console.log('onChange', index, tab); }}
+              onChange={(tab, index) => tabChange(tab.tab)}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
               <div className="zb-b-t">

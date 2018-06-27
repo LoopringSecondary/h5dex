@@ -51,6 +51,29 @@ function OrderDetail(props) {
       }
     })
   }
+  const orderStatus = (item) => {
+    if (item.status === 'ORDER_OPENED') {
+      return intl.get("order_status.opened")
+    }
+    if (item.status === 'ORDER_FINISHED') {
+      return intl.get("order_status.completed")
+    }
+    if (item.status === 'ORDER_CANCELLED') {
+      return intl.get("order_status.canceled")
+    }
+    if (item.status === 'ORDER_CUTOFF') {
+      return intl.get("order_status.canceled")
+    }
+    if (item.status === 'ORDER_EXPIRE') {
+      return intl.get("order_status.expired")
+    }
+    if (item.status === 'ORDER_PENDING') {
+      return intl.get("order_status.pending")
+    }
+    if (item.status === 'ORDER_CANCELLING') {
+      return intl.get("order_status.canceling")
+    }
+  }
   return (
     <div className="bg-white no-underline">
       <div className="color-black-1 fs18 zb-b-b text-center">
@@ -67,8 +90,8 @@ function OrderDetail(props) {
       <Tabs
         tabs={[
           { title: <div className="text-center">Detail</div> },
-          { title: <div className="text-center">Fills</div> },
-          // { title: <div className="text-center">Logs</div> },
+          //{ title: <div className="text-center">Fills</div> },
+          { title: <div className="text-center">Logs</div> },
           // { title: <div className="text-center">Status</div> },
         ]}
         tabBarActiveTextColor={"#000"}
@@ -106,11 +129,11 @@ function OrderDetail(props) {
                   为什么订单没有撮合成交？
               </NoticeBar>
             }
-            <OrderMetaItem label={intl.get('order.status')} value={orderFm.getStatus()}/>
+            <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
             <OrderMetaItem label={intl.get('order.price')} value={orderFm.getPrice()}/>
             <OrderMetaItem label={intl.get('order.amount')} value={orderFm.getAmount()}/>
             <OrderMetaItem label={intl.get('order.total')} value={orderFm.getTotal()}/>
-            <OrderMetaItem label={intl.get('order.filled')} value={orderFm.getFilledPercent()}/>
+            <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
             <OrderMetaItem label={intl.get('order.validSince')} value={orderFm.getCreateTime()}/>
             <OrderMetaItem label={intl.get('order.validUntil')} value={orderFm.getExpiredTime()}/>

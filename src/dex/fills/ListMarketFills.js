@@ -1,6 +1,8 @@
 import React from 'react';
 import {FillFm} from 'modules/fills/formatters'
+import {getFormatTime} from "modules/formatter/common";
 import {connect} from 'dva'
+import {toBig, toNumber} from 'LoopringJS/common/formatter'
 
 const ListMarketFills = ({trades={},maxRows=5})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
@@ -42,7 +44,7 @@ const ListMarketFills = ({trades={},maxRows=5})=>{
                       {item.lrcFee}
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">
-                      {item.createTime}
+                      {getFormatTime(toNumber(item.createTime) * 1e3,'MM-DD HH:mm')}
                     </td>
                   </tr>
                 )
