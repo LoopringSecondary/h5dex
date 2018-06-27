@@ -84,11 +84,10 @@ class AuthByImtoken extends React.Component {
                 <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
                   width: '40px',
                   height: '40px',
-                  lineHeight: '38px',
+                  lineHeight: '40px',
                   borderRadius: '50em',
-                  border: '1px solid'
                 }}>
-                  <i className={`icon-EOS fs24`}/>
+                  <img className="rounded-circle" width="100%" src="https://docs.token.im/images/im-token-logo.png" alt=""/>
                 </div>
               </div>
               <div className="col-auto text-center" style={{width: '30px'}}>
