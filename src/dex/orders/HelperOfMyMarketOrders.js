@@ -140,6 +140,12 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     if (item.status === 'ORDER_EXPIRE') {
       return <WebIcon className="zb-b-b color-black-4" type="clock-circle" />
     }
+    if (item.status === 'ORDER_PENDING') {
+      return <WebIcon className="zb-b-b color-black-4" type="cloud-upload-o" />
+    }
+    if (item.status === 'ORDER_CANCELLING') {
+      return "Canceling"
+    }
   }
   const gotoAll = () => {}
   return (
