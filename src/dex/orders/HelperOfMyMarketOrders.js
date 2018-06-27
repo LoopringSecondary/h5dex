@@ -129,19 +129,19 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       return <a className="fs12" onClick={cancelOrder.bind(this, item)}>Cancel</a>
     }
     if (item.status === 'ORDER_FINISHED') {
-      return <WebIcon className="zb-b-b color-green-500" type="check-circle" />
+      return "Finished"
     }
     if (item.status === 'ORDER_CANCELLED') {
-      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+      return "Cancelled"
     }
     if (item.status === 'ORDER_CUTOFF') {
-      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+      return "Cancelled"
     }
     if (item.status === 'ORDER_EXPIRE') {
-      return <WebIcon className="zb-b-b color-black-4" type="clock-circle" />
+      return "Expired"
     }
     if (item.status === 'ORDER_PENDING') {
-      return <WebIcon className="zb-b-b color-black-4" type="cloud-upload-o" />
+      return "Pending"
     }
     if (item.status === 'ORDER_CANCELLING') {
       return "Canceling"
