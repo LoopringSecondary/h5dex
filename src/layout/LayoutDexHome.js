@@ -28,7 +28,7 @@ class DexHomeLayout extends React.Component {
             className="position-fixed"
           >
             <TabBar.Item
-              title="Markets"
+              title={intl.get("common.markets")}
               key="markets"
               icon={
                 <WebIcon type="line-chart" className="fs22" style={{marginTop:'0px'}} />
@@ -44,7 +44,7 @@ class DexHomeLayout extends React.Component {
             <TabBar.Item
               icon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'0px'}} />}
               selectedIcon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'0px'}} />}
-              title="Trade"
+              title={intl.get("common.trade")}
               key="placeOrder"
               selected={pathname.indexOf(`/dex/placeOrder`)>-1}
               onPress={() => {
@@ -55,7 +55,7 @@ class DexHomeLayout extends React.Component {
               badge="6"
               icon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
               selectedIcon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
-              title="Notifications"
+              title={intl.get('todos.tab_title')}
               key="Notifications"
               selected={pathname === `/dex/todos`}
               onPress={() => {
@@ -65,7 +65,7 @@ class DexHomeLayout extends React.Component {
             <TabBar.Item
               icon={<WebIcon type="user" className="fs22" style={{marginTop:'0px'}} />}
               selectedIcon={<WebIcon type="user" className="fs22" style={{marginTop:'0px'}} />}
-              title="My"
+              title={intl.get("user_center.tab_title")}
               key="userCenter"
               selected={pathname === `/dex/userCenter`}
               onPress={() => {

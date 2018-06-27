@@ -3,6 +3,7 @@ import {FillFm} from 'modules/fills/formatters'
 import {getFormatTime} from "modules/formatter/common";
 import {connect} from 'dva'
 import {toBig, toNumber} from 'LoopringJS/common/formatter'
+import intl from 'react-intl-universal'
 
 const ListMarketFills = ({trades={},maxRows=5})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
@@ -13,11 +14,11 @@ const ListMarketFills = ({trades={},maxRows=5})=>{
       <table className="w-100 fs13" style={{overflow:'auto'}}>
         <thead>
           <tr className="">
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Side</th>
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Price</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Amount</th>
+            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.side")}</th>
+            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.price")}</th>
+            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.amount")}</th>
             <th hidden className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Time</th>
+            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.time")}</th>
           </tr>
         </thead>
         <tbody>
@@ -28,10 +29,10 @@ const ListMarketFills = ({trades={},maxRows=5})=>{
                   <tr key={index}>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle ">
                       {
-                        item.side === 'sell' && <span className="color-red-500">Sell</span>
+                        item.side === 'sell' && <span className="color-red-500">{intl.get("common.sell")}</span>
                       }
                       {
-                        item.side === 'buy' && <span className="color-green-500">Buy</span>
+                        item.side === 'buy' && <span className="color-green-500">{intl.get("common.buy")}</span>
                       }
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle">

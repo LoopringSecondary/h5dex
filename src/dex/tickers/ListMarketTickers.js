@@ -13,12 +13,12 @@ import {formatPrice} from 'modules/orders/formatters'
 export const TickerHeader = ({list,actions})=>{
     return (
         <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-          <div className="col-5 fs14 color-black-3 text-left">Market</div>
+          <div className="col-5 fs14 color-black-3 text-left">{intl.get('common.market')}</div>
           <div className="col-4 text-left pr10">
-            <div className="fs14 color-black-3 ">Price</div>
+            <div className="fs14 color-black-3 ">{intl.get('common.price')}</div>
           </div>
           <div className="col-3 text-right">
-            <div className="fs14 color-black-3">Change</div>
+            <div className="fs14 color-black-3">{intl.get('ticker.change')}</div>
           </div>
         </div>
     )
@@ -112,10 +112,10 @@ class ListMarketTickers extends React.Component {
           <Tabs
             tabs={
               [
-                { title: <div className="fs16">Favorites</div> },
+                { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
                 { title: <div className="fs16">WETH</div> },
                 { title: <div className="fs16">LRC</div> },
-                { title: <div className="fs16">Innovation</div> },
+                { title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> },
               ]
             }
             tabBarBackgroundColor={"#fff"}

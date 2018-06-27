@@ -25,7 +25,7 @@ function HelperOfPrice(props) {
       <div className="zb-b-t">
         <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
           <div className="col color-black-1 text-left pl10">
-            Last Price
+            {intl.get('ticker.last')}
           </div>
           { priceDisplay &&
             <div className="col-auto color-black-2" onClick={changePrice.bind(this,priceDisplay)}>

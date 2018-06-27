@@ -66,6 +66,7 @@ const validation_messages = {
   invalid_integer: 'Please provide an integer value',
   token_not_select: "Please select token",
   invalid_eth_address: "Invalid Ethereum address",
+  invalid_item: "Please provide a valid {item}"
 }
 
 const notifications = {
@@ -116,6 +117,8 @@ const actions = {
   transfer_send: "Yes, Send Now",
   place_buy_order: "Place Buy Order",
   place_sell_order: "Place Sell Order",
+  all_assets: "All Assets",
+  fills_of_all_markets: "Fills of all markets"
 }
 
 const time_unit = {
@@ -190,6 +193,13 @@ export default {
     fills: "Fills",
     help: "Help"
   },
+  helper_of_amount: {
+    depth: "Depth"
+  },
+  helper_of_market_order: {
+    selling: "Selling",
+    no_fills_of_market: "No fills of {market}",
+  },
   settings: {
     title: 'Settings',
     preferences: 'Preferences',
@@ -242,9 +252,6 @@ export default {
     instruction: '1. 以您希望的兑换率生成一个订单，把不包含鉴权数据（没有这部分数据任何人都无法撮合您的订单）的订单信息提交给relay，同时将生成的订单hash和鉴权信息生成二维码。</br>2. 您可以把这个二维码发送给您的朋友，任何人拿到这个二维码都有可能吃掉您的订单，请注意以安全的方式传播。</br>3. 对方使用Circulr移动端扫描二维码，下一个与您买入卖出量完全匹配的对手单，发送以太坊交易吃掉这个订单，因此吃单方需要消耗油费。',
     notice: '* P2P订单不需要支付LRC手续费</br>',
     user_center_p2p:'P2P Trade'
-  },
-  helper_of_amount: {
-    depth: "Depth"
   },
   sign: {
     not_signed: "You may have some items not signed",
@@ -364,6 +371,7 @@ export default {
     title_reference_tickers: 'Reference Markets',
     title_recent: 'Recent',
     title_favorites: 'Favorites',
+    title_innovation: "Innovation"
   },
   // -----------
   // token
@@ -511,7 +519,8 @@ export default {
   },
   user_center:{
     receive:'Receive',
-    send:'Send'
+    send:'Send',
+    tab_title: "My"
   },
   kline_chart:{
     kline_chart:'Kline Chart',
@@ -519,4 +528,12 @@ export default {
   price_chart:{
     price_chart:'Price Chart',
   },
+  todos: {
+    tab_title: "Notifications"
+  },
+  market: {
+    tab_charts: "Charts",
+    tab_depth: "Depth",
+    tab_fills: "Fills"
+  }
 }

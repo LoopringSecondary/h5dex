@@ -166,21 +166,21 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         <thead>
         <tr>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            Side
+            {intl.get("common.side")}
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
           </th>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            Price<span className="fs10">/{tokens.right}</span>
+            {intl.get("common.price")}<span className="fs10">/{tokens.right}</span>
           </th>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            Amount<span className="fs10">/{tokens.left}</span>
+            {intl.get("common.amount")}<span className="fs10">/{tokens.left}</span>
           </th>
           <th hidden className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Filled</th>
+          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
             {
               orders.items && orders.items.length > 0 &&
-              <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>Cancel All</a>
+              <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>{intl.get('order_list.actions_cancel_all')}</a>
             }
             {
               orders.items && orders.items.length == 0 && 'Status'
@@ -223,7 +223,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       </table>
       <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                className="d-block w-100 fs14 bg-none">{intl.get("view_all_orders")}</Button>
+                className="d-block w-100 fs14 bg-none">{intl.get("order_list.view_all_orders")}</Button>
       </div>
     </div>
 

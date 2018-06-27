@@ -102,11 +102,11 @@ const PlaceOrderForm = (props)=>{
   }
   const toConfirm = async () => {
     if (Number(price) <= 0) {
-      Toast.info('Please enter valid price', 3, null, false);
+      Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 3, null, false);
       return
     }
     if (Number(amount) <= 0) {
-      Toast.info('Please enter valid amount', 3, null, false);
+      Toast.info(intl.get('common.invalid_item', {item: intl.get('common.amount')}), 3, null, false);
       return
     }
     if(price !== placeOrder.priceInput) {
@@ -167,7 +167,7 @@ const PlaceOrderForm = (props)=>{
       if(Number(price) > 0) {
         showLayer({id:'helperOfAmount',side:'sell'})
       } else {
-        Toast.info('Please enter valid price', 3, null, false);
+        Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 3, null, false);
       }
     } else {
       showLayer({id:'helperOfAmount',side:'sell'})
