@@ -238,9 +238,9 @@ class ListTodos extends React.Component {
           const value = res.result[symbol]
           const tf = new TokenFormatter({symbol})
           const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-          const unitBalance =  toNumber(tf.getUnitAmount(assets.balance));
-           const selling= toNumber(tf.getUnitAmount(value));
-          if (assets.balance.lt(toBig(value))) {
+          const unitBalance =  tf.toPricisionFixed(tf.getUnitAmount(assets.balance));
+           const selling= tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)));
+          if (unitBalance < selling) {
             data.push({
               symbol: symbol,
               type: 'balance',
@@ -260,7 +260,7 @@ class ListTodos extends React.Component {
         })
       }
       this.setState({
-        data
+        data:data.sort((a,b) => {return a.type < b.type ? -1 :1})
       })
       Toast.hide()
     })
