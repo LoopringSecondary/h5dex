@@ -102,73 +102,101 @@ const TodoItem = (props) => {
     routeActions.gotoPath(`/dex/placeOrder`)
   }
 
-  return (
-    <div className="row ml0 mr0 p15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
-      <div className="col-auo pr15 color-black text-center">
-        {false && <i className={`icon-${item.symbol} fs24 d-block`} style={{
-          width: '32px',
-          height: '32px',
-          lineHeight: '32px',
-          border: '1px solid #000',
-          borderRadius: '50em'
-        }}></i>}
-        {
-          item.type === 'allowance' && <WebIcon className="color-red-500 fs16" type="close-circle"/>
-        }
-        {
-          item.type === 'balance' && <WebIcon className="color-red-500 fs16" type="exclamation-circle"/>
-        }
-      </div>
-      <div className="col text-left">
-        <div>
-          <div className="fs16 color-black-2">
-            {
-              item.type === 'allowance' && `${item.symbol} is disabled for orders`
-            }
-            {
-              item.type === 'balance' && `${item.symbol} balance is insufficient`
-            }
-          </div>
-          {
-            item.type === 'balance' &&
-            <div className="fs14 color-black-3">
-              <div className="lh25">
-                <span className="d-inline-block" style={{width: '100px'}}>Balance</span>
-                {item.balance} {item.symbol}
-              </div>
-              <div className="lh25">
-                <span className="d-inline-block" style={{width: '100px'}}>Selling</span>
-                {item.selling} {item.symbol}
-              </div>
-              <div className="lh25">
-                <span className="d-inline-block" style={{width: '100px'}}>Lack</span>
-                {item.lack} {item.symbol}
-              </div>
-              <Button inline={true} type="primary" size="small" className="mr5 mt5"
-                      onClick={() => showReceive(item.symbol)}>Receive</Button>
-              <Button inline={true} type="primary" size="small" className="mr5 mt5" onClick={gotoTrading}>Buy</Button>
-              <Button inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
+  if(item.type === 'allowance'){
+    return (
+      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+        <div className="col-auo pr15 color-black text-center">
+          <WebIcon className="color-red-500 fs16" type="close-circle"/>
+        </div>
+        <div className="col text-left">
+          <div>
+            <div className="fs16 color-black-2">
+             {`${item.symbol} is disabled for Loopring Dex`}
             </div>
-          }
+          </div>
+        </div>
+        <div className="col-auto">
+          <div>
+            { false && <Switch onChange={enable.bind(this, item)}/> }
+            <Button disabled={true} inline={true} style={{width: '80px'}} type="ghost" size="small" className="" onClick={() => {}}>
+              授权中...
+            </Button>
+          </div>
         </div>
       </div>
-      <div className="col-auto">
-        {
-          item.type === 'allowance' &&
-          <div>
-            <Switch onChange={enable.bind(this, item)}/>
+    )
+  }
+  if(item.type === 'balance'){
+    return (
+      <div className="">
+        <div className="row ml0 mr0 pl10 pr10 pt15 align-items-center no-gutters" onClick={() => {}}>
+          <div className="col-auo pr15 color-black text-center">
+            <WebIcon className="color-red-500 fs16" type="exclamation-circle"/>
           </div>
-        }
-        {
-          false && item.type === 'balance' &&
-          <div>
-            <a className="">Detail</a>
+          <div className="col text-left">
+            <div>
+              <div className="fs16 color-black-2">
+                {`${item.symbol} balance is insufficient for orders`}
+              </div>
+            </div>
           </div>
-        }
-
+        </div>
+        <div className="row ml0 mr0 pl10 pr10 pb15 pt5 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+          <div className="col-auo pr15 text-center color-white">
+            <WebIcon className="color-white fs16" type="exclamation-circle"/>
+          </div>
+          <div className="col fs14 color-black-3 pr30">
+            <div className="row no-gutters ml0 mr0 ">
+              <div className="col-auto">
+                Balance
+              </div>
+              <div className="col text-right">
+                {item.balance}
+              </div>
+              <div className="col-auto pl5">
+                {item.symbol}
+              </div>
+            </div>
+            <div className="row no-gutters ml0 mr0">
+              <div className="col-auto">
+                Selling
+              </div>
+              <div className="col text-right">
+                {item.selling}
+              </div>
+              <div className="col-auto pl5">
+                {item.symbol}
+              </div>
+            </div>
+            <div className="row no-gutters ml0 mr0">
+              <div className="col-auto">
+                Lack
+              </div>
+              <div className="col text-right">
+                {item.lack}
+              </div>
+              <div className="col-auto pl5">
+                {item.symbol}
+              </div>
+            </div>
+          </div>
+          <div className="col-auto">
+            <div>
+              <Button inline={true} style={{width: '80px'}} type="ghost" size="small" className=""onClick={() => {}}>
+                买入 <WebIcon type="down" />
+              </Button>
+              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
+                      onClick={() => showReceive(item.symbol)}>Receive</Button>
+              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5" onClick={gotoTrading}>Buy</Button>
+              <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  )
+
+    )
+  }
+
 }
 
 const mockData = [
@@ -201,18 +229,6 @@ const mockData = [
     type: 'balance',
   },
 ]
-const NUM_ROWS = 15
-let pageIndex = 0
-
-function genData (pIndex = 0) {
-  const dataBlob = {}
-  for (let i = 0; i < NUM_ROWS; i++) {
-    const ii = (pIndex * NUM_ROWS) + i
-    dataBlob[`${ii}`] = `row - ${ii}`
-  }
-  return dataBlob
-}
-
 class ListTodos extends React.Component {
   constructor (props) {
     super(props)
@@ -240,7 +256,7 @@ class ListTodos extends React.Component {
           const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
           const unitBalance =  tf.toPricisionFixed(tf.getUnitAmount(assets.balance));
            const selling= tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)));
-          if (unitBalance < selling) {
+          if (toNumber(unitBalance) < toNumber(selling)) {
             data.push({
               symbol: symbol,
               type: 'balance',
@@ -264,6 +280,49 @@ class ListTodos extends React.Component {
       })
       Toast.hide()
     })
+  }
+
+  componentWillReceiveProps(newProps){
+    const {balance, txs} = newProps
+    if(newProps !== this.props){
+      window.RELAY.account.getAllEstimatedAllocatedAmount({
+        owner: storage.wallet.getUnlockedAddress(),
+        delegateAddress: config.getDelegateAddress()
+      }).then(res => {
+        const data = []
+        if (!res.error && res.result) {
+          const symbols = Object.keys(res.result)
+          symbols.forEach((symbol, index) => {
+            const value = res.result[symbol]
+            const tf = new TokenFormatter({symbol})
+            const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
+            const unitBalance =  tf.toPricisionFixed(tf.getUnitAmount(assets.balance));
+            const selling= tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)));
+            if (toNumber(unitBalance) < toNumber(selling)) {
+              data.push({
+                symbol: symbol,
+                type: 'balance',
+                balance:unitBalance,
+                selling,
+                lack:selling - unitBalance,
+                title: `${symbol} balance is insufficient for orders`
+              })
+            }
+            let allowance = assets.allowance
+            if (isApproving(txs, symbol)) {
+              allowance = isApproving(txs, symbol)
+            }
+            if (allowance.lt(toBig(value))) {
+              data.push({symbol: symbol, type: 'allowance', title: `${symbol} allowance is insufficient for orders`})
+            }
+          })
+        }
+        this.setState({
+          data:data.sort((a,b) => {return a.type < b.type ? -1 :1})
+        })
+
+      })
+    }
   }
 
   enableAll = async () => {
@@ -334,9 +393,7 @@ class ListTodos extends React.Component {
       }
     })
   }
-
   render () {
-
     const {dispatch, balance} = this.props
     const {data} = this.state
     const goBack = () => {
@@ -344,7 +401,7 @@ class ListTodos extends React.Component {
     }
     return (
       <LayoutDexHome {...this.props}>
-        <div className="tabs-no-border no-underline" style={{height: '100%'}}>
+        <div className="">
           <NavBar
             className="w-100 zb-b-b"
             mode="light"
@@ -353,8 +410,8 @@ class ListTodos extends React.Component {
             leftContent={null && [
               <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
             ]}
-            rightContent={null && [
-              <WebIcon key="1" type="search" className="color-black-1"/>,
+            rightContent={[
+              <WebIcon key="1" type="question-circle-o" className="color-black-1"/>,
             ]}
           >
             {
@@ -376,19 +433,18 @@ class ListTodos extends React.Component {
               )
             }
           </div>
-
           {
-            data.length == 0 &&
+            !this.state.loading && data.length == 0 &&
             <div className="color-black-3 p15 fs12 text-center">
               {intl.get('common.list.no_data')}
             </div>
           }
+          <div className="pt50"></div>
         </div>
       </LayoutDexHome>
     )
   }
 }
-
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,

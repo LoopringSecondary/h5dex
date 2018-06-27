@@ -69,8 +69,6 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       description = `Buy ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
     }
 
-console.log(item)
-
     Modal.alert('确认取消当前订单？', description, [
       {text: 'No', onPress: () => {}, style: 'default'},
       {
