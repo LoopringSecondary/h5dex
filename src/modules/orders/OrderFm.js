@@ -43,6 +43,9 @@ export class OrderFm {
       return null
     }
   }
+  getMarketPair() {
+    return this.order.originalOrder.side.toLowerCase() === 'buy' ? `${this.order.originalOrder.tokenB}-${this.order.originalOrder.tokenS}` : `${this.order.originalOrder.tokenS}-${this.order.originalOrder.tokenB}`
+  }
   getPrice(){
     if(this.order.originalOrder){
       const tokenB = config.getTokenBySymbol(this.order.originalOrder.tokenB);
@@ -51,8 +54,7 @@ export class OrderFm {
       const price =  this.order.originalOrder.side.toLowerCase() === 'buy' ?
         toBig(this.order.originalOrder.amountS).div('1e'+tokenS.digits).div(toBig(this.order.originalOrder.amountB).div('1e'+tokenB.digits)).toFixed(market.pricePrecision) :
         toBig(this.order.originalOrder.amountB).div('1e'+tokenB.digits).div(toBig(this.order.originalOrder.amountS).div('1e'+tokenS.digits)).toFixed(market.pricePrecision);
-      const pair = this.order.originalOrder.side.toLowerCase() === 'buy' ? `${this.order.originalOrder.tokenB}-${this.order.originalOrder.tokenS}` : `${this.order.originalOrder.tokenS}-${this.order.originalOrder.tokenB}`
-      return `${commonFm.getFormatNum(price)} ${pair}`
+      return commonFm.getFormatNum(price)
     }else{
       return null
     }
