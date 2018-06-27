@@ -52,7 +52,7 @@ class AuthByImtoken extends React.Component {
           ]}
         >
           <div>
-            Auth By Imtoken
+            Auth By Mock
           </div>
         </NavBar>
         <div className="p15"></div>

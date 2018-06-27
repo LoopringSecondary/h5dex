@@ -91,7 +91,7 @@ const HelperOfBalance = (props)=>{
         </tbody>
       </table>
       <div className="p10 mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">View all assets</Button>
+        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs13 bg-none color-black-2">all assets</Button>
       </div>
     </div>
   )

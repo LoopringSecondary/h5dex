@@ -76,9 +76,57 @@ class AuthByImtoken extends React.Component {
             Auth By Imtoken
           </div>
         </NavBar>
-        <div className="p15"></div>
-        <Button type="primary"  onClick={this.goToDex}>进入DEX</Button>
-        <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button>
+        <div className="divider 1px zb-b-t"></div>
+        <div className="bg-white">
+          <div className="pt35 pb35">
+            <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
+              <div className="col text-center">
+                <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
+                  width: '40px',
+                  height: '40px',
+                  lineHeight: '38px',
+                  borderRadius: '50em',
+                  border: '1px solid'
+                }}>
+                  <i className={`icon-EOS fs24`}/>
+                </div>
+              </div>
+              <div className="col-auto text-center" style={{width: '30px'}}>
+                <WebIcon type="swap" className={`color-black-1 fs20`}/>
+              </div>
+              <div className="col text-center">
+                <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
+                  width: '40px',
+                  height: '40px',
+                  lineHeight: '38px',
+                  borderRadius: '50em',
+                  border: '1px solid'
+                }}>
+                  <i className={`icon-LRC fs24`}/>
+                </div>
+              </div>
+            </div>
+            <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
+              <div className="col text-center">
+                <div className="color-black-2 fs16">imToken</div>
+              </div>
+              <div className="col-auto text-center position-relative" style={{width: '30px'}}>
+                <div className="color-black-3 fs16"></div>
+              </div>
+              <div className="col text-center">
+                <div className="color-black-2 fs16">Loopring Dex</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="divider 1px zb-b-t"></div>
+          <div className="p15">
+            <Button type="primary" onClick={this.goToDex}>授权登录</Button>
+            { false && <Button type="primary"  onClick={this.goToDex}>进入DEX</Button> }
+            { false && <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button> }
+          </div>
+        </div>
+
       </div>
     )
   }

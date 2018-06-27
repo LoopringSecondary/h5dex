@@ -16,6 +16,7 @@ import storage from 'modules/storage'
 import {signMessage} from '../../common/utils/signUtils'
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
+  console.log('HelperOfMyOrders',orders)
   const market = orders.filters.market
   const tokens = getTokensByMarket(market)
   const changePrice = (item) => {
@@ -123,6 +124,29 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       Modal.alert('No open orders to cancel')
     }
   }
+  const orderStatus = (item) => {
+    if (item.status === 'ORDER_OPENED') {
+      return <a className="fs12" onClick={cancelOrder.bind(this, item)}>Cancel</a>
+    }
+    if (item.status === 'ORDER_FINISHED') {
+      return <WebIcon className="zb-b-b color-green-500" type="check-circle" />
+    }
+    if (item.status === 'ORDER_CANCELLED') {
+      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+    }
+    if (item.status === 'ORDER_CUTOFF') {
+      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+    }
+    if (item.status === 'ORDER_EXPIRE') {
+      return <WebIcon className="zb-b-b color-black-4" type="clock-circle" />
+    }
+    if (item.status === 'ORDER_PENDING') {
+      return <WebIcon className="zb-b-b color-black-4" type="cloud-upload-o" />
+    }
+    if (item.status === 'ORDER_CANCELLING') {
+      return "Canceling"
+    }
+  }
   const gotoAll = () => {}
   return (
     <div className="zb-b-t">
@@ -157,13 +181,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           orders.items && orders.items.map((item, index) => {
             const orderFm = new OrderFm(item)
             return (
-              <tr key={index} className="color-black-2" onClick={() => Modal.alert('Options', null, [
-                {text: 'Set Price', onPress: () => changePrice(item)},
-                {text: 'Set Amount', onPress: () => changeAmount(item)},
-                {text: 'Order Detail', onPress: () => gotoDetail(item)},
-                {text: 'Cancel', onPress: () => {}},
-              ])
-              }>
+              <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                   {orderFm.getSide() === 'buy' && <span className="color-green-500">Buy</span>}
                   {orderFm.getSide() === 'sell' && <span className="color-red-500">Sell</span>}
@@ -175,7 +193,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                 <td hidden className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-center">
-                  <a className="fs12" onClick={cancelOrder.bind(this, item)}>Cancel</a>
+                  {orderStatus(item)}
                 </td>
               </tr>
             )
@@ -201,9 +219,8 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
 }
 
 export default connect(({
-                          sockets: {tickers},
-                          orders,
+                          sockets: {tickers,orders},
                         }) => ({
-  orders: orders.MyOpenOrders
+  orders
 }))(HelperOfMyOrders)
 

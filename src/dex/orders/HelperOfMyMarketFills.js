@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Toast } from 'antd-mobile';
-import { Icon as WebIcon } from 'antd';
+import { Icon as WebIcon,Spin } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
 import intl from 'react-intl-universal'
@@ -51,65 +51,67 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
   }
   return (
     <div className="zb-b-t">
-      <table className="w-100 fs13" style={{overflow:'auto'}}>
-        <thead>
-          <tr className="">
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Side</th>
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
-              Price<span className="fs10">/{tokens.right}</span>
-            </th>
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
-              Amount<span className="fs10">/{tokens.left}</span>
-            </th>
-            <th hidden className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
-              Total<span hidden className="fs10">/{tokens.right}</span>
-            </th>
-            <th hidden className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
-            <th className="zb-b-b bg-grey-100 text-center pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Time</th>
-          </tr>
-        </thead>
-        <tbody>
-            {
-              fills.items && fills.items.map((item,index)=>{
-                const fillFm = new FillFm(item)
-                return (
-                  <tr key={index}>
-                    <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle" onClick={changePrice.bind(this, item)}>
-                      { item.side === 'buy' && <div className="color-green-500">Buy</div> }
-                      { item.side === 'sell' && <div className="color-red-500">Sell</div> }
-                    </td>
-                    <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle " onClick={changePrice.bind(this, item)}>
-                     {fillFm.getPrice()}
-                    </td>
-                    <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle text-nowrap" onClick={changeAmount.bind(this, item)}>
-                      {fillFm.getAmount()}
-                    </td>
-                    <td hidden className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle text-nowrap" onClick={changeAmount.bind(this, item)}>
-                      {fillFm.getTotal()}
-                    </td>
-                    <td hidden className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
-                      {fillFm.getLRCFee()}
-                    </td>
-                    <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-center align-middle text-nowrap">
-                      {fillFm.getCreateTime()}
-                    </td>
-                  </tr>
-                )
-              })
-            }
-            {
-              fills.items && fills.items.length == 0 &&
-              <tr>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'>
-                  no {market} fills
-                </td>
-              </tr>
-            }
-        </tbody>
-      </table>
+      <Spin spinning={fills.loading}>
+        <table className="w-100 fs13" style={{overflow:'auto'}}>
+          <thead>
+            <tr className="">
+              <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Side</th>
+              <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
+                Price<span className="fs10">/{tokens.right}</span>
+              </th>
+              <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
+                Amount<span className="fs10">/{tokens.left}</span>
+              </th>
+              <th hidden className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
+                Total<span hidden className="fs10">/{tokens.right}</span>
+              </th>
+              <th hidden className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
+              <th className="zb-b-b bg-grey-100 text-center pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+              {
+                fills.items && fills.items.map((item,index)=>{
+                  const fillFm = new FillFm(item)
+                  return (
+                    <tr key={index}>
+                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle" onClick={changePrice.bind(this, item)}>
+                        { item.side === 'buy' && <div className="color-green-500">Buy</div> }
+                        { item.side === 'sell' && <div className="color-red-500">Sell</div> }
+                      </td>
+                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle " onClick={changePrice.bind(this, item)}>
+                       {fillFm.getPrice()}
+                      </td>
+                      <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle text-nowrap" onClick={changeAmount.bind(this, item)}>
+                        {fillFm.getAmount()}
+                      </td>
+                      <td hidden className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle text-nowrap" onClick={changeAmount.bind(this, item)}>
+                        {fillFm.getTotal()}
+                      </td>
+                      <td hidden className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
+                        {fillFm.getLRCFee()}
+                      </td>
+                      <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-center align-middle text-nowrap">
+                        {fillFm.getCreateTime()}
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+              {
+                !fills.loading && fills.items && fills.items.length == 0 &&
+                <tr>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs13" colSpan='100'>
+                    no fills of {market}
+                  </td>
+                </tr>
+              }
+          </tbody>
+        </table>
+      </Spin>
       <div className="p10 mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs14 bg-none">
-          View all fills
+        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs13 bg-none color-black-2">
+          fills of all markets
         </Button>
       </div>
     </div>
