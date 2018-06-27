@@ -55,7 +55,7 @@ class DexHomeLayout extends React.Component {
               badge="6"
               icon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
               selectedIcon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
-              title={intl.get('notifications.tab_title')}
+              title={intl.get('todos.tab_title')}
               key="Notifications"
               selected={pathname === `/dex/todos`}
               onPress={() => {

@@ -68,6 +68,7 @@ const validation_messages = {
   invalid_integer: '请输入合法的整数',
   token_not_select: "请选择代币",
   invalid_eth_address: "不合法的以太坊地址",
+  invalid_item: "请输入合法的{item}"
 }
 
 const notifications = {
@@ -532,7 +533,7 @@ export default {
   price_chart:{
     price_chart:'价格行情',
   },
-  notifications: {
+  todos: {
     tab_title: "通知"
   },
   market: {
