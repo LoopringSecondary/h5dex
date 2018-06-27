@@ -10,6 +10,8 @@ import HelperOfMyMarketFills from './HelperOfMyMarketFills'
 import HelperOfBalance from './HelperOfBalance'
 import HelperOfFAQ from './HelperOfFAQ'
 import PlaceOrderForm from './PlaceOrderForm'
+import {toBig,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
+import intl from 'react-intl-universal';
 
 const Item = List.Item;
 class PlaceOrderPage extends React.Component {
@@ -80,8 +82,8 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div className="fs16">Buy {pairTokens.left}</div> },
-                  { title: <div className="fs16">Sell {pairTokens.left}</div> },
+                  { title: <div className="fs16">{intl.get("common.buy")} {pairTokens.left}</div> },
+                  { title: <div className="fs16">{intl.get("common.sell")} {pairTokens.left}</div> },
                 ]
               }
               tabBarBackgroundColor={side === 'buy' ? "#e8f5e9" : "#ffebee"}
@@ -100,10 +102,10 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">Assets</div></div> },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">Orders</div></div> },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">Fills</div></div> },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">Help</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.assets")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.orders")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.fills")}</div></div> },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.help")}</div></div> },
                 ]
               }
               tabBarBackgroundColor="#fff"

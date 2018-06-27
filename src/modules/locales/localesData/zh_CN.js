@@ -13,6 +13,7 @@ const words = {
   gas: '油费',
   price: '价格',
   total: '总计',
+  advanced: "高级",
   worth: "价值",
   lrc_fee: 'LRC 撮合费',
   lrc_fee_tips: 'xxxxx',
@@ -161,7 +162,9 @@ export default {
     opened: '撮合中',
     completed: '已完成',
     canceled: '已取消',
-    expired: '以过期',
+    expired: '已过期',
+    pending: "打包中",
+    canceling: "取消中"
   },
   order_side: {
     sell: words.sell,
@@ -172,6 +175,8 @@ export default {
     my_open_orders:'最近订单',
     my_all_orders:'全部订单',
     order_book:'最新挂单',
+    no_open_orders: "{market}市场没有有效订单",
+    view_all_orders: "查看全部订单"
   },
   order_detail: {
     title: '订单详情',
@@ -182,6 +187,13 @@ export default {
     order_type: '订单类型',
     order_since: "订单生效时间",
     order_until: "订单失效时间",
+    assets: "资产",
+    orders: "订单",
+    fills: "成交",
+    help: "帮助"
+  },
+  helper_of_amount: {
+    depth: "深度"
   },
   settings: {
     title: '设置',

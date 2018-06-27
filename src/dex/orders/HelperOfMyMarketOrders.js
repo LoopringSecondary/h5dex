@@ -140,25 +140,25 @@ console.log(item)
   }
   const orderStatus = (item) => {
     if (item.status === 'ORDER_OPENED') {
-      return <a className="fs12" onClick={cancelOrder.bind(this, item)}>Cancel</a>
+      return <a className="fs12" onClick={cancelOrder.bind(this, item)}>{intl.get("common.cancel")}</a>
     }
     if (item.status === 'ORDER_FINISHED') {
-      return <WebIcon className="zb-b-b color-green-500" type="check-circle" />
+      return intl.get("order_status.completed")
     }
     if (item.status === 'ORDER_CANCELLED') {
-      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+      return intl.get("order_status.canceled")
     }
     if (item.status === 'ORDER_CUTOFF') {
-      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+      return intl.get("order_status.canceled")
     }
     if (item.status === 'ORDER_EXPIRE') {
-      return <WebIcon className="zb-b-b color-black-4" type="clock-circle" />
+      return intl.get("order_status.expired")
     }
     if (item.status === 'ORDER_PENDING') {
-      return <WebIcon className="zb-b-b color-black-4" type="cloud-upload-o" />
+      return intl.get("order_status.pending")
     }
     if (item.status === 'ORDER_CANCELLING') {
-      return "Canceling"
+      return intl.get("order_status.canceling")
     }
   }
   const gotoAll = () => {}
@@ -197,8 +197,8 @@ console.log(item)
             return (
               <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
-                  {orderFm.getSide() === 'buy' && <span className="color-green-500">Buy</span>}
-                  {orderFm.getSide() === 'sell' && <span className="color-red-500">Sell</span>}
+                  {orderFm.getSide() === 'buy' && <span className="color-green-500">{intl.get("common.buy")}</span>}
+                  {orderFm.getSide() === 'sell' && <span className="color-red-500">{intl.get("common.sell")}</span>}
                 </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                   {orderFm.getPrice()}
@@ -214,10 +214,10 @@ console.log(item)
           })
         }
         {
-          orders.items && orders.items.length == 0 &&
+          orders.items && orders.items.length === 0 &&
           <tr>
             <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'>
-              no open orders of {market}
+              {intl.get("order_list.no_open_orders", {market})}
             </td>
           </tr>
         }
@@ -225,7 +225,7 @@ console.log(item)
       </table>
       <div className="p10 mb15">
         <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                className="d-block w-100 fs14 bg-none">View all orders</Button>
+                className="d-block w-100 fs14 bg-none">{intl.get("view_all_orders")}</Button>
       </div>
     </div>
 
