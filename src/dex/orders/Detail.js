@@ -59,9 +59,9 @@ function OrderDetail(props) {
             <Icon type="close"/>
           </div>
           <div className="col">Order Detail</div>
-          <div className="col-auto text-right pl15 pr15 color-white">
+          {false && <div className="col-auto text-right pl15 pr15 color-white">
             <Button className="" size="small" type="ghost">Cancel</Button>
-          </div>
+          </div>}
         </div>
       </div>
       <Tabs
