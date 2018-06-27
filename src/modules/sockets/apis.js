@@ -76,6 +76,26 @@ const transfromers = {
       updateItems(items,id)
     },
   },
+  orders:{
+    queryTransformer:(payload)=>{
+      const {filters} = payload;
+      return JSON.stringify({
+         delegateAddress: config.getDelegateAddress(),
+         owner:storage.wallet.getUnlockedAddress(),
+         market:filters.market,
+      })
+    },
+    resTransformer:(id,res)=>{
+      if(!res) return null
+      res = JSON.parse(res)
+     // console.log(id,'res',res)
+      let items = []
+      if (!res.error && res.data && isArray(res.data)) {
+        items =[ ...res.data ]
+      }
+      updateItems(items,id)
+    },
+  },
   marketcap:{
     queryTransformer:(payload)=>{
       const {filters} = payload

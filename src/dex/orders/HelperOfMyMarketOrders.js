@@ -16,6 +16,7 @@ import storage from 'modules/storage'
 import {signMessage} from '../../common/utils/signUtils'
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
+  console.log('HelperOfMyOrders',orders)
   const market = orders.filters.market
   const tokens = getTokensByMarket(market)
   const changePrice = (item) => {
@@ -201,9 +202,8 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
 }
 
 export default connect(({
-                          sockets: {tickers},
-                          orders,
+                          sockets: {tickers,orders},
                         }) => ({
-  orders: orders.MyOpenOrders
+  orders
 }))(HelperOfMyOrders)
 

@@ -29,6 +29,7 @@ export default {
     'tickers':{...initState,filters:{market:'LRC-WETH'}},
     'loopringTickers':{...initState},
     'pendingTx':{...initState},
+    'orders':{...initState,filters:{market:'LRC-WETH'}},
     'estimatedGasPrice':{...initState,filters:{}},
   },
   subscriptions: {
@@ -48,13 +49,13 @@ export default {
         if (pathname.indexOf('/dex/placeOrder/')>-1) {
           const market = pathname.replace('/dex/placeOrder/','')
           if(market.indexOf('-')>-1){
-            dispatch({
-              type:'orders/filtersChange',
-              payload:{
-                id:'MyOpenOrders',
-                filters:{market,status:'ORDER_OPENED'}
-              }
-            })
+            // dispatch({
+            //   type:'orders/filtersChange',
+            //   payload:{
+            //     id:'MyOpenOrders',
+            //     filters:{market,status:'ORDER_OPENED'}
+            //   }
+            // })
             dispatch({
               type:'fills/filtersChange',
               payload:{
@@ -103,12 +104,20 @@ export default {
         }
       })
       yield put({
+        type:'filtersChange',
+        payload:{
+          id:'orders',
+          filters:{market:market}
+        }
+      })
+      yield put({
         type:'extraChange',
         payload:{
           id:'loopringTickers',
           extra:{current:market} // for current page
         }
       })
+
     },
     *urlChange({payload},{call,select,put}){
       yield put({type:'urlChangeStart',payload})
@@ -143,6 +152,7 @@ export default {
       yield put({type:'fetch',payload:{id:'transaction'}})
       yield put({type:'fetch',payload:{id:'balance'}})
       yield put({type:'fetch',payload:{id:'pendingTx'}})
+      yield put({type:'fetch',payload:{id:'orders'}})
     },
 
     *fetch({payload},{call,select,put}){
