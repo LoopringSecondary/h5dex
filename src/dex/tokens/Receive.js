@@ -7,24 +7,21 @@ import { toBig, toFixed } from 'LoopringJS/common/formatter'
 import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
 import { connect } from 'dva'
+import storage from 'modules/storage'
 
  class Receive extends React.Component {
   state = {
     symbol: null,
     amount: toBig(0),
-    address:''
   };
 
   componentDidMount(){
     const {receiveToken} = this.props;
     const {symbol} = receiveToken;
     const _this = this;
-    window.Wallet.getCurrentAccount().then(res => {
-      if(res.result){
-        this.setState({address:res.result})
         if (symbol) {
           const tf = new TokenFormatter({symbol});
-          const owner = res.result;
+          const owner = storage.wallet.getUnlockedAddress();
           window.RELAY.account.getEstimatedAllocatedAllowance({owner,token:symbol.toUpperCase(),delegateAddress:config.getDelegateAddress()}).then(res => {
             if (!res.error) {
               const orderAmount = res.result;
@@ -46,28 +43,30 @@ import { connect } from 'dva'
             }
           });
         }
-      }
-    })
+
   }
 
   getNeeded = () => {
     const {symbol,amount} = this.state;
-    if(symbol && window.WALLET){
+    if(symbol){
+      const tf = new TokenFormatter({symbol});
       const {balance} = this.props;
       const asset = getBalanceBySymbol({balances: balance.items, symbol, toUnit: true});
       if(!asset){ return toFixed(toBig(0),8) }
-      return  toFixed(toBig(amount).minus(asset.balance).isPositive() ? toBig(amount).minus(asset.balance) : toBig(0),8,true);
+      const unitBalance = tf.getUnitAmount(asset.balance)
+      return  toFixed(toBig(amount).minus(unitBalance).isPositive() ? toBig(amount).minus(unitBalance) : toBig(0),8,true);
     }
     return toFixed(toBig(0),8);
   };
 
 
   render(){
-    const {address,symbol,amount} =  this.state
-    const copyAddress = ()=>{ copy(address) ?  Toast.info(intl.get('notifications.title.copy_suc')) : Toast.fail(intl.get('notifications.title.copy_fail')) }
+    const {symbol,amount} =  this.state
+    const address = storage.wallet.getUnlockedAddress()
+    const copyAddress = ()=>{ copy(address) ?  Toast.info(intl.get('notifications.title.copy_suc')) : Toast.fail(intl.get('notifications.title.copy_suc')) }
     return (
       <Card >
-        <Card.Header  title = {<div className="fs18">{intl.get('receive.receive_title')}</div>}/>
+        <Card.Header  title = {<div className="fs18">{intl.get('receive.receive_title',{token:symbol})}</div>}/>
         <Card.Body className="text-center">
           <QRCode value={address} size={240} level='H'/>
           {symbol  && toBig(amount).gt(0) && toBig(this.getNeeded()).gt(0) && <div className='fs3 color-black-1 text-center mt10 mb10'>

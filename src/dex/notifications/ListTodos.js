@@ -1,19 +1,18 @@
 import React from 'react'
 import { connect } from 'dva'
-import { TickersFm, TickerFm } from 'modules/tickers/formatters'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { Switch, ListView, Button, Tabs, NavBar, Icon, SegmentedControl, NoticeBar, Modal,Toast } from 'antd-mobile'
+import { Button, Icon, Modal, NavBar, NoticeBar, SegmentedControl, Switch, Toast } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
-import { toBig, toHex } from '../../common/loopringjs/src/common/formatter'
+import { toBig, toHex, toNumber } from 'LoopringJS/common/formatter'
 import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
-import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
+import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
-import {isApproving} from '../../modules/transactions/formatters'
+import { isApproving } from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
-import {signTx} from '../../common/utils/signUtils'
+import { signTx } from '../../common/utils/signUtils'
 
 const ERC20 = Contracts.ERC20Token
 
@@ -23,7 +22,7 @@ const tf = new TokenFormatter({symbol: 'ETH'})
 const gasFee = tf.getUnitAmount(toBig(gasPrice).times(gasLimit))
 
 const TodoItem = (props) => {
-  const {item = {}, actions, key, index, balance, dispatch,pendingTxs} = props
+  const {item = {}, actions, key, index, balance, dispatch, pendingTxs} = props
   const gotoDetail = () => {
     routeActions.gotoPath('/trade/detail')
   }
@@ -33,15 +32,15 @@ const TodoItem = (props) => {
 
   const enable = async (item, checked) => {
     if (checked) {
-      let nonce = await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())
+      let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
       const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
       const delegateAddress = config.getDelegateAddress()
       const token = config.getTokenBySymbol(item.symbol)
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
       const txs = []
       let allowance = assets.allowance
-      if(isApproving(pendingTxs,item.symbol)){
-        allowance = isApproving(pendingTxs,item.symbol)
+      if (isApproving(pendingTxs, item.symbol)) {
+        allowance = isApproving(pendingTxs, item.symbol)
       }
       if (allowance.gt(0)) {
         txs.push({
@@ -66,7 +65,7 @@ const TodoItem = (props) => {
       })
 
       eachLimit(txs, 1, async (tx, callback) => {
-        signTx(tx,true).then(res => {
+        signTx(tx, true).then(res => {
           if (res.result) {
             window.ETH.sendRawTransaction(res.result).then(resp => {
               if (resp.result) {
@@ -85,9 +84,22 @@ const TodoItem = (props) => {
           }
         })
       }, function (error) {
-        Modal.alert(error.message)
+        if (error) {
+          Modal.alert(error.message)
+        } else {
+          Modal.alert('enable success')
+        }
       })
     }
+  }
+
+  const gotoTrading = () => {
+    const market = config.getTokenSupportedMarket(item.symbol);
+    if(market){
+     routeActions.gotoPath(`/dex/placeOrder/${market}`)
+      return;
+    }
+    routeActions.gotoPath(`/dex/placeOrder`)
   }
 
   return (
@@ -122,19 +134,19 @@ const TodoItem = (props) => {
             <div className="fs14 color-black-3">
               <div className="lh25">
                 <span className="d-inline-block" style={{width: '100px'}}>Balance</span>
-                1000.00 {item.symbol}
+                {item.balance} {item.symbol}
               </div>
               <div className="lh25">
                 <span className="d-inline-block" style={{width: '100px'}}>Selling</span>
-                5000.00 {item.symbol}
+                {item.selling} {item.symbol}
               </div>
               <div className="lh25">
                 <span className="d-inline-block" style={{width: '100px'}}>Lack</span>
-                4000.00 {item.symbol}
+                {item.lack} {item.symbol}
               </div>
               <Button inline={true} type="primary" size="small" className="mr5 mt5"
                       onClick={() => showReceive(item.symbol)}>Receive</Button>
-              <Button inline={true} type="primary" size="small" className="mr5 mt5" href="">Buy</Button>
+              <Button inline={true} type="primary" size="small" className="mr5 mt5" onClick={gotoTrading}>Buy</Button>
               <Button inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           }
@@ -206,11 +218,12 @@ class ListTodos extends React.Component {
     super(props)
     this.state = {
       data: [],
-      loading:false,
+      loading: false,
     }
   }
+
   componentDidMount () {
-    const {balance,txs} = this.props
+    const {balance, txs} = this.props
     Toast.loading('Loading...', 0, () => {
       Toast.success('Load complete !!!')
     })
@@ -223,13 +236,23 @@ class ListTodos extends React.Component {
         const symbols = Object.keys(res.result)
         symbols.forEach((symbol, index) => {
           const value = res.result[symbol]
+          const tf = new TokenFormatter({symbol})
           const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
+          const unitBalance =  toNumber(tf.getUnitAmount(assets.balance));
+           const selling= toNumber(tf.getUnitAmount(value));
           if (assets.balance.lt(toBig(value))) {
-            data.push({symbol: symbol, type: 'balance', title: `${symbol} balance is insufficient for orders`})
+            data.push({
+              symbol: symbol,
+              type: 'balance',
+              balance:unitBalance,
+              selling,
+              lack:selling - unitBalance,
+              title: `${symbol} balance is insufficient for orders`
+            })
           }
           let allowance = assets.allowance
-          if(isApproving(txs,symbol)){
-            allowance = isApproving(txs,symbol)
+          if (isApproving(txs, symbol)) {
+            allowance = isApproving(txs, symbol)
           }
           if (allowance.lt(toBig(value))) {
             data.push({symbol: symbol, type: 'allowance', title: `${symbol} allowance is insufficient for orders`})
@@ -246,7 +269,7 @@ class ListTodos extends React.Component {
   enableAll = async () => {
     const {balance} = this.props
     const {data} = this.state
-    let nonce = await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())
+    let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
     const approveJobs = data.filter(item => item.type === 'allowance')
     const txs = []
     eachLimit(approveJobs, 1, async (item, callback) => {
@@ -255,8 +278,8 @@ class ListTodos extends React.Component {
       const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
       const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
       let allowance = assets.allowance
-      if(isApproving(txs,item.symbol)){
-        allowance = isApproving(txs,item.symbol)
+      if (isApproving(txs, item.symbol)) {
+        allowance = isApproving(txs, item.symbol)
       }
       if (allowance.gt(0)) {
         txs.push({
@@ -285,7 +308,7 @@ class ListTodos extends React.Component {
     })
 
     eachLimit(txs, 1, async (tx, callback) => {
-      signTx(tx,true).then(res => {
+      signTx(tx, true).then(res => {
         if (res.result) {
           window.ETH.sendRawTransaction(res.result).then(resp => {
             if (resp.result) {
@@ -304,7 +327,11 @@ class ListTodos extends React.Component {
         }
       })
     }, function (error) {
-      Modal.alert(error.message)
+      if (error) {
+        Modal.alert(error.message)
+      } else {
+        Modal.alert('enable success')
+      }
     })
   }
 
@@ -344,7 +371,7 @@ class ListTodos extends React.Component {
           </NoticeBar>}
           <div className="bg-white">
             {
-              data.map((item,index)=>
+              data.map((item, index) =>
                 <TodoItem key={index} item={item} balance={balance} dispatch={dispatch}/>
               )
             }
@@ -365,8 +392,9 @@ class ListTodos extends React.Component {
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
-    txs:state.sockets.pendingTx.items
+    txs: state.sockets.pendingTx.items
   }
 }
+
 export default connect(mapStateToProps)(ListTodos)
 

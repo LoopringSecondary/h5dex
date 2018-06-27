@@ -399,7 +399,7 @@ export default {
     notification_fail_title:'Failed to Convert {value} {token}'
   },
   receive: {
-    receive_title: 'My Ethereum Address',
+    receive_title: 'My {token} Address',
     receive_value_tip: 'Recommended value',
   },
   // -----------

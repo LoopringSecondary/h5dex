@@ -394,7 +394,7 @@ export default {
     assets_title: '总资产',
   },
   receive:{
-    receive_title: '我的以太坊地址',
+    receive_title: '我的{token}地址',
     receive_value_tip: '推荐值',
   },
   convert:{
