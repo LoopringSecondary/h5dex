@@ -7,9 +7,8 @@ import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
 import * as tokenFormatter from 'modules/tokens/TokenFm'
 import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
-import Worth from 'modules/settings/Worth'
-import config from 'common/config'
 import TokensFm from 'modules/tokens/TokensFm'
+import intl from 'react-intl-universal';
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -39,9 +38,9 @@ const TokenListComp = (props)=>{
       <table className="w-100 fs13">
         <thead>
           <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Actions</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.token')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.balance')}</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.actions')}</th>
           </tr>
         </thead>
         <tbody>
@@ -57,15 +56,15 @@ const TokenListComp = (props)=>{
                     <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
                       {
                         token.symbol === 'ETH' &&
-                        <a onClick={() => showConvert('WETH')}>Convert</a>
+                        <a onClick={() => showConvert('WETH')}>{intl.get('common.convert')}</a>
                       }
                       {
                         token.symbol === 'WETH' &&
-                        <a onClick={() => showConvert('ETH')}>Convert</a>
+                        <a onClick={() => showConvert('ETH')}>{intl.get('common.convert')}</a>
                       }
                       {
                         token.symbol !== 'WETH' &&
-                        <a onClick={() => showReceive(token.symbol)}>Receive</a>
+                        <a onClick={() => showReceive(token.symbol)}>{intl.get('common.receive')}</a>
                       }
                     </td>
                   </tr>

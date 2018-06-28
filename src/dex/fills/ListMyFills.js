@@ -9,10 +9,10 @@ const ListMyFills = ({fills={},maxRows=5})=>{
       <table className="w-100 fs13" style={{overflow:'auto'}}>
         <thead>
           <tr className="">
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Price</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Amount</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Time</th>
+            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.price')}</th>
+            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.amount')}</th>
+            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.lrc_fee')}</th>
+            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.time')}</th>
           </tr>
         </thead>
         <tbody>
