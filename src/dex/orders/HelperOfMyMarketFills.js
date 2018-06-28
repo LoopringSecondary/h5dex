@@ -50,23 +50,23 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
   const gotoAll = ()=>{
   }
   return (
-    <div className="zb-b-t">
+    <div className="">
       <Spin spinning={fills.loading}>
         <table className="w-100 fs13" style={{overflow:'auto'}}>
           <thead>
-            <tr className="">
-              <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.side')}</th>
-              <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
+            <tr className="bg-grey-50">
+              <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.side')}</th>
+              <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
                 {intl.get('common.price')}<span className="fs10">/{tokens.right}</span>
               </th>
-              <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
+              <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
                 {intl.get('common.amount')}<span className="fs10">/{tokens.left}</span>
               </th>
-              <th hidden className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
+              <th hidden className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
                 {intl.get('common.total')}<span hidden className="fs10">/{tokens.right}</span>
               </th>
-              <th hidden className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
-              <th className="zb-b-b bg-grey-100 text-center pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.time')}</th>
+              <th hidden className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
+              <th className="zb-b-b text-center pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.time')}</th>
             </tr>
           </thead>
           <tbody>

@@ -65,7 +65,7 @@ class PlaceOrderPage extends React.Component {
 
     return (
       <LayoutDexHome {...this.props}>
-        <div className="bg-grey-100">
+        <div className="">
           <NavBar
             className=""
             mode="light"
@@ -82,30 +82,11 @@ class PlaceOrderPage extends React.Component {
           </NavBar>
           <div className="divider 1px zb-b-t"></div>
           <div className="no-underline tabs-no-border h-50 place-order-form">
-            {
-              false &&
-              <Tabs
-                tabs={
-                  [
-                    { title: <div className="fs16">{intl.get("common.buy")} {pairTokens.left}</div> },
-                    { title: <div className="fs16">{intl.get("common.sell")} {pairTokens.left}</div> },
-                  ]
-                }
-                tabBarBackgroundColor={null && (side === 'buy' ? "#e8f5e9" : "#ffebee")}
-                tabBarActiveTextColor={null && (side === 'buy' ? "#43a047" : "#f44336")}
-                tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-                tabBarTextStyle={{}}
-                swipeable={false}
-                initialPage={side==='buy'?0:1}
-                onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
-                onTabClick={(tab, index) => { }}
-              >
-
-              </Tabs>
-            }
             <PlaceOrderForm side="sell" showLayer={showLayer} />
+            <div className="divider 1px zb-b-t"></div>
           </div>
-          <div className="tabs-no-border">
+          <div className="tabs-no-border mt15">
+            <div className="divider 1px zb-b-t"></div>
             <Tabs
               tabs={
                 [
@@ -120,22 +101,27 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => tabChange(tab.tab)}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div className="zb-b-t">
+              <div className="bg-white">
+                <div className="divider 1px zb-b-t"></div>
                 <HelperOfBalance />
               </div>
-              <div className="zb-b-t">
+              <div className="bg-white">
+                <div className="divider 1px zb-b-t"></div>
                 <HelperOfMyMarketOrders />
               </div>
-              <div className="zb-b-t">
+              <div className="bg-white">
+                <div className="divider 1px zb-b-t"></div>
                 <HelperOfMyMarketFills />
               </div>
-              <div className="zb-b-t">
-                 <HelperOfFAQ />
+              <div className="bg-white">
+                <div className="divider 1px zb-b-t"></div>
+                <HelperOfFAQ />
               </div>
             </Tabs>
-            <div className="pb50"></div>
           </div>
         </div>
+        <div className="pb50"></div>
+        <div className="pb20"></div>
       </LayoutDexHome>
     );
   }

@@ -80,7 +80,7 @@ export const TickerItem = ({item,actions,key})=>{
 }
 export const TickerList = ({items,loading,dispatch})=>{
   return (
-    <div className="">
+    <div className="bg-white">
       <Spin spinning={loading}>
         <TickerHeader />
         <div className="divider 1px zb-b-b"></div>

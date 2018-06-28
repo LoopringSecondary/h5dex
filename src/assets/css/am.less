@@ -1,3 +1,20 @@
+@brand-primary: #1c60ff;
+
+@radius-xs: 50em;
+@radius-sm: 50em;
+@radius-md: 50em;
+@radius-lg: 50em;
+
+@radius-xs: 0;
+@radius-sm: 0;
+@radius-md: 0;
+@radius-lg: 0;
+
+@radius-circle: 50%;
+
+@opacity-disabled: 0.05;
+@segmented-control-height: 40 * @hd;
+@button-height: 40 * @hd;
 
 // ========
 // segment
@@ -11,11 +28,27 @@
   // background: #000 !important;
   // color:#fff !important;
 }
+.segmented-fs16{
+  .am-segment-item{font-size: 16px !important;}
+}
 
 // ========
 // button
 // ========
 
+.am-button-primary.am-button-disabled{
+  // opacity: 1 !important;
+  // background: fade(@brand-primary, 10%) !important;
+  // color:fade(@brand-primary, 40%) !important;
+}
+.am-button{
+
+}
+.am-button::before{
+}
+.am-button.border-none::before{
+  border:none!important;
+}
 .am-button-primary{
   // background: #000 !important;
 }

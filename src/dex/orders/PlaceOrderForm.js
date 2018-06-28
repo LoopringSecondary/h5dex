@@ -175,13 +175,13 @@ const PlaceOrderForm = (props)=>{
     }
   }
   const menu1 = `${intl.get("common.buy")} ${tokens.left}`
-  const menu2 = `${intl.get("common.sell")} ${tokens.right}`
+  const menu2 = `${intl.get("common.sell")} ${tokens.left}`
   return (
     <div>
-       <div className="pl10 pr10 pt10 pb5 bg-white">
+       <div className="pl10 pr10 pt10 pb5 bg-white segmented-fs16">
          <SegmentedControl
            values={[menu1, menu2]}
-           style={{height:'36px'}}
+           style={{height:'40px'}}
            selectedIndex={side === 'buy' ? 0 : 1}
            onChange={sideChange}
          />
@@ -229,13 +229,13 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5 color-white bg-red-500" type="warning">
+            <Button onClick={toConfirm} className="w-100 d-block mb5" type="primary" disabled={true}>
               {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5 bg-green-500 color-white">
+            <Button onClick={toConfirm} className="w-100 d-block mb5" type="primary" disabled={true}>
               {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }

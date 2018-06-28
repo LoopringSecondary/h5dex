@@ -94,21 +94,22 @@ class MarketDetail extends React.Component {
       routeActions.gotoPath(`/dex/placeOrder/${market}`)
     }
     return (
-      <div className="bg-grey-100">
+      <div className="bg-grey-50">
         <NavBar
-          className="zb-b-b"
+          className=""
           mode="light"
           icon={null && <Icon type="left" />}
           onLeftClick={() => console.log('onLeftClick')}
           leftContent={[
-            <Icon key="1" type="left" onClick={routeActions.goBack} className="color-black-1" />,
+            <Icon key="1" type="left" onClick={routeActions.goBack} className="" />,
           ]}
-          rightContent={null && [
-            <Icon key="1" type="search" />,
+          rightContent={[
+            <Icon key="1" type="star" />,
           ]}
         >
           {market}
         </NavBar>
+        <div className="divider 1px zb-b-t"></div>
         <TickerItem />
         <div className="no-underline">
           <Tabs
