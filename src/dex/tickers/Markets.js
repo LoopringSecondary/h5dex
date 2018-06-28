@@ -11,26 +11,24 @@ class Markets extends React.Component {
   render(){
     return (
       <LayoutDexHome {...this.props}>
-        <div className="tabs-no-border no-underline"  style={{height:'100%'}}>
-          { true && <div style={{height:'45px'}}></div> }
-          {
-            true &&
-            <NavBar
-              style={{top:'0px',position:'absolute',zIndex:10}}
-              className="w-100"
-              mode="dark"
-              icon={null && <Icon type="left" />}
-              onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
-              leftContent={ [
-                <WebIcon key="1" type="home" className="" />,
-              ]}
-              rightContent={[
-                <WebIcon key="1" type="search" className="" />,
-              ]}
-            >
-              {intl.get('common.markets')}
-            </NavBar>
-          }
+        <div className=""  style={{height:'100%'}}>
+          <div style={{height:'45px'}}></div>
+          <NavBar
+            style={{top:'0px',position:'absolute',zIndex:10}}
+            className="w-100 zb-b-t bg-white"
+            mode="light"
+            icon={null && <Icon type="left" />}
+            onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
+            leftContent={ [
+              <WebIcon key="1" type="home" className="" />,
+            ]}
+            rightContent={[
+              <WebIcon key="1" type="search" className="" />,
+            ]}
+          >
+            {intl.get('common.markets')}
+          </NavBar>
+          <div className="divider 1px z-b-b-t"></div>
           <ListMarketTickers />
         </div>
       </LayoutDexHome>

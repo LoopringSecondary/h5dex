@@ -93,6 +93,8 @@ class MarketDetail extends React.Component {
       })
       routeActions.gotoPath(`/dex/placeOrder/${market}`)
     }
+    const menu1 = `${intl.get("common.buy")} ${tokens.left}`
+    const menu2 = `${intl.get("common.sell")} ${tokens.left}`
     return (
       <div className="bg-grey-50">
         <NavBar
@@ -137,15 +139,20 @@ class MarketDetail extends React.Component {
             </div>
           </Tabs>
         </div>
-        <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
-          <div className="row ml0 mr0 no-gutters">
+        <div className="position-fixed p10  w-100 bg-white segmented-fs16" style={{bottom:'0'}}>
+          <div hidden className="row ml0 mr0 no-gutters">
             <div className="col-6">
-              <Button onClick={gotoTrade.bind(this,{side:'buy'})} className="bg-green-500 color-white m5">{intl.get("common.buy")} {tokens.left}</Button>
+              <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="m5">{intl.get("common.buy")} {tokens.left}</Button>
             </div>
             <div className="col-6">
-              <Button onClick={gotoTrade.bind(this,{side:'sell'})} className="bg-red-500 color-white m5">{intl.get("common.sell")} {tokens.left}</Button>
+              <Button type="primary" onClick={gotoTrade.bind(this,{side:'sell'})} className="m5">{intl.get("common.sell")} {tokens.left}</Button>
             </div>
           </div>
+          <SegmentedControl
+            values={[menu1, menu2]}
+            style={{height:'44px',fontSize:'16px'}}
+            onChange={()=>{}}
+          />
         </div>
       </div>
     );

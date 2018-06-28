@@ -197,7 +197,7 @@ function PlaceOrderSteps(props) {
               <div className="p15 bg-white">
                 <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
                   <div className="col-auto">
-                    <div className=" color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                    <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
                       <i className={`icon-${side === 'buy' ? tokens.right : tokens.left} fs24`}/>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ function PlaceOrderSteps(props) {
                 <div className="pt15 pb15 clor-black-3 fs14 zb-b-t">
                   <Icon className="mr5" type="exclamation-circle-o" />{intl.get('place_order_confirm.no_cost_gas')}
                 </div>
-                <Button type="" className="bg-grey-900 color-white" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
+                <Button type="primary" className="" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
               </div>
             </div>
           }/>

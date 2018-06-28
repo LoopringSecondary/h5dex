@@ -12,13 +12,13 @@ import {formatPrice} from 'modules/orders/formatters'
 
 export const TickerHeader = ({list,actions})=>{
     return (
-        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-          <div className="col-5 fs14 color-black-4 text-left">{intl.get('common.market')}</div>
+        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters bg-grey-100">
+          <div className="col-5 fs13 color-black-4 text-left">{intl.get('common.market')}</div>
           <div className="col-4 text-left pr10">
-            <div className="fs14 color-black-4 ">{intl.get('common.price')}</div>
+            <div className="fs13 color-black-4 ">{intl.get('common.price')}</div>
           </div>
           <div className="col-3 text-right">
-            <div className="fs14 color-black-4">{intl.get('ticker.change')}</div>
+            <div className="fs13 color-black-4">{intl.get('ticker.change')}</div>
           </div>
         </div>
     )
@@ -35,13 +35,13 @@ export const TickerItem = ({item,actions,key})=>{
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
         <div className="col-5 text-left">
-          <span className="fs16 color-black-1 font-weight-bold">{tokens.left}</span>
-          <span className="fs14 color-black-3">/{tokens.right}</span>
-          <div className="fs14 color-black-3">Vol {tickerFm.getVol()}</div>
+          <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
+          <span className="fs14 color-black-4"> / {tokens.right}</span>
+          <div className="fs14 color-black-4">Vol {tickerFm.getVol()}</div>
         </div>
         <div className="col-4 text-left">
-          <div className="fs16 color-black-1 font-weight-bold">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
-          <div className="fs14 color-black-3"><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
+          <div className="fs16 color-black-1 font-weight-bold-bak lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
+          <div className="fs14 color-black-4"><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
         </div>
         <div className="col-3 text-right">
           {
@@ -80,10 +80,10 @@ export const TickerItem = ({item,actions,key})=>{
 }
 export const TickerList = ({items,loading,dispatch})=>{
   return (
-    <div className="bg-white">
+    <div className="">
       <Spin spinning={loading}>
         <TickerHeader />
-        <div className="divider 1px zb-b-b"></div>
+        <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
         {items.length === 0 &&
           <div className="p10 text-center color-black-3">
