@@ -5,6 +5,10 @@ import {Toast, Button,NavBar} from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import {connect} from 'dva'
 import storage from 'modules/storage';
+import {init} from '../../init'
+import intl from 'react-intl-universal'
+import Notification from 'LoopringUI/components/Notification'
+
 
 class Routes extends React.Component{
 

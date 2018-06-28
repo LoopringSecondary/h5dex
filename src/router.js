@@ -18,6 +18,7 @@ function RouterConfig({ history }) {
             <DexRoutes />
             <Face2FaceRoutes />
             <WalletRoutes />
+            <Route path={`/test`} exact component={Test} />
           </div>
         </Router>
       </Locales>

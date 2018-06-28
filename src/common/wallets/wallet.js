@@ -1,6 +1,6 @@
 import { getOrderHash } from '../loopringjs/src/relay/rpc/order'
 import {toHex} from '../loopringjs/src/common/formatter'
-
+import {Modal} from 'antd-mobile'
 export default class Wallet {
 
   /**

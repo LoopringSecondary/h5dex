@@ -30,79 +30,89 @@ const TodoItem = (props) => {
     dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol}})
   }
 
-  const enable = async (item, checked) => {
-    if (checked) {
-      let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
-      const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
-      const delegateAddress = config.getDelegateAddress()
-      const token = config.getTokenBySymbol(item.symbol)
-      const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
-      const txs = []
-      let allowance = assets.allowance
-      if (isApproving(pendingTxs, item.symbol)) {
-        allowance = isApproving(pendingTxs, item.symbol)
-      }
-      if (allowance.gt(0)) {
-        txs.push({
-          gasLimit: gasLimit,
-          data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
-          to: token.address,
-          gasPrice: gasPrice,
-          chainId: config.getChainId(),
-          value: '0x0',
-          nonce: toHex(nonce)
-        })
-        nonce = nonce + 1
-      }
+  const enable = async () => {
+    let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
+    const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
+    const delegateAddress = config.getDelegateAddress()
+    const token = config.getTokenBySymbol(item.symbol)
+    const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
+    const txs = []
+    let allowance = assets.allowance
+    if (isApproving(pendingTxs, item.symbol)) {
+      allowance = isApproving(pendingTxs, item.symbol)
+    }
+    if (allowance.gt(0)) {
       txs.push({
         gasLimit: gasLimit,
-        data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
+        data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
         to: token.address,
         gasPrice: gasPrice,
         chainId: config.getChainId(),
         value: '0x0',
         nonce: toHex(nonce)
       })
+      nonce = nonce + 1
+    }
+    txs.push({
+      gasLimit: gasLimit,
+      data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
+      to: token.address,
+      gasPrice: gasPrice,
+      chainId: config.getChainId(),
+      value: '0x0',
+      nonce: toHex(nonce)
+    })
 
-      eachLimit(txs, 1, async (tx, callback) => {
-        signTx(tx, true).then(res => {
-          if (res.result) {
-            window.ETH.sendRawTransaction(res.result).then(resp => {
-              if (resp.result) {
-                window.RELAY.account.notifyTransactionSubmitted({
-                  txHash: resp.result,
-                  rawTx: tx,
-                  from: storage.wallet.getUnlockedAddress()
-                })
+    eachLimit(txs, 1, async (tx, callback) => {
+      signTx(tx, true).then(res => {
+        if (res.result) {
+          window.ETH.sendRawTransaction(res.result).then(resp => {
+            if (resp.result) {
+              window.RELAY.account.notifyTransactionSubmitted({
+                txHash: resp.result,
+                rawTx: tx,
+                from: storage.wallet.getUnlockedAddress()
+              }).then(response => {
                 callback()
-              } else {
-                callback(res.error)
-              }
-            })
-          } else {
-            callback(res.error)
-          }
-        })
-      }, function (error) {
-        if (error) {
-          Modal.alert(error.message)
+              })
+            } else {
+              callback(resp.error)
+            }
+          })
         } else {
-          Modal.alert('enable success')
+          callback(res.error)
         }
       })
-    }
+    }, function (error) {
+      if (error) {
+        Modal.alert(error.message)
+      } else {
+        Modal.alert('enable success')
+      }
+    })
+
   }
 
   const gotoTrading = () => {
-    const market = config.getTokenSupportedMarket(item.symbol);
-    if(market){
-     routeActions.gotoPath(`/dex/placeOrder/${market}`)
-      return;
+    const market = config.getTokenSupportedMarket(item.symbol)
+    if (market) {
+      routeActions.gotoPath(`/dex/placeOrder/${market}`)
+      return
     }
     routeActions.gotoPath(`/dex/placeOrder`)
   }
 
-  if(item.type === 'allowance'){
+  const loading = () => {
+    const allowance = isApproving(pendingTxs, item.symbol)
+    const tf = new TokenFormatter({symbol:item.symbol})
+    if(allowance){
+      return tf.getUnitAmount(allowance).gte(item.selling)
+    }
+    return false;
+
+  }
+
+  if (item.type === 'allowance') {
     return (
       <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
         <div className="col-auo pr15 color-black text-center">
@@ -126,7 +136,7 @@ const TodoItem = (props) => {
       </div>
     )
   }
-  if(item.type === 'balance'){
+  if (item.type === 'balance') {
     return (
       <div className="">
         <div className="row ml0 mr0 pl10 pr10 pt15 align-items-center no-gutters" onClick={() => {}}>
@@ -182,21 +192,18 @@ const TodoItem = (props) => {
           </div>
           <div className="col-auto">
             <div>
-              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""onClick={() => {}}>
-                {intl.get('todo_list.actions_buy')} <WebIcon type="down" />
-              </Button>
+              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className="" onClick={gotoTrading}>
+                {intl.get('todo_list.actions_buy')} <WebIcon type="down" /></Button>
               <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
                       onClick={() => showReceive(item.symbol)}>Receive</Button>
-              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5" onClick={gotoTrading}>Buy</Button>
+              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
+                      onClick={gotoTrading}>Buy</Button>
               <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           </div>
         </div>
-      </div>
-
-    )
-  }
-
+      </div>)
+    }
 }
 
 const mockData = [
@@ -229,6 +236,7 @@ const mockData = [
     type: 'balance',
   },
 ]
+
 class ListTodos extends React.Component {
   constructor (props) {
     super(props)
@@ -238,9 +246,8 @@ class ListTodos extends React.Component {
     }
   }
 
-  componentWillReceiveProps(newProps){
-    const {balance, txs} = newProps
-    if(newProps !== this.props){
+  componentWillReceiveProps (newProps) {
+    const {balance} = newProps
       window.RELAY.account.getAllEstimatedAllocatedAmount({
         owner: storage.wallet.getUnlockedAddress(),
         delegateAddress: config.getDelegateAddress()
@@ -252,33 +259,30 @@ class ListTodos extends React.Component {
             const value = res.result[symbol]
             const tf = new TokenFormatter({symbol})
             const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-            const unitBalance =  tf.toPricisionFixed(tf.getUnitAmount(assets.balance));
-            const selling= tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)));
+            const unitBalance = tf.toPricisionFixed(tf.getUnitAmount(assets.balance))
+            const selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
             if (toNumber(unitBalance) < toNumber(selling)) {
               data.push({
                 symbol: symbol,
                 type: 'balance',
-                balance:unitBalance,
+                balance: unitBalance,
                 selling,
-                lack:selling - unitBalance,
+                lack: selling - unitBalance,
                 title: `${symbol} balance is insufficient for orders`
               })
             }
             let allowance = assets.allowance
-            if (isApproving(txs, symbol)) {
-              allowance = isApproving(txs, symbol)
-            }
             if (allowance.lt(toBig(value))) {
-              data.push({symbol: symbol, type: 'allowance', title: `${symbol} allowance is insufficient for orders`})
+              data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
             }
           })
         }
         this.setState({
-          data:data.sort((a,b) => {return a.type < b.type ? -1 :1})
+          data: data.sort((a, b) => {return a.type < b.type ? -1 : 1})
         })
 
       })
-    }
+
   }
 
   enableAll = async () => {
@@ -349,8 +353,9 @@ class ListTodos extends React.Component {
       }
     })
   }
+
   render () {
-    const {dispatch, balance} = this.props
+    const {dispatch, balance,txs} = this.props
     const {data} = this.state
     const goBack = () => {
       routeActions.goBack()
@@ -384,7 +389,7 @@ class ListTodos extends React.Component {
           <div className="bg-white">
             {
               data.map((item, index) =>
-                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch}/>
+                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}/>
               )
             }
           </div>
@@ -407,6 +412,7 @@ class ListTodos extends React.Component {
     )
   }
 }
+
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
