@@ -12,6 +12,10 @@ import ListMyFills from '../fills/ListMyFills'
 import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal';
+import * as tokenFormatter from 'modules/tokens/TokenFm'
+import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
+import Worth from 'modules/settings/Worth'
+import config from 'common/config'
 
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -184,7 +188,7 @@ class UserCenter extends React.Component {
               </div>
             </div>
             <div className="zb-b-t">
-              <TokenList />
+              <ListBalance />
             </div>
           </div>
           <div hidden className="bg-white mt15">
@@ -207,76 +211,6 @@ class UserCenter extends React.Component {
   }
 }
 export default UserCenter
-const TokenListComp = (props)=>{
-  const {dispatch} = props
-  const showLayer = (payload={})=>{
-    dispatch({
-      type:'layers/showLayer',
-      payload:{
-        ...payload
-      }
-    })
-  }
-  const tokens = [
-    {
-      symbol:"LRC",
-      name:"Loopring",
-      balance:12680.0001,
-      required:15000.0001,
-    },
-    {
-      symbol:"WETH",
-      name:"Wrap ETH",
-      balance:21.3652,
-      required:20.1278,
-    },
-    {
-      symbol:"ETH",
-      name:"Ethereum",
-      balance:85.0001,
-      required:0.0001,
-    },
-  ]
-  return (
-    <div className="fs20">
-      <table className="w-100 fs13">
-        <thead>
-          <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Token</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Balance</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Estimate</th>
-            <th hidden className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Selling</th>
-            <th hidden className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">Lack</th>
-          </tr>
-        </thead>
-        <tbody>
-            {
-              tokens.map((token,index)=>
-                <tr key={index} onClick={showLayer.bind(this,{id:'tokenNotEnough'})}>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-1 text-left">
-                    {token.symbol}
-                    <span className="color-black-3 ml5">{token.name}</span>
-                  </td>
-                  <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">{token.balance}</td>
-                  <td className="pl10 pr10 pt15 pb15 zb-b-b color-black-2 text-right">$ 23647.57</td>
-                  <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{token.required}</td>
-                  <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{
-                      Number(token.balance - token.required).toFixed(4)>0 ? '0.0000' :
-                      <span className="color-red-500">
-                        <WebIcon type="exclamation-circle mr5" />
-                        {Number(token.required - token.balance).toFixed(4)}
-                      </span>
-                    }
-                  </td>
-                </tr>
-              )
-            }
-        </tbody>
-      </table>
-    </div>
-  )
-}
-export const TokenList = connect()(TokenListComp)
 
 
 
