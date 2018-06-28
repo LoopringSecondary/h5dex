@@ -1,17 +1,11 @@
 import React from 'react'
 import { Button, Modal, Toast } from 'antd-mobile'
-import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
-import routeActions from 'common/utils/routeActions'
-import intl from 'react-intl-universal'
 import { OrderFm } from 'modules/orders/OrderFm'
 import { getTokensByMarket } from 'modules/formatter/common'
-// import { renders } from './ListOrders'
-import { FormatAmount } from 'modules/formatter/FormatNumber'
 import config from 'common/config'
-import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
+import { toBig, toFixed } from 'LoopringJS/common/formatter'
 import moment from 'moment'
-import { keccakHash } from 'LoopringJS/common/utils'
 import { signMessage } from '../common/utils/signUtils'
 import storage from 'modules/storage'
 
@@ -61,8 +55,7 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
       {
         text: 'Yes', onPress: () => {
         const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
-        const hash = keccakHash(timestamp)
-        signMessage(hash).then(res => {
+        signMessage(timestamp).then(res => {
           if (res.result) {
             const sig = res.result
             window.RELAY.order.cancelOrder({
@@ -93,8 +86,7 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
         {
           text: 'Yes', onPress: () => {
           const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
-          const hash = keccakHash(timestamp)
-          signMessage(hash).then(res => {
+          signMessage(timestamp).then(res => {
             if (res.result) {
               const sig = res.result
               const tokens = market.split('-')
