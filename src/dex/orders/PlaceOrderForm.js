@@ -190,7 +190,7 @@ const PlaceOrderForm = (props)=>{
            onChange={sideChange}
          />
        </div>
-       <List className="bg-none no-border">
+       <List className="no-border">
         <InputItem
           type="money"
           placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
@@ -200,13 +200,14 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={
             <div style={{width:'25px',textAlign:'right'}}>
-              <i className="icon-chevron-right color-black-2" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
+              <i className="fs18 icon-chevron-right color-black-2" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
             </div>
           }
           onChange={priceChange}
         ><div className="fs16 color-black-3">{intl.get("common.price")}</div></InputItem>
       </List>
-      <List className="bg-none no-border">
+      <div className="divider 1px zb-b-t"></div>
+      <List className="no-border">
         <InputItem
           type="money"
           placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
@@ -217,12 +218,13 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={
             <div style={{width:'25px',textAlign:'right'}}>
-              <i className="icon-chevron-right color-black-2" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+              <i className="fs18 icon-chevron-right color-black-2" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
             </div>
           }
         ><div className="fs16 color-black-3">{intl.get("common.amount")}</div></InputItem>
       </List>
-      <List className="bg-none no-border">
+      <div className="divider 1px zb-b-t"></div>
+      <List className="no-border">
         <Item>
           <div className="row align-items-center ml0 mr0 mb10 mt5 fs16 no-gutters">
             <div className="col color-black-3 pl0 fs16">{intl.get("common.total")}</div>
@@ -233,19 +235,19 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5 fs16" type="ghost" disabled={false}>
+            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type="ghost" disabled={false}>
               {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5 fs16" type="ghost" disabled={false}>
+            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type="ghost" disabled={false}>
               {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }
         </Item>
       </List>
-
+      <div className="divider 1px zb-b-t"></div>
     </div>
   )
 }

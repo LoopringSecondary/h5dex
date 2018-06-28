@@ -114,7 +114,7 @@ const HelperOfBalance = (props)=>{
             </div>
           </Button>
         }
-        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded mt10"
+        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded"
                    icon={<WebIcon type="exclamation-circle-o"/>}
                    mode="link" marqueeProps={{loop: true}} action={<span>全部资产<WebIcon type="right"/></span>}>
           仅显示{pair}的资产

@@ -84,8 +84,7 @@ class PlaceOrderPage extends React.Component {
             <div className="divider 1px zb-b-t"></div>
             <PlaceOrderForm showLayer={showLayer} />
           </div>
-          <div className="mt15">
-            <div className="divider 1px zb-b-t"></div>
+          <div className="mt0">
             <Tabs
               tabs={
                 [

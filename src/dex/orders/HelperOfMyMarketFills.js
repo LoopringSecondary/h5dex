@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Toast } from 'antd-mobile';
+import { Button, Toast,NoticeBar } from 'antd-mobile';
 import { Icon as WebIcon,Spin } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
@@ -102,7 +102,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
                 !fills.loading && fills.items && fills.items.length == 0 &&
                 <tr>
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs13" colSpan='100'>
-                    {intl.get('helper_of_market_order.no_fills_of_market', {market})}
+                    {intl.get("common.list.no_data")}
                   </td>
                 </tr>
               }
@@ -110,9 +110,18 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
         </table>
       </Spin>
       <div className="p10 mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs13 bg-none color-black-2">
-          {intl.get('actions.fills_of_all_markets')}
-        </Button>
+        {
+          false &&
+          <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs13 bg-none color-black-2">
+            {intl.get('actions.fills_of_all_markets')}
+          </Button>
+        }
+
+        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded"
+                   icon={<WebIcon type="exclamation-circle-o"/>}
+                   mode="link" marqueeProps={{loop: true}} action={<span>全部成交<WebIcon type="right"/></span>}>
+          仅显示{market}的成交
+        </NoticeBar>
       </div>
     </div>
 

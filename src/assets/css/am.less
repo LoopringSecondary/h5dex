@@ -11,7 +11,7 @@
 @radius-lg: 4 * @hd;
 
 // tokenest
-@brand-primary: #2e2ba4;
+// @brand-primary: #2e2ba4;
 @radius-xs: 50em;
 @radius-sm: 50em;
 @radius-md: 50em;
@@ -168,4 +168,42 @@
     background:#e6f7ff;
     color:#1890ff
   }
+}
+
+
+// ========
+// am-list
+// ========
+
+.no-border{
+  .am-list-body::before {
+    background: transparent !important;
+  }
+  .am-list-body::after{
+    background: transparent !important;
+  }
+  .am-button-primary::before{
+    border:none !important;
+  }
+}
+
+.am-list-item.am-input-item{
+  height: 50px !important;
+}
+
+.am-list-header{
+  padding:0px !important;
+}
+
+.am-list-bg-none{
+  .am-list-body{
+    background: transparent !important;
+  }
+}
+.am-list-item .am-input-label.am-input-label-5{
+  width: auto !important;
+}
+.am-list-item .am-list-line .am-list-extra{
+  flex-basis:auto !important;
+  flex-shrink:1 ;
 }
