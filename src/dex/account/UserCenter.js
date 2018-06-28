@@ -78,7 +78,7 @@ class UserCenter extends React.Component {
             </NoticeBar>
           }
           <NavBar
-            className=""
+            className="bg-primary-dark"
             mode="dark"
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
@@ -89,7 +89,7 @@ class UserCenter extends React.Component {
           >
           {intl.get('usercenter.page_title')}
           </NavBar>
-          <div className="pt35 pb35 text-left bg-primary-2">
+          <div className="pt35 pb35 text-left bg-primary">
             <div className="row align-items-center ml0 mr0 no-gutters">
               <div className="col">
                 <div className="text-center color-white fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
@@ -103,7 +103,6 @@ class UserCenter extends React.Component {
               </div>
             </div>
           </div>
-
           <div className="height-auto tabs-no-border">
             <Tabs
               tabs={
@@ -119,6 +118,7 @@ class UserCenter extends React.Component {
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
               <div>
+                <div className="divider 1px zb-b-b"></div>
                 <ListBalance />
               </div>
               <div>
@@ -129,6 +129,7 @@ class UserCenter extends React.Component {
                 </Containers.Orders>
               </div>
               <div>
+                <div className="divider 1px zb-b-b"></div>
                 <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
                   <ListMyFills />
                 </Containers.Fills>

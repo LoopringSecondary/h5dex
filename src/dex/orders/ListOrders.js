@@ -36,13 +36,27 @@ export const OpenOrderList = ({orders={},dispatch})=>{
           orders.items && orders.items.map((item,index)=>{
             const orderFm = new OrderFm(item)
             const tokens = orderFm.getTokens()
+            const market = orderFm.getMarketPair()
             return (
               <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
                 <td className="zb-b-b p10 pl10 text-left">
-                  { orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()} {tokens.right}</span>}
-                  { orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()} {tokens.right}</span>}
+                  { orderFm.getSide() === 'buy' &&
+                    <span className="color-green-500">
+                      <div>{orderFm.getPrice()}</div>
+                      <div className="color-black-3">{market}</div>
+                    </span>
+                  }
+                  { orderFm.getSide() === 'sell' &&
+                    <span className="color-red-500">
+                      <div>{orderFm.getPrice()}</div>
+                      <div className="color-black-3">{market}</div>
+                    </span>
+                  }
                 </td>
-                <td className="zb-b-b p10 text-left text-nowrap">{orderFm.getAmount()} {tokens.left}</td>
+                <td className="zb-b-b p10 text-left text-nowrap">
+                  <div>{orderFm.getAmount()}</div>
+                  <div className="color-black-3">{tokens.left}</div>
+                </td>
                 <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
                 <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b p10 text-center">

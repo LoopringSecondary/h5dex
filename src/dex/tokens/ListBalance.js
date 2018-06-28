@@ -56,16 +56,13 @@ const TokenListComp = (props)=>{
                     <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
                       {
                         token.symbol === 'ETH' &&
-                        <a onClick={() => showConvert('WETH')}>{intl.get('common.convert')}</a>
+                        <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small" onClick={() => showConvert('WETH')}>{intl.get('common.convert')}</Button>
                       }
                       {
                         token.symbol === 'WETH' &&
-                        <a onClick={() => showConvert('ETH')}>{intl.get('common.convert')}</a>
+                        <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small" onClick={() => showConvert('ETH')}>{intl.get('common.convert')}</Button>
                       }
-                      {
-                        token.symbol !== 'WETH' &&
-                        <a onClick={() => showReceive(token.symbol)}>{intl.get('common.receive')}</a>
-                      }
+                      <Button type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small" onClick={() => showReceive(token.symbol)}>{intl.get('common.receive')}</Button>
                     </td>
                   </tr>
                 )

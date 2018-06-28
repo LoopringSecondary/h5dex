@@ -11,7 +11,7 @@
 @radius-lg: 4 * @hd;
 
 // tokenest
-// @brand-primary: #2e2ba4;
+@brand-primary: #2e2ba4;
 @radius-xs: 50em;
 @radius-sm: 50em;
 @radius-md: 50em;
@@ -29,9 +29,13 @@
 .bg-primary{
   background:@brand-primary !important;
 }
-.bg-primary-2{
-  background:fade(@brand-primary,95%) !important;
+.bg-primary-light{
+  background:lighten(@brand-primary,95%) !important;
 }
+.bg-primary-dark{
+  background:darken(@brand-primary,10%) !important;
+}
+
 
 .radius-4{
   border-radius:4px !important;
