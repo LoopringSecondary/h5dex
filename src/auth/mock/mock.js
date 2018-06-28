@@ -10,7 +10,7 @@ export default class MockWallet extends Wallet {
       this.key = key
       this.wallet = fromPrivateKey(key);
     }else{
-      key=''
+      key =''
       this.key = key
       this.wallet = fromPrivateKey(key);
     }
@@ -19,8 +19,8 @@ export default class MockWallet extends Wallet {
 
   getLanguage() {
     return new Promise((resolve) => {
-      // resolve({result: 'zh-CN'})
-      resolve({result: 'en-US'})
+      resolve({result: 'zh-CN'})
+     // resolve({result: 'en-US'})
     })
   }
 
