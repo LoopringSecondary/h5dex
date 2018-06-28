@@ -82,7 +82,6 @@ export const TickerList = ({items,loading,dispatch})=>{
   return (
     <div className="">
       <Spin spinning={loading}>
-        <div className="divider 1px zb-b-b"></div>
         <TickerHeader />
         <div className="divider 1px zb-b-b"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
@@ -118,9 +117,6 @@ class ListMarketTickers extends React.Component {
                 // { title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> },
               ]
             }
-            tabBarBackgroundColor={"#fff"}
-            tabBarActiveTextColor={"#000"}
-            tabBarInactiveTextColor={"rgba(0,0,0,0.4)"}
             tabBarTextStyle={{}}
             initialPage={1}
             swipeable={false}
