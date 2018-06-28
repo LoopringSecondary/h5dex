@@ -67,7 +67,8 @@ const PlaceOrderForm = (props)=>{
        }
      })
    }
-   const sideChange = (side)=>{
+   const sideChange = (e)=>{
+     const side = e.nativeEvent.selectedSegmentIndex === 0 ? 'buy' : 'sell'
      dispatch({
        type:'placeOrder/sideChangeEffects',
        payload:{
@@ -178,7 +179,12 @@ const PlaceOrderForm = (props)=>{
   return (
     <div>
        <div className="pl10 pr10 pt10 pb5 bg-white">
-         <SegmentedControl values={[menu1, menu2]} style={{height:'36px'}}/>
+         <SegmentedControl
+           values={[menu1, menu2]}
+           style={{height:'36px'}}
+           selectedIndex={side === 'buy' ? 0 : 1}
+           onChange={sideChange}
+         />
        </div>
        <List className="bg-none no-border">
         <InputItem

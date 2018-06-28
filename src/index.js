@@ -50,6 +50,7 @@ app.start('#root')
 export const store = app._store
 
 init().then(res=>{
+  console.log('res',JSON.stringify(res))
   const tokens = new Array()
   tokens.push({
     "symbol": "ETH",
