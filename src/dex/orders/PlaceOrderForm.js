@@ -200,7 +200,7 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={
             <div style={{width:'25px',textAlign:'right'}}>
-              <WebIcon className="color-black-2" type="profile" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
+              <i className="icon-caret color-black-2" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
             </div>
           }
           onChange={priceChange}
@@ -217,7 +217,7 @@ const PlaceOrderForm = (props)=>{
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={
             <div style={{width:'25px',textAlign:'right'}}>
-              <WebIcon className="color-black-2" type="profile" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+              <ii className="icon-caret color-black-2" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
             </div>
           }
         ><div className="fs16 color-black-3">{intl.get("common.amount")}</div></InputItem>
