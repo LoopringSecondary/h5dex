@@ -12,21 +12,22 @@ import storage from 'modules/storage'
 import intl from 'react-intl-universal'
 
 const OrderListHeader = ()=>{
-  return (
-    <div className="color-black-2">
-      <div className="row ml0 mr0 fs14">
-        <div className="col text-center pt10 pb10 zb-b-r">
-          Markets <WebIcon className="fs12" type="down" />
-        </div>
-        <div className="col text-center pt10 pb10 zb-b-r">
-          Sides <WebIcon className="fs12" type="down" />
-        </div>
-        <div className="col text-center pt10 pb10 ">
-          Status <WebIcon className="fs12" type="down" />
-        </div>
-      </div>
-    </div>
-  )
+  return null
+  // return (
+  //   <div className="color-black-2">
+  //     <div className="row ml0 mr0 fs14">
+  //       <div className="col text-center pt10 pb10 zb-b-r">
+  //         {intl.get('common.markets')} <WebIcon className="fs12" type="down" />
+  //       </div>
+  //       <div className="col text-center pt10 pb10 zb-b-r">
+  //         {intl.get('common.sides')} <WebIcon className="fs12" type="down" />
+  //       </div>
+  //       <div className="col text-center pt10 pb10 ">
+  //         {intl.get('common.status')} <WebIcon className="fs12" type="down" />
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
 }
 
 class UserCenter extends React.Component {
@@ -112,9 +113,9 @@ class UserCenter extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.assets')}</Badge> },
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.orders')}</Badge> },
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.fills')}</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.assets')}</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.orders')}</Badge> },
+                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.fills')}</Badge> },
                 ]
               }
               initialPage={0}
