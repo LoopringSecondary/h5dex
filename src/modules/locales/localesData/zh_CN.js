@@ -551,7 +551,7 @@ export default {
     message_list_title:'消息',
   },
   todo_list:{
-    todo_list_title:'待做',
+    todo_list_title:'任务',
     allowance_not_enough_title:"{symbol} 还未授权交易",
     balance_not_enough_title:"{symbol} 余额不足",
     balance:"当前余额",

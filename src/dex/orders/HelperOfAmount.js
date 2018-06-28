@@ -38,8 +38,6 @@ function HelperOfAmount(props) {
     <div className="tabs-no-border">
       <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
       <Tabs tabs={tabs}
-        tabBarActiveTextColor={"#000"}
-        tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
         swipeable={false}
         initialPage={0}
         onChange={(tab, index) => { console.log('onChange', index, tab); }}
