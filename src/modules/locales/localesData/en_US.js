@@ -558,8 +558,8 @@ export default {
     actions_receive:words.receive,
   },
   usercenter:{
-    page_title:'我的交易',
-    actions_switch_wallet:'切换钱包',
+    page_title:'My Trades',
+    actions_switch_wallet:'Switch Wallet',
   },
   market: {
     tab_charts: "Charts",

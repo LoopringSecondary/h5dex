@@ -24,11 +24,11 @@ export const OpenOrderList = ({orders={},dispatch})=>{
     <table className="w-100 fs13" style={{overflow:'auto'}}>
       <thead>
         <tr>
-          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Amount</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Filled</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Status</th>
+          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.amount')}</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
+          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.status')}</th>
         </tr>
       </thead>
       <tbody>
@@ -140,20 +140,29 @@ export const renders = {
   status: (fm, order, cancelOrder) => {
     const status = fm.getStatus();
     if (status === 'ORDER_OPENED') {
-      return <WebIcon className="zb-b-b color-blue-500" type="clock-circle" />
+      if(cancelOrder) {
+        return <a className="fs12" onClick={cancelOrder}>{intl.get("common.cancel")}</a>
+      } else {
+        return <span className="color-black-4">{intl.get("order_status.opened")}</span>
+      }
     }
     if (status === 'ORDER_FINISHED') {
-      return <WebIcon className="zb-b-b color-green-500" type="check-circle" />
+      return <span className="color-green-500"><WebIcon type="check-circle" /></span>
     }
     if (status === 'ORDER_CANCELLED') {
-      return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+      return <span className="color-black-4">{intl.get("order_status.canceled")}</span>
     }
     if (status === 'ORDER_CUTOFF') {
-     return <WebIcon className="zb-b-b color-black-4" type="close-circle" />
+      return <span className="color-black-4">{intl.get("order_status.canceled")}</span>
     }
     if (status === 'ORDER_EXPIRE') {
-      return <WebIcon className="zb-b-b color-black-4" type="clock-circle" />
+      return <span className="color-black-4">{intl.get("order_status.expired")}</span>
     }
-
+    if (status === 'ORDER_PENDING') {
+      return <span className="color-black-1">{intl.get("order_status.pending")}</span>
+    }
+    if (status === 'ORDER_CANCELLING') {
+      return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
+    }
   },
 }
