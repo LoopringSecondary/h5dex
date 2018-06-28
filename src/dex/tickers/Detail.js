@@ -48,13 +48,13 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
       <div className="pl10 pr10 pt15 pb15 zb-b-b">
         <div className="row ml0 mr0 no-gutters align-items-center fs13">
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-            24H涨跌幅
+            {intl.get('ticker.change')}
           </div>
           <div className="col color-black-2">
             {tickerFm.getChange()}
           </div>
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-            24H最高价
+            {intl.get('ticker.high')}
           </div>
           <div className="col-auto color-black-2">
             {tickerFm.getHigh()}
@@ -62,13 +62,13 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
         </div>
         <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-            24H交易量
+            {intl.get('ticker.vol')}
           </div>
           <div className="col color-black-2">
             {tickerFm.getVol()} {tokens.right}
           </div>
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
-            24H最低价
+            {intl.get('ticker.low')}
           </div>
           <div className="col-auto color-black-2">
             {tickerFm.getLow()}
