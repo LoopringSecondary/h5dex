@@ -9,6 +9,8 @@ export default {
    tokenB:'WETH',
    amountS:toBig(0),
    amountB:toBig(0),
+   validSince: null,
+   validUntil: null,
    loading:false,
    qrcode:"",
   },
@@ -50,6 +52,15 @@ export default {
       return {
         ...state,
         qrcode
+      }
+    },
+    validTimeChange(state, action) {
+      let {payload} = action
+      const {validSince, validUntil} = payload
+      return {
+        ...state,
+        validSince,
+        validUntil
       }
     },
   },

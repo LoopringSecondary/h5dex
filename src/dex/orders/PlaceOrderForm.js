@@ -161,6 +161,9 @@ const PlaceOrderForm = (props)=>{
       })
       return
     }
+    const validSince = moment()
+    const validUntil = moment().add(1, 'months')
+    dispatch({type:'placeOrder/validTimeChange', payload:{validSince, validUntil}})
     showLayer({id:'placeOrderSteps'})
   }
   const showAmountHelper = () => {
@@ -175,13 +178,13 @@ const PlaceOrderForm = (props)=>{
     }
   }
   const menu1 = `${intl.get("common.buy")} ${tokens.left}`
-  const menu2 = `${intl.get("common.sell")} ${tokens.right}`
+  const menu2 = `${intl.get("common.sell")} ${tokens.left}`
   return (
     <div>
-       <div className="pl10 pr10 pt10 pb5 bg-white">
+       <div className="pl10 pr10 pt10 pb5 bg-white segmented-fs16">
          <SegmentedControl
            values={[menu1, menu2]}
-           style={{height:'36px'}}
+           style={{height:'40px'}}
            selectedIndex={side === 'buy' ? 0 : 1}
            onChange={sideChange}
          />
@@ -200,7 +203,7 @@ const PlaceOrderForm = (props)=>{
             </div>
           }
           onChange={priceChange}
-        ><div className="fs16">{intl.get("common.price")}</div></InputItem>
+        ><div className="fs16 color-black-3">{intl.get("common.price")}</div></InputItem>
       </List>
       <List className="bg-none no-border">
         <InputItem
@@ -216,12 +219,12 @@ const PlaceOrderForm = (props)=>{
               <WebIcon className="color-black-2" type="profile" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
             </div>
           }
-        ><div className="fs16">{intl.get("common.amount")}</div></InputItem>
+        ><div className="fs16 color-black-3">{intl.get("common.amount")}</div></InputItem>
       </List>
       <List className="bg-none no-border">
         <Item>
           <div className="row align-items-center ml0 mr0 mb10 mt5 fs16 no-gutters">
-            <div className="col color-black-1 pl0 fs16">{intl.get("common.total")}</div>
+            <div className="col color-black-3 pl0 fs16">{intl.get("common.total")}</div>
             <div className="col-auto pr0">
               <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
               <span className="color-black-1">{total} {tokens.right}</span>
@@ -229,13 +232,13 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5 color-white bg-red-500" type="warning">
+            <Button onClick={toConfirm} className="w-100 d-block mb5" type="primary" disabled={false}>
               {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5 bg-green-500 color-white">
+            <Button onClick={toConfirm} className="w-100 d-block mb5" type="primary" disabled={false}>
               {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }

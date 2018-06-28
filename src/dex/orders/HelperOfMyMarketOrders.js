@@ -154,10 +154,10 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   }
   const gotoAll = () => {}
   return (
-    <div className="zb-b-t">
+    <div className="">
       <table className="w-100 fs13" style={{overflow: 'auto'}}>
         <thead>
-        <tr>
+        <tr className="bg-grey-50">
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
             {intl.get("common.side")}
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>

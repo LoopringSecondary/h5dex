@@ -364,7 +364,7 @@ class ListTodos extends React.Component {
       <LayoutDexHome {...this.props}>
         <div className="">
           <NavBar
-            className="w-100 zb-b-b"
+            className="w-100 zb-b-b bg-white"
             mode="light"
             icon={null && <Icon type="left"/>}
             onLeftClick={() => routeActions.goBack()}

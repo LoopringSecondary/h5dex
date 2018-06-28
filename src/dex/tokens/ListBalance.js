@@ -5,11 +5,20 @@ import { connect } from 'dva';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
+import * as tokenFormatter from 'modules/tokens/TokenFm'
+import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
+import Worth from 'modules/settings/Worth'
+import config from 'common/config'
+import TokensFm from 'modules/tokens/TokensFm'
+
 const Item = List.Item;
 const Brief = Item.Brief;
 
 const TokenListComp = (props)=>{
-  const {dispatch} = props
+  const {tokens,balance,marketcap, dispatch} = props
+  const tokensFm = new TokensFm({tokens, marketcap, balance})
+  const formatedTokens = tokensFm.getList()
+
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -18,27 +27,6 @@ const TokenListComp = (props)=>{
       }
     })
   }
-  const tokens = [
-    {
-      symbol:"LRC",
-      name:"Loopring",
-      balance:12680.0001,
-      required:15000.0001,
-    },
-    {
-      symbol:"WETH",
-      name:"Wrap ETH",
-      balance:21.3652,
-      required:20.1278,
-    },
-    {
-      symbol:"ETH",
-      name:"Ethereum",
-      balance:85.0001,
-      required:0.0001,
-    },
-  ]
-
   const showReceive = (symbol) => {
     dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken',symbol}});
   }
@@ -58,36 +46,45 @@ const TokenListComp = (props)=>{
         </thead>
         <tbody>
             {
-              tokens.map((token,index)=>
-                <tr key={index} onClick={showLayer.bind(this,{id:'tokenNotEnough'})}>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
-                    {token.symbol}
-                    <span hidden className="color-black-3 ml5">{token.name}</span>
-                  </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{token.balance}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
-                    {
-                      token.symbol === 'ETH' &&
-                      <a onClick={() => showConvert('WETH')}>Convert</a>
-                    }
-                    {
-                      token.symbol === 'WETH' &&
-                      <a onClick={() => showConvert('ETH')}>Convert</a>
-                    }
-                    {
-                      token.symbol !== 'WETH' &&
-                      <a onClick={() => showReceive(token.symbol)}>Receive</a>
-                    }
-                  </td>
-                </tr>
-              )
+              formatedTokens.map((token,index)=>{
+                return (
+                  <tr key={index} onClick={showLayer.bind(this,{id:'tokenNotEnough'})}>
+                    <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
+                      {token.symbol}
+                      <span hidden className="color-black-3 ml5">{token.symbol}</span>
+                    </td>
+                    <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance, token.precision)}</td>
+                    <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
+                      {
+                        token.symbol === 'ETH' &&
+                        <a onClick={() => showConvert('WETH')}>Convert</a>
+                      }
+                      {
+                        token.symbol === 'WETH' &&
+                        <a onClick={() => showConvert('ETH')}>Convert</a>
+                      }
+                      {
+                        token.symbol !== 'WETH' &&
+                        <a onClick={() => showReceive(token.symbol)}>Receive</a>
+                      }
+                    </td>
+                  </tr>
+                )
+              })
             }
         </tbody>
       </table>
     </div>
   )
 }
-export default connect()(TokenListComp)
+export default connect(({
+  sockets,
+  tokens
+}) => ({
+  balance:sockets.balance,
+  marketcap:sockets.marketcap,
+  tokens
+}))(TokenListComp)
 
 
 
