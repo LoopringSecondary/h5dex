@@ -195,6 +195,7 @@ export default {
     tabs_logs: '订单日志',
   },
   place_order: {
+    title: '下单',
     order_type: '订单类型',
     order_since: "订单生效时间",
     order_until: "订单失效时间",
@@ -250,7 +251,9 @@ export default {
     tabs_advanced:'高级设置',
   },
   place_order_confirm: {
-    qrcode_security: '*为了您订单的安全，二维码只会生成一次并且不会保存在任何地方。请确认妥善保存二维码，任何收到您二维码的人都有可能吃掉您的订单。'
+    qrcode_security: '*为了您订单的安全，二维码只会生成一次并且不会保存在任何地方。请确认妥善保存二维码，任何收到您二维码的人都有可能吃掉您的订单。',
+    no_cost_gas: '签名和下单不会消耗油费',
+    sign_and_submit: '签名并下单'
   },
   p2p_order: {
     order_title: '私密点对点交易',
