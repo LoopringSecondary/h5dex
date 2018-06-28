@@ -570,7 +570,7 @@ export default {
     actions_receive:words.receive,
   },
   usercenter:{
-    page_title:'My Trades',
+    page_title:'My',
     actions_switch_wallet:'Switch Wallet',
   },
   market: {
