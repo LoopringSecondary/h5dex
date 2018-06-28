@@ -104,12 +104,10 @@ const PlaceOrderResult = ({
 };
 function PlaceOrderSteps(props) {
   const {placeOrder, settings, marketcap, dispatch} = props
-  const {side, pair, priceInput, amountInput} = placeOrder
+  const {side, pair, priceInput, amountInput, validSince, validUntil} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
   const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
-  const validSince = moment()
-  const validUntil = moment().add(1, 'months')
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -138,7 +136,7 @@ function PlaceOrderSteps(props) {
     order.tokenS = tokenS.address;
     order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
     order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
-    order.lrcFee = toHex(lrcFeeValue);
+    order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
     order.validSince = toHex(validSince.unix());
     order.validUntil = toHex(validUntil.unix());
     order.marginSplitPercentage = 50;
@@ -224,7 +222,7 @@ function PlaceOrderSteps(props) {
                     <OrderMetaItem label={intl.get(`common.buy`)} value={`${total} ${pair.split('-')[1]}`} />
                   </div>
                 }
-                <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
+                <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
                 <OrderMetaItem showArrow={true} onClick={()=>{}} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
                 <OrderMetaItem showArrow={true} onClick={()=>{}} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
                 <div className="pt15 pb15 clor-black-3 fs14 zb-b-t">

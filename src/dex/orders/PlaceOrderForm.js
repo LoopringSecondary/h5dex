@@ -161,6 +161,9 @@ const PlaceOrderForm = (props)=>{
       })
       return
     }
+    const validSince = moment()
+    const validUntil = moment().add(1, 'months')
+    dispatch({type:'placeOrder/validTimeChange', payload:{validSince, validUntil}})
     showLayer({id:'placeOrderSteps'})
   }
   const showAmountHelper = () => {
