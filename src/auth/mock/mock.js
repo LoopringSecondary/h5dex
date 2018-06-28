@@ -1,13 +1,16 @@
 import Wallet from 'common/wallets/wallet'
 import {fromPrivateKey} from 'LoopringJS/ethereum/account'
-import util from 'LoopringJS/common/utils'
+import util,{keccakHash} from 'LoopringJS/common/utils'
 import {toBuffer} from "LoopringJS/common/formatter";
 
 export default class MockWallet extends Wallet {
   constructor(key) {
     super();
-    key = ''
     if(key){
+      this.key = key
+      this.wallet = fromPrivateKey(key);
+    }else{
+      key=''
       this.key = key
       this.wallet = fromPrivateKey(key);
     }
@@ -45,7 +48,7 @@ export default class MockWallet extends Wallet {
   }
 
   signMessage(message) {
-    const hash = util.hashPersonalMessage(toBuffer(message));
+    const hash = util.hashPersonalMessage(toBuffer(keccakHash(toBuffer(message))));
     return new Promise((resolve) => {
       const sig = this.wallet.sign(hash);
       resolve({result: sig})

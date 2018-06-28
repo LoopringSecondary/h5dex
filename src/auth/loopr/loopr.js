@@ -1,7 +1,7 @@
 import request from './bridge'
 import Wallet from 'common/wallets/wallet'
 import { addHexPrefix,toHex } from 'LoopringJS/common/formatter'
-import {packOrder} from 'LoopringJS/relay/rpc/order'
+
 
 export default class Loopr extends Wallet {
 
@@ -68,7 +68,7 @@ export default class Loopr extends Wallet {
 
   signMessage (message) {
     return new Promise((resolve) => {
-      request('signMessage', message, ({error, result}) => {
+      request('signMessage', toHex(message), ({error, result}) => {
         if (error) {
           resolve({error})
         } else {
