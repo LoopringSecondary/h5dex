@@ -110,17 +110,10 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
         </table>
       </Spin>
       <div className="p10 mb15">
-        {
-          false &&
-          <Button onClick={gotoAll} type="" size="small" style={{height:"36px",lineHeight:'36px'}}className="d-block w-100 fs13 bg-none color-black-2">
-            {intl.get('actions.fills_of_all_markets')}
-          </Button>
-        }
-
-        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded"
+        <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/usercenter')} className="text-left t-primary s-lg-bak shape-rounded"
                    icon={<WebIcon type="exclamation-circle-o"/>}
                    mode="link" marqueeProps={{loop: true}} action={<span>全部成交<WebIcon type="right"/></span>}>
-          仅显示{market}的成交
+          当前仅显示{market}的成交
         </NoticeBar>
       </div>
     </div>

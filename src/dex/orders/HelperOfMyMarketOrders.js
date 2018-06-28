@@ -11,6 +11,7 @@ import moment from 'moment'
 import storage from 'modules/storage'
 import { signMessage } from '../../common/utils/signUtils'
 import TokenFm from '../../modules/tokens/TokenFm'
+import routeActions from 'common/utils/routeActions'
 
 const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   const market = orders.filters.market
@@ -218,29 +219,10 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         </tbody>
       </table>
       <div className="p10 mb15">
-        {
-          false &&
-          <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                  className="d-block w-100 fs13 bg-none color-black-2">{intl.get("order_list.view_all_orders")}</Button>
-        }
-        {
-          false &&
-          <Button hidden onClick={gotoAll} type="ghost" size="small" style={{height:"36px",lineHeight:'36px'}} className="d-block w-100 fs13 pr0">
-            <div className="row no-gutters">
-              <div className="col text-left">
-                仅显示{market}相关的资产
-              </div>
-              <div className="col-auto bg-primary color-white pl15 pr15">
-                <span>全部订单 <WebIcon type="right" className=""/></span>
-              </div>
-            </div>
-          </Button>
-        }
-
-        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded"
+        <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/usercenter')} className="text-left t-primary s-lg-bak shape-rounded"
                    icon={<WebIcon type="exclamation-circle-o"/>}
                    mode="link" marqueeProps={{loop: true}} action={<span>全部订单<WebIcon type="right"/></span>}>
-          仅显示{market}的订单
+          当前仅显示{market}的订单
         </NoticeBar>
       </div>
     </div>

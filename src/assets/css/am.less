@@ -1,6 +1,8 @@
 
 // loopr
-@brand-primary: #1C60FF;
+@brand-primary: darken(#1C60FF,0%);
+@brand-primary-light: fade(#1C60FF,10%);
+@brand-primary-tap: fade(@brand-primary,85%);
 @radius-xs: 0;
 @radius-sm: 0;
 @radius-md: 0;
@@ -15,9 +17,6 @@
 // @radius-xs: 50em;
 // @radius-sm: 50em;
 // @radius-md: 50em;
-// @radius-xs: 2 * @hd;
-// @radius-sm: 3 * @hd;
-// @radius-md: 5 * @hd;
 @radius-lg: 7 * @hd;
 
 @brand-error: #f44336; // color-red-500
@@ -37,10 +36,10 @@
   background:@brand-primary !important;
 }
 .bg-primary-light{
-  background:lighten(@brand-primary,95%) !important;
+  background:@brand-primary-light !important;
 }
 .bg-primary-dark{
-  background:darken(@brand-primary,10%) !important;
+  background:darken(@brand-primary,8%) !important;
 }
 
 
@@ -82,7 +81,14 @@
   // color:fade(@brand-primary, 40%) !important;
 }
 .am-button{
-
+  &.t-light{
+    background: @brand-primary-light !important;
+    color: @brand-primary !important;
+    border:none !important;
+    &::before{
+      border:none!important;
+    }
+  }
 }
 .am-button::before{
 }
@@ -156,7 +162,7 @@
     padding-bottom:4px;
 }
   &.t-primary{
-    background: lighten(@brand-primary,55%);
+    background: fade(@brand-primary,8%);
     color:@brand-primary;
   }
   &.t-error{

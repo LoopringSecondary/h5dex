@@ -101,23 +101,10 @@ const HelperOfBalance = (props)=>{
         </tbody>
       </table>
       <div className="p10 mb15">
-        {
-          false &&
-          <Button onClick={gotoAll} type="ghost" size="small" style={{height:"36px",lineHeight:'36px'}} className="d-block w-100 fs13 pr0">
-            <div className="row no-gutters">
-              <div className="col text-left">
-                仅显示{pair}相关的资产
-              </div>
-              <div className="col-auto bg-primary color-white pl15 pr15">
-                <span>全部资产 <WebIcon type="right" className=""/></span>
-              </div>
-            </div>
-          </Button>
-        }
-        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded"
+        <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/usercenter')} className="text-left t-primary s-lg-bak shape-rounded"
                    icon={<WebIcon type="exclamation-circle-o"/>}
                    mode="link" marqueeProps={{loop: true}} action={<span>全部资产<WebIcon type="right"/></span>}>
-          仅显示{pair}的资产
+          当前仅显示{pair}的资产
         </NoticeBar>
       </div>
     </div>
