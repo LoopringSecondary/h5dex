@@ -23,16 +23,13 @@ export function trimAll (str)
 
 export function keccakHash (str)
 {
-  util.bufferToHex(util.hashPersonalMessage(util.toBuffer('0x7acbff6790c56d332cc002ea6e0c3f73fce8f927947709986ab993b234c78416')))
-
-    return toHex(keccak(str));
+  return toHex(keccak(str));
 }
 
 export function calculateGas (gasPrice, gasLimit)
 {
     return toBig(gasPrice).times(gasLimit).div(1e9);
 }
-
 
 export default {
   hashPersonalMessage

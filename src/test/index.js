@@ -62,7 +62,7 @@ export default class Test extends React.Component {
           <Input disabled value={lrcfee} />
         </Item>
         <Item label='Message:'>
-          <TextareaItem disabled value={message} rows={5}/>
+          <TextareaItem  value={message} rows={5}/>
         </Item>
         <div><Button type='primary' onClick={this.getSettings}>获取的设置信息</Button></div>
         <div><Button type='primary' onClick={this.signMessage} >签名Message</Button></div>

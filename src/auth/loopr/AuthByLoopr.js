@@ -29,7 +29,7 @@ class Routes extends React.Component{
   }
 
   goToDex = () => {
-    routeActions.gotoPath('/test')
+    routeActions.gotoPath('/dex')
   }
   render () {
     return (

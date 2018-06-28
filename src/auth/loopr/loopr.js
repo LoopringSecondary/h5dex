@@ -1,6 +1,7 @@
 import request from './bridge'
 import Wallet from 'common/wallets/wallet'
-import { addHexPrefix } from 'LoopringJS/common/formatter'
+import { addHexPrefix,toHex } from 'LoopringJS/common/formatter'
+import {packOrder} from 'LoopringJS/relay/rpc/order'
 
 export default class Loopr extends Wallet {
 
