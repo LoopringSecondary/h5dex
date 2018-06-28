@@ -185,6 +185,7 @@ const PlaceOrderForm = (props)=>{
          <SegmentedControl
            values={[menu1, menu2]}
            style={{height:'40px'}}
+           className="m-auto"
            selectedIndex={side === 'buy' ? 0 : 1}
            onChange={sideChange}
          />
@@ -232,13 +233,13 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5" type="primary" disabled={false}>
+            <Button onClick={toConfirm} className="w-100 d-block mb5 fs16" type="ghost" disabled={false}>
               {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb5" type="primary" disabled={false}>
+            <Button onClick={toConfirm} className="w-100 d-block mb5 fs16" type="ghost" disabled={false}>
               {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }

@@ -1,14 +1,20 @@
 @brand-primary: #1c60ff;
-
-@radius-xs: 50em;
-@radius-sm: 50em;
-@radius-md: 50em;
-@radius-lg: 50em;
+// @brand-primary: #2e2ba4;
 
 @radius-xs: 0;
 @radius-sm: 0;
 @radius-md: 0;
 @radius-lg: 0;
+
+@radius-xs: 4 * @hd;
+@radius-sm: 4 * @hd;
+@radius-md: 4 * @hd;
+@radius-lg: 4 * @hd;
+
+// @radius-xs: 50em;
+// @radius-sm: 50em;
+// @radius-md: 50em;
+// @radius-lg: 50em;
 
 @radius-circle: 50%;
 
@@ -18,15 +24,24 @@
 // ========
 // segment
 // ========
+.text-primary{
+  color:@brand-primary !important;
+}
 
-.am-segment-item{
-  // border:1px solid #000 !important;
-  // color: #000 !important;
+.am-segment-item.t-light{
+  .am-segment-item{
+    color:fade(@brand-primary,50%);
+    border:1px solid fade(@brand-primary,50%);
+  }
+  .am-segment-item-selected{
+    background: transparent !important;
+    color:@brand-primary !important;
+  }
 }
 .am-segment-item-selected{
-  // background: #000 !important;
-  // color:#fff !important;
-}
+    // background: #000 !important;
+    // color:#fff !important;
+  }
 .segmented-fs16{
   .am-segment-item{font-size: 16px !important;}
 }

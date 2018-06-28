@@ -69,7 +69,7 @@ class PlaceOrderPage extends React.Component {
           <NavBar
             className=""
             mode="light"
-            leftContent={[
+            leftContent={null && [
               <span onClick={routeActions.goBack} className="" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
@@ -80,7 +80,8 @@ class PlaceOrderPage extends React.Component {
               {pair}<WebIcon className="ml5" type="down" />
             </div>
           </NavBar>
-          <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'-10px'}}>
+          <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'0px'}}>
+            <div className="divider 1px zb-b-t"></div>
             <PlaceOrderForm showLayer={showLayer} />
             <div className="divider 1px zb-b-t"></div>
           </div>
