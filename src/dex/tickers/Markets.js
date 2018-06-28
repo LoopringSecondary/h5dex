@@ -17,8 +17,8 @@ class Markets extends React.Component {
             true &&
             <NavBar
               style={{top:'0px',position:'absolute',zIndex:10}}
-              className="w-100 bg-black"
-              mode="dark"
+              className="w-100"
+              mode="light"
               icon={null && <Icon type="left" />}
               onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
               leftContent={ [
@@ -31,6 +31,7 @@ class Markets extends React.Component {
               {intl.get('common.markets')}
             </NavBar>
           }
+          <div className="divider 1px zb-b-b"></div>
           <ListMarketTickers />
         </div>
       </LayoutDexHome>
