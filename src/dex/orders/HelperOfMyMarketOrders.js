@@ -5,9 +5,8 @@ import { connect } from 'dva'
 import intl from 'react-intl-universal'
 import { OrderFm } from 'modules/orders/OrderFm'
 import { getTokensByMarket } from 'modules/formatter/common'
-import { FormatAmount } from 'modules/formatter/FormatNumber'
 import config from 'common/config'
-import { toBig, toFixed, toHex } from 'LoopringJS/common/formatter'
+import { toBig, toFixed} from 'LoopringJS/common/formatter'
 import moment from 'moment'
 import storage from 'modules/storage'
 import { signMessage } from '../../common/utils/signUtils'
@@ -59,16 +58,16 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     let description = ''
     if(item.originalOrder.side.toLowerCase() ==='sell' ){
      const tf = new TokenFm({symbol:tokens})
-      description = `Sell ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountS))} ${tokens}`
+      description = `${intl.get('common.sell')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountS))} ${tokens}`
     }else{
       const tf = new TokenFm({symbol:tokens})
-      description = `Buy ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
+      description = `${intl.get('common.buy')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
     }
 
-    Modal.alert('确认取消当前订单？', description, [
-      {text: 'No', onPress: () => {}, style: 'default'},
+    Modal.alert(intl.get('order_cancel.cancel_title'), description, [
+      {text: intl.get('order_cancel.confirm_no'), onPress: () => {}, style: 'default'},
       {
-        text: 'Yes', onPress: () => {
+        text: intl.get('order_cancel.confirm_yes'), onPress: () => {
         const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
         signMessage(timestamp).then(res => {
           if (res.result) {
@@ -79,13 +78,13 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                   type:1
                 }).then(response => {
                   if (response.error) {
-                    Toast.fail(` cancel failed:${response.error.message}`)
+                    Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`)
                   } else {
-                    Toast.success(`succeed to cancel order`)
+                    Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}))
                   }
                 })
           } else {
-            Toast.fail(` cancel failed:${res.error.message}`)
+            Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`)
           }
         })
       }
@@ -96,10 +95,10 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     e.stopPropagation()
     if (orders.items && orders.items.find(item => item.status === "ORDER_OPENED")) {
       const openOrders = orders.items.filter(item => item.status === 'ORDER_OPENED')
-      Modal.alert(`取消全部${market}订单？`, `${openOrders.length} open orders of LRC-WETH will be canceled`, [
-        {text: 'No', onPress: () => {}, style: 'default'},
+      Modal.alert(intl.get('order_cancel.cancel_all_title',{market}), intl.get('order_cancel.cancel_all_mes',{amount:openOrders.length,market}), [
+        {text: intl.get('order_cancel.confirm_no'), onPress: () => {}, style: 'default'},
         {
-          text: 'Yes', onPress: () => {
+          text: intl.get('order_cancel.confirm_yes'), onPress: () => {
           const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
           signMessage(timestamp).then(res => {
             if (res.result) {
@@ -114,20 +113,20 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                     tokenB
                   }).then(response => {
                     if (response.error) {
-                      Toast.fail(`cancel failed:${response.error.message}`)
+                      Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`)
                     } else {
-                      Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`)
+                      Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}))
                     }
                   })
             } else {
-              Toast.fail(`cancel failed:${res.error.message}`)
+              Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`)
             }
           })
         }
         },
       ])
     } else {
-      Modal.alert('No open orders to cancel')
+      Toast.info(intl.get('order_cancel.no_open_orders'))
     }
   }
   const orderStatus = (item) => {
@@ -159,7 +158,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       <table className="w-100 fs13" style={{overflow: 'auto'}}>
         <thead>
         <tr className="bg-grey-50">
-          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+          <th className="text-left pt10 pb10 pl10 pr5 font-weight-normal color-black-3 zb-b-b">
             {intl.get("common.side")}
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
           </th>
@@ -188,7 +187,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
             const orderFm = new OrderFm(item)
             return (
               <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                <td className="zb-b-b pt10 pb10 pl10 pr5 text-left">
                   {orderFm.getSide() === 'buy' && <span className="color-green-500">{intl.get("common.buy")}</span>}
                   {orderFm.getSide() === 'sell' && <span className="color-red-500">{intl.get("common.sell")}</span>}
                 </td>

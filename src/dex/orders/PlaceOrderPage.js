@@ -70,19 +70,18 @@ class PlaceOrderPage extends React.Component {
             className=""
             mode="light"
             leftContent={[
-              <span onClick={routeActions.goBack} className="color-black-1" key="1"><WebIcon type="left" /></span>,
+              <span onClick={routeActions.goBack} className="" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
-              <span className="color-black-1" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
+              <span className="" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
             ]}
           >
             <div onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
               {pair}<WebIcon className="ml5" type="down" />
             </div>
           </NavBar>
-          <div className="divider 1px zb-b-t"></div>
-          <div className="no-underline tabs-no-border h-50 place-order-form">
-            <PlaceOrderForm side="sell" showLayer={showLayer} />
+          <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'-10px'}}>
+            <PlaceOrderForm showLayer={showLayer} />
             <div className="divider 1px zb-b-t"></div>
           </div>
           <div className="tabs-no-border mt15">

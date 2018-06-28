@@ -55,7 +55,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
         <table className="w-100 fs13" style={{overflow:'auto'}}>
           <thead>
             <tr className="bg-grey-50">
-              <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.side')}</th>
+              <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.side')}</th>
               <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">
                 {intl.get('common.price')}<span className="fs10">/{tokens.right}</span>
               </th>
@@ -75,7 +75,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
                   const fillFm = new FillFm(item)
                   return (
                     <tr key={index}>
-                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle" onClick={changePrice.bind(this, item)}>
+                      <td className="pl10 pr5 pt10 pb10 zb-b-b text-left align-middle" onClick={changePrice.bind(this, item)}>
                         { item.side === 'buy' && <div className="color-green-500">{intl.get('common.buy')}</div> }
                         { item.side === 'sell' && <div className="color-red-500">{intl.get('common.sell')}</div> }
                       </td>

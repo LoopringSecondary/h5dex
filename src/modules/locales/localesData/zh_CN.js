@@ -57,6 +57,8 @@ const words = {
   orders:'订单',
   fill:'成交',
   fills:'成交',
+  yes:'是',
+  no:'否',
   list:{
     no_data:'暂无数据',
     loading:'加载中...',
@@ -93,6 +95,8 @@ const notifications = {
     not_allowed_place_order_worth: '订单金额过小',
     in_watch_only_mode:'已切换至观察模式',
     using_watch_only_mode:'您正在使用观察模式',
+    cancel_suc:'{type}取消成功',
+    cancel_fail:'{type}取消失败'
   },
   message: {
     wallet_locked: '您的钱包还未解锁，请先解锁后再继续操作',
@@ -203,6 +207,14 @@ export default {
     orders: "订单",
     fills: "成交",
     help: "帮助"
+  },
+  order_cancel: {
+    cancel_title: "您确定要取消当前订单?",
+    cancel_all_title: "取消全部{market}订单?",
+    cancel_all_mes:'{amount,number} {market} 个订单将被取消',
+    no_open_orders:'没有需要取消的订单',
+    confirm_yes:words.cancel,
+    confirm_no:words.back
   },
   helper_of_market_order: {
     selling: "挂单数量",
@@ -551,7 +563,7 @@ export default {
     message_list_title:'消息',
   },
   todo_list:{
-    todo_list_title:'待做',
+    todo_list_title:'任务',
     allowance_not_enough_title:"{symbol} 还未授权交易",
     balance_not_enough_title:"{symbol} 余额不足",
     balance:"当前余额",

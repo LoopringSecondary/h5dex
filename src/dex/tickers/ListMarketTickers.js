@@ -12,7 +12,7 @@ import {formatPrice} from 'modules/orders/formatters'
 
 export const TickerHeader = ({list,actions})=>{
     return (
-        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters bg-grey-100">
+        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
           <div className="col-5 fs13 color-black-4 text-left">{intl.get('common.market')}</div>
           <div className="col-4 text-left pr10">
             <div className="fs13 color-black-4 ">{intl.get('common.price')}</div>
