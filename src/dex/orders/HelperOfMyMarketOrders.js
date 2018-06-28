@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal, Toast } from 'antd-mobile'
+import { Button, Modal, Toast,NoticeBar } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
 import intl from 'react-intl-universal'
@@ -131,7 +131,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   }
   const orderStatus = (item) => {
     if (item.status === 'ORDER_OPENED') {
-      return <a className="fs12" onClick={cancelOrder.bind(this, item)}>{intl.get("common.cancel")}</a>
+      return <Button onClick={cancelOrder.bind(this, item)} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">{intl.get('common.cancel')}</Button>
     }
     if (item.status === 'ORDER_FINISHED') {
       return <span className="color-green-500"><WebIcon type="check-circle" /></span>
@@ -155,9 +155,10 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   const gotoAll = () => {}
   return (
     <div className="">
+
       <table className="w-100 fs13" style={{overflow: 'auto'}}>
         <thead>
-        <tr className="bg-grey-50">
+        <tr className="">
           <th className="text-left pt10 pb10 pl10 pr5 font-weight-normal color-black-3 zb-b-b">
             {intl.get("common.side")}
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
@@ -173,7 +174,9 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
             {
               orders.items && orders.items.length > 0 &&
-              <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>{intl.get('order_list.actions_cancel_all')}</a>
+              <Button onClick={cancelOrderByTokenPair.bind(this)} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">
+                {intl.get('common.all')}
+              </Button>
             }
             {
               orders.items && orders.items.length == 0 && 'Status'
@@ -215,8 +218,30 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         </tbody>
       </table>
       <div className="p10 mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                className="d-block w-100 fs13 bg-none color-black-2">{intl.get("order_list.view_all_orders")}</Button>
+        {
+          false &&
+          <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
+                  className="d-block w-100 fs13 bg-none color-black-2">{intl.get("order_list.view_all_orders")}</Button>
+        }
+        {
+          false &&
+          <Button hidden onClick={gotoAll} type="ghost" size="small" style={{height:"36px",lineHeight:'36px'}} className="d-block w-100 fs13 pr0">
+            <div className="row no-gutters">
+              <div className="col text-left">
+                仅显示{market}相关的资产
+              </div>
+              <div className="col-auto bg-primary color-white pl15 pr15">
+                <span>全部订单 <WebIcon type="right" className=""/></span>
+              </div>
+            </div>
+          </Button>
+        }
+
+        <NoticeBar onClick={()=>{}} className="text-left t-primary s-lg-bak shape-rounded mt10"
+                   icon={<WebIcon type="exclamation-circle-o"/>}
+                   mode="link" marqueeProps={{loop: true}} action={<span>全部订单<WebIcon type="right"/></span>}>
+          仅显示{market}的订单
+        </NoticeBar>
       </div>
     </div>
 

@@ -83,9 +83,8 @@ class PlaceOrderPage extends React.Component {
           <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'0px'}}>
             <div className="divider 1px zb-b-t"></div>
             <PlaceOrderForm showLayer={showLayer} />
-            <div className="divider 1px zb-b-t"></div>
           </div>
-          <div className="tabs-no-border mt15">
+          <div className="mt15">
             <div className="divider 1px zb-b-t"></div>
             <Tabs
               tabs={
@@ -101,20 +100,16 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => tabChange(tab.tab)}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div className="bg-white">
-                <div className="divider 1px zb-b-t"></div>
+              <div className="">
                 <HelperOfBalance />
               </div>
-              <div className="bg-white">
-                <div className="divider 1px zb-b-t"></div>
+              <div className="">
                 <HelperOfMyMarketOrders />
               </div>
-              <div className="bg-white">
-                <div className="divider 1px zb-b-t"></div>
+              <div className="">
                 <HelperOfMyMarketFills />
               </div>
-              <div className="bg-white">
-                <div className="divider 1px zb-b-t"></div>
+              <div className="">
                 <HelperOfFAQ />
               </div>
             </Tabs>
