@@ -1,6 +1,6 @@
 export default {
 	"extraBabelPlugins": [
-    ["import", { "libraryName": "antd-mobile", "libraryDirectory": "es", "style": true },'antd-mobile'],
+    // ["import", { "libraryName": "antd-mobile", "libraryDirectory": "es", "style": true },'antd-mobile'],
     ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true },'antd'],
 	],
   disableCSSModules: true,
@@ -12,10 +12,10 @@ export default {
     "modules":`${__dirname}/src/modules`,
 	},
   "theme": {
-    "@font-family-no-number"  : "Roboto ,PingFang SC",
-    "@font-family"            : "@font-family-no-number",
-    "@primary-color": "#0077FF",
-    "@link-color": "#0077FF",
+    // "@font-family-no-number"  : "Roboto ,PingFang SC",
+    // "@font-family"            : "@font-family-no-number",
+    "@primary-color": "#1c60ff",
+    "@link-color": "#1c60ff",
     "@border-radius-base": "0px",
     "@line-height-base" : 1.6,
     "@normal-color" :"#eee",

@@ -16,18 +16,9 @@ class AuthByImtoken extends React.Component {
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
-        let language = 'en-US'
-        let currency = 'USD'
-        if(window.Wallet.language.indexOf('zh') !== -1){
-          language = 'zh-CN'
-        }
-        if(window.Wallet.currency === 'CNY'){
-          currency = 'CNY'
-        }
-
         storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
-        _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
-        _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+        _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+        _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
         _props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
       })
@@ -35,17 +26,9 @@ class AuthByImtoken extends React.Component {
       window.addEventListener('sdkReady', function () {
         window.Wallet = new Imtoken(window.imToken)
         window.Wallet.setConfigs().then(res => {
-          let language = 'en-US'
-          let currency = 'USD'
-          if(window.Wallet.language.indexOf('zh') !== -1){
-            language = 'zh-CN'
-          }
-          if(window.Wallet.currency === 'CNY'){
-            currency = 'CNY'
-          }
           storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
-          _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
-          _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
+          _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+          _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
           _props.dispatch({type: 'sockets/unlocked'});
          Toast.hide()
         })

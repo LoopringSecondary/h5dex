@@ -1,6 +1,8 @@
 import {keccak} from 'ethereumjs-util';
 import {toHex, toBig} from './formatter';
 import {hashPersonalMessage} from 'ethereumjs-util'
+import util from 'ethereumjs-util'
+
 /**
  * trim head space and tail space
  * @param str string
@@ -21,14 +23,13 @@ export function trimAll (str)
 
 export function keccakHash (str)
 {
-    return toHex(keccak(str));
+  return toHex(keccak(str));
 }
 
 export function calculateGas (gasPrice, gasLimit)
 {
     return toBig(gasPrice).times(gasLimit).div(1e9);
 }
-
 
 export default {
   hashPersonalMessage

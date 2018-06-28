@@ -20,10 +20,6 @@ class DexHomeLayout extends React.Component {
         {this.props.children}
         <div className="tabbar-only-bar">
           <TabBar
-            unselectedTintColor="#949494"
-            selectedTintColor="#000"
-            tintColor="#000"
-            barTintColor="white"
             style={{position:"fixed",bottom: 0,left:0,right:0}}
             className="position-fixed"
           >

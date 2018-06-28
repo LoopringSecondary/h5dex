@@ -93,22 +93,25 @@ class MarketDetail extends React.Component {
       })
       routeActions.gotoPath(`/dex/placeOrder/${market}`)
     }
+    const menu1 = `${intl.get("common.buy")} ${tokens.left}`
+    const menu2 = `${intl.get("common.sell")} ${tokens.left}`
     return (
-      <div className="bg-grey-100">
+      <div className="bg-grey-50">
         <NavBar
-          className="zb-b-b"
+          className=""
           mode="light"
           icon={null && <Icon type="left" />}
           onLeftClick={() => console.log('onLeftClick')}
           leftContent={[
-            <Icon key="1" type="left" onClick={routeActions.goBack} className="color-black-1" />,
+            <Icon key="1" type="left" onClick={routeActions.goBack} className="" />,
           ]}
-          rightContent={null && [
-            <Icon key="1" type="search" />,
+          rightContent={[
+            <Icon key="1" type="star" />,
           ]}
         >
           {market}
         </NavBar>
+        <div className="divider 1px zb-b-t"></div>
         <TickerItem />
         <div className="no-underline">
           <Tabs
@@ -119,9 +122,6 @@ class MarketDetail extends React.Component {
                 { title: <div className="fs16 pt5 pb5">{intl.get("market.tab_fills")}</div> },
               ]
             }
-            tabBarBackgroundColor={'#fff'}
-            tabBarInactiveTextColor={"rgba(0, 0, 0, 0.35)"}
-            tabBarActiveTextColor={"#000"}
             tabBarTextStyle={{}}
             initialPage={1}
             swipeable={false}
@@ -139,15 +139,20 @@ class MarketDetail extends React.Component {
             </div>
           </Tabs>
         </div>
-        <div className="position-fixed p5 w-100 bg-white" style={{bottom:'0'}}>
-          <div className="row ml0 mr0 no-gutters">
+        <div className="position-fixed p10  w-100 bg-white segmented-fs16" style={{bottom:'0'}}>
+          <div hidden className="row ml0 mr0 no-gutters">
             <div className="col-6">
-              <Button onClick={gotoTrade.bind(this,{side:'buy'})} className="bg-green-500 color-white m5">{intl.get("common.buy")} {tokens.left}</Button>
+              <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="m5">{intl.get("common.buy")} {tokens.left}</Button>
             </div>
             <div className="col-6">
-              <Button onClick={gotoTrade.bind(this,{side:'sell'})} className="bg-red-500 color-white m5">{intl.get("common.sell")} {tokens.left}</Button>
+              <Button type="primary" onClick={gotoTrade.bind(this,{side:'sell'})} className="m5">{intl.get("common.sell")} {tokens.left}</Button>
             </div>
           </div>
+          <SegmentedControl
+            values={[menu1, menu2]}
+            style={{height:'44px',fontSize:'16px'}}
+            onChange={()=>{}}
+          />
         </div>
       </div>
     );

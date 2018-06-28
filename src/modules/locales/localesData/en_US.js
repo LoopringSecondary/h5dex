@@ -193,6 +193,7 @@ export default {
     tabs_logs: 'Order Logs',
   },
   place_order: {
+    title: 'Place Order',
     order_type: 'Order Type',
     order_since: "Valid Since",
     order_until: "Valid Until",
@@ -249,6 +250,8 @@ export default {
   },
   place_order_confirm: {
     qrcode_security: '*For your order\'s security, your QR code will only generated once and not be stored locally. Make sure to save it properly, any one who received your QR code could take your order',
+    no_cost_gas: 'The operations of sign and submit order will not cost gas',
+    sign_and_submit: 'Sign and Submit'
   },
   p2p_order: {
     order_title: 'Privacy P2P Trade',
@@ -550,6 +553,7 @@ export default {
     selling:"Selling",
     lack:"Lack",
     actions_enable:"Enable",
+    status_enabling:'Enabling',
     actions_buy:words.buy,
     actions_receive:words.receive,
   },

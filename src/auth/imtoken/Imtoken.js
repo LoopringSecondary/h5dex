@@ -1,6 +1,7 @@
 import Wallet from 'common/wallets/wallet';
 import config from './config'
 import {toNumber,addHexPrefix} from 'LoopringJS/common/formatter'
+import {keccakHash} from 'LoopringJS/common/utils'
 
 export default class Imtoken extends Wallet {
 
@@ -15,7 +16,11 @@ export default class Imtoken extends Wallet {
         if(error){
           resolve({error})
         }else{
-          resolve({result})
+          let language = 'en-US'
+          if(result.indexOf('zh') !== -1){
+            language = 'zh-CN'
+          }
+          resolve({result:language})
         }
       })
     })
@@ -27,7 +32,11 @@ export default class Imtoken extends Wallet {
         if(error){
           resolve({error})
         }else{
-          resolve({result})
+          let currency = 'USD'
+          if(result === 'CNY'){
+            currency = 'CNY'
+          }
+          resolve({result:currency})
         }
       })
     })
@@ -46,9 +55,8 @@ export default class Imtoken extends Wallet {
   }
 
   signMessage(message) {
-
     return new Promise((resolve) => {
-      this.imtoken.callAPI('transaction.personalSign', {message,address:window.web3.eth.defaultAccount}, (error,result) => {
+      this.imtoken.callAPI('transaction.personalSign', {message:keccakHash(message),address:window.web3.eth.defaultAccount}, (error,result) => {
         if(error){
           resolve({error})
         }else{
