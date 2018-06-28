@@ -107,6 +107,7 @@ function PlaceOrderSteps(props) {
   const {side, pair, priceInput, amountInput} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
+  const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
   const validSince = moment()
   const validUntil = moment().add(1, 'months')
   const showLayer = (payload={})=>{
@@ -137,8 +138,7 @@ function PlaceOrderSteps(props) {
     order.tokenS = tokenS.address;
     order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
     order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
-    const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
-    order.lrcFee = toHex(0);
+    order.lrcFee = toHex(lrcFeeValue);
     order.validSince = toHex(validSince.unix());
     order.validUntil = toHex(validUntil.unix());
     order.marginSplitPercentage = 50;
@@ -188,7 +188,7 @@ function PlaceOrderSteps(props) {
                   <div className="col-auto text-left" onClick={hideLayer.bind(this,{id:'placeOrderSteps'})}>
                     <Icon type="close" />
                   </div>
-                  <div className="col">Place Order</div>
+                  <div className="col">{intl.get('place_order.title')}</div>
                   <div className="col-auto color-white">
                     <Icon type="close" />
                   </div>
@@ -225,12 +225,12 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label="价格" value={`${priceInput} ${pair.split('-')[1]}`} />
-                <OrderMetaItem showArrow={true} onClick={()=>{}} label="矿工撮合费" value="0 LRC"  />
-                <OrderMetaItem showArrow={true} onClick={()=>{}} label="订单有效期" value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
+                <OrderMetaItem showArrow={true} onClick={()=>{}} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
+                <OrderMetaItem showArrow={true} onClick={()=>{}} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
                 <div className="pt15 pb15 clor-black-3 fs14 zb-b-t">
-                  <Icon className="mr5" type="exclamation-circle-o" />签名和下单不会消耗油费
+                  <Icon className="mr5" type="exclamation-circle-o" />{intl.get('place_order_confirm.no_cost_gas')}
                 </div>
-                <Button type="" className="bg-grey-900 color-white" onClick={next.bind(this, page)}>签名并下单</Button>
+                <Button type="" className="bg-grey-900 color-white" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
               </div>
             </div>
           }/>
