@@ -1,6 +1,6 @@
 @font-face { font-family: 'iconfont-app'; src: url('iconfont-app.eot?u0p71r'); src: url('iconfont-app.eot?u0p71r#iefix') format('embedded-opentype'), url('iconfont-app.ttf?u0p71r') format('truetype'), url('iconfont-app.woff?u0p71r') format('woff'), url('iconfont-app.svg?u0p71r#iconfont-app') format('svg'); font-weight: normal; font-style: normal; }
 [class^="icon-"], [class*=" icon-"] {  /* use !important to prevent issues with browser extensions that change fonts */
-font-family: 'iconfont-app' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1;  /* Better Font Rendering =========== */ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+font-family: 'iconfont-app'; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1;  /* Better Font Rendering =========== */ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 .icon-chart:before { content: "\e939"; }
 .icon-home:before { content: "\e938"; }
 .icon-loopr:before { content: "\e90a"; }

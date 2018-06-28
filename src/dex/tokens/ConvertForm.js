@@ -155,28 +155,28 @@ class Convert extends React.Component {
         <div className="zb-b-b pt25 pb25 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
+              <div className="d-inline-flex align-items-center justify-content-center color-black-1 text-center border-grey-300" style={{
                 width: '40px',
                 height: '40px',
                 lineHeight: '38px',
                 borderRadius: '50em',
                 border: '1px solid'
               }}>
-                <i className={`icon-${token.toUpperCase()} fs24`}/>
+                <i className={`icon-token-${token.toUpperCase()} fs24`}/>
               </div>
             </div>
             <div className="col-auto text-center" style={{width: '30px'}}>
-              <WebIcon type="arrow-right" className={`color-black-1 fs20`}/>
+              <i className={`icon-long-arrow-right color-black-1 fs20`}/>
             </div>
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
+              <div className="d-inline-flex align-items-center justify-content-center ccolor-black-1 text-center border-grey-300" style={{
                 width: '40px',
                 height: '40px',
                 lineHeight: '38px',
                 borderRadius: '50em',
                 border: '1px solid'
               }}>
-                <i className={`icon-${token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} fs24`}/>
+                <i className={`icon-token-${token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} fs24`}/>
               </div>
             </div>
           </div>
