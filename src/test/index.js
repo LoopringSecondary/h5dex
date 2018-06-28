@@ -11,7 +11,8 @@ export default class Test extends React.Component {
     address: '',
     language: '',
     currency: '',
-    message:''
+    message:'',
+    lrcfee:''
   };
 
   getSettings = () => {
@@ -25,6 +26,10 @@ export default class Test extends React.Component {
 
     window.Wallet.getCurrency().then(res => {
       this.setState({currency:res.result})
+    })
+
+    window.Wallet.getLrcFee().then(res => {
+      this.setState({lrcfee:res.result})
     })
   };
 
@@ -41,7 +46,7 @@ export default class Test extends React.Component {
     })
   }
   render() {
-    const {address,language,currency,message}  = this.state;
+    const {address,language,currency,message,lrcfee}  = this.state;
     return (
       <Card title='imtoken 测试'>
         <Item label='Address:'>
@@ -52,6 +57,9 @@ export default class Test extends React.Component {
         </Item>
         <Item label='Currency:'>
           <Input disabled value={currency} />
+        </Item>
+        <Item label='lrcfee:'>
+          <Input disabled value={lrcfee} />
         </Item>
         <Item label='Message:'>
           <TextareaItem disabled value={message} rows={5}/>

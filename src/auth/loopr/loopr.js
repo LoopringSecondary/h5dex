@@ -15,7 +15,15 @@ export default class Loopr extends Wallet {
         if (error) {
           resolve({error})
         } else {
-          resolve({result})
+          let language = result
+
+          if(result.indexOf('en') !== -1){
+            language = 'en-US'
+          }
+          if(result.indexOf('zh') !== -1){
+            language  = 'zh-CN'
+          }
+          resolve({result:language})
         }
       })
     })

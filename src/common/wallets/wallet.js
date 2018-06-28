@@ -52,7 +52,6 @@ export default class Wallet {
 
   signOrder (order) {
     const hash = getOrderHash(order);
-    debugger;
     return this.signMessage(toHex(hash))
   }
 

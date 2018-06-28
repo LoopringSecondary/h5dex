@@ -15,7 +15,13 @@ export default class Imtoken extends Wallet {
         if(error){
           resolve({error})
         }else{
-          resolve({result})
+          let language = 'en-US'
+
+          if(window.Wallet.language.indexOf('zh') !== -1){
+            language = 'zh-CN'
+          }
+
+          resolve({result:language})
         }
       })
     })
@@ -27,7 +33,11 @@ export default class Imtoken extends Wallet {
         if(error){
           resolve({error})
         }else{
-          resolve({result})
+          let currency = 'USD'
+          if(window.Wallet.currency === 'CNY'){
+            currency = 'CNY'
+          }
+          resolve({result:currency})
         }
       })
     })
