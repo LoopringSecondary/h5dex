@@ -56,6 +56,8 @@ const words = {
   orders:'Orders',
   fill:'Fill',
   fills:'Fills',
+  yes:'Yes',
+  no:'No',
   list:{
     no_data:'No Data',
     loading:'Loading...',
@@ -91,6 +93,8 @@ const notifications = {
     not_allowed_place_order_worth: 'Order Amount Is Too Small',
     in_watch_only_mode:'Switched to Watch-only Mode',
     using_watch_only_mode:'You Are Now using Watch-only Mode',
+    cancel_suc:'{type} Cancel Successfully',
+    cancel_fail:'{type} Cancel Failed'
   },
   message: {
     wallet_locked: 'Your wallet seems locked yet, please unlock first',
@@ -201,6 +205,14 @@ export default {
     orders: "Orders",
     fills: "Fills",
     help: "Help"
+  },
+  order_cancel: {
+    cancel_title: "Do you want to cancel this order?",
+    cancel_all_title: "Cancel all {market} orders ?",
+    cancel_all_mes:'{amount,number} open {market} orders will be canceled',
+    no_open_orders:'No open orders to cancel',
+    confirm_yes:words.yes,
+    confirm_no:words.no
   },
   helper_of_amount: {
     depth: "Depth"
@@ -558,12 +570,13 @@ export default {
     actions_receive:words.receive,
   },
   usercenter:{
-    page_title:'我的交易',
-    actions_switch_wallet:'切换钱包',
+    page_title:'My',
+    actions_switch_wallet:'Switch Wallet',
   },
   market: {
     tab_charts: "Charts",
     tab_depth: "Depth",
     tab_fills: "Fills"
   }
+
 }

@@ -1,6 +1,8 @@
 import storage from 'modules/storage'
 import Imtoken from '../../auth/imtoken/Imtoken'
 import Loopr from '../../auth/loopr/loopr'
+import Mock from '../../auth/mock/mock'
+
 
 export function signMessage (message) {
   if (window.Wallet) {
@@ -17,6 +19,7 @@ export function signMessage (message) {
       window.Wallet = new Loopr()
       break
     default :
+      window.Wallet = new Mock()
   }
  return signMessage(message)
 }
@@ -36,6 +39,7 @@ export async function signTx (tx, feeCustomizable) {
       window.Wallet = new Loopr()
       break
     default :
+      window.Wallet = new Mock()
   }
  return signTx(tx, feeCustomizable)
 }
@@ -56,6 +60,7 @@ export function signOrder (order) {
       window.Wallet = new Loopr()
       break
     default :
+      window.Wallet = new Mock()
   }
   return signOrder(order)
 }
