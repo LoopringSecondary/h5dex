@@ -64,27 +64,22 @@ class AuthByImtoken extends React.Component {
           <div className="pt35 pb35">
             <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
               <div className="col text-center">
-                <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
+                <div className="d-inline-block color-black-1 text-center" style={{
                   width: '40px',
                   height: '40px',
-                  lineHeight: '40px',
-                  borderRadius: '50em',
                 }}>
-                  <img className="rounded-circle" width="100%" src="https://docs.token.im/images/im-token-logo.png" alt=""/>
+                  <img style={{borderRadius:"6px"}}  width="100%" src={require('../../assets/images/imtoken.png')} alt=""/>
                 </div>
               </div>
               <div className="col-auto text-center" style={{width: '30px'}}>
-                <WebIcon type="swap" className={`color-black-1 fs20`}/>
+                <i className={`icon-long-arrow-right color-black-1 fs20`}/>
               </div>
               <div className="col text-center">
-                <div className="d-inline-block color-black-1 text-center border-grey-300" style={{
+                <div className="d-inline-block color-black-1 text-center" style={{
                   width: '40px',
                   height: '40px',
-                  lineHeight: '38px',
-                  borderRadius: '50em',
-                  border: '1px solid'
                 }}>
-                  <i className={`icon-LRC fs24`}/>
+                  <img style={{borderRadius:"6px"}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
                 </div>
               </div>
             </div>
