@@ -159,7 +159,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       <table className="w-100 fs13" style={{overflow: 'auto'}}>
         <thead>
         <tr className="bg-grey-50">
-          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+          <th className="text-left pt10 pb10 pl10 pr5 font-weight-normal color-black-3 zb-b-b">
             {intl.get("common.side")}
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
           </th>
@@ -188,7 +188,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
             const orderFm = new OrderFm(item)
             return (
               <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                <td className="zb-b-b pt10 pb10 pl10 pr5 text-left">
                   {orderFm.getSide() === 'buy' && <span className="color-green-500">{intl.get("common.buy")}</span>}
                   {orderFm.getSide() === 'sell' && <span className="color-red-500">{intl.get("common.sell")}</span>}
                 </td>

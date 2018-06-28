@@ -139,23 +139,16 @@ class MarketDetail extends React.Component {
             </div>
           </Tabs>
         </div>
-        <div className="position-fixed   w-100 bg-white segmented-fs16" style={{bottom:'0'}}>
+        <div className="position-fixed w-100 bg-white segmented-fs16" style={{bottom:'0'}}>
           <div className="divider 1px zb-b-t"></div>
-          <div hidden className="row ml0 mr0 no-gutters ">
-            <div className="col-6">
-              <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="m5">{intl.get("common.buy")} {tokens.left}</Button>
+            <div className="row ml0 mr0 no-gutters p10">
+              <div className="col-6 pr5">
+                <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="">{intl.get("common.buy")} {tokens.left}</Button>
+              </div>
+              <div className="col-6 pl5">
+                <Button type="ghost" onClick={gotoTrade.bind(this,{side:'sell'})} className="">{intl.get("common.sell")} {tokens.left}</Button>
+              </div>
             </div>
-            <div className="col-6">
-              <Button type="primary" onClick={gotoTrade.bind(this,{side:'sell'})} className="m5">{intl.get("common.sell")} {tokens.left}</Button>
-            </div>
-          </div>
-          <div className="p10">
-            <SegmentedControl
-              values={[menu1, menu2]}
-              style={{height:'44px',fontSize:'16px'}}
-              onChange={()=>{}}
-            />
-          </div>
         </div>
       </div>
     );
