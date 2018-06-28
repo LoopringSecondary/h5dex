@@ -73,11 +73,11 @@ class PlaceOrderPage extends React.Component {
               <span onClick={routeActions.goBack} className="" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
-              <span className="" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><WebIcon type="line-chart" /></span>
+              <span className="" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><i className="icon-chart"></i></span>
             ]}
           >
             <div onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
-              {pair}<WebIcon className="ml5" type="down" />
+              {pair}<i className="ml5 icon-chevron-down"></i>
             </div>
           </NavBar>
           <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'0px'}}>
