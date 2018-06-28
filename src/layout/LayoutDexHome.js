@@ -27,10 +27,10 @@ class DexHomeLayout extends React.Component {
               title={intl.get("common.markets")}
               key="markets"
               icon={
-                <WebIcon type="line-chart" className="fs22" style={{marginTop:'0px'}} />
+                <i className="icon-market fs22" style={{marginTop:'4px'}}></i>
               }
               selectedIcon={
-                <WebIcon type="line-chart" className="fs22" style={{marginTop:'0px'}} />
+                <i className="icon-market fs22" style={{marginTop:'4px'}}></i>
               }
               selected={pathname === `/dex/markets`}
               onPress={() => {
@@ -38,8 +38,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'0px'}} />}
-              selectedIcon={<WebIcon type="pay-circle-o" className="fs22" style={{marginTop:'0px'}} />}
+              icon={<i className="icon-trade-m fs22" style={{marginTop:'0px'}} />}
+              selectedIcon={<i className="icon-trade-m fs22" style={{marginTop:'0px'}} />}
               title={intl.get("common.trade")}
               key="placeOrder"
               selected={pathname.indexOf(`/dex/placeOrder`)>-1}
@@ -49,8 +49,8 @@ class DexHomeLayout extends React.Component {
             />
             <TabBar.Item
               badge="6"
-              icon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
-              selectedIcon={<WebIcon type="bell" className="fs22" style={{marginTop:'0px'}} />}
+              icon={<i className="icon-bell fs22" style={{marginTop:'0px'}} />}
+              selectedIcon={<i className="icon-bell fs22" style={{marginTop:'0px'}} />}
               title={intl.get('todos.tab_title')}
               key="Notifications"
               selected={pathname === `/dex/todos`}
@@ -59,8 +59,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<WebIcon type="user" className="fs22" style={{marginTop:'0px'}} />}
-              selectedIcon={<WebIcon type="user" className="fs22" style={{marginTop:'0px'}} />}
+              icon={<i className="icon-user fs22" style={{marginTop:'0px'}} />}
+              selectedIcon={<i className="icon-user fs22" style={{marginTop:'0px'}} />}
               title={intl.get("user_center.tab_title")}
               key="userCenter"
               selected={pathname === `/dex/userCenter`}
