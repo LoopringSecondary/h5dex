@@ -10,9 +10,6 @@ export default class MockWallet extends Wallet {
       this.key = key
       this.wallet = fromPrivateKey(key);
     }else{
-      key =''
-      this.key = key
-      this.wallet = fromPrivateKey(key);
     }
     this.walletType='mock'
   }

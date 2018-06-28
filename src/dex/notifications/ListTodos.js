@@ -372,7 +372,7 @@ class ListTodos extends React.Component {
               <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
             ]}
             rightContent={[
-              <WebIcon key="1" type="question-circle-o" className="color-black-1"/>,
+              <WebIcon key="1" type="question-circle-o" className=""/>,
             ]}
           >
             <SegmentedControl values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]} style={{width: '180px', height: '32px'}}/>

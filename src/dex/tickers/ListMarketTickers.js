@@ -46,33 +46,33 @@ export const TickerItem = ({item,actions,key})=>{
         <div className="col-3 text-right">
           {
             direction === 'up' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-500 color-white">
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-500 color-white">
              +{tickerFm.getChange()}
             </Button>
           }
           {
             direction === 'down' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-red-500 color-white">
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-red-500 color-white">
              {tickerFm.getChange()}
             </Button>
           }
           {
             direction === 'none' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-grey-500 color-white">
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-grey-500 color-white">
              {tickerFm.getChange()}
             </Button>
           }
           {
             false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-300 color-white">+28.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-300 color-white">+28.2%</Button>
           }
           {
             false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-500 color-white">+50.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-500 color-white">+50.2%</Button>
           }
           {
             false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none pl10 pr10 fs16 bg-green-700 color-white">+158.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-700 color-white">+158.2%</Button>
           }
         </div>
       </div>

@@ -81,10 +81,10 @@ class UserCenter extends React.Component {
             className=""
             mode="light"
             leftContent={null && [
-              <span className="color-black-1" key="1"><WebIcon type="home" /></span>,
+              <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
             rightContent={[
-              <span className="color-black-1" key="1" onClick={()=>{}}><WebIcon type="setting" /></span>
+              <span className="" key="1" onClick={()=>{}}><WebIcon type="setting" /></span>
             ]}
           >
           {intl.get('usercenter.page_title')}
