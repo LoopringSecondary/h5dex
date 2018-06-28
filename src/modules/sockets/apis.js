@@ -83,6 +83,7 @@ const transfromers = {
          delegateAddress: config.getDelegateAddress(),
          owner:storage.wallet.getUnlockedAddress(),
          market:filters.market,
+         orderType: filters.type || 'market_order'
       })
     },
     resTransformer:(id,res)=>{
