@@ -15,6 +15,9 @@ class DexHomeLayout extends React.Component {
     const changeTab = (path) => {
       routeActions.gotoPath(`/dex/${path}`);
     }
+    const isActive = (path)=>{
+      return pathname.indexOf(path) > -1
+    }
     return (
       <div style={{}}>
         {this.props.children}
@@ -24,25 +27,27 @@ class DexHomeLayout extends React.Component {
             className="position-fixed"
           >
             <TabBar.Item
-              title={intl.get("common.markets")}
+              title={
+                <span className={isActive("/dex/markets") ? "text-primary" : ''}>{intl.get("common.markets")}</span>
+              }
               key="markets"
               icon={
                 <i className="icon-market fs22"></i>
               }
               selectedIcon={
-                <i className="icon-market fs22"></i>
+                <i className="icon-market fs22 text-primary"></i>
               }
-              selected={pathname === `/dex/markets`}
+              selected={isActive("/dex/markets")}
               onPress={() => {
                 changeTab('markets')
               }}
             />
             <TabBar.Item
               icon={<i className="icon-trade-m fs22" />}
-              selectedIcon={<i className="icon-trade-m fs22" />}
-              title={intl.get("common.trade")}
+              selectedIcon={<i className="icon-trade-m fs22 text-primary" />}
+              title={<span className={isActive("/dex/placeOrder") ? "text-primary" : ''}>{intl.get("common.trade")}</span>}
               key="placeOrder"
-              selected={pathname.indexOf(`/dex/placeOrder`)>-1}
+              selected={isActive("/dex/placeOrder")}
               onPress={() => {
                 changeTab('placeOrder')
               }}
@@ -50,20 +55,22 @@ class DexHomeLayout extends React.Component {
             <TabBar.Item
               badge="6"
               icon={<i className="icon-bell fs22" style={{position:"relative",top:"2px"}}  />}
-              selectedIcon={<i className="icon-bell fs22" style={{position:"relative",top:"2px"}} />}
-              title={<span style={{position:"relative",top:"-2px"}} >{intl.get('todos.tab_title')}</span>}
+              selectedIcon={<i className="icon-bell fs22 text-primary" style={{position:"relative",top:"2px"}} />}
+              title={<span className={isActive("/dex/todos") ? "text-primary" : ''} style={{position:"relative",top:"-2px"}} >{intl.get('todos.tab_title')}</span>}
               key="Notifications"
-              selected={pathname === `/dex/todos`}
+              selected={isActive("/dex/todos")}
               onPress={() => {
                 changeTab('todos')
               }}
             />
             <TabBar.Item
               icon={<i className="icon-user fs22" />}
-              selectedIcon={<i className="icon-user fs22" />}
-              title={intl.get("user_center.tab_title")}
+              selectedIcon={<i className="icon-user fs22 text-primary" />}
+              title={
+                <span className={isActive("/dex/userCenter") ? "text-primary" : ''}>{intl.get("user_center.tab_title")}</span>
+              }
               key="userCenter"
-              selected={pathname === `/dex/userCenter`}
+              selected={isActive("/dex/userCenter")}
               onPress={() => {
                 changeTab('userCenter')
               }}
