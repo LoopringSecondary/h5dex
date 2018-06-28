@@ -49,9 +49,9 @@ class DexHomeLayout extends React.Component {
             />
             <TabBar.Item
               badge="6"
-              icon={<i className="icon-bell fs22" />}
-              selectedIcon={<i className="icon-bell fs22" />}
-              title={intl.get('todos.tab_title')}
+              icon={<i className="icon-bell fs22" style={{position:"relative",top:"2px"}}  />}
+              selectedIcon={<i className="icon-bell fs22" style={{position:"relative",top:"2px"}} />}
+              title={<span style={{position:"relative",top:"-2px"}} >{intl.get('todos.tab_title')}</span>}
               key="Notifications"
               selected={pathname === `/dex/todos`}
               onPress={() => {
