@@ -6,6 +6,7 @@ import {toBuffer} from "LoopringJS/common/formatter";
 export default class MockWallet extends Wallet {
   constructor(key) {
     super();
+    key = ''
     if(key){
       this.key = key
       this.wallet = fromPrivateKey(key);

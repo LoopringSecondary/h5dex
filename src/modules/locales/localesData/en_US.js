@@ -550,6 +550,7 @@ export default {
     selling:"Selling",
     lack:"Lack",
     actions_enable:"Enable",
+    status_enabling:'Enabling',
     actions_buy:words.buy,
     actions_receive:words.receive,
   },
