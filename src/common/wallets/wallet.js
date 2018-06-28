@@ -1,4 +1,4 @@
-import { getOrderHash } from '../loopringjs/src/relay/rpc/order'
+import { packOrder } from '../loopringjs/src/relay/rpc/order'
 import {toHex} from '../loopringjs/src/common/formatter'
 import {Modal} from 'antd-mobile'
 export default class Wallet {
@@ -50,9 +50,9 @@ export default class Wallet {
     throw new Error('unimplemented')
   }
 
-  signOrder (order) {
-    const hash = getOrderHash(order);
-    return this.signMessage(toHex(hash))
+  signOrder(order){
+    const packedOrder = packOrder(order);
+    return this.signMessage(toHex(packedOrder))
   }
 
   setConfigs = async () => {

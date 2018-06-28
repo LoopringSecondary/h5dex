@@ -73,8 +73,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       {
         text: 'Yes', onPress: () => {
         const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
-        const hash = keccakHash(timestamp)
-        signMessage(hash).then(res => {
+        signMessage(timestamp).then(res => {
           if (res.result) {
             const sig = res.result
                 window.RELAY.order.cancelOrder({
@@ -105,8 +104,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         {
           text: 'Yes', onPress: () => {
           const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
-          const hash = keccakHash(timestamp)
-          signMessage(hash).then(res => {
+          signMessage(timestamp).then(res => {
             if (res.result) {
               const sig = res.result
               const tokens = market.split('-')

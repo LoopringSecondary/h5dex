@@ -1,7 +1,7 @@
 import request, {id} from '../../common/request';
 import Response from '../../common/response';
 import code from '../../common/code';
-import {soliditySHA3} from 'ethereumjs-abi';
+import {soliditySHA3,solidityPack} from 'ethereumjs-abi';
 import validator from '../validator';
 import {toBN} from '../../common/formatter';
 
@@ -30,6 +30,10 @@ export default class Order
     getOrderHash (order)
     {
         return getOrderHash(order);
+    }
+
+    packOrder(order){
+      return packOrder(order)
     }
 
     storeDatasInShortTerm (hash, origin)
@@ -182,6 +186,50 @@ export function getOrderHash (order)
     ];
     return soliditySHA3(orderTypes, orderData);
 }
+
+export function packOrder (order) {
+  try
+  {
+    validator.validate({value: order, type: 'RAW_Order'});
+  }
+  catch (e)
+  {
+    return new Response(code.PARAM_INVALID.code, code.PARAM_INVALID.msg);
+  }
+  const orderTypes = [
+    'address',
+    'address',
+    'address',
+    'address',
+    'address',
+    'address',
+    'uint',
+    'uint',
+    'uint',
+    'uint',
+    'uint',
+    'bool',
+    'uint8'
+  ];
+  const orderData = [
+    order.delegateAddress,
+    order.owner,
+    order.tokenS,
+    order.tokenB,
+    order.walletAddress,
+    order.authAddr,
+    toBN(order.amountS),
+    toBN(order.amountB),
+    toBN(order.validSince),
+    toBN(order.validUntil),
+    toBN(order.lrcFee),
+    order.buyNoMoreThanAmountB,
+    order.marginSplitPercentage
+  ];
+
+  return solidityPack(orderTypes,orderData)
+}
+
 
 /**
  * @description Submit some datas to relay that will store in a short term (24H)
