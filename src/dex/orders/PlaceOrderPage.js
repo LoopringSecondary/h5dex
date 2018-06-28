@@ -115,9 +115,6 @@ class PlaceOrderPage extends React.Component {
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.help")}</div></div>, tab:'help' },
                 ]
               }
-              tabBarBackgroundColor="#fff"
-              tabBarActiveTextColor={"#000"}
-              tabBarInactiveTextColor={"#888"}
               initialPage={0}
               swipeable={false}
               onChange={(tab, index) => tabChange(tab.tab)}

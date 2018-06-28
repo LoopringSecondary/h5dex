@@ -119,9 +119,6 @@ class MarketDetail extends React.Component {
                 { title: <div className="fs16 pt5 pb5">{intl.get("market.tab_fills")}</div> },
               ]
             }
-            tabBarBackgroundColor={'#fff'}
-            tabBarInactiveTextColor={"rgba(0, 0, 0, 0.35)"}
-            tabBarActiveTextColor={"#000"}
             tabBarTextStyle={{}}
             initialPage={1}
             swipeable={false}

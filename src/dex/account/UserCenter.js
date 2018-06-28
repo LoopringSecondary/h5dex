@@ -139,9 +139,6 @@ class UserCenter extends React.Component {
                   { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.all')}{intl.get('common.fills')}</Badge> },
                 ]
               }
-              tabBarBackgroundColor="#fff"
-              tabBarActiveTextColor={"#000"}
-              tabBarInactiveTextColor={"#999"}
               initialPage={0}
               swipeable={false}
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
