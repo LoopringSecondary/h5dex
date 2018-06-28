@@ -25,9 +25,9 @@ export const OpenOrderList = ({orders={},dispatch})=>{
       <thead>
         <tr>
           <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.amount')}</th>
+          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.amount')}</th>
           <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
+          <th hidden className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
           <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.status')}</th>
         </tr>
       </thead>
@@ -35,15 +35,16 @@ export const OpenOrderList = ({orders={},dispatch})=>{
         {
           orders.items && orders.items.map((item,index)=>{
             const orderFm = new OrderFm(item)
+            const tokens = orderFm.getTokens()
             return (
               <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
                 <td className="zb-b-b p10 pl10 text-left">
-                  { orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
-                  { orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}
+                  { orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()} {tokens.right}</span>}
+                  { orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()} {tokens.right}</span>}
                 </td>
-                <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getAmount()}</td>
+                <td className="zb-b-b p10 text-left text-nowrap">{orderFm.getAmount()} {tokens.left}</td>
                 <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
-                <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
+                <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b p10 text-center">
                   {renders.status(orderFm,item.originalOrder)}
                 </td>
@@ -143,7 +144,7 @@ export const renders = {
       if(cancelOrder) {
         return <a className="fs12" onClick={cancelOrder}>{intl.get("common.cancel")}</a>
       } else {
-        return <span className="color-black-4">{intl.get("order_status.opened")}</span>
+        return <span className="text-primary">{intl.get("order_status.opened")}</span>
       }
     }
     if (status === 'ORDER_FINISHED') {

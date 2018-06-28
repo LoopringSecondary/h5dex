@@ -79,7 +79,7 @@ class UserCenter extends React.Component {
           }
           <NavBar
             className=""
-            mode="light"
+            mode="dark"
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
@@ -89,13 +89,12 @@ class UserCenter extends React.Component {
           >
           {intl.get('usercenter.page_title')}
           </NavBar>
-          <div className="divider 1px zb-b-b"></div>
-          <div className="pt25 pb25 text-left bg-white">
+          <div className="pt35 pb35 text-left bg-primary-2">
             <div className="row align-items-center ml0 mr0 no-gutters">
               <div className="col">
-                <div className="text-center color-black-1 fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
+                <div className="text-center color-white fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
-                  <div className="fs14 color-black-3 mt5">
+                  <div className="fs14 color-white-3 mt5">
                     {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
                   </div>
                 </div>
@@ -104,11 +103,7 @@ class UserCenter extends React.Component {
               </div>
             </div>
           </div>
-          <div className="divider 1px zb-b-b"></div>
-          <div hidden className="pl10 pr10 pt10 pb5 bg-white">
-            <div className="divider 1px zb-b-b"></div>
-            <SegmentedControl values={['Assets','Orders','Fills']} style={{height:'40px'}}/>
-          </div>
+
           <div className="height-auto tabs-no-border">
             <Tabs
               tabs={
@@ -140,40 +135,6 @@ class UserCenter extends React.Component {
               </div>
             </Tabs>
             <div className="pb50"></div>
-          </div>
-          <div hidden>
-            <div onClick={routeActions.gotoPath.bind(this,'/orders')} className="row ml0 mr0 p10 mt0 bg-white align-items-center no-gutters">
-              <div className="col fs16 color-black-1">
-                My Orders
-              </div>
-              <div className="col-auto fs14 color-black-3 pl20">
-                Order & Fills <WebIcon type="right" />
-              </div>
-            </div>
-            <Grid onClick={routeActions.gotoPath.bind(this,'/dex/myOrders')} className="my-dex-grid" data={OrderStatus} square={false} activeStyle={false} carouselMaxRow={1} isCarousel={true} />
-          </div>
-          <div hidden className="bg-white mt15">
-            <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
-              <div className="col fs16 color-black-1">My Assets</div>
-              <div className="col-auto fs14 color-black-3 pl20">
-                All <WebIcon type="right" />
-              </div>
-            </div>
-            <div className="zb-b-t">
-              <ListBalance />
-            </div>
-          </div>
-          <div hidden className="bg-white mt15">
-            <div className="row ml0 mr0 p10 align-items-center no-gutters zb-b-t">
-              <div className="col fs20 color-black-1">
-                My Transactions
-                <span hidden className="color-black-3 ml10 fs16">ETH</span>
-              </div>
-              <div className="col-auto fs18 color-black-3 pl20">
-                All <WebIcon type="right" />
-              </div>
-            </div>
-            <Grid className="my-dex-grid" data={txStatus} square={false} activeStyle={false} columnNum={4}/>
           </div>
           <div className="pb50"></div>
         </div>

@@ -48,6 +48,9 @@ export class OrderFm {
   getMarketPair() {
     return this.order.originalOrder.side.toLowerCase() === 'buy' ? `${this.order.originalOrder.tokenB}-${this.order.originalOrder.tokenS}` : `${this.order.originalOrder.tokenS}-${this.order.originalOrder.tokenB}`
   }
+  getTokens() {
+    return commonFm.getTokensByMarket(this.getMarketPair())
+  }
   getPrice(){
     if(this.order.originalOrder){
       const tokenB = config.getTokenBySymbol(this.order.originalOrder.tokenB);
