@@ -49,8 +49,8 @@ class DexHomeLayout extends React.Component {
             />
             <TabBar.Item
               badge="6"
-              icon={<i className="icon-bell fs22" style={{marginTop:'4px'}} />}
-              selectedIcon={<i className="icon-bell fs22" style={{marginTop:'4px'}} />}
+              icon={<i className="icon-bell fs22" />}
+              selectedIcon={<i className="icon-bell fs22" />}
               title={intl.get('todos.tab_title')}
               key="Notifications"
               selected={pathname === `/dex/todos`}
@@ -59,8 +59,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<i className="icon-user fs22" style={{marginTop:'0px'}} />}
-              selectedIcon={<i className="icon-user fs22" style={{marginTop:'0px'}} />}
+              icon={<i className="icon-user fs22" />}
+              selectedIcon={<i className="icon-user fs22" />}
               title={intl.get("user_center.tab_title")}
               key="userCenter"
               selected={pathname === `/dex/userCenter`}
