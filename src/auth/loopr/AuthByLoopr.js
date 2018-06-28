@@ -18,14 +18,14 @@ class Routes extends React.Component{
      Toast.success('Load complete !!!')
     })
     const _this = this
-      window.Wallet = new Loopr();
-      window.Wallet.setConfigs().then(res => {
-        storage.wallet.storeUnlockedAddress("loopr", window.Wallet.address)
-        _this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
-        _this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
-        _this.props.dispatch({type: 'sockets/unlocked'});
-        Toast.hide()
-      })
+    window.Wallet = new Loopr();
+    window.Wallet.setConfigs().then(res => {
+      storage.wallet.storeUnlockedAddress("loopr", window.Wallet.address)
+      _this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+      _this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
+      _this.props.dispatch({type: 'sockets/unlocked'});
+      Toast.hide()
+    })
   }
 
   goToDex = () => {
@@ -48,8 +48,46 @@ class Routes extends React.Component{
             Auth By Loopr
           </div>
         </NavBar>
-        <div className="p15">
-          <Button type="primary" onClick={this.goToDex}>进去DEX</Button>
+        <div className="divider 1px zb-b-t"></div>
+        <div className="bg-white">
+          <div className="pt35 pb35">
+            <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
+              <div className="col text-center">
+                <div className="d-inline-block color-black-1 text-center" style={{
+                  width: '40px',
+                  height: '40px',
+                }}>
+                  <img style={{borderRadius:"6px"}}  width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
+                </div>
+              </div>
+              <div className="col-auto text-center" style={{width: '30px'}}>
+                <i className={`icon-long-arrow-right color-black-1 fs20`}/>
+              </div>
+              <div className="col text-center">
+                <div className="d-inline-block color-black-1 text-center" style={{
+                  width: '40px',
+                  height: '40px',
+                }}>
+                  <img style={{borderRadius:"6px"}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
+                </div>
+              </div>
+            </div>
+            <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
+              <div className="col text-center">
+                <div className="color-black-2 fs16">Loopr Wallet</div>
+              </div>
+              <div className="col-auto text-center position-relative" style={{width: '30px'}}>
+                <div className="color-black-3 fs16"></div>
+              </div>
+              <div className="col text-center">
+                <div className="color-black-2 fs16">Loopring Dex</div>
+              </div>
+            </div>
+          </div>
+          <div className="divider 1px zb-b-t"></div>
+          <div className="p15">
+            <Button type="primary" onClick={this.goToDex}>授权登录</Button>
+          </div>
         </div>
       </div>
     )

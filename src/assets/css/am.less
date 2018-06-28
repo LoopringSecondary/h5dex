@@ -12,13 +12,17 @@
 
 // tokenest
 // @brand-primary: #2e2ba4;
-@radius-xs: 50em;
-@radius-sm: 50em;
-@radius-md: 50em;
+// @radius-xs: 50em;
+// @radius-sm: 50em;
+// @radius-md: 50em;
 // @radius-xs: 2 * @hd;
 // @radius-sm: 3 * @hd;
 // @radius-md: 5 * @hd;
 @radius-lg: 7 * @hd;
+
+@brand-error: #f44336; // color-red-500
+@brand-important: @brand-error; // hot dot
+@brand-success: #4caf50; // color-green-500
 
 @radius-circle: 50%;
 @button-height: 44 * @hd;
@@ -69,6 +73,9 @@
 // button
 // ========
 
+.am-button-small{
+  padding:0px 10px !important;
+}
 .am-button-primary.am-button-disabled{
   // opacity: 1 !important;
   // background: fade(@brand-primary, 10%) !important;

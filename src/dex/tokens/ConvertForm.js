@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, List, NavBar, Toast,Modal} from 'antd-mobile'
-import { Button as WebButton, Icon as WebIcon, Input } from 'antd'
+import { Icon as WebIcon, Input } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
 import { toHex, toBig, toNumber } from '../../common/loopringjs/src/common/formatter'
@@ -205,8 +205,8 @@ class Convert extends React.Component {
           <div className='mt20'>
             <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
-          <WebButton className="mt20 b-block w-100" size="large" onClick={gotoConfirm}
-                     type="primary">{token.toLowerCase() === 'eth' ? 'Convert ETH To WETH' : 'Convert WETH To ETH'}</WebButton>
+          <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm}
+                     type="primary">{token.toLowerCase() === 'eth' ? 'Convert ETH To WETH' : 'Convert WETH To ETH'}</Button>
           <div className="row ml0 mr0 mt15 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">Ratio</div>
