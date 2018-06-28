@@ -6,10 +6,10 @@ import {toBuffer} from "LoopringJS/common/formatter";
 export default class MockWallet extends Wallet {
   constructor(key) {
     super();
-    // if(key){
-    //   this.wallet = fromPrivateKey(key);
-    // }
-   this.wallet = fromPrivateKey('')
+    if(key){
+      this.key = key
+      this.wallet = fromPrivateKey(key);
+    }
     this.walletType='mock'
   }
 
@@ -35,8 +35,11 @@ export default class MockWallet extends Wallet {
 
   getCurrentAccount() {
     return new Promise((resolve) => {
-    resolve({result: this.wallet.getAddress()})
-      // resolve({result: "0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00"})
+      if(this.key){
+        resolve({result: this.wallet.getAddress()})
+      }else{
+        resolve({result: "0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00"})
+      }
     })
   }
 

@@ -12,7 +12,6 @@ import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
 import routeActions from 'common/utils/routeActions'
 import {OrderFm} from 'modules/orders/OrderFm';
-import DetailFills from './DetailFills';
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -76,7 +75,7 @@ function OrderDetail(props) {
   }
   return (
     <div className="bg-white no-underline">
-      <div className="color-black-1 fs18 zb-b-b text-center">
+      <div hidden className="color-black-1 fs18 zb-b-b text-center">
         <div className="row ml0 mr0 pt15 pb15 no-gutters align-items-center">
           <div className="col-auto text-left pl15 pr15" onClick={hideLayer.bind(this,{id:'orderDetail'})}>
             <Icon type="close"/>
@@ -89,10 +88,9 @@ function OrderDetail(props) {
       </div>
       <Tabs
         tabs={[
-          { title: <div className="text-center">Detail</div> },
-          //{ title: <div className="text-center">Fills</div> },
-          { title: <div className="text-center">Logs</div> },
-          // { title: <div className="text-center">Status</div> },
+          { title: <div className="text-center">{intl.get('order_detail.tabs_basic')}</div> },
+          //{ title: <div className="text-center">{intl.get('order_detail.tabs_fills')}</div> },
+          // { title: <div className="text-center">{intl.get('order_detail.tabs_logs')}</div> },
         ]}
         tabBarActiveTextColor={"#000"}
         tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
@@ -138,9 +136,6 @@ function OrderDetail(props) {
             <OrderMetaItem label={intl.get('order.validSince')} value={orderFm.getCreateTime()}/>
             <OrderMetaItem label={intl.get('order.validUntil')} value={orderFm.getExpiredTime()}/>
           </div>
-        </div>
-        <div className="p20 bg-white">
-          <DetailFills order={order}/>
         </div>
         <div className="pt15 pl20 pr20 bg-white text-left">
           <div className="pt15 pb0">

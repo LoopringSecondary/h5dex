@@ -102,7 +102,6 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
                 !fills.loading && fills.items && fills.items.length == 0 &&
                 <tr>
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs13" colSpan='100'>
-                    no fills of
                     {intl.get('helper_of_market_order.no_fills_of_market', {market})}
                   </td>
                 </tr>

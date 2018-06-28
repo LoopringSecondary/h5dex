@@ -82,27 +82,28 @@ class PlaceOrderPage extends React.Component {
           </NavBar>
           <div className="divider 1px zb-b-t"></div>
           <div className="no-underline tabs-no-border h-50 place-order-form">
-            <div hidden className="p10 bg-white" >
-              <SegmentedControl values={['Buy LRC', 'Sell LRC']} style={{height:'36px'}}/>
-            </div>
-            <Tabs
-              tabs={
-                [
-                  { title: <div className="fs16">{intl.get("common.buy")} {pairTokens.left}</div> },
-                  { title: <div className="fs16">{intl.get("common.sell")} {pairTokens.left}</div> },
-                ]
-              }
-              tabBarBackgroundColor={side === 'buy' ? "#e8f5e9" : "#ffebee"}
-              tabBarActiveTextColor={side === 'buy' ? "#43a047" : "#f44336"}
-              tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-              tabBarTextStyle={{}}
-              swipeable={false}
-              initialPage={side==='buy'?0:1}
-              onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
-              onTabClick={(tab, index) => { }}
-            >
-              <PlaceOrderForm side="sell" showLayer={showLayer} />
-            </Tabs>
+            {
+              false &&
+              <Tabs
+                tabs={
+                  [
+                    { title: <div className="fs16">{intl.get("common.buy")} {pairTokens.left}</div> },
+                    { title: <div className="fs16">{intl.get("common.sell")} {pairTokens.left}</div> },
+                  ]
+                }
+                tabBarBackgroundColor={null && (side === 'buy' ? "#e8f5e9" : "#ffebee")}
+                tabBarActiveTextColor={null && (side === 'buy' ? "#43a047" : "#f44336")}
+                tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
+                tabBarTextStyle={{}}
+                swipeable={false}
+                initialPage={side==='buy'?0:1}
+                onChange={(tab, index) => { sideChange(index==0 ? 'buy' : 'sell')}}
+                onTabClick={(tab, index) => { }}
+              >
+
+              </Tabs>
+            }
+            <PlaceOrderForm side="sell" showLayer={showLayer} />
           </div>
           <div className="tabs-no-border">
             <Tabs
@@ -116,7 +117,7 @@ class PlaceOrderPage extends React.Component {
               }
               tabBarBackgroundColor="#fff"
               tabBarActiveTextColor={"#000"}
-              tabBarInactiveTextColor={"#999"}
+              tabBarInactiveTextColor={"#888"}
               initialPage={0}
               swipeable={false}
               onChange={(tab, index) => tabChange(tab.tab)}

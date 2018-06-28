@@ -50,8 +50,15 @@ const words = {
   help:'Help',
   feedback:"Feedback",
   quit:'Quit',
+  asset:'Asset',
+  assets:'Assets',
+  order:'Order',
+  orders:'Orders',
+  fill:'Fill',
+  fills:'Fills',
   list:{
     no_data:'No Data',
+    loading:'Loading...',
   }
 }
 const types = {
@@ -181,8 +188,9 @@ export default {
   },
   order_detail: {
     title: 'Order Detail',
-    tabs_basic: 'Basic Detail',
-    tabs_fills: 'Fill Detail',
+    tabs_basic: 'Order Detail',
+    tabs_fills: 'Order Fills',
+    tabs_logs: 'Order Logs',
   },
   place_order: {
     order_type: 'Order Type',
@@ -530,6 +538,24 @@ export default {
   },
   todos: {
     tab_title: "Notifications"
+  },
+  message_list:{
+    message_list_title:'Messages',
+  },
+  todo_list:{
+    todo_list_title:'Todos',
+    allowance_not_enough_title:"{symbol} is disabled to trade",
+    balance_not_enough_title:"{symbol} balance is insufficient",
+    balance:"Balance",
+    selling:"Selling",
+    lack:"Lack",
+    actions_enable:"Enable",
+    actions_buy:words.buy,
+    actions_receive:words.receive,
+  },
+  usercenter:{
+    page_title:'我的交易',
+    actions_switch_wallet:'切换钱包',
   },
   market: {
     tab_charts: "Charts",
