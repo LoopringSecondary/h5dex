@@ -40,6 +40,7 @@ function getChainId(){
 
 function getTokenBySymbol(symbol){
   if(!symbol){ return {} }
+  console.log('tokens',tokens)
   return tokens.find(token=>token.symbol.toLowerCase()===symbol.toLowerCase()) || {}
 }
 
