@@ -1,8 +1,6 @@
 import React from 'react'
-import { Badge, Grid, List, NavBar, NoticeBar, SegmentedControl, Tabs } from 'antd-mobile'
+import { Badge, Grid, NavBar, NoticeBar, SegmentedControl, Tabs } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
-import { createForm } from 'rc-form'
-import { connect } from 'dva'
 import Containers from 'modules/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
@@ -11,14 +9,7 @@ import ListBalance from '../tokens/ListBalance'
 import ListMyFills from '../fills/ListMyFills'
 import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
-import intl from 'react-intl-universal';
-import * as tokenFormatter from 'modules/tokens/TokenFm'
-import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
-import Worth from 'modules/settings/Worth'
-import config from 'common/config'
-
-const Item = List.Item;
-const Brief = Item.Brief;
+import intl from 'react-intl-universal'
 
 const OrderListHeader = ()=>{
   return (
@@ -40,23 +31,6 @@ const OrderListHeader = ()=>{
 
 class UserCenter extends React.Component {
   render() {
-    const dispatch = this.props.dispatch
-    const showLayer = (payload={})=>{
-      dispatch({
-        type:'layers/showLayer',
-        payload:{
-          ...payload
-        }
-      })
-    }
-    const hideLayer = (payload={})=>{
-      dispatch({
-        type:'layers/hideLayer',
-        payload:{
-          ...payload
-        }
-      })
-    }
     const OrderStatus = [
       {
         icon: <Badge text="3"><WebIcon type="exclamation-circle-o" className="fs22 color-black-1 mb5" /></Badge>,
@@ -152,14 +126,14 @@ class UserCenter extends React.Component {
                 <ListBalance />
               </div>
               <div>
-                <Containers.Orders id="MyOpenOrders" alias="orders" initState={{}}>
+                <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
                   <OrderListHeader />
                   <div className="divider 1px zb-b-b"></div>
                   <OpenOrderList />
                 </Containers.Orders>
               </div>
               <div>
-                <Containers.Fills id="MyFills" alias="fills" initState={{}}>
+                <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
                   <ListMyFills />
                 </Containers.Fills>
               </div>
