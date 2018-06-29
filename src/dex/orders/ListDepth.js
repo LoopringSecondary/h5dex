@@ -11,6 +11,7 @@ import intl from 'react-intl-universal'
 const ListDepth = ({depth={},maxRows=5})=>{
   // const maxHeight = (60*maxRows+32) + 'px'
   const maxHeight = 'auto'
+  const sell = depth.item && depth.item.sell ? [...depth.item.sell].reverse() : []
   return (
     <div style={{maxHeight,overflow:'auto'}}>
       <div className="row no-gutters ml0 mr0">
@@ -60,7 +61,7 @@ const ListDepth = ({depth={},maxRows=5})=>{
               </thead>
                 <tbody>
                     {
-                      depth.item && depth.item.sell && depth.item.sell.map((item,index)=>
+                      sell.map((item,index)=>
                         <tr key={index} className="">
                           <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle">
                             {Number(item[0]).toFixed(8)}
