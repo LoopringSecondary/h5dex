@@ -49,7 +49,7 @@ const HelperOfBalance = (props)=>{
   }
 
   const gotoConvert = (payload)=>{
-    routeActions.gotoPath('/dex/convert')
+    showLayer({id:'convertToken',...payload})
   }
   const gotoAll = (payload)=>{
     // TODO
