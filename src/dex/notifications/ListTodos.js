@@ -26,10 +26,12 @@ const TodoItem = (props) => {
   const gotoDetail = () => {
     routeActions.gotoPath('/trade/detail')
   }
-  const showReceive = (symbol) => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol}})
+  const showReceive = () => {
+    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol:item.symbol}})
   }
-
+  const showActions = () => {
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol:item.symbol}})
+  }
   const enable = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
     const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
@@ -192,12 +194,8 @@ const TodoItem = (props) => {
           </div>
           <div className="col-auto">
             <div>
-              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className="" onClick={gotoTrading}>
-                {intl.get('todo_list.actions_buy')} <WebIcon type="down" /></Button>
-              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
-                      onClick={() => showReceive(item.symbol)}>Receive</Button>
-              <Button hidden inline={true} type="primary" size="small" className="mr5 mt5"
-                      onClick={gotoTrading}>Buy</Button>
+              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className="" onClick={showActions}>
+                {intl.get('common.actions')} <WebIcon type="down" /></Button>
               <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           </div>

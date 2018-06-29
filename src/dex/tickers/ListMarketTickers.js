@@ -52,8 +52,10 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
         <div className="col-5 text-left">
           <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
           <span className="fs14 color-black-4"> / {tokens.right}</span>
-          <span className="fs14 color-black-4"> <Icon type={favored[item.market] ? "star": "star-o"} className="" onClick={toggleTickerFavored.bind(this, item.market)}/> </span>
-          <div className="fs14 color-black-4">Vol {tickerFm.getVol()}</div>
+          <div className="fs14 color-black-4">
+            <span className="fs14 color-black-4"> <Icon type={favored[item.market] ? "star": "star-o"} className="" onClick={toggleTickerFavored.bind(this, item.market)}/> </span>
+            <span className="ml5">Vol {tickerFm.getVol()}</span>
+          </div>
         </div>
         <div className="col text-left pr10">
           <div className="fs16 color-black-1 font-weight-bold-bak lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
@@ -101,7 +103,7 @@ export const TickerList = ({items,loading,dispatch, tickersList})=>{
         <TickerHeader />
         <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} tickersList={tickersList}/>)}
-        {items.length === 0 &&
+        {!loading && items.length === 0 &&
           <div className="p10 text-center color-black-3">
             {intl.get('common.list.no_data')}
           </div>

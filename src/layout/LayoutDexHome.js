@@ -67,12 +67,12 @@ class DexHomeLayout extends React.Component {
               icon={<i className="icon-user fs22" />}
               selectedIcon={<i className="icon-user fs22 text-primary" />}
               title={
-                <span className={isActive("/dex/userCenter") ? "text-primary" : ''}>{intl.get("user_center.tab_title")}</span>
+                <span className={isActive("/dex/usercenter") ? "text-primary" : ''}>{intl.get("user_center.tab_title")}</span>
               }
-              key="userCenter"
-              selected={isActive("/dex/userCenter")}
+              key="usercenter"
+              selected={isActive("/dex/usercenter")}
               onPress={() => {
-                changeTab('userCenter')
+                changeTab('usercenter')
               }}
             />
           </TabBar>

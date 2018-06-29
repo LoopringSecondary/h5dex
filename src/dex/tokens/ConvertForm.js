@@ -139,15 +139,12 @@ class Convert extends React.Component {
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={() => routeActions.goBack()}
+          onLeftClick={()=>{}}
           leftContent={[
-            <span key='1' className="color-black-1"><WebIcon key="1" type="left"/></span>,
+            <span key='1' className=""><WebIcon key="1" type="close"/></span>,
           ]}
           rightContent={[
-            <Button key="1" size="small" type="ghost" className="color-black-2 fs18 mr10" style={{padding: '0 7px'}}
-                    onClick={() => {}}><WebIcon type="question"/></Button>,
-            <Button key="2" size="small" type="ghost" className="color-black-2 fs18" style={{padding: '0 7px'}}
-                    onClick={swap}><WebIcon type="swap"/></Button>,
+            <WebIcon key="1" type="question-circle-o"/>,
           ]}
         >
           {intl.get('common.convert')} {token}

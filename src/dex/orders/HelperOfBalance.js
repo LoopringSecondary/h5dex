@@ -44,8 +44,12 @@ const HelperOfBalance = (props)=>{
   const gotoReceive = (payload)=>{
     showLayer({id:'receiveToken',...payload})
   }
+  const showActions = (payload)=>{
+    showLayer({id:'helperOfTokenActions',...payload})
+  }
+
   const gotoConvert = (payload)=>{
-    routeActions.gotoPath('/dex/convert')
+    showLayer({id:'convertToken',...payload})
   }
   const gotoAll = (payload)=>{
     // TODO
@@ -91,12 +95,9 @@ const HelperOfBalance = (props)=>{
                       token.symbol === 'WETH' &&
                       <Button onClick={gotoConvert.bind(this,{type:"weth2eth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
-                    {
-                      true &&
-                      <Button onClick={gotoReceive.bind(this,{symbol:token.symbol})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
-                        <WebIcon type="ellipsis" />
-                      </Button>
-                    }
+                    <Button onClick={showActions.bind(this,{symbol:token.symbol})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
+                      <WebIcon type="ellipsis" />
+                    </Button>
                   </td>
                 </tr>
               )
