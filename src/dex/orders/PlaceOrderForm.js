@@ -191,9 +191,10 @@ const PlaceOrderForm = (props)=>{
            onChange={sideChange}
          />
        </div>
-       <List className="no-border">
+       <List className="no-border selectable">
         <InputItem
           type="money"
+          className=""
           placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
           value={price ? price : null}
           clear

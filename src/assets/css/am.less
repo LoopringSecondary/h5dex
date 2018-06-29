@@ -1,4 +1,5 @@
 // https://github.com/ant-design/ant-design-mobile/blob/master/components/style/themes/default.less
+// https://github.com/ant-design/ant-design-mobile/wiki/%E8%AE%BE%E8%AE%A1%E5%8F%98%E9%87%8F%E8%A1%A8%E5%8F%8A%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83
 
 // 页面背景
 @fill-body: #fbfbfb;
@@ -9,7 +10,7 @@
 // loopr
 @brand-primary: #1C60FF;
 @brand-primary-light: fade(#1C60FF,10%);
-@brand-primary-tap: fade(@brand-primary,85%);
+@brand-primary-tap: fade(@brand-primary,95%);
 @radius-xs: 0;
 @radius-sm: 0;
 @radius-md: 0;
@@ -27,7 +28,6 @@
 @radius-lg: 7 * @hd;
 
 
-
 @brand-error: #f44336; // color-red-500
 @brand-important: @brand-error; // hot dot
 @brand-success: #4caf50; // color-green-500
@@ -41,6 +41,34 @@
 
 @radius-circle: 50%;
 @button-height: 44 * @hd;
+
+@color-link:@brand-primary;
+// @primary-button-fill-tap:;
+
+*{
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}
+.selectable{
+  *{
+    -webkit-user-select:auto;
+    -khtml-user-select:auto;
+    -moz-user-select:auto;
+    -ms-user-select:auto;
+    user-select:auto;
+  }
+}
+.hover-default:active {
+  // color:#fff !important;
+  // background: fade(@brand-primary,15%)  !important;
+  // color:@brand-primary !important;
+  background: rgba(0,0,0,0.06)  !important;
+}
+
+
 
 // ========
 // segment

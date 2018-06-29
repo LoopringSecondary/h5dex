@@ -23,17 +23,14 @@ function HelperOfPrice(props) {
     <div className="tabs-no-border">
       <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b">Price Helper</div>
       <div className="zb-b-t">
-        <div className="row pt15 pb15 ml0 mr0 zb-b-b align-items-center">
-          <div className="col color-black-1 text-left pl10">
+        <div className="row ml0 mr0 zb-b-b align-items-center ">
+          <div className="col pt15 pb15 color-black-1 text-left pl10">
             {intl.get('ticker.last')}
           </div>
           { priceDisplay &&
-            <div className="col-auto color-black-2" onClick={changePrice.bind(this,priceDisplay)}>
+            <div className="col-auto pt15 pb15 color-black-2 hover-default" onClick={changePrice.bind(this,priceDisplay)}>
               <span className="color-black-4 mr5"><Worth amount={priceDisplay} symbol={tokens.right}/></span>{priceDisplay} {tokens.right}
             </div>
-          }
-          { !priceDisplay &&
-            <Spin spinning={true} />
           }
         </div>
         <div className="bg-grey-100" style={{maxHeight:'50vh',overflow:'auto'}}>

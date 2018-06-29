@@ -190,7 +190,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           orders.items && orders.items.map((item, index) => {
             const orderFm = new OrderFm(item)
             return (
-              <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
+              <tr key={index} className="color-black-2 hover-default" onClick={() => gotoDetail(item)}>
                 <td className="zb-b-b pt10 pb10 pl10 pr5 text-left">
                   {orderFm.getSide() === 'buy' && <span className="color-success">{intl.get("common.buy")}</span>}
                   {orderFm.getSide() === 'sell' && <span className="color-error">{intl.get("common.sell")}</span>}
