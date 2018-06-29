@@ -42,7 +42,7 @@ const PlaceOrderForm = (props)=>{
       }
     })
   }
-  const submitEnable = Number(price) > 0 && Number(amount) > 0
+  const submitEnable = orderFormatter.isValidAmount(price) && orderFormatter.isValidAmount(amount)
   const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
   let sell = {}, buy = {}
   if(side === 'buy') {
@@ -103,11 +103,11 @@ const PlaceOrderForm = (props)=>{
     showLayer({id:'helperOfAdvance'})
   }
   const toConfirm = async () => {
-    if (Number(price) <= 0) {
+    if (!orderFormatter.isValidAmount(price)) {
       Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 3, null, false);
       return
     }
-    if (Number(amount) <= 0) {
+    if (!orderFormatter.isValidAmount(amount)) {
       Toast.info(intl.get('common.invalid_item', {item: intl.get('common.amount')}), 3, null, false);
       return
     }
