@@ -195,7 +195,7 @@ function PlaceOrderSteps(props) {
               <div className="p15 bg-white">
                 <div className="pb20 row ml0 mr0 no-gutters align-items-center justify-content-center">
                   <div className="col-auto">
-                    <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                    <div className="radius-circle bg-primary color-white d-inline-flex justify-content-center align-items-center" style={{width:"40px",height:'40px'}}>
                       <i className={`icon-token-${side === 'buy' ? tokens.right : tokens.left} fs24`}/>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ function PlaceOrderSteps(props) {
                     <Icon type="swap" className={`color-black-1 fs20`} />
                   </div>
                   <div className="col-auto">
-                    <div className="color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
+                    <div className="radius-circle bg-primary color-white d-inline-flex justify-content-center align-items-center" style={{width:"40px",height:'40px'}}>
                       <i className={`icon-token-${side === 'buy' ? tokens.left : tokens.right} fs24`}/>
                     </div>
                   </div>
