@@ -42,6 +42,7 @@ const PlaceOrderForm = (props)=>{
       }
     })
   }
+  const submitEnable = Number(price) > 0 && Number(amount) > 0
   const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
   let sell = {}, buy = {}
   if(side === 'buy') {
@@ -235,13 +236,13 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type="ghost" disabled={false}>
+            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type={submitEnable ? "primary" : "ghost"} disabled={false}>
               {intl.get("common.sell")} {amount} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type="ghost" disabled={false}>
+            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type={submitEnable ? "primary" : "ghost"} disabled={false}>
               {intl.get("common.buy")} {amount} {tokens.left}
             </Button>
           }
