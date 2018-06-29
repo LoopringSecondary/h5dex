@@ -2,6 +2,7 @@ import '@babel/polyfill'
 import dva from 'dva'
 import { models } from './modules'
 import { message } from 'antd'
+import { Toast } from 'antd-mobile'
 import './assets/css/index.less'
 import {setLocale} from "./common/utils/localeSetting";
 import storage from './modules/storage';
@@ -10,6 +11,8 @@ import Relay from 'LoopringJS/relay/relay';
 import {init} from './init'
 import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
+
+window.Toast = Toast
 
 
 const host = storage.settings.get().relay.selected;
