@@ -75,7 +75,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
               </thead>
                 <tbody>
                     {
-                      sell && sell && sell.map((item,index)=>
+                      sell && sell.map((item,index)=>
                         <tr key={index} className="">
                           <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                             {Number(item[0]).toFixed(8)}
