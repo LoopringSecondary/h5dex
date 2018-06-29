@@ -1,49 +1,56 @@
-import React from 'react';
+import React from 'react'
 import Loopr from './loopr'
-import {Icon as WebIcon} from 'antd'
-import {Toast, Button,NavBar} from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
+import { Toast, Button, NavBar } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
-import {connect} from 'dva'
-import storage from 'modules/storage';
-import {init} from '../../init'
+import { connect } from 'dva'
+import storage from 'modules/storage'
+import { init } from '../../init'
 import intl from 'react-intl-universal'
 import Notification from 'LoopringUI/components/Notification'
 
-
-class Routes extends React.Component{
-
+class Routes extends React.Component {
 
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
-     Toast.success('Load complete !!!')
+      Toast.success('Load complete !!!')
     })
     const _this = this
-    if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeCallbackHandler){
-      window.Wallet = new Loopr();
-      window.Wallet.setConfigs().then(res => {
-        storage.wallet.storeUnlockedAddress("loopr", window.Wallet.address)
-        _this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
-        _this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
-        _this.props.dispatch({type: 'sockets/unlocked'});
-        Toast.hide()
-      })
-    }
+
+    const load = setInterval(() => {
+      if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeCallbackHandler){
+        clearInterval()
+        window.Wallet = new Loopr()
+        window.Wallet.setConfigs().then(res => {
+          storage.wallet.storeUnlockedAddress('loopr', window.Wallet.address)
+          _this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+          _this.props.dispatch({
+            type: 'settings/preferenceChange',
+            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+          })
+          _this.props.dispatch({type: 'sockets/unlocked'})
+          Toast.hide()
+
+        })
+      }
+    },1000)
   }
 
   goToDex = () => {
     routeActions.gotoPath('/dex')
   }
+
   render () {
     return (
       <div>
         <NavBar
           className=""
           mode="light"
-          leftContent={null &&[
-            <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
+          leftContent={null && [
+            <span onClick={() => {}} className="color-black-1" key="1"><WebIcon type="left"/></span>,
           ]}
           rightContent={null && [
-            <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
+            <span className="color-black-1" key="1" onClick={() => {}}><WebIcon type="question-circle-o"/></span>
           ]}
         >
           <div>
@@ -59,7 +66,8 @@ class Routes extends React.Component{
                   width: '40px',
                   height: '40px',
                 }}>
-                  <img style={{borderRadius:"6px"}}  width="100%" src={require('../../assets/images/tokenest.png')} alt=""/>
+                  <img style={{borderRadius: '6px'}} width="100%" src={require('../../assets/images/tokenest.png')}
+                       alt=""/>
                 </div>
               </div>
               <div className="col-auto text-center" style={{width: '30px'}}>
@@ -70,7 +78,8 @@ class Routes extends React.Component{
                   width: '40px',
                   height: '40px',
                 }}>
-                  <img style={{borderRadius:"6px"}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
+                  <img style={{borderRadius: '6px'}} width="100%" src={require('../../assets/images/loopr.png')}
+                       alt=""/>
                 </div>
               </div>
             </div>
