@@ -18,14 +18,16 @@ class Routes extends React.Component{
      Toast.success('Load complete !!!')
     })
     const _this = this
-    window.Wallet = new Loopr();
-    window.Wallet.setConfigs().then(res => {
-      storage.wallet.storeUnlockedAddress("loopr", window.Wallet.address)
-      _this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
-      _this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
-      _this.props.dispatch({type: 'sockets/unlocked'});
-      Toast.hide()
-    })
+    if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeCallbackHandler){
+      window.Wallet = new Loopr();
+      window.Wallet.setConfigs().then(res => {
+        storage.wallet.storeUnlockedAddress("loopr", window.Wallet.address)
+        _this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+        _this.props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
+        _this.props.dispatch({type: 'sockets/unlocked'});
+        Toast.hide()
+      })
+    }
   }
 
   goToDex = () => {
