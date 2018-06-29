@@ -94,7 +94,10 @@ const notifications = {
     in_watch_only_mode:'Switched to Watch-only Mode',
     using_watch_only_mode:'You Are Now using Watch-only Mode',
     cancel_suc:'{type} Cancel Successfully',
-    cancel_fail:'{type} Cancel Failed'
+    cancel_fail:'{type} Cancel Failed',
+    invalid_number:'Please input valid number',
+    convert_suc:'Convert Successfully',
+    convert_fail:'Convert Failed'
   },
   message: {
     wallet_locked: 'Your wallet seems locked yet, please unlock first',
@@ -439,7 +442,8 @@ export default {
     actions_confirm_convert: 'Convert Now',
     actions_max: "Convert Max",
     notification_suc_title:'Succeed to Convert {value} {token}',
-    notification_fail_title:'Failed to Convert {value} {token}'
+    notification_fail_title:'Failed to Convert {value} {token}',
+    not_enough_tip:'{token} not enough'
   },
   receive: {
     receive_title: 'My {token} Address',
