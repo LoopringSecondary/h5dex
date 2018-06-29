@@ -59,7 +59,7 @@ class Routes extends React.Component{
                   width: '40px',
                   height: '40px',
                 }}>
-                  <img style={{borderRadius:"6px"}}  width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
+                  <img style={{borderRadius:"6px"}}  width="100%" src={require('../../assets/images/tokenest.png')} alt=""/>
                 </div>
               </div>
               <div className="col-auto text-center" style={{width: '30px'}}>
@@ -76,7 +76,7 @@ class Routes extends React.Component{
             </div>
             <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
               <div className="col text-center">
-                <div className="color-black-2 fs16">Loopr Wallet</div>
+                <div className="color-black-2 fs16">Tokenest</div>
               </div>
               <div className="col-auto text-center position-relative" style={{width: '30px'}}>
                 <div className="color-black-3 fs16"></div>

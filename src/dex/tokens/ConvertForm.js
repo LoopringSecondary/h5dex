@@ -137,9 +137,9 @@ class Convert extends React.Component {
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={()=>{}}
+          onLeftClick={()=>hideLayer({id:'convertToken'})}
           leftContent={[
-            <span key='1' className=""><WebIcon key="1" type="close"/></span>,
+            <span key='1' className=""><WebIcon type="close"/></span>,
           ]}
           rightContent={[
             <WebIcon key="1" type="question-circle-o"/>,

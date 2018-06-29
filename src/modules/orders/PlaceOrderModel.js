@@ -36,8 +36,15 @@ export default {
       let {pair, price} = payload
       if(pair) {
         yield put({ type: 'pairChange',payload:{pair}});
+        yield put({ type: 'unsignedChange',payload:{unsigned:null}});
+        yield put({ type: 'signedChange',payload:{signed:null}});
+        yield put({ type: 'sideChangeEffects',payload:{side:'buy'}});
         if(price) {
           yield put({ type: 'priceChange',payload:{priceInput:price}});
+          yield put({ type: 'priceChangedChange',payload:{priceChanged:true}});
+        } else {
+          yield put({ type: 'priceChange',payload:{priceInput:0}});
+          yield put({ type: 'priceChangedChange',payload:{priceChanged:false}});
         }
       }
     },

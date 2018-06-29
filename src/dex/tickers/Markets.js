@@ -23,7 +23,7 @@ class Markets extends React.Component {
               <i key="1" className="icon-home" />,
             ]}
             rightContent={[
-              <i key="1" className="icon-search" />,
+              <i onClick={()=>window.Toast.info('Coming Soon', 1)} key="1" className="icon-search" />,
             ]}
           >
             {intl.get('common.markets')}
