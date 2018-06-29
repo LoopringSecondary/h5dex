@@ -4,7 +4,7 @@ import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { connect } from 'dva';
 import routeActions from 'common/utils/routeActions'
 import {getTokensByMarket} from 'modules/formatter/common'
-import {toBig,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
+import {toBig,toNumber,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal';
 import * as orderFormatter from 'modules/orders/formatters'
 import moment from 'moment'
@@ -34,7 +34,7 @@ const PlaceOrderForm = (props)=>{
   const amountPrecision = Math.max(0, right.precision - marketConfig.pricePrecision)
   let amount = placeOrder.amountInput
   let price = placeOrder.priceInput
-  if(!placeOrder.priceChanged && price === '0' && lastPrice) {
+  if(!placeOrder.priceChanged && toNumber(price) === 0 && lastPrice) {
     dispatch({
       type:'placeOrder/priceChangeEffects',
       payload:{

@@ -41,6 +41,10 @@ export default {
         yield put({ type: 'sideChangeEffects',payload:{side:'buy'}});
         if(price) {
           yield put({ type: 'priceChange',payload:{priceInput:price}});
+          yield put({ type: 'priceChangedChange',payload:{priceChanged:true}});
+        } else {
+          yield put({ type: 'priceChange',payload:{priceInput:0}});
+          yield put({ type: 'priceChangedChange',payload:{priceChanged:false}});
         }
       }
     },
