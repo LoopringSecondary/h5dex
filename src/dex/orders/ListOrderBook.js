@@ -32,6 +32,7 @@ function ListOrderBook(props) {
   console.log('ListOrderBook render',props)
   const {depth} = props
   const tokens = getTokensByMarket(depth.filters.market)
+  const sell = depth.item && depth.item.sell ? [...depth.item.sell].reverse() : []
   const priceSelected = (value, e) => {
     e.preventDefault()
     props.dispatch({type:'placeOrder/priceChangeEffects', payload:{price:value}})
@@ -66,7 +67,7 @@ function ListOrderBook(props) {
               <Spin spinning={depth.loading}>
                 <ul style={{height: "100%", overflow:"auto",paddingTop:"0",marginBottom:"0px" }}>
                       {
-                        depth.item.sell.map((item,index)=>
+                        sell.map((item,index)=>
                           <Popover placement="right" content={<ItemMore item={item} />} title={null} key={index}>
                             <li >
                               <span className="text-down cursor-pointer" onClick={priceSelected.bind(this, Number(item[0]).toFixed(8))}>{Number(item[0]).toFixed(8)}</span>
