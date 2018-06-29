@@ -7,37 +7,41 @@
 @fill-body: #f5f5f9;
 
 
-// loopr
-@brand-primary: #1C60FF;
-@brand-primary-light: fade(#1C60FF,10%);
-@brand-primary-tap: fade(@brand-primary,95%);
-@radius-xs: 0;
-@radius-sm: 0;
-@radius-md: 0;
-@radius-lg: 0;
-@radius-xs: 4 * @hd;
-@radius-sm: 4 * @hd;
-@radius-md: 4 * @hd;
-@radius-lg: 4 * @hd;
 
-// tokenest
-@brand-primary: #2e2ba4;
+// @radius-xs: 0;
+// @radius-sm: 0;
+// @radius-md: 0;
+// @radius-lg: 0;
+// @radius-xs: 4 * @hd;
+// @radius-sm: 4 * @hd;
+// @radius-md: 4 * @hd;
+// @radius-lg: 4 * @hd;
 @radius-xs: 50em;
 @radius-sm: 50em;
 @radius-md: 50em;
 @radius-lg: 7 * @hd;
-
-
-@brand-error: #f44336; // color-red-500
 @brand-important: @brand-error; // hot dot
 @brand-success: #4caf50; // color-green-500
 
 
+
+// loopr
+@brand-primary: #1C60FF;
+@brand-primary-light: fade(#1C60FF,8%);
+@brand-primary-tap: fade(@brand-primary,95%);
+
+// tokenest
+// @brand-primary: #2e2ba4;
+// @brand-error: #f44336; // color-red-500
+
 // imtoken
-@brand-primary: #0062ad;
-@brand-error: #d3573a; // color-red-500
-@brand-important: @brand-error; // hot dot
-@brand-success: #58c193; // color-green-500
+// @brand-primary: #0062ad;
+// @brand-error: #d3573a; // color-red-500
+// @brand-important: @brand-error; // hot dot
+// @brand-success: #58c193; // color-green-500
+// @brand-error: #f44336; // color-red-500
+// @brand-important: @brand-error; // hot dot
+// @brand-success: #4caf50; // color-green-500
 
 @radius-circle: 50%;
 @button-height: 44 * @hd;
@@ -125,6 +129,13 @@
     color:@brand-primary !important;
   }
 }
+.am-segment-item{
+  border-color:@brand-primary-light !important;
+  background: @brand-primary-light !important;
+  &.am-segment-item-selected{
+    background: @brand-primary !important;
+  }
+}
 .am-segment-item-selected{
     // background: #000 !important;
     // color:#fff !important;
@@ -149,7 +160,7 @@
   &.t-light{
     background: @brand-primary-light !important;
     color: @brand-primary !important;
-    border:none !important;
+    border-color:@brand-primary-light !important;
     &::before{
       border:none!important;
     }

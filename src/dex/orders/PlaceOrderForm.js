@@ -237,14 +237,14 @@ const PlaceOrderForm = (props)=>{
           </div>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type={submitEnable ? "primary" : "ghost"} disabled={false}>
-              {intl.get("common.sell")} {amount} {tokens.left}
+            <Button onClick={toConfirm} className={`w-100 d-block mb10 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
+              {intl.get("common.sell")} {amount ? amount : 0} {tokens.left}
             </Button>
           }
           {
             side === 'buy' &&
-            <Button onClick={toConfirm} className="w-100 d-block mb10 fs16" type={submitEnable ? "primary" : "ghost"} disabled={false}>
-              {intl.get("common.buy")} {amount} {tokens.left}
+            <Button onClick={toConfirm} className={`w-100 d-block mb10 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
+              {intl.get("common.buy")} {amount ? amount : 0} {tokens.left}
             </Button>
           }
         </Item>
