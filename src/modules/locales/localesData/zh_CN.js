@@ -96,7 +96,10 @@ const notifications = {
     in_watch_only_mode:'已切换至观察模式',
     using_watch_only_mode:'您正在使用观察模式',
     cancel_suc:'{type}取消成功',
-    cancel_fail:'{type}取消失败'
+    cancel_fail:'{type}取消失败',
+    invalid_number:'请输入合法的数字',
+    convert_suc:'转换成功',
+    convert_fail:'转换失败'
   },
   message: {
     wallet_locked: '您的钱包还未解锁，请先解锁后再继续操作',
@@ -447,7 +450,8 @@ export default {
     actions_confirm_convert: '确认转换',
     actions_max: "最大数量",
     notification_suc_title:'转换{value} {token}成功',
-    notification_fail_title:'转换{value} {token}失败'
+    notification_fail_title:'转换{value} {token}失败',
+    not_enough_tip:'{token} 余额不足'
   },
 
   unlock: {

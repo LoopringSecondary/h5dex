@@ -2,6 +2,8 @@ import Wallet from 'common/wallets/wallet'
 import {fromPrivateKey} from 'LoopringJS/ethereum/account'
 import util,{keccakHash} from 'LoopringJS/common/utils'
 import {toBuffer} from "LoopringJS/common/formatter";
+import {Toast} from 'antd-mobile'
+
 
 export default class MockWallet extends Wallet {
   constructor(key) {
@@ -9,7 +11,6 @@ export default class MockWallet extends Wallet {
     if(key){
       this.key = key
       this.wallet = fromPrivateKey(key);
-    }else{
     }
     this.walletType='mock'
   }
@@ -47,21 +48,29 @@ export default class MockWallet extends Wallet {
   signMessage(message) {
     const hash = util.hashPersonalMessage(toBuffer(keccakHash(toBuffer(message))));
     return new Promise((resolve) => {
-      const sig = this.wallet.sign(hash);
-      resolve({result: sig})
+      if(this.key){
+        const sig = this.wallet.sign(hash);
+        resolve({result: sig})
+      }else{
+        Toast.fail('Mock 模式不支持Sign操作')
+      }
     })
   }
 
   signTx(tx) {
-
     const {chainId, data, gasPrice, gasLimit} = tx;
     tx.chainId = chainId || 1;
     tx.data = data || '0x';
     tx.gasPrice = gasPrice || '0x2540be400';
     tx.gasLimit = gasLimit || '0x249f0';
     return new Promise((resolve) => {
-      const sig = this.wallet.signEthereumTx(tx);
-      resolve({result: sig})
+      if(this.key){
+        const sig = this.wallet.signEthereumTx(tx);
+        resolve({result: sig})
+      }else{
+        Toast.fail('Mock 模式不支持Sign操作')
+      }
+
     })
   }
 }
