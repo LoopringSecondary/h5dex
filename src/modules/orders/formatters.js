@@ -96,7 +96,12 @@ export function formatAmountByMarket(amount, tokenConfig, marketConfig) {
   if(amount && amount.toString() !== '0') {
     const amountPrecision = tokenConfig.precision - marketConfig.pricePrecision
     if (amountPrecision > 0) {
-      return fm.toFixed(amount, amountPrecision, false)
+      const amountArr = amount.toString().split(".")
+      if(amountArr.length === 2) {
+        if(isValidInteger(amountArr[0]) && isValidInteger(amountArr[1]) && amountArr[1].length > amountPrecision) {
+          return fm.toFixed(fm.toBig(amount.toString()), amountPrecision, false)
+        }
+      }
     } else {
       return Math.floor(amount)
     }
