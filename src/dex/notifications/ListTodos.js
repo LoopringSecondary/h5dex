@@ -118,7 +118,7 @@ const TodoItem = (props) => {
     return (
       <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
         <div className="col-auo pr15 color-black text-center">
-          <WebIcon className="color-red-500 fs16" type="close-circle"/>
+          <WebIcon className="color-error fs16" type="close-circle"/>
         </div>
         <div className="col text-left">
           <div>
@@ -143,7 +143,7 @@ const TodoItem = (props) => {
       <div className="">
         <div className="row ml0 mr0 pl10 pr10 pt15 align-items-center no-gutters" onClick={() => {}}>
           <div className="col-auo pr15 color-black text-center">
-            <WebIcon className="color-red-500 fs16" type="exclamation-circle"/>
+            <WebIcon className="color-error fs16" type="exclamation-circle"/>
           </div>
           <div className="col text-left">
             <div>

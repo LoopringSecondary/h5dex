@@ -29,18 +29,18 @@ const ListMarketFills = ({trades={},maxRows=5})=>{
                   <tr key={index}>
                     <td className="pl10 pr5 pt10 pb10 zb-b-b text-left align-middle ">
                       {
-                        index%2 === 0 && <span className="color-red-500">{intl.get("common.sell")}</span>
+                        index%2 === 0 && <span className="color-error">{intl.get("common.sell")}</span>
                       }
                       {
-                        index%2 === 1 && <span className="color-green-500">{intl.get("common.buy")}</span>
+                        index%2 === 1 && <span className="color-success">{intl.get("common.buy")}</span>
                       }
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle">
                       {
-                        index%2 === 0 && <span className="color-red-500">{item.price}</span>
+                        index%2 === 0 && <span className="color-error">{item.price}</span>
                       }
                       {
-                        index%2 === 1 && <span className="color-green-500">{item.price}</span>
+                        index%2 === 1 && <span className="color-success">{item.price}</span>
                       }
                     </td>
                     <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">

@@ -31,7 +31,7 @@ const ListDepth = ({depth={},maxRows=5})=>{
                         <td className="pl10 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle">
                           {Number(item[1]).toFixed(4)}
                         </td>
-                        <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-green-500 align-middle">
+                        <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-success align-middle">
                           {Number(item[0]).toFixed(8)}
                           <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                         </td>
@@ -63,7 +63,7 @@ const ListDepth = ({depth={},maxRows=5})=>{
                     {
                       sell.map((item,index)=>
                         <tr key={index} className="">
-                          <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-red-500 align-middle">
+                          <td className="pl5 pr5 pt10 pb10 zb-b-b text-left color-error align-middle">
                             {Number(item[0]).toFixed(8)}
                             <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
                           </td>

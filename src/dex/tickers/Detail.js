@@ -24,10 +24,10 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
   const price = tickerFm.getLast() && formatPrice(tokens.left, tokens.right, tickerFm.getLast())
   let color
   if(direction === 'up'){
-    color = "color-green-500"
+    color = "color-success"
   }
   if(direction === 'down'){
-    color = "color-red-500"
+    color = "color-error"
   }
   if(direction === 'none'){
     color = "color-grey-500"

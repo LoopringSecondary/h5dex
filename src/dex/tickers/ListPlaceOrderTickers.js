@@ -34,13 +34,13 @@ const TickerItem = ({item,actions,key,dispatch})=>{
         <div className="col-3 text-right">
           {
             direction === 'up' &&
-            <span className="border-none fs14 color-green-500">
+            <span className="border-none fs14 color-success">
              +{tickerFm.getChange()}
             </span>
           }
           {
             direction === 'down' &&
-            <span className="border-none fs14 color-red-500">
+            <span className="border-none fs14 color-error">
              {tickerFm.getChange()}
             </span>
           }
