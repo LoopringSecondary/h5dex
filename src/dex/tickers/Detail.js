@@ -8,11 +8,12 @@ import ListFills from '../fills/ListMarketFills';
 import Containers from 'modules/containers';
 import UiContainers from 'LoopringUI/containers'
 import routeActions from 'common/utils/routeActions'
-import {TickerFm} from 'modules/tickers/formatters'
 import {getTokensByMarket} from 'modules/formatter/common'
 import intl from 'react-intl-universal'
 import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
+import markets from 'modules/storage/markets'
+import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -81,7 +82,8 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
 
 class MarketDetail extends React.Component {
   render() {
-    const dispatch = this.props.dispatch
+    const {loopringTickers:list,dispatch} = this.props
+    const {extra:{favored={},keywords}} = list
     const params = routeActions.match.getParams(this.props)
     if(!params.market) return null
     const market = params.market
@@ -92,6 +94,18 @@ class MarketDetail extends React.Component {
         payload:{side}
       })
       routeActions.gotoPath(`/dex/placeOrder/${market}`)
+    }
+    const toggleTickerFavored = (item)=>{
+      dispatch({
+        type:'sockets/extraChange',
+        payload:{
+          id:'loopringTickers',
+          extra:{
+            favored:{...favored,[item]:!favored[item]},
+          }
+        }
+      })
+      markets.toggleFavor(item)
     }
     const menu1 = `${intl.get("common.buy")} ${tokens.left}`
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
@@ -106,7 +120,7 @@ class MarketDetail extends React.Component {
             <Icon key="1" type="left" onClick={routeActions.goBack} className="" />,
           ]}
           rightContent={[
-            <WebIcon className="fs18" key="1" type="star-o" />,
+            <WebIcon className="fs18" key="1" type={favored[market] ? "star" : "star-o"} onClick={toggleTickerFavored.bind(this, market)}/>
           ]}
         >
           {market}
@@ -154,7 +168,9 @@ class MarketDetail extends React.Component {
     );
   }
 }
-export default connect()(MarketDetail)
+export default connect(
+  ({sockets:{loopringTickers}})=>({loopringTickers})
+)(MarketDetail)
 
 
 
