@@ -135,7 +135,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       return <Button onClick={cancelOrder.bind(this, item)} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">{intl.get('common.cancel')}</Button>
     }
     if (item.status === 'ORDER_FINISHED') {
-      return <span className="color-green-500"><WebIcon type="check-circle" /></span>
+      return <span className="color-success"><WebIcon type="check-circle" /></span>
     }
     if (item.status === 'ORDER_CANCELLED') {
       return <span className="color-black-4">{intl.get("order_status.canceled")}</span>
@@ -192,8 +192,8 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
             return (
               <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
                 <td className="zb-b-b pt10 pb10 pl10 pr5 text-left">
-                  {orderFm.getSide() === 'buy' && <span className="color-green-500">{intl.get("common.buy")}</span>}
-                  {orderFm.getSide() === 'sell' && <span className="color-red-500">{intl.get("common.sell")}</span>}
+                  {orderFm.getSide() === 'buy' && <span className="color-success">{intl.get("common.buy")}</span>}
+                  {orderFm.getSide() === 'sell' && <span className="color-error">{intl.get("common.sell")}</span>}
                 </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                   {orderFm.getPrice()}

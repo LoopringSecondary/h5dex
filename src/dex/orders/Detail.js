@@ -162,10 +162,10 @@ function OrderDetail(props) {
                 <WebSteps.Step title="Matching" description={
                   <div>
                     <div className="mb5">Miners are searching matched order</div>
-                    <div className="color-red-500 mt5">
+                    <div className="color-error mt5">
                       <Icon type="exclamation-circle-o" /> <span className="">LRC balance is not sufficient .</span>
                     </div>
-                    <div className="color-red-500 mt5">
+                    <div className="color-error mt5">
                       <Icon type="exclamation-circle-o" /> <span className="">WETH balance is not sufficient .</span>
                     </div>
                     <Button className="mt5 mr5 d-inline-block" type="warning" size="small">Cancel Order</Button>

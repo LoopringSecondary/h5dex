@@ -76,8 +76,8 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
                   return (
                     <tr key={index}>
                       <td className="pl10 pr5 pt10 pb10 zb-b-b text-left align-middle" onClick={changePrice.bind(this, item)}>
-                        { item.side === 'buy' && <div className="color-green-500">{intl.get('common.buy')}</div> }
-                        { item.side === 'sell' && <div className="color-red-500">{intl.get('common.sell')}</div> }
+                        { item.side === 'buy' && <div className="color-success">{intl.get('common.buy')}</div> }
+                        { item.side === 'sell' && <div className="color-error">{intl.get('common.sell')}</div> }
                       </td>
                       <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle " onClick={changePrice.bind(this, item)}>
                        {fillFm.getPrice()}
