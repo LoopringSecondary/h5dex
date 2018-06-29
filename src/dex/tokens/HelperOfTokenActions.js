@@ -30,24 +30,26 @@ function HelperOfTokenActions(props) {
   }
 
   const gotoTrading = () => {
+    hideLayer({id:'helperOfTokenActions'})
     const market = config.getTokenSupportedMarket(symbol)
     if (market) {
       routeActions.gotoPath(`/dex/placeOrder/${market}`)
       return
     }
     routeActions.gotoPath(`/dex/placeOrder`)
+
   }
 
   return (
     <div className="">
         <List renderHeader={() => <div className="pt5 pb5 fs18 color-black-1">{symbol} {intl.get('common.actions')}</div>} className="popup-list">
-          {
+          {false &&
             symbol === 'WETH' &&
             <List.Item arrow="horizontal" extra={``}>
               {intl.get('convert.convert_eth_title')}
             </List.Item>
           }
-          {
+          {false &&
             symbol === 'ETH' &&
             <List.Item arrow="horizontal" extra={``}>
               {intl.get('convert.convert_weth_title')}
