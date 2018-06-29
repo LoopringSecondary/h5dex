@@ -31,8 +31,8 @@
 @brand-primary-tap: fade(@brand-primary,95%);
 
 // tokenest
-// @brand-primary: #2e2ba4;
-// @brand-error: #f44336; // color-red-500
+@brand-primary: #2e2ba4;
+@brand-error: #f44336; // color-red-500
 
 // imtoken
 // @brand-primary: #0062ad;
@@ -130,7 +130,8 @@
   }
 }
 .am-segment-item{
-  border-color:@brand-primary-light !important;
+  // border-color:@brand-primary-light !important;
+  border:none !important;
   background: @brand-primary-light !important;
   &.am-segment-item-selected{
     background: @brand-primary !important;

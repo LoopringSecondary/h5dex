@@ -58,6 +58,7 @@ const words = {
   fills:'Fills',
   yes:'Yes',
   no:'No',
+  more:'More',
   list:{
     no_data:'No Data',
     loading:'Loading...',

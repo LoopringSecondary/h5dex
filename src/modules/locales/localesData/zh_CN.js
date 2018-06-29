@@ -59,6 +59,7 @@ const words = {
   fills:'成交',
   yes:'是',
   no:'否',
+  more:'更多',
   list:{
     no_data:'暂无数据',
     loading:'加载中...',

@@ -160,7 +160,7 @@ class MarketDetail extends React.Component {
                 <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="">{intl.get("common.buy")} {tokens.left}</Button>
               </div>
               <div className="col-6 pl5">
-                <Button type="ghost" onClick={gotoTrade.bind(this,{side:'sell'})} className="">{intl.get("common.sell")} {tokens.left}</Button>
+                <Button type="ghost" onClick={gotoTrade.bind(this,{side:'sell'})} className="t-light">{intl.get("common.sell")} {tokens.left}</Button>
               </div>
             </div>
         </div>
