@@ -33,6 +33,10 @@ const TokenListComp = (props)=>{
   const showConvert = (token) => {
     dispatch({type: 'layers/showLayer', payload: {id: 'convertToken',token}});
   }
+  const showActions = (symbol) => {
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions',symbol}});
+  }
+
   return (
     <div className="fs20">
       <table className="w-100 fs13">
@@ -62,7 +66,7 @@ const TokenListComp = (props)=>{
                         token.symbol === 'WETH' &&
                         <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={() => showConvert('ETH')}>{intl.get('common.convert')}</Button>
                       }
-                      <Button type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small" onClick={() => showReceive(token.symbol)}>
+                      <Button type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small" onClick={() => showActions(token.symbol)}>
                         <WebIcon type="ellipsis" />
                       </Button>
                     </td>
