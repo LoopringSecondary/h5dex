@@ -106,7 +106,7 @@ class MarketDetail extends React.Component {
             <Icon key="1" type="left" onClick={routeActions.goBack} className="" />,
           ]}
           rightContent={[
-            <Icon key="1" type="star" />,
+            <WebIcon className="fs18" key="1" type="star-o" />,
           ]}
         >
           {market}

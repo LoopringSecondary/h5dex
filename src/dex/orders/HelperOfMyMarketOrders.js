@@ -176,11 +176,11 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
             {
               orders.items && orders.items.length > 0 &&
               <Button onClick={cancelOrderByTokenPair.bind(this)} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">
-                {intl.get('common.all')}
+                {intl.get('common.cancel')}
               </Button>
             }
             {
-              orders.items && orders.items.length == 0 && 'Status'
+              orders.items && orders.items.length == 0 && intl.get('common.status')
             }
           </th>
         </tr>

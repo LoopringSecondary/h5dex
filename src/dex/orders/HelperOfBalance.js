@@ -34,13 +34,13 @@ const HelperOfBalance = (props)=>{
   }
   relatedTokens.push(balanceL)
   relatedTokens.push(balanceR)
-  if(tokens.right === 'WETH') {
-    relatedTokens.push({
-      symbol:'ETH',
-      name:'ETH',
-      ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
-    })
-  }
+  // if(tokens.right === 'WETH') {
+  //   relatedTokens.push({
+  //     symbol:'ETH',
+  //     name:'ETH',
+  //     ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
+  //   })
+  // }
   const gotoReceive = (payload)=>{
     showLayer({id:'receiveToken',...payload})
   }
@@ -59,7 +59,7 @@ const HelperOfBalance = (props)=>{
           <tr className="">
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">{intl.get('common.token')}</th>
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">{intl.get('common.balance')}</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">开启交易</th>
+            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">交易授权</th>
             <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('helper_of_market_order.selling')}</th>
             <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.actions')}</th>
           </tr>
@@ -73,7 +73,7 @@ const HelperOfBalance = (props)=>{
                     <span hidden className="color-black-3 ml5">{token.name}</span>
                   </td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance, 8)}</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
+                  <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
                     {
                       token.symbol !== 'ETH' && index === 0 && <Switch size="small" loading={true} />
                     }
@@ -82,17 +82,20 @@ const HelperOfBalance = (props)=>{
                     }
                   </td>
                   <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">0.00</td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right text-nowrap">
                     {
-                      true && token.symbol === 'ETH' &&
-                      <Button onClick={gotoConvert.bind(this,{type:"eth2weth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">{intl.get('common.convert')}</Button>
+                      token.symbol === 'ETH' &&
+                      <Button onClick={gotoConvert.bind(this,{type:"eth2weth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
                     {
-                      true && token.symbol === 'WETH' &&
-                      <Button onClick={gotoConvert.bind(this,{type:"weth2eth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">{intl.get('common.convert')}</Button>
+                      token.symbol === 'WETH' &&
+                      <Button onClick={gotoConvert.bind(this,{type:"weth2eth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
                     {
-                      false && <Button onClick={gotoReceive.bind(this,{symbol:token.symbol})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">{intl.get('common.receive')}</Button>
+                      true &&
+                      <Button onClick={gotoReceive.bind(this,{symbol:token.symbol})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
+                        <WebIcon type="ellipsis" />
+                      </Button>
                     }
                   </td>
                 </tr>

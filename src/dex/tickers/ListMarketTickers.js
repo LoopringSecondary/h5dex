@@ -5,7 +5,7 @@ import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
 import { ListView,Button,Tabs } from 'antd-mobile'
-import { Spin } from 'antd'
+import { Spin,Icon } from 'antd'
 import { getMarketTickersBySymbol } from './formatters'
 import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
@@ -14,7 +14,7 @@ export const TickerHeader = ({list,actions})=>{
     return (
         <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
           <div className="col-5 fs13 color-black-4 text-left">{intl.get('common.market')}</div>
-          <div className="col-4 text-left pr10">
+          <div className="col text-left pr10">
             <div className="fs13 color-black-4 ">{intl.get('common.price')}</div>
           </div>
           <div className="col-3 text-right">
@@ -37,9 +37,10 @@ export const TickerItem = ({item,actions,key})=>{
         <div className="col-5 text-left">
           <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
           <span className="fs14 color-black-4"> / {tokens.right}</span>
+          <span className="fs14 color-black-4"> <Icon type="star-o" className="" /> </span>
           <div className="fs14 color-black-4">Vol {tickerFm.getVol()}</div>
         </div>
-        <div className="col-4 text-left">
+        <div className="col text-left pr10">
           <div className="fs16 color-black-1 font-weight-bold-bak lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
           <div className="fs14 color-black-4"><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
         </div>
