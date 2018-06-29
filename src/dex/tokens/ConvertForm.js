@@ -113,11 +113,11 @@ class Convert extends React.Component {
               Toast.success(intl.get('notifications.title.convert_suc'))
               hideLayer({id:'convertToken'})
             }else{
-              Toast.fail(intl.get('notifications.title.convert_suc')+":"+resp.error.message)
+              Toast.fail(intl.get('notifications.title.convert_fail')+":"+resp.error.message)
             }
           })
         }else{
-          Toast.fail(intl.get('notifications.title.convert_suc')+":"+res.error.message)
+          Toast.fail(intl.get('notifications.title.convert_fail')+":"+res.error.message)
         }
       })
     }
