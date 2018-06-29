@@ -12,6 +12,7 @@ import storage from 'modules/storage'
 import Worth from 'modules/settings/Worth'
 import {signTx,signMessage} from '../../common/utils/signUtils'
 import Notification from 'LoopringUI/components/Notification'
+import ConvertHelperOfBalance from './ConvertHelperOfBalance'
 
 
 const WETH = Contracts.WETH
@@ -147,79 +148,56 @@ class Convert extends React.Component {
             <WebIcon key="1" type="question-circle-o"/>,
           ]}
         >
-          {intl.get('common.convert')} {token}
+          {intl.get('common.convert')}
         </NavBar>
-        <div className="zb-b-b pt25 pb25 pl15 pr15">
-          <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
-            <div className="col text-center">
-              <div className="d-inline-flex align-items-center justify-content-center color-black-1 text-center border-grey-300" style={{
-                width: '40px',
-                height: '40px',
-                lineHeight: '38px',
-                borderRadius: '50em',
-                border: '1px solid'
-              }}>
-                <i className={`icon-token-${token.toUpperCase()} fs24`}/>
+        <div className="zb-b-b">
+          <div className="p15">
+            <div hidden className="row ml0 mr0 no-gutters align-items-center justify-content-center">
+              <div className="col text-center d-flex align-items-center justify-content-center">
+                <div className="d-inline-flex align-items-center justify-content-center bg-primary color-white radius-circle" style={{width:'40px',height:'40px'}}>
+                  <i className={`icon-token-${token.toUpperCase()} fs24`}/>
+                </div>
+                <span className="ml5">{token}</span>
+              </div>
+              <div className="col-auto text-center" style={{width: '44px'}}>
+                <i className={`icon-long-arrow-right color-black-1 fs20`}/>
+              </div>
+              <div className="col text-center d-flex align-items-center justify-content-center">
+                <span className="mr5">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</span>
+                <div className="d-inline-flex align-items-center justify-content-center bg-primary color-white radius-circle" style={{width:'40px',height:'40px'}}>
+                  <i className={`icon-token-${token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} fs24`}/>
+                </div>
               </div>
             </div>
-            <div className="col-auto text-center" style={{width: '30px'}}>
-              <i className={`icon-long-arrow-right color-black-1 fs20`}/>
-            </div>
-            <div className="col text-center">
-              <div className="d-inline-flex align-items-center justify-content-center ccolor-black-1 text-center border-grey-300" style={{
-                width: '40px',
-                height: '40px',
-                lineHeight: '38px',
-                borderRadius: '50em',
-                border: '1px solid'
-              }}>
-                <i className={`icon-token-${token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} fs24`}/>
+            <div className="row ml0 mr0 mt10 no-gutters align-items-center justify-content-center">
+              <div className="col text-right">
+                <Input prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
+              </div>
+              <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
+                <WebIcon type="swap" className="fs20 text-primary" />
+              </div>
+              <div className="col text-left">
+                <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text" onChange={amountChange} value={amount}/>
               </div>
             </div>
+            <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
+              <div className="col">
+                <div className="color-black-2 fs14 text-left">Gas Fee</div>
+              </div>
+              <div className="col-auto fs14 color-black-2">
+                  <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
+                <WebIcon type="right"/>
+              </div>
+            </div>
+            <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
+              {token.toLowerCase() === 'eth' ? 'Convert ETH To WETH' : 'Convert WETH To ETH'}
+            </Button>
           </div>
-          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
-            <div className="col text-center">
-              <div className="color-black-2 fs16">{token}</div>
-            </div>
-            <div className="col-auto text-center position-relative" style={{width: '30px'}}>
-              <div className="color-black-3 fs16"></div>
-            </div>
-            <div className="col text-center">
-              <div className="color-black-2 fs16">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</div>
-            </div>
-          </div>
-
-          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
-            <div className="col text-center">
-              <Input type="text" onChange={amountChange} value={amount}/>
-            </div>
-            <div className="col-auto text-center" style={{width: '30px'}}>
-            </div>
-            <div className="col text-center">
-              <Input type="text" onChange={amountChange} value={amount}/>
-            </div>
-          </div>
-          <div className='mt20'>
+          <div hidden className='mt20'>
             <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
-          <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm}
-                     type="primary">{token.toLowerCase() === 'eth' ? 'Convert ETH To WETH' : 'Convert WETH To ETH'}</Button>
-          <div className="row ml0 mr0 mt15 no-gutters">
-            <div className="col">
-              <div className="color-black-2 fs14">Ratio</div>
-            </div>
-            <div className="col-auto fs14 color-black-3">
-              1 ETH = 1 WETH
-            </div>
-          </div>
-          <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
-            <div className="col">
-              <div className="color-black-2 fs14">Gas Fee</div>
-            </div>
-            <div className="col-auto fs14 color-black-2">
-                <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-              <WebIcon type="right"/>
-            </div>
+          <div hidden className="bg-grey-100 mt15">
+            <ConvertHelperOfBalance />
           </div>
         </div>
       </div>
@@ -228,7 +206,6 @@ class Convert extends React.Component {
 }
 
 function mapStateToProps (state) {
-
   return {
     balance: state.sockets.balance,
     prices: state.sockets.marketcap.items,

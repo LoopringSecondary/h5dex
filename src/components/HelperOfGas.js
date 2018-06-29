@@ -51,7 +51,7 @@ function HelperOfGas(props) {
 
   return (
     <div className="">
-      <div className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
+      <div className="pt10 pb10 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
       <div className="bg-grey-100">
         <div className="row p15 ml0 mr0 zb-b-b">
           <div className="col color-black-1 text-left pl15" onClick={tabChanged.bind(this, 'estimate')}>

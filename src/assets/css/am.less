@@ -46,8 +46,15 @@
 .radius-4{
   border-radius:4px !important;
 }
+.radius-8{
+  border-radius:8px !important;
+}
 .am-toast-notice-content .am-toast-text.am-toast-text-icon{
   border-radius:4px;
+}
+.am-card:not(.am-card-full)::before{
+  border-radius:12px !important;
+  border:0 !important;
 }
 
 .am-segment-item.t-light{
@@ -220,3 +227,23 @@
   flex-basis:auto !important;
   flex-shrink:1 ;
 }
+
+// ========
+// ant-input
+// ========
+
+.text-right{
+  .ant-input{
+    text-align: right !important;
+  }
+}
+.text-left{
+  .ant-input{
+    text-align: left !important;
+  }
+  .ant-input-affix-wrapper .ant-input:not(:last-child){
+    padding-left:15px !important;
+  }
+}
+
+

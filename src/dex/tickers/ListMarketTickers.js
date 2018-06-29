@@ -50,12 +50,22 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
         <div className="col-5 text-left">
-          <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
-          <span className="fs14 color-black-4"> / {tokens.right}</span>
-          <div className="fs14 color-black-4">
-            <span className="fs14 color-black-4"> <Icon type={favored[item.market] ? "star": "star-o"} className="" onClick={toggleTickerFavored.bind(this, item.market)}/> </span>
-            <span className="ml5">Vol {tickerFm.getVol()}</span>
-          </div>
+          <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
+          <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs14 color-black-4"> / {tokens.right}</span>
+          <br/>
+          <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs14 color-black-4">
+            <span className="fs14" >
+              {
+                favored[item.market] &&
+                <Icon type="star" className="text-primary"/>
+              }
+              {
+                !favored[item.market] &&
+                <Icon type="star-o" className=""/>
+              }
+              <span className="ml5">Vol {tickerFm.getVol()}</span>
+            </span>
+          </span>
         </div>
         <div className="col text-left pr10">
           <div className="fs16 color-black-1 font-weight-bold-bak lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>

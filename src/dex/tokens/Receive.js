@@ -65,18 +65,22 @@ import storage from 'modules/storage'
     const address = storage.wallet.getUnlockedAddress()
     const copyAddress = ()=>{ copy(address) ?  Toast.info(intl.get('notifications.title.copy_suc')) : Toast.fail(intl.get('notifications.title.copy_suc')) }
     return (
-      <Card >
-        <Card.Header  title = {<div className="fs18">{intl.get('receive.receive_title',{token:symbol})}</div>}/>
-        <Card.Body className="text-center">
-          <QRCode value={address} size={240} level='H'/>
-          {symbol  && toBig(amount).gt(0) && toBig(this.getNeeded()).gt(0) && <div className='fs3 color-black-1 text-center mt10 mb10'>
+      <Card>
+        <div className="text-center">
+          <span className="card-header-icon"><i className="icon-arrow-down"></i></span>
+        </div>
+        <div className="text-center">
+         <div className="recommended-tip fs12">{symbol  && toBig(amount).gt(0) && toBig(this.getNeeded()).gt(0) && <div className='color-black-1 text-center'>
             {intl.get('receive.receive_value_tip')} {this.getNeeded()}  {symbol.toUpperCase()}
-          </div>}
-          <div className="pt10 fs14 text-left" style={{width:'240px',margin:'0 auto',whiteSpace:'wrap',wordBreak:'break-all'}}>
+          </div>}</div>
+          <QRCode value={address} size={200} level='H'/>
+         
+          <div className="pt10 fs12 text-center" style={{width:'240px',margin:'0 auto',whiteSpace:'wrap',wordBreak:'break-all'}}>
             {address}
-            <Button type="primary" size="" className="d-block w-100 mt10" onClick={copyAddress}>{intl.get('common.copy')}</Button>
+            <Button type="primary" size="" className="d-block w-100 mt10 mb20" onClick={copyAddress}>{intl.get('common.copy')}</Button>
+
           </div>
-        </Card.Body>
+         </div>
       </Card>
     )
   }
