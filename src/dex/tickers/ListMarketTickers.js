@@ -9,6 +9,7 @@ import { Spin,Icon } from 'antd'
 import { getMarketTickersBySymbol } from './formatters'
 import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
+import markets from 'modules/storage/markets'
 
 export const TickerHeader = ({list,actions})=>{
     return (
@@ -24,21 +25,35 @@ export const TickerHeader = ({list,actions})=>{
     )
 }
 
-export const TickerItem = ({item,actions,key})=>{
+export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
     if(!item){ return null }
+    const {extra:{favored={},keywords}} = tickersList
     const tickerFm = new TickerFm(item)
+    const tokens = tickerFm.getTokens()
+    const direction = tickerFm.getChangeDirection()
     const gotoDetail = ()=>{
       routeActions.gotoPath(`/dex/markets/${item.market}`)
     }
-    const tokens = tickerFm.getTokens()
-    const direction = tickerFm.getChangeDirection()
+    const toggleTickerFavored = (item, e)=>{
+      e.stopPropagation();
+      dispatch({
+        type:'sockets/extraChange',
+        payload:{
+          id:'loopringTickers',
+          extra:{
+            favored:{...favored,[item]:!favored[item]},
+          }
+        }
+      })
+      markets.toggleFavor(item)
+    }
     return (
       <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
         <div className="col-5 text-left">
           <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
           <span className="fs14 color-black-4"> / {tokens.right}</span>
           <div className="fs14 color-black-4">
-            <span className="fs14 color-black-4"><Icon type="star-o" className="" /></span>
+            <span className="fs14 color-black-4"> <Icon type={favored[item.market] ? "star": "star-o"} className="" onClick={toggleTickerFavored.bind(this, item.market)}/> </span>
             <span className="ml5">Vol {tickerFm.getVol()}</span>
           </div>
         </div>
@@ -81,13 +96,13 @@ export const TickerItem = ({item,actions,key})=>{
       </div>
     )
 }
-export const TickerList = ({items,loading,dispatch})=>{
+export const TickerList = ({items,loading,dispatch, tickersList})=>{
   return (
     <div className="">
       <Spin spinning={loading}>
         <TickerHeader />
         <div className="divider 1px zb-b-t"></div>
-        {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
+        {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} tickersList={tickersList}/>)}
         {!loading && items.length === 0 &&
           <div className="p10 text-center color-black-3">
             {intl.get('common.list.no_data')}
@@ -126,9 +141,9 @@ class ListMarketTickers extends React.Component {
             onChange={(tab, index) => {}}
             onTabClick={(tab, index) => { }}
           >
-            <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} />
-            <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} />
-            <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} />
+            <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
+            <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
+            <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={[]} loading={list.loading} dispatch={dispatch} />
           </Tabs>
       )

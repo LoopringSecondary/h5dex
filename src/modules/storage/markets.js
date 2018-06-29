@@ -59,6 +59,7 @@ const toggleFavor = (market) => {
   markets.favors[market] = !markets.favors[market]
   localStorage.markets = JSON.stringify(markets)
 }
+
 const getFavors = (market) => {
   if (localStorage.markets) {
     let markets = JSON.parse(localStorage.markets)

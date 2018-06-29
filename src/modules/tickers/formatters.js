@@ -62,10 +62,10 @@ export const getAllTickers = (tickers)=>{
     new_items = new_items.filter(item=>item.market.toLowerCase().indexOf(extra.keywords.toLowerCase())> -1 );
   }
 
-  if(extra && extra.favored){
-    const {favored} = extra;
-    new_items = new_items.filter(item => !favored[item.market])
-  }
+  // if(extra && extra.favored){
+  //   const {favored} = extra;
+  //   new_items = new_items.filter(item => !favored[item.market])
+  // }
   return sortTickers(new_items)
 };
 

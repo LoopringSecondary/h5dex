@@ -14,6 +14,22 @@ const getCurrent = ()=>{
   }
 }
 
+const toggleFavor = (token) => {
+  let tokens = {}
+  if (
+    localStorage.tokens &&
+    localStorage.tokens !== 'undefined' &&
+    localStorage.tokens !== 'null'
+  ) {
+    tokens = JSON.parse(localStorage.tokens)
+  }
+  if (typeof tokens.favors !== 'object') {
+    tokens.favors = {}
+  }
+  tokens.favors[token] = !tokens.favors[token]
+  localStorage.tokens = JSON.stringify(tokens)
+}
+
 const getFavored = (market)=>{
   if(localStorage.tokens){
     let tokens = JSON.parse(localStorage.tokens)
@@ -22,6 +38,7 @@ const getFavored = (market)=>{
     return {}
   }
 }
+
 const getTokens = (market)=>{
   if(localStorage.tokens){
     let tokens = JSON.parse(localStorage.tokens)
@@ -80,6 +97,7 @@ const getCustomTokens = () => {
 
 export default {
   getCurrent,
+  toggleFavor,
   getFavored,
   getTokens,
   getCustomTokens,
