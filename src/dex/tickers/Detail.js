@@ -30,13 +30,13 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
     color = "color-error"
   }
   if(direction === 'none'){
-    color = "color-grey-500"
+    color = "color-black-1"
   }
 
   return (
     <div className="bg-white">
       <div className={`p10 zb-b-b ${color}`}>
-        <span className="fs24 font-weight-bold">
+        <span className="fs24">
           {price}
         </span>
         <span className="fs16 ml10">

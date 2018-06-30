@@ -28,7 +28,7 @@ class Markets extends React.Component {
           >
             {intl.get('common.markets')}
           </NavBar>
-          <div className="divider 1px z-b-b-t"></div>
+          <div className="divider 1px zb-b-t"></div>
           <ListMarketTickers />
         </div>
       </LayoutDexHome>

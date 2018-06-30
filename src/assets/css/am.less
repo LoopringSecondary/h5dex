@@ -7,7 +7,6 @@
 @fill-body: #f5f5f9;
 
 
-
 // @radius-xs: 0;
 // @radius-sm: 0;
 // @radius-md: 0;
@@ -22,26 +21,27 @@
 @radius-lg: 7 * @hd;
 @brand-important: @brand-error; // hot dot
 @brand-success: #4caf50; // color-green-500
-
+@brand-error: #f44336; // color-red-500
 
 
 // loopr
-@brand-primary: #1C60FF;
-@brand-primary-light: fade(#1C60FF,8%);
-@brand-primary-tap: fade(@brand-primary,95%);
+// @brand-primary: #1C60FF;
+// @brand-primary-light: fade(@brand-primary,10%);
+// @brand-primary-tap: fade(@brand-primary,95%);
 
 // tokenest
 @brand-primary: #2e2ba4;
-@brand-error: #f44336; // color-red-500
+@brand-primary-light: fade(@brand-primary,10%);
+@brand-primary-tap: fade(@brand-primary,95%);
+
 
 // imtoken
 // @brand-primary: #0062ad;
+// @brand-primary-light: fade(@brand-primary,10%);
+// @brand-primary-tap: fade(@brand-primary,95%);
 // @brand-error: #d3573a; // color-red-500
 // @brand-important: @brand-error; // hot dot
 // @brand-success: #58c193; // color-green-500
-// @brand-error: #f44336; // color-red-500
-// @brand-important: @brand-error; // hot dot
-// @brand-success: #4caf50; // color-green-500
 
 @radius-circle: 50%;
 @button-height: 44 * @hd;
@@ -83,6 +83,10 @@
 .color-success{
   color:@brand-success !important;
 }
+.color-primary-light{
+  color:@brand-primary-light !important;
+}
+
 .color-error{
   color:@brand-error !important;
 }
