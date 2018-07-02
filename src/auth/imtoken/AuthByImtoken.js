@@ -8,6 +8,12 @@ import storage from 'modules/storage';
 
 class AuthByImtoken extends React.Component {
 
+  componentWillMount(){
+    const address = storage.wallet.getUnlockedAddress()
+    if(address){
+      routeActions.gotoPath('/dex');
+    }
+  }
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
