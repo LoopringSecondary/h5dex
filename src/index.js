@@ -10,7 +10,14 @@ import Relay from 'LoopringJS/relay/relay';
 import {init} from './init'
 import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
+import {configs} from './common/config/data'
 
+const latestVersion = Number(configs.localStorageVersion)
+const oldVersion = Number(storage.getLocalStorageVersion())
+if(latestVersion > oldVersion) {
+  storage.clearLocalStorage()
+  storage.setLocalStorageVersion(latestVersion)
+}
 
 const host = storage.settings.get().relay.selected;
 
