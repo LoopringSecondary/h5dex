@@ -2,6 +2,7 @@ import '@babel/polyfill'
 import dva from 'dva'
 import { models } from './modules'
 import { message } from 'antd'
+import { Toast } from 'antd-mobile'
 import './assets/css/index.less'
 import {setLocale} from "./common/utils/localeSetting";
 import storage from './modules/storage';
@@ -12,12 +13,17 @@ import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
 import {configs} from './common/config/data'
 
+<<<<<<< HEAD
 const latestVersion = Number(configs.localStorageVersion)
 const oldVersion = Number(storage.getLocalStorageVersion())
 if(latestVersion > oldVersion) {
   storage.clearLocalStorage()
   storage.setLocalStorageVersion(latestVersion)
 }
+=======
+window.Toast = Toast
+
+>>>>>>> origin/master
 
 const host = storage.settings.get().relay.selected;
 

@@ -66,8 +66,8 @@ const TxItem = ({item={},actions,key,index})=>{
             <div>
               <div className="fs14 color-black-2">
                 {item.title}
-                { item.status === 'success' && <WebIcon className="ml5 fs14 color-green-500" type="check-circle-o" /> }
-                { item.status === 'failed' && <WebIcon className="ml5 fs14 color-red-500" type="exclamation-circle-o" /> }
+                { item.status === 'success' && <WebIcon className="ml5 fs14 color-success" type="check-circle-o" /> }
+                { item.status === 'failed' && <WebIcon className="ml5 fs14 color-error" type="exclamation-circle-o" /> }
                 { item.status === 'pending' && <WebIcon className="ml5 fs14 color-blue-500" type="clock-circle-o" /> }
               </div>
               <div className="fs12 color-black-3">

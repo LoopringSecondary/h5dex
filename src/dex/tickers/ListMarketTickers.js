@@ -48,7 +48,7 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
       markets.toggleFavor(item)
     }
     return (
-      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={gotoDetail}>
+      <div className="row ml0 mr0 p10 align-items-center no-gutters hover-default zb-b-b" onClick={gotoDetail}>
         <div className="col-5 text-left">
           <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
           <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs14 color-black-4"> / {tokens.right}</span>
@@ -74,13 +74,13 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
         <div className="col-3 text-right">
           {
             direction === 'up' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-500 color-white">
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-success color-white">
              +{tickerFm.getChange()}
             </Button>
           }
           {
             direction === 'down' &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-red-500 color-white">
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-error color-white">
              {tickerFm.getChange()}
             </Button>
           }
@@ -96,7 +96,7 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
           }
           {
             false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-500 color-white">+50.2%</Button>
+            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-success color-white">+50.2%</Button>
           }
           {
             false &&

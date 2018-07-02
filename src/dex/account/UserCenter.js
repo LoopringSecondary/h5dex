@@ -84,7 +84,7 @@ class UserCenter extends React.Component {
               <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
             rightContent={[
-              <span className="" key="1" onClick={()=>{}}><i className="icon-cog-o"></i></span>
+              <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1)}><i className="icon-cog-o"></i></span>
             ]}
           >
           {intl.get('usercenter.page_title')}
@@ -94,7 +94,7 @@ class UserCenter extends React.Component {
               <div className="col">
                 <div className="text-center color-white fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
-                  <div className="fs14 color-white-3 mt5">
+                  <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1)}>
                     {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
                   </div>
                 </div>

@@ -24,19 +24,19 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
   const price = tickerFm.getLast() && formatPrice(tokens.left, tokens.right, tickerFm.getLast())
   let color
   if(direction === 'up'){
-    color = "color-green-500"
+    color = "color-success"
   }
   if(direction === 'down'){
-    color = "color-red-500"
+    color = "color-error"
   }
   if(direction === 'none'){
-    color = "color-grey-500"
+    color = "color-black-1"
   }
 
   return (
     <div className="bg-white">
       <div className={`p10 zb-b-b ${color}`}>
-        <span className="fs24 font-weight-bold">
+        <span className="fs24">
           {price}
         </span>
         <span className="fs16 ml10">
@@ -160,7 +160,7 @@ class MarketDetail extends React.Component {
                 <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="">{intl.get("common.buy")} {tokens.left}</Button>
               </div>
               <div className="col-6 pl5">
-                <Button type="ghost" onClick={gotoTrade.bind(this,{side:'sell'})} className="">{intl.get("common.sell")} {tokens.left}</Button>
+                <Button type="ghost" onClick={gotoTrade.bind(this,{side:'sell'})} className="t-light">{intl.get("common.sell")} {tokens.left}</Button>
               </div>
             </div>
         </div>

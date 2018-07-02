@@ -73,12 +73,12 @@ class Convert extends React.Component {
     }
     const gotoConfirm = async () => {
       if (!isValidNumber(amount)) {
-        Toast.info('请输入合法的数字')
+        Toast.info(intl.get('notifications.title.invalid_number'))
         return
       }
 
       if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-        Toast.info('余额不足')
+        Toast.info(intl.get('convert.not_enough_tip',{token}))
         return
       }
       let data = ''
@@ -110,22 +110,19 @@ class Convert extends React.Component {
                 rawTx: tx,
                 from: address
               })
-              Modal.alert('convert success')
+              Toast.success(intl.get('notifications.title.convert_suc'))
+              hideLayer({id:'convertToken'})
             }else{
-              Modal.alert(resp.error.message)
+              Toast.fail(intl.get('notifications.title.convert_fail')+":"+resp.error.message)
             }
           })
         }else{
-          Modal.alert(res.error.message)
+          Toast.fail(intl.get('notifications.title.convert_fail')+":"+res.error.message)
         }
       })
     }
     const amountChange = (e) => {
-      if(e.target.value){
         dispatch({type:'convert/amountChange',payload:{amount:e.target.value}})
-      }else{
-        dispatch({type:'convert/amountChange',payload:{amount:0}})
-      }
     }
     const swap = () => {
       const {token} = this.state
@@ -140,9 +137,9 @@ class Convert extends React.Component {
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={()=>{}}
+          onLeftClick={()=>hideLayer({id:'convertToken'})}
           leftContent={[
-            <span key='1' className=""><WebIcon key="1" type="close"/></span>,
+            <span key='1' className=""><WebIcon type="close"/></span>,
           ]}
           rightContent={[
             <WebIcon key="1" type="question-circle-o"/>,
@@ -190,10 +187,10 @@ class Convert extends React.Component {
               </div>
             </div>
             <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
-              {token.toLowerCase() === 'eth' ? 'Convert ETH To WETH' : 'Convert WETH To ETH'}
+              {token.toLowerCase() === 'eth' ?  intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
             </Button>
           </div>
-          <div hidden className='mt20'>
+          <div hidden className='mt20'>w
             <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
           <div hidden className="bg-grey-100 mt15">

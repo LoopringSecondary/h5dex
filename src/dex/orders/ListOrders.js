@@ -41,13 +41,13 @@ export const OpenOrderList = ({orders={},dispatch})=>{
               <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
                 <td className="zb-b-b p10 pl10 text-left">
                   { orderFm.getSide() === 'buy' &&
-                    <span className="color-green-500">
+                    <span className="color-success">
                       <div>{orderFm.getPrice()}</div>
                       <div className="color-black-3">{market}</div>
                     </span>
                   }
                   { orderFm.getSide() === 'sell' &&
-                    <span className="color-red-500">
+                    <span className="color-error">
                       <div>{orderFm.getPrice()}</div>
                       <div className="color-black-3">{market}</div>
                     </span>
@@ -101,18 +101,18 @@ export const HistoryOrderList = ()=>{
           [1,2,3,4,5,6,7,8,9].map((item,index)=>
             <tr key={index} className="color-black-2">
               <td hidden className="zb-b-b p10 text-center">
-                {index%2 === 0 && <span className="color-green-500">Buy</span>}
-                {index%2 === 1 && <span className="color-red-500">Sell</span>}
+                {index%2 === 0 && <span className="color-success">Buy</span>}
+                {index%2 === 1 && <span className="color-error">Sell</span>}
               </td>
               <td className="zb-b-b p10 pl10 text-left">
-                {index%2 === 0 && <span className="color-green-500">0.00095000</span>}
-                {index%2 === 1 && <span className="color-red-500">0.00095000</span>}
+                {index%2 === 0 && <span className="color-success">0.00095000</span>}
+                {index%2 === 1 && <span className="color-error">0.00095000</span>}
               </td>
               <td className="zb-b-b p10 text-right">1000.0000</td>
               <td className="zb-b-b p10 text-right">80%</td>
               <td className="zb-b-b p10 text-right">2.5 LRC</td>
               <td className="zb-b-b p10 text-center">
-                { index%3 === 0 && <WebIcon className="zb-b-b color-green-500" type="check-circle" /> }
+                { index%3 === 0 && <WebIcon className="zb-b-b color-success" type="check-circle" /> }
                 { index%3 === 1 && <WebIcon className="zb-b-b color-black-4" type="close-circle" /> }
                 { index%3 === 2 && <WebIcon className="zb-b-b color-black-4" type="clock-circle" /> }
               </td>
@@ -162,7 +162,7 @@ export const renders = {
       }
     }
     if (status === 'ORDER_FINISHED') {
-      return <span className="color-green-500"><WebIcon type="check-circle" /></span>
+      return <span className="color-success"><WebIcon type="check-circle" /></span>
     }
     if (status === 'ORDER_CANCELLED') {
       return <span className="color-black-4">{intl.get("order_status.canceled")}</span>

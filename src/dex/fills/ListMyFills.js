@@ -23,13 +23,13 @@ const ListMyFills = ({fills={},maxRows=5})=>{
                   <tr key={index}>
                     {
                       item.side === 'buy' &&
-                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-green-500">
+                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-success">
                         {fillFm.getPrice()}
                       </td>
                     }
                     {
                       item.side === 'sell' &&
-                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-red-500">
+                      <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-error">
                         {fillFm.getPrice()}
                       </td>
                     }

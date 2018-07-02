@@ -76,8 +76,8 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
                   return (
                     <tr key={index}>
                       <td className="pl10 pr5 pt10 pb10 zb-b-b text-left align-middle" onClick={changePrice.bind(this, item)}>
-                        { item.side === 'buy' && <div className="color-green-500">{intl.get('common.buy')}</div> }
-                        { item.side === 'sell' && <div className="color-red-500">{intl.get('common.sell')}</div> }
+                        { item.side === 'buy' && <div className="color-success">{intl.get('common.buy')}</div> }
+                        { item.side === 'sell' && <div className="color-error">{intl.get('common.sell')}</div> }
                       </td>
                       <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle " onClick={changePrice.bind(this, item)}>
                        {fillFm.getPrice()}
@@ -109,12 +109,17 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
           </tbody>
         </table>
       </Spin>
-      <div className="p10 mb15">
-        <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/usercenter')} className="text-left t-primary s-lg-bak shape-rounded"
-                   icon={<WebIcon type="exclamation-circle-o"/>}
-                   mode="link" marqueeProps={{loop: true}} action={<span>全部成交<WebIcon type="right"/></span>}>
-          当前仅显示{market}的成交
-        </NoticeBar>
+      <div className="">
+        <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter')}>
+          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 align-items-center">
+            <div className="col text-center">
+              <WebIcon className="mr5" type="exclamation-circle-o"/>
+              <span>当前仅显示您的{market}成交</span>
+              <span className="text-primary ml5">{intl.get('common.all')}</span>
+            </div>
+          </div>
+        </div>
+        <div className="divider 1px zb-b-t"></div>
       </div>
     </div>
 

@@ -23,12 +23,12 @@ class Markets extends React.Component {
               <i key="1" className="icon-home" />,
             ]}
             rightContent={[
-              <i key="1" className="icon-search" />,
+              <i onClick={()=>window.Toast.info('Coming Soon', 1)} key="1" className="icon-search" />,
             ]}
           >
             {intl.get('common.markets')}
           </NavBar>
-          <div className="divider 1px z-b-b-t"></div>
+          <div className="divider 1px zb-b-t"></div>
           <ListMarketTickers />
         </div>
       </LayoutDexHome>

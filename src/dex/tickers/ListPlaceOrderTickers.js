@@ -24,7 +24,7 @@ const TickerItem = ({item,actions,key,dispatch})=>{
     const tokens = tickerFm.getTokens()
     const direction = tickerFm.getChangeDirection()
     return (
-      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters" onClick={changeMarket}>
+      <div className="row ml0 mr0 p10 align-items-center zb-b-b no-gutters hover-default" onClick={changeMarket}>
         <div className="col-5 text-left">
           <span className="fs14 color-black-2 ">{tokens.left}-{tokens.right}</span>
         </div>
@@ -34,13 +34,13 @@ const TickerItem = ({item,actions,key,dispatch})=>{
         <div className="col-3 text-right">
           {
             direction === 'up' &&
-            <span className="border-none fs14 color-green-500">
+            <span className="border-none fs14 color-success">
              +{tickerFm.getChange()}
             </span>
           }
           {
             direction === 'down' &&
-            <span className="border-none fs14 color-red-500">
+            <span className="border-none fs14 color-error">
              {tickerFm.getChange()}
             </span>
           }

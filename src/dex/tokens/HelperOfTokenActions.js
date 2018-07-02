@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'dva';
 import { Modal,List,Button } from 'antd-mobile';
 import intl from 'react-intl-universal';
+import config from '../../common/config'
+import routeActions from 'common/utils/routeActions'
 
 function HelperOfTokenActions(props) {
   const {helperOfTokenActions,dispatch} = props
@@ -23,27 +25,40 @@ function HelperOfTokenActions(props) {
     })
   }
   const showReceive = (payload = {})=>{
+    hideLayer({id:'helperOfTokenActions'})
     showLayer({id:'receiveToken',symbol})
   }
+
+  const gotoTrading = () => {
+    hideLayer({id:'helperOfTokenActions'})
+    const market = config.getTokenSupportedMarket(symbol)
+    if (market) {
+      routeActions.gotoPath(`/dex/placeOrder/${market}`)
+      return
+    }
+    routeActions.gotoPath(`/dex/placeOrder`)
+
+  }
+
   return (
     <div className="">
         <List renderHeader={() => <div className="pt5 pb5 fs18 color-black-1">{symbol} {intl.get('common.actions')}</div>} className="popup-list">
-          {
+          {false &&
             symbol === 'WETH' &&
             <List.Item arrow="horizontal" extra={``}>
-              ETH 转换 WETH
+              {intl.get('convert.convert_eth_title')}
             </List.Item>
           }
-          {
+          {false &&
             symbol === 'ETH' &&
             <List.Item arrow="horizontal" extra={``}>
-              WETH 转换 ETH
+              {intl.get('convert.convert_weth_title')}
             </List.Item>
           }
           <List.Item onClick={showReceive} arrow="horizontal" extra={`0.000 ${symbol}`}>
             {intl.get('common.receive')} {symbol}
           </List.Item>
-          <List.Item arrow="horizontal" extra={`0.000 ${symbol}`}>
+          <List.Item onClick={gotoTrading} arrow="horizontal" extra={`0.000 ${symbol}`}>
             {intl.get('common.buy')} {symbol}
           </List.Item>
           {
