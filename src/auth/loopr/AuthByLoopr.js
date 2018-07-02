@@ -5,9 +5,7 @@ import { Toast, Button, NavBar } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
-import { init } from '../../init'
-import intl from 'react-intl-universal'
-import Notification from 'LoopringUI/components/Notification'
+
 
 class Routes extends React.Component {
 
@@ -23,6 +21,7 @@ class Routes extends React.Component {
         window.Wallet = new Loopr()
         window.Wallet.setConfigs().then(res => {
           storage.wallet.storeUnlockedAddress('loopr', window.Wallet.address)
+          window.RELAY.account.register(window.Wallet.address)
           _this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           _this.props.dispatch({
             type: 'settings/preferenceChange',
@@ -36,10 +35,6 @@ class Routes extends React.Component {
   }
 
   goToDex = () => {
-
-    console.log('config',window.Wallet.language)
-    console.log('config',window.Wallet.currency)
-    console.log('config',window.Wallet.address)
     routeActions.gotoPath('/dex')
   }
 
