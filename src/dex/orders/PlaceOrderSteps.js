@@ -225,10 +225,16 @@ function PlaceOrderSteps(props) {
                 <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
                 <OrderMetaItem showArrow={true} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
                 <OrderMetaItem showArrow={true} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
-                <div className="pt15 pb15 clor-black-3 fs14 zb-b-t">
+              </div>
+              <div>
+                <div className="pt10 pb10 clor-black-3 fs12 zb-b-t">
                   <Icon className="mr5" type="exclamation-circle-o" />{intl.get('place_order_confirm.no_cost_gas')}
                 </div>
-                <Button type="primary" className="" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
+                {
+                  false &&
+                  <Button type="primary" className="" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
+                }
+                <div className="bg-primary color-white fs16" style={{lineHeight:'44px',height:'44px'}} onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</div>
               </div>
             </div>
           }/>

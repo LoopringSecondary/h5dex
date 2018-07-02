@@ -18,7 +18,6 @@ class Markets extends React.Component {
             className="w-100 zb-b-t bg-white"
             mode="light"
             icon={null && <Icon type="left" />}
-            onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
             leftContent={ [
               <i key="1" className="icon-home" />,
             ]}
