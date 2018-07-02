@@ -13,17 +13,13 @@ import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
 import {configs} from './common/config/data'
 
-<<<<<<< HEAD
 const latestVersion = Number(configs.localStorageVersion)
 const oldVersion = Number(storage.getLocalStorageVersion())
 if(latestVersion > oldVersion) {
   storage.clearLocalStorage()
   storage.setLocalStorageVersion(latestVersion)
 }
-=======
 window.Toast = Toast
-
->>>>>>> origin/master
 
 const host = storage.settings.get().relay.selected;
 
