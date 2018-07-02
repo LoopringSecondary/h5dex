@@ -42,11 +42,11 @@
   ],
   "relays": [
     {
-      "value": "//relay1.loopring.io",
+      "value": "//relayCluster-514799526.ap-northeast-1.elb.amazonaws.com",
       "name": "Default Loopring Relay"
     },
     {
-      "value": "//relayCluster-514799526.ap-northeast-1.elb.amazonaws.com",
+      "value": "//relay1.loopring.io",
       "name": "Default Loopring Relay"
     },
     {
