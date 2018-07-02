@@ -53,7 +53,7 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              badge="6"
+              badge="3"
               icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position:"relative",top:"2px"}}  />}
               selectedIcon={<i className="icon-bell fs22 text-primary" style={{position:"relative",top:"2px"}} />}
               title={<span className={isActive("/dex/todos") ? "text-primary" : ''} style={{position:"relative",top:"-2px"}} >{intl.get('todos.tab_title')}</span>}

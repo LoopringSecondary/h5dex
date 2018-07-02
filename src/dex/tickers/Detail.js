@@ -30,7 +30,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
     color = "color-error"
   }
   if(direction === 'none'){
-    color = "color-black-1"
+    color = "text-primary"
   }
 
   return (
