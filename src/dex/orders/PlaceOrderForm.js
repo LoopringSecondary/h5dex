@@ -231,8 +231,8 @@ const PlaceOrderForm = (props)=>{
           <div className="row align-items-center ml0 mr0 mb10 mt5 fs16 lh25 no-gutters">
             <div className="col color-black-3 pl0 fs16">{intl.get("common.total")}</div>
             <div className="col-auto pr0">
-              <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/> ≈ </span>
-              <span className="color-black-1">{total} {tokens.right}</span>
+              <span className="color-black-1">{total} {tokens.right} ≈ </span>
+              <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/></span>
             </div>
           </div>
           {
