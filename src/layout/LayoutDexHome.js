@@ -32,7 +32,7 @@ class DexHomeLayout extends React.Component {
               }
               key="markets"
               icon={
-                <i className="icon-market fs22"></i>
+                <i className="icon-market fs22 color-primary-light-bak"></i>
               }
               selectedIcon={
                 <i className="icon-market fs22 text-primary"></i>
@@ -43,7 +43,7 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<i className="icon-trade-m fs22" />}
+              icon={<i className="icon-trade-m fs22 color-primary-light-bak" />}
               selectedIcon={<i className="icon-trade-m fs22 text-primary" />}
               title={<span className={isActive("/dex/placeOrder") ? "text-primary" : ''}>{intl.get("common.trade")}</span>}
               key="placeOrder"
@@ -53,8 +53,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              badge="6"
-              icon={<i className="icon-bell fs22" style={{position:"relative",top:"2px"}}  />}
+              badge="3"
+              icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position:"relative",top:"2px"}}  />}
               selectedIcon={<i className="icon-bell fs22 text-primary" style={{position:"relative",top:"2px"}} />}
               title={<span className={isActive("/dex/todos") ? "text-primary" : ''} style={{position:"relative",top:"-2px"}} >{intl.get('todos.tab_title')}</span>}
               key="Notifications"
@@ -64,7 +64,7 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<i className="icon-user fs22" />}
+              icon={<i className="icon-user fs22 color-primary-light-bak" />}
               selectedIcon={<i className="icon-user fs22 text-primary" />}
               title={
                 <span className={isActive("/dex/usercenter") ? "text-primary" : ''}>{intl.get("user_center.tab_title")}</span>
