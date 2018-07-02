@@ -19,7 +19,7 @@ class Routes extends React.Component {
 
     const load = setInterval(() => {
       if(window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.nativeCallbackHandler){
-        clearInterval()
+        clearInterval(load)
         window.Wallet = new Loopr()
         window.Wallet.setConfigs().then(res => {
           storage.wallet.storeUnlockedAddress('loopr', window.Wallet.address)
@@ -30,13 +30,16 @@ class Routes extends React.Component {
           })
           _this.props.dispatch({type: 'sockets/unlocked'})
           Toast.hide()
-
         })
       }
     },1000)
   }
 
   goToDex = () => {
+
+    console.log('config',window.Wallet.language)
+    console.log('config',window.Wallet.currency)
+    console.log('config',window.Wallet.address)
     routeActions.gotoPath('/dex')
   }
 
