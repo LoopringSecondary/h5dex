@@ -29,16 +29,16 @@ export const TickerHeader = ({sort,dispatch})=>{
   return (
     <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
       <div className="col-5 fs13 color-black-4 text-left" onClick={sortByType.bind(this, 'market')}>
-        {intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'down' : 'up'} />}
+        {intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
       </div>
       <div className="col text-left pr10">
         <div className="fs13 color-black-4 " onClick={sortByType.bind(this, 'price')}>
-          {intl.get('common.price')}{sort.sortBy === 'price' && <Icon type={sort.orderBy === 'ASC' ? 'down' : 'up'} />}
+          {intl.get('common.price')}{sort.sortBy === 'price' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
         </div>
       </div>
       <div className="col-3 text-right">
         <div className="fs13 color-black-4" onClick={sortByType.bind(this, 'change')}>
-          {intl.get('ticker.change')}{sort.sortBy === 'change' && <Icon type={sort.orderBy === 'ASC' ? 'down' : 'up'} />}
+          {intl.get('ticker.change')}{sort.sortBy === 'change' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
         </div>
       </div>
     </div>
