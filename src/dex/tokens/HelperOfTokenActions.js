@@ -7,7 +7,7 @@ import routeActions from 'common/utils/routeActions'
 
 function HelperOfTokenActions(props) {
   const {helperOfTokenActions,dispatch} = props
-  const {symbol,hiddenBuy=false} = helperOfTokenActions
+  const {symbol,hideBuy} = helperOfTokenActions
   const showLayer = (payload = {}) => {
     dispatch({
       type: 'layers/showLayer',
@@ -58,7 +58,7 @@ function HelperOfTokenActions(props) {
           <List.Item onClick={showReceive} arrow="horizontal" extra={`0.000 ${symbol}`}>
             {intl.get('common.receive')} {symbol}
           </List.Item>
-          {!hiddenBuy && <List.Item onClick={gotoTrading} arrow="horizontal" extra={`0.000 ${symbol}`}>
+          {!hideBuy && <List.Item onClick={gotoTrading} arrow="horizontal" extra={`0.000 ${symbol}`}>
             {intl.get('common.buy')} {symbol}
           </List.Item>
           }

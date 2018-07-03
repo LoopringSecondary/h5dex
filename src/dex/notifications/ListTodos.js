@@ -27,7 +27,7 @@ const TodoItem = (props) => {
     dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol: item.symbol}})
   }
   const showActions = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol}})
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol,hideBuy:false}})
   }
   const enable = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result

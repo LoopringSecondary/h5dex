@@ -95,7 +95,7 @@ const HelperOfBalance = (props)=>{
                       token.symbol === 'WETH' &&
                       <Button onClick={gotoConvert.bind(this,{type:"weth2eth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
-                    <Button onClick={showActions.bind(this,{symbol:token.symbol,hiddenBuy:true})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
+                    <Button onClick={showActions.bind(this,{symbol:token.symbol,hideBuy:true})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
                       <WebIcon type="ellipsis" />
                     </Button>
                   </td>

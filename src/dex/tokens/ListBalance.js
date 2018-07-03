@@ -34,7 +34,7 @@ const TokenListComp = (props)=>{
     dispatch({type: 'layers/showLayer', payload: {id: 'convertToken',token}});
   }
   const showActions = (symbol) => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions',symbol}});
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions',symbol,hideBuy:false}});
   }
 
   return (
