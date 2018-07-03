@@ -100,7 +100,9 @@ const notifications = {
     cancel_fail:'{type}取消失败',
     invalid_number:'请输入合法的数字',
     convert_suc:'转换成功',
-    convert_fail:'转换失败'
+    convert_fail:'转换失败',
+    enable_suc:'授权成功',
+    enable_fail:'授权失败'
   },
   message: {
     wallet_locked: '您的钱包还未解锁，请先解锁后再继续操作',
