@@ -34,11 +34,18 @@ const PlaceOrderForm = (props)=>{
   const amountPrecision = Math.max(0, right.precision - marketConfig.pricePrecision)
   let amount = placeOrder.amountInput
   let price = placeOrder.priceInput
-  if(!placeOrder.priceChanged && toNumber(price) === 0 && lastPrice) {
+  let lastPriceFormated = lastPrice
+  if(pair) {
+    const marketConfig = config.getMarketBySymbol(tokens.left, tokens.right)
+    if(marketConfig) {
+      lastPriceFormated = orderFormatter.formatPriceByMarket(lastPrice, marketConfig)
+    }
+  }
+  if(!placeOrder.priceChanged && Number(lastPriceFormated) !== Number(price)) {
     dispatch({
-      type:'placeOrder/priceChangeEffects',
+      type:'placeOrder/priceChange',
       payload:{
-        price:lastPrice
+        priceInput:lastPriceFormated
       }
     })
   }
