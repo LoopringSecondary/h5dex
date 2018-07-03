@@ -193,69 +193,60 @@ const TodoItem = (props) => {
   }
 }
 
-function ListTodos(props){
-    const {dispatch, balance, txs, allocates, gasPrice} = props
-    const goBack = () => {
-      routeActions.goBack()
+function ListTodos (props) {
+  const {dispatch, balance, txs, allocates, gasPrice} = props
+  const goBack = () => {
+    routeActions.goBack()
+  }
+  let data = []
+  const lrcFee = allocates['frozenLrcFee'] || 0
+  delete allocates.frozenLrcFee
+  const symbols = Object.keys(allocates)
+  each(symbols, (symbol, callback) => {
+    const value = allocates[symbol]
+    const tf = new TokenFormatter({symbol})
+    const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
+    const unitBalance = tf.toPricisionFixed(assets.balance)
+    let selling = tf.toPricisionFixed(tf.getUnitAmount(value))
+    if (symbol.toUpperCase() === 'LRC') {
+      selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
     }
-    let data = []
-    const symbols = Object.keys(allocates)
-    each(symbols, (symbol, callback) => {
-      const value = allocates[symbol]
-      const tf = new TokenFormatter({symbol})
-      const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
-      const unitBalance = tf.toPricisionFixed(assets.balance)
-      let selling = tf.toPricisionFixed(tf.getUnitAmount(value))
-      if (symbol.toUpperCase() === 'LRC') {
-        selling = toNumber(selling) + toNumber(tf.getUnitAmount(allocates['frozenLrcFee'] || 0))
-      }
-      if (toNumber(unitBalance) < toNumber(selling)) {
-        data.push({
-          symbol: symbol,
-          type: 'balance',
-          balance: unitBalance,
-          selling,
-          lack: selling - unitBalance,
-          title: `${symbol} balance is insufficient for orders`
-        })
-      }
-      let allowance = assets.allowance
-      if (allowance.lt(tf.getUnitAmount(toBig(value)))) {
-        data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
-      }
-      callback()
-    }, (error) => {
-      data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
-    })
+    if (toNumber(unitBalance) < toNumber(selling)) {
+      data.push({
+        symbol: symbol,
+        type: 'balance',
+        balance: unitBalance,
+        selling,
+        lack: selling - unitBalance,
+        title: `${symbol} balance is insufficient for orders`
+      })
+    }
+    let allowance = assets.allowance
+    if (allowance.lt(tf.getUnitAmount(toBig(value)))) {
+      data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
+    }
+    callback()
+  }, (error) => {
+    data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
+  })
 
-    const enableAll = async () => {
-      let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
-      const approveJobs = data.filter(item => item.type === 'allowance')
-      const txs = []
-      eachLimit(approveJobs, 1, async (item, callback) => {
-        const delegateAddress = config.getDelegateAddress()
-        const token = config.getTokenBySymbol(item.symbol)
-        const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
-        const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
-        let allowance = assets.allowance
-        if (isApproving(txs, item.symbol)) {
-          allowance = isApproving(txs, item.symbol)
-        }
-        if (allowance.gt(0)) {
-          txs.push({
-            gasLimit: gasLimit,
-            data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
-            to: token.address,
-            gasPrice: toHex(toBig(gasPrice).times(1e9)),
-            chainId: config.getChainId(),
-            value: '0x0',
-            nonce: toHex(nonce)
-          })
-          nonce = nonce + 1
-        }
+  const enableAll = async () => {
+    let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
+    const approveJobs = data.filter(item => item.type === 'allowance')
+    const txs = []
+    eachLimit(approveJobs, 1, async (item, callback) => {
+      const delegateAddress = config.getDelegateAddress()
+      const token = config.getTokenBySymbol(item.symbol)
+      const amount = toHex(toBig('9223372036854775806').times('1e' + token.digits || 18))
+      const assets = getBalanceBySymbol({balances: balance.items, symbol: item.symbol})
+      let allowance = assets.allowance
+      if (isApproving(txs, item.symbol)) {
+        allowance = isApproving(txs, item.symbol)
+      }
+      if (allowance.gt(0)) {
         txs.push({
           gasLimit: gasLimit,
-          data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
+          data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
           to: token.address,
           gasPrice: toHex(toBig(gasPrice).times(1e9)),
           chainId: config.getChainId(),
@@ -263,76 +254,87 @@ function ListTodos(props){
           nonce: toHex(nonce)
         })
         nonce = nonce + 1
-      }, function (error) {
-        Modal.alert(error.message)
+      }
+      txs.push({
+        gasLimit: gasLimit,
+        data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
+        to: token.address,
+        gasPrice: toHex(toBig(gasPrice).times(1e9)),
+        chainId: config.getChainId(),
+        value: '0x0',
+        nonce: toHex(nonce)
       })
+      nonce = nonce + 1
+    }, function (error) {
+      Modal.alert(error.message)
+    })
 
-      eachLimit(txs, 1, async (tx, callback) => {
-        signTx(tx, true).then(res => {
-          if (res.result) {
-            window.ETH.sendRawTransaction(res.result).then(resp => {
-              if (resp.result) {
-                window.RELAY.account.notifyTransactionSubmitted({
-                  txHash: resp.result,
-                  rawTx: tx,
-                  from: storage.wallet.getUnlockedAddress()
-                })
-                callback()
-              } else {
-                callback(res.error)
-              }
-            })
-          } else {
-            callback(res.error)
-          }
-        })
-      }, function (error) {
-        if (error) {
-          Toast.fail(error.message)
+    eachLimit(txs, 1, async (tx, callback) => {
+      signTx(tx, true).then(res => {
+        if (res.result) {
+          window.ETH.sendRawTransaction(res.result).then(resp => {
+            if (resp.result) {
+              window.RELAY.account.notifyTransactionSubmitted({
+                txHash: resp.result,
+                rawTx: tx,
+                from: storage.wallet.getUnlockedAddress()
+              })
+              callback()
+            } else {
+              callback(res.error)
+            }
+          })
         } else {
-          Toast.success('enable success')
+          callback(res.error)
         }
       })
-    }
-    return (
-      <LayoutDexHome {...props}>
-        <div className="">
-          <NavBar
-            className="w-100 zb-b-b bg-white"
-            mode="light"
-            icon={null && <Icon type="left"/>}
-            onLeftClick={() => routeActions.goBack()}
-            leftContent={null && [
-              <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
-            ]}
-            rightContent={[
-              <WebIcon onClick={() => window.Toast.info('Coming Soon', 1)} key="1" type="question-circle-o"
-                       className=""/>,
-            ]}
-          >
-            <SegmentedControl
-              values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
-              style={{width: '180px', height: '32px'}}/>
+    }, function (error) {
+      if (error) {
+        Toast.fail(error.message)
+      } else {
+        Toast.success('enable success')
+      }
+    })
+  }
+  return (
+    <LayoutDexHome {...props}>
+      <div className="">
+        <NavBar
+          className="w-100 zb-b-b bg-white"
+          mode="light"
+          icon={null && <Icon type="left"/>}
+          onLeftClick={() => routeActions.goBack()}
+          leftContent={null && [
+            <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
+          ]}
+          rightContent={[
+            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1)} key="1" type="question-circle-o"
+                     className=""/>,
+          ]}
+        >
+          <SegmentedControl
+            values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
+            style={{width: '180px', height: '32px'}}/>
 
-          </NavBar>
-          {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
-          <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
-                     icon={<WebIcon type="exclamation-circle-o"/>}
-                     mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
-            One click to enable all tokens ?
-          </NoticeBar>}
-          <div className="bg-white">
-            {
-              data.map((item, index) =>
-                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
-                          gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
-              )
-            }
-          </div>
-          <div className="pt50"></div>
+        </NavBar>
+        {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
+        <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
+                   icon={<WebIcon type="exclamation-circle-o"/>}
+                   mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
+          One click to enable all tokens ?
+        </NoticeBar>}
+        <div className="bg-white">
+          {
+            data.map((item, index) =>
+              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+            )
+          }
         </div>
-      </LayoutDexHome>
-    )
+        <div className="pt50"></div>
+      </div>
+    </LayoutDexHome>
+  )
 }
 
 function mapStateToProps (state) {

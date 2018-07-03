@@ -235,8 +235,8 @@ const transfromers = {
       if(!res) return null
       res = JSON.parse(res)
       let items = {}
-      if (!res.error && res.data ) {
-        items = {...res.data}
+      if (!res.error && res.data && res.data.allocatedResult) {
+        items = {...res.data.allocatedResult,frozenLrcFee:res.data.FrozenLrcFee}
       }
       updateItems(items,id)
     },

@@ -24,21 +24,22 @@ class DexHomeLayout extends React.Component {
       return pathname.indexOf(path) > -1
     }
     let todos = 0
+    const lrcFee  = allocates['frozenLrcFee'] || 0 ;
+    delete allocates.frozenLrcFee
     const symbols = Object.keys(allocates)
     symbols.forEach((symbol, index) => {
       const value = allocates[symbol]
-      const tf = new TokenFormatter({symbol})
+      console.log()
       const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-      const unitBalance = tf.toPricisionFixed(tf.getUnitAmount(assets.balance))
-      let selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
+      let selling = toBig(value)
       if (symbol.toUpperCase() === 'LRC') {
-        selling = toNumber(selling) + toNumber(tf.getUnitAmount(allocates['frozenLrcFee'] || 0))
+        selling = selling.plus(toBig(lrcFee))
       }
-      if (toNumber(unitBalance) < toNumber(selling)) {
+      if (selling.gt(assets.balance)) {
         todos = todos + 1
       }
       let allowance = assets.allowance
-      if (allowance.lt(toBig(value))) {
+      if (allowance.lt(selling)) {
           todos = todos + 1
       }
     })
