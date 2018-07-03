@@ -224,6 +224,24 @@ const transfromers = {
       updateEstimateGasPrice(item,id)
     },
   },
+  orderAllocateChange:{
+    queryTransformer:(payload)=>{
+      return JSON.stringify({
+        owner:storage.wallet.getUnlockedAddress(),
+        delegateAddress:config.getDelegateAddress()
+      })
+    },
+    resTransformer:(id,res)=>{
+      if(!res) return null
+      res = JSON.parse(res)
+      let items = {}
+      if (!res.error && res.data ) {
+        items = {...res.data}
+      }
+      updateItems(items,id)
+    },
+  }
+
 }
 const getQueryTransformer = (id)=>{
   if(transfromers[id] && transfromers[id].queryTransformer){

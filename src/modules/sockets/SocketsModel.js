@@ -31,6 +31,7 @@ export default {
     'pendingTx':{...initState},
     'orders':{...initState,filters:{market:'LRC-WETH'}},
     'estimatedGasPrice':{...initState,filters:{}},
+    'orderAllocateChange':{...initState}
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -152,6 +153,7 @@ export default {
       yield put({type:'fetch',payload:{id:'balance'}})
       yield put({type:'fetch',payload:{id:'pendingTx'}})
       yield put({type:'fetch',payload:{id:'orders'}})
+      yield put({type:'fetch',payload:{id:'orderAllocateChange'}})
     },
 
     *fetch({payload},{call,select,put}){
