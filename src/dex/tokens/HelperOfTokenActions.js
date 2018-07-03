@@ -7,7 +7,7 @@ import routeActions from 'common/utils/routeActions'
 
 function HelperOfTokenActions(props) {
   const {helperOfTokenActions,dispatch} = props
-  const {symbol} = helperOfTokenActions
+  const {symbol,hiddenBuy} = helperOfTokenActions
   const showLayer = (payload = {}) => {
     dispatch({
       type: 'layers/showLayer',
@@ -58,19 +58,21 @@ function HelperOfTokenActions(props) {
           <List.Item onClick={showReceive} arrow="horizontal" extra={`0.000 ${symbol}`}>
             {intl.get('common.receive')} {symbol}
           </List.Item>
-          <List.Item onClick={gotoTrading} arrow="horizontal" extra={`0.000 ${symbol}`}>
+          {!hiddenBuy && <List.Item onClick={gotoTrading} arrow="horizontal" extra={`0.000 ${symbol}`}>
             {intl.get('common.buy')} {symbol}
           </List.Item>
+          }
           {
-            symbol !== 'ETH' &&
+            false && symbol !== 'ETH' &&
             <List.Item arrow="horizontal" extra="5" disabled>
               View {symbol} Orders
             </List.Item>
           }
-          <List.Item arrow="horizontal" extra={<div className="fs14">{`wallet's ${symbol} is sufficient`}</div>} disabled>
+          {false &&  <List.Item arrow="horizontal" extra={<div className="fs14">{`wallet's ${symbol} is sufficient`}</div>} disabled>
             Switch Wallet
           </List.Item>
-          {
+          }
+          {false &&
             symbol !== 'ETH' &&
             <List.Item arrow="horizontal" disabled>
               Enable {symbol} to trade
