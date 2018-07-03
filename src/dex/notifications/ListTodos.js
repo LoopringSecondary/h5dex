@@ -15,22 +15,19 @@ import storage from 'modules/storage'
 import { signTx } from '../../common/utils/signUtils'
 
 const ERC20 = Contracts.ERC20Token
+const gasLimit = config.getGasLimitByType('approve').gasLimit
 
-const gasPrice = '0x2540be400'
-const gasLimit = '0x249f0'
-const tf = new TokenFormatter({symbol: 'ETH'})
-const gasFee = tf.getUnitAmount(toBig(gasPrice).times(gasLimit))
 
 const TodoItem = (props) => {
-  const {item = {}, actions, key, index, balance, dispatch, pendingTxs} = props
+  const {item = {}, actions, key, index, balance, dispatch, pendingTxs,gasPrice} = props
   const gotoDetail = () => {
     routeActions.gotoPath('/trade/detail')
   }
   const showReceive = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol:item.symbol}})
+    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol: item.symbol}})
   }
   const showActions = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol:item.symbol}})
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol}})
   }
   const enable = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
@@ -64,7 +61,6 @@ const TodoItem = (props) => {
       value: '0x0',
       nonce: toHex(nonce)
     })
-
     eachLimit(txs, 1, async (tx, callback) => {
       signTx(tx, true).then(res => {
         if (res.result) {
@@ -106,11 +102,11 @@ const TodoItem = (props) => {
 
   const loading = () => {
     const allowance = isApproving(pendingTxs, item.symbol)
-    const tf = new TokenFormatter({symbol:item.symbol})
-    if(allowance){
+    const tf = new TokenFormatter({symbol: item.symbol})
+    if (allowance) {
       return tf.getUnitAmount(allowance).gte(item.selling)
     }
-    return false;
+    return false
 
   }
 
@@ -123,15 +119,16 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-            {intl.get('todo_list.allowance_not_enough_title',{symbol:item.symbol})}
+              {intl.get('todo_list.allowance_not_enough_title', {symbol: item.symbol})}
             </div>
           </div>
         </div>
         <div className="col-auto">
           <div>
-            { false && <Switch onChange={enable.bind(this, item)}/> }
-            <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className="" onClick={enable}>
-              {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable') }
+            {false && <Switch onChange={enable.bind(this, item)}/>}
+            <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+                    onClick={enable}>
+              {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}
             </Button>
           </div>
         </div>
@@ -148,7 +145,7 @@ const TodoItem = (props) => {
           <div className="col text-left">
             <div>
               <div className="fs16 color-black-1">
-                {intl.get('todo_list.balance_not_enough_title',{symbol:item.symbol})}
+                {intl.get('todo_list.balance_not_enough_title', {symbol: item.symbol})}
               </div>
             </div>
           </div>
@@ -194,98 +191,48 @@ const TodoItem = (props) => {
           </div>
           <div className="col-auto">
             <div>
-              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className="" onClick={showActions}>
-                {intl.get('common.actions')} <WebIcon type="down" /></Button>
+              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+                      onClick={showActions}>
+                {intl.get('common.actions')} <WebIcon type="down"/></Button>
               <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           </div>
         </div>
       </div>)
-    }
+  }
 }
 
-const mockData = [
-  {
-    symbol: 'EOS',
-    type: 'allowance',
-  },
-  {
-    symbol: 'WETH',
-    type: 'allowance',
-  },
-  {
-    symbol: 'LRC',
-    type: 'allowance',
-  },
-  {
-    symbol: 'EOS',
-    title: 'EOS balance is insufficient for orders',
-    type: 'balance',
-
-  },
-  {
-    symbol: 'WETH',
-    title: 'WETH balance is insufficient for orders',
-    type: 'balance',
-  },
-  {
-    symbol: 'LRC',
-    title: 'LRC balance is insufficient for orders',
-    type: 'balance',
-  },
-]
-
-class ListTodos extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      data: [],
-      loading: false,
-    }
+function ListTodos (props) {
+  const {dispatch, balance, txs, allocates,gasPrice} = props
+  const goBack = () => {
+    routeActions.goBack()
   }
-
-  componentWillReceiveProps (newProps) {
-    const {balance} = newProps
-      window.RELAY.account.getAllEstimatedAllocatedAmount({
-        owner: storage.wallet.getUnlockedAddress(),
-        delegateAddress: config.getDelegateAddress()
-      }).then(res => {
-        const data = []
-        if (!res.error && res.result) {
-          const symbols = Object.keys(res.result)
-          symbols.forEach((symbol, index) => {
-            const value = res.result[symbol]
-            const tf = new TokenFormatter({symbol})
-            const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-            const unitBalance = tf.toPricisionFixed(tf.getUnitAmount(assets.balance))
-            const selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
-            if (toNumber(unitBalance) < toNumber(selling)) {
-              data.push({
-                symbol: symbol,
-                type: 'balance',
-                balance: unitBalance,
-                selling,
-                lack: selling - unitBalance,
-                title: `${symbol} balance is insufficient for orders`
-              })
-            }
-            let allowance = assets.allowance
-            if (allowance.lt(toBig(value))) {
-              data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
-            }
-          })
-        }
-        this.setState({
-          data: data.sort((a, b) => {return a.type < b.type ? -1 : 1})
-        })
-
+  let data = []
+  const symbols = Object.keys(allocates)
+  symbols.forEach((symbol, index) => {
+    const value = allocates[symbol]
+    const tf = new TokenFormatter({symbol})
+    const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
+    const unitBalance = tf.toPricisionFixed(tf.getUnitAmount(assets.balance))
+    const selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
+    if (toNumber(unitBalance) < toNumber(selling)) {
+      data.push({
+        symbol: symbol,
+        type: 'balance',
+        balance: unitBalance,
+        selling,
+        lack: selling - unitBalance,
+        title: `${symbol} balance is insufficient for orders`
       })
+    }
+    let allowance = assets.allowance
+    if (allowance.lt(toBig(value))) {
+      data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
+    }
+  })
+  data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
 
-  }
-
-  enableAll = async () => {
-    const {balance} = this.props
-    const {data} = this.state
+  const enableAll = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
     const approveJobs = data.filter(item => item.type === 'allowance')
     const txs = []
@@ -303,7 +250,7 @@ class ListTodos extends React.Component {
           gasLimit: gasLimit,
           data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: '0x0'}),
           to: token.address,
-          gasPrice: gasPrice,
+          gasPrice: toHex(toBig(gasPrice).times(1e9)),
           chainId: config.getChainId(),
           value: '0x0',
           nonce: toHex(nonce)
@@ -314,7 +261,7 @@ class ListTodos extends React.Component {
         gasLimit: gasLimit,
         data: ERC20.encodeInputs('approve', {_spender: delegateAddress, _value: amount}),
         to: token.address,
-        gasPrice: gasPrice,
+        gasPrice: toHex(toBig(gasPrice).times(1e9)),
         chainId: config.getChainId(),
         value: '0x0',
         nonce: toHex(nonce)
@@ -352,67 +299,52 @@ class ListTodos extends React.Component {
     })
   }
 
-  render () {
-    const {dispatch, balance,txs} = this.props
-    const {data} = this.state
-    const goBack = () => {
-      routeActions.goBack()
-    }
-    return (
-      <LayoutDexHome {...this.props}>
-        <div className="">
-          <NavBar
-            className="w-100 zb-b-b bg-white"
-            mode="light"
-            icon={null && <Icon type="left"/>}
-            onLeftClick={() => routeActions.goBack()}
-            leftContent={null && [
-              <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
-            ]}
-            rightContent={[
-              <WebIcon onClick={()=>window.Toast.info('Coming Soon', 1)} key="1" type="question-circle-o" className=""/>,
-            ]}
-          >
-            <SegmentedControl values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]} style={{width: '180px', height: '32px'}}/>
+  return (
+    <LayoutDexHome {...props}>
+      <div className="">
+        <NavBar
+          className="w-100 zb-b-b bg-white"
+          mode="light"
+          icon={null && <Icon type="left"/>}
+          onLeftClick={() => routeActions.goBack()}
+          leftContent={null && [
+            <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
+          ]}
+          rightContent={[
+            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1)} key="1" type="question-circle-o"
+                     className=""/>,
+          ]}
+        >
+          <SegmentedControl
+            values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
+            style={{width: '180px', height: '32px'}}/>
 
-          </NavBar>
-          {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
-          <NoticeBar onClick={this.enableAll} className="text-left t-error s-lg"
-                     icon={<WebIcon type="exclamation-circle-o"/>}
-                     mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
-            One click to enable all tokens ?
-          </NoticeBar>}
-          <div className="bg-white">
-            {
-              data.map((item, index) =>
-                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}/>
-              )
-            }
-          </div>
+        </NavBar>
+        {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
+        <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
+                   icon={<WebIcon type="exclamation-circle-o"/>}
+                   mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
+          One click to enable all tokens ?
+        </NoticeBar>}
+        <div className="bg-white">
           {
-            !(this.state.loading || balance.loading) && data.length == 0 &&
-            <div className="color-black-3 p15 fs12 text-center">
-              {intl.get('common.list.no_data')}
-            </div>
+            data.map((item, index) =>
+              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs} gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+            )
           }
-          {
-            (this.state.loading || balance.loading) &&
-            <div className="color-black-3 p15 fs12 text-center">
-              {intl.get('common.list.loading')}
-            </div>
-          }
-
-          <div className="pt50"></div>
         </div>
-      </LayoutDexHome>
-    )
-  }
+        <div className="pt50"></div>
+      </div>
+    </LayoutDexHome>
+  )
 }
 
 function mapStateToProps (state) {
   return {
     balance: state.sockets.balance,
-    txs: state.sockets.pendingTx.items
+    txs: state.sockets.pendingTx.items,
+    allocates: state.sockets.orderAllocateChange.items,
+    gasPrice: state.gas.gasPrice.estimate
   }
 }
 

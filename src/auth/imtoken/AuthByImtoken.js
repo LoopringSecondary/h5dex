@@ -8,6 +8,12 @@ import storage from 'modules/storage';
 
 class AuthByImtoken extends React.Component {
 
+  componentWillMount(){
+    const address = storage.wallet.getUnlockedAddress()
+    if(address){
+      routeActions.gotoPath('/dex');
+    }
+  }
   componentDidMount () {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
@@ -17,6 +23,7 @@ class AuthByImtoken extends React.Component {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
         storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+        window.RELAY.account.register(window.Wallet.address)
         _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
         _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
         _props.dispatch({type: 'sockets/unlocked'});
@@ -27,6 +34,7 @@ class AuthByImtoken extends React.Component {
         window.Wallet = new Imtoken(window.imToken)
         window.Wallet.setConfigs().then(res => {
           storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+          window.RELAY.account.register(window.Wallet.address)
           _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
           _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
           _props.dispatch({type: 'sockets/unlocked'});

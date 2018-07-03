@@ -34,66 +34,82 @@ function HelperOfAmount(props) {
     const amount = availableAmount.times(percentage).div(100).toString(10)
     dispatch({type:'placeOrder/amountChange', payload:{amountInput:amount}})
   }
-  return (
-    <div className="tabs-no-border">
-      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
-      <Tabs tabs={tabs}
-        swipeable={false}
-        initialPage={0}
-        onChange={(tab, index) => { console.log('onChange', index, tab); }}
-        onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
-      >
-        <div className="bg-grey-100 pt15 pb15">
-          <div className="row pt10 pb10 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 100)}>
-              <span className="d-inline-block" style={{width:'50px'}}>100%</span>
-              <span className="color-black-3 ml25">{`${availableAmount.toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
+
+  const Content = () => {
+    if(availableAmount.gt(0)) {
+      const prefix = side === 'buy' ? `${toFixed(balanceR.balance, right.precision)}${tokens.right} ≈ ` : ''
+      return (
+        <Tabs tabs={tabs}
+              swipeable={false}
+              initialPage={0}
+              onChange={(tab, index) => { console.log('onChange', index, tab); }}
+              onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
+        >
+          <div className="bg-grey-100 pt15 pb15">
+            <div className="row pt10 pb10 ml0 mr0 zb-b-b">
+              <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 100)}>
+                <span className="d-inline-block" style={{width:'50px'}}>100%</span>
+                <span className="color-black-3 ml25">{`${prefix} ${availableAmount.toString(10)}${tokens.left}`}</span>
+              </div>
+              {!amountSliderSelected && amountPercentage === 100 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
             </div>
-            {!amountSliderSelected && amountPercentage === 100 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
-          </div>
-          <div className="row pt10 pb10 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 75)}>
-              <span className="d-inline-block" style={{width:'50px'}}>75%</span>
-              <span className="color-black-3 ml25">{`${availableAmount.times(0.75).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
+            <div className="row pt10 pb10 ml0 mr0 zb-b-b">
+              <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 75)}>
+                <span className="d-inline-block" style={{width:'50px'}}>75%</span>
+                <span className="color-black-3 ml25">{`${prefix} ${availableAmount.times(0.75).toString(10)}${tokens.left}`}</span>
+              </div>
+              {!amountSliderSelected && amountPercentage === 75 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
             </div>
-            {!amountSliderSelected && amountPercentage === 75 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
-          </div>
-          <div className="row pt10 pb10 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 50)}>
-              <span className="d-inline-block" style={{width:'50px'}}>50%</span>
-              <span className="color-black-3 ml25">{`${availableAmount.times(0.5).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
+            <div className="row pt10 pb10 ml0 mr0 zb-b-b">
+              <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 50)}>
+                <span className="d-inline-block" style={{width:'50px'}}>50%</span>
+                <span className="color-black-3 ml25">{`${prefix} ${availableAmount.times(0.5).toString(10)}${tokens.left}`}</span>
+              </div>
+              {!amountSliderSelected && amountPercentage === 50 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
             </div>
-            {!amountSliderSelected && amountPercentage === 50 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
-          </div>
-          <div className="row pt15 pb15 ml0 mr0 zb-b-b">
-            <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 25)}>
-              <span className="d-inline-block" style={{width:'50px'}}>25%</span>
-              <span className="color-black-3 ml25">{`${availableAmount.times(0.25).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
+            <div className="row pt15 pb15 ml0 mr0 zb-b-b">
+              <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 25)}>
+                <span className="d-inline-block" style={{width:'50px'}}>25%</span>
+                <span className="color-black-3 ml25">{`${prefix} ${availableAmount.times(0.25).toString(10)}${tokens.left}`}</span>
+              </div>
+              {!amountSliderSelected && amountPercentage === 25 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
             </div>
-            {!amountSliderSelected && amountPercentage === 25 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
-          </div>
-          <div className="row pt15 pb15 ml0 mr0">
-            <div className="col color-black-1 text-left pl20">
-              <span className="ml5">{amountSlider}%</span>
-              <span className="color-black-3 ml25">{`${availableAmount.times(amountSlider).div(100).toString(10)} ${side === 'sell' ? tokens.left : tokens.right}`}</span>
+            <div className="row pt15 pb15 ml0 mr0">
+              <div className="col color-black-1 text-left pl20">
+                <span className="ml5">{amountSlider}%</span>
+                <span className="color-black-3 ml25">{`${prefix} ${availableAmount.times(amountSlider).div(100).toString(10)}${tokens.left}`}</span>
+              </div>
+              {amountSliderSelected && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
             </div>
-            {amountSliderSelected && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
+            <div className="mt15 pb25 pl25 pr20">
+              <Slider
+                className=""
+                defaultValue={10}
+                min={0}
+                max={100}
+                onChange={amountSliderChange}
+                onAfterChange={()=>{}}
+              />
+            </div>
           </div>
-          <div className="mt15 pb25 pl25 pr20">
-            <Slider
-              className=""
-              defaultValue={10}
-              min={0}
-              max={100}
-              onChange={amountSliderChange}
-              onAfterChange={()=>{}}
-            />
+          <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
+            <HelperOfDepth />
           </div>
-        </div>
+        </Tabs>
+      )
+    } else {
+      return (
         <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
           <HelperOfDepth />
         </div>
-      </Tabs>
+      )
+    }
+  }
+
+  return (
+    <div className="tabs-no-border">
+      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
+      <Content />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal'
 import {getTokensByMarket} from '../formatter/common'
 import storage  from '../storage'
-
+import {toBig,toNumber} from 'LoopringJS/common/formatter'
 
 export class TickersFm{
   constructor(tickers){
@@ -35,6 +35,40 @@ export const sortTickers = (items)=>{
   }
   return new_items.sort(sorter)
 }
+
+export const sorterByMarket = (tokenA, tokenB) => {
+  if(tokenA.market > tokenB.market){
+    return 1;
+  } else if (tokenA.market < tokenB.market){
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
+export const sorterByPirce = (tokenA, tokenB) => {
+  if(tokenA.last > tokenB.last){
+    return 1;
+  } else if (tokenA.last < tokenB.last){
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
+export const sorterByChange = (tokenA, tokenB) => {
+  const changeA = toNumber(tokenA.change.substring(0, tokenA.change.length-1))
+  const changeB = toNumber(tokenB.change.substring(0, tokenB.change.length-1))
+  return changeA - changeB
+  // if(changeA > changeB){
+  //   return 1;
+  // } else if (changeA < changeB){
+  //   return -1;
+  // } else {
+  //   return 0;
+  // }
+};
+
 export const getFavoredTickers = (tickers)=>{
   const {extra,items} = tickers;
   let new_items = [];
