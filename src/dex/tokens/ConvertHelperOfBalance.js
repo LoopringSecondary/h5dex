@@ -87,7 +87,7 @@ const HelperOfBalance = (props)=>{
                   </td>
                   <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">0.00</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right text-nowrap">
-                    <Button onClick={showActions.bind(this,{symbol:token.symbol})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
+                    <Button onClick={showActions.bind(this,{symbol:token.symbol,hideBuy:false})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
                       转换全部
                     </Button>
                   </td>

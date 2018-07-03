@@ -8,6 +8,7 @@ import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm
 import config from '../../common/config'
 import { connect } from 'dva'
 import storage from 'modules/storage'
+import { toNumber } from '../../common/loopringjs/src/common/formatter'
 
  class Receive extends React.Component {
   state = {
@@ -49,11 +50,10 @@ import storage from 'modules/storage'
   getNeeded = () => {
     const {symbol,amount} = this.state;
     if(symbol){
-      const tf = new TokenFormatter({symbol});
       const {balance} = this.props;
       const asset = getBalanceBySymbol({balances: balance.items, symbol, toUnit: true});
       if(!asset){ return toFixed(toBig(0),8) }
-      const unitBalance = tf.getUnitAmount(asset.balance)
+      const unitBalance = asset.balance
       return  toFixed(toBig(amount).minus(unitBalance).isPositive() ? toBig(amount).minus(unitBalance) : toBig(0),8,true);
     }
     return toFixed(toBig(0),8);
@@ -74,7 +74,7 @@ import storage from 'modules/storage'
             {intl.get('receive.receive_value_tip')} {this.getNeeded()}  {symbol.toUpperCase()}
           </div>}</div>
           <QRCode value={address} size={200} level='H'/>
-         
+
           <div className="pt10 fs12 text-center" style={{width:'240px',margin:'0 auto',whiteSpace:'wrap',wordBreak:'break-all'}}>
             {address}
             <Button type="primary" size="" className="d-block w-100 mt10 mb20" onClick={copyAddress}>{intl.get('common.copy')}</Button>

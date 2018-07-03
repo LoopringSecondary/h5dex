@@ -10,6 +10,7 @@ import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm
 import config from '../../common/config'
 import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
+import each from 'async/each'
 import { isApproving } from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
 import { signTx } from '../../common/utils/signUtils'
@@ -17,9 +18,8 @@ import { signTx } from '../../common/utils/signUtils'
 const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
 
-
 const TodoItem = (props) => {
-  const {item = {}, actions, key, index, balance, dispatch, pendingTxs,gasPrice} = props
+  const {item = {}, actions, key, index, balance, dispatch, pendingTxs, gasPrice} = props
   const gotoDetail = () => {
     routeActions.gotoPath('/trade/detail')
   }
@@ -27,7 +27,7 @@ const TodoItem = (props) => {
     dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol: item.symbol}})
   }
   const showActions = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol}})
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol,hideBuy:false}})
   }
   const enable = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
@@ -89,15 +89,6 @@ const TodoItem = (props) => {
       }
     })
 
-  }
-
-  const gotoTrading = () => {
-    const market = config.getTokenSupportedMarket(item.symbol)
-    if (market) {
-      routeActions.gotoPath(`/dex/placeOrder/${market}`)
-      return
-    }
-    routeActions.gotoPath(`/dex/placeOrder`)
   }
 
   const loading = () => {
@@ -203,18 +194,23 @@ const TodoItem = (props) => {
 }
 
 function ListTodos (props) {
-  const {dispatch, balance, txs, allocates,gasPrice} = props
+  const {dispatch, balance, txs, allocates, gasPrice} = props
   const goBack = () => {
     routeActions.goBack()
   }
   let data = []
+  const lrcFee = allocates['frozenLrcFee'] || 0
+  delete allocates.frozenLrcFee
   const symbols = Object.keys(allocates)
-  symbols.forEach((symbol, index) => {
+  each(symbols, (symbol, callback) => {
     const value = allocates[symbol]
     const tf = new TokenFormatter({symbol})
-    const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-    const unitBalance = tf.toPricisionFixed(tf.getUnitAmount(assets.balance))
-    const selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
+    const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
+    const unitBalance = tf.toPricisionFixed(assets.balance)
+    let selling = tf.toPricisionFixed(tf.getUnitAmount(value))
+    if (symbol.toUpperCase() === 'LRC') {
+      selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+    }
     if (toNumber(unitBalance) < toNumber(selling)) {
       data.push({
         symbol: symbol,
@@ -226,11 +222,13 @@ function ListTodos (props) {
       })
     }
     let allowance = assets.allowance
-    if (allowance.lt(toBig(value))) {
+    if (allowance.lt(tf.getUnitAmount(toBig(value)))) {
       data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
     }
+    callback()
+  }, (error) => {
+    data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
   })
-  data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
 
   const enableAll = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
@@ -292,13 +290,12 @@ function ListTodos (props) {
       })
     }, function (error) {
       if (error) {
-        Modal.alert(error.message)
+        Toast.fail(error.message)
       } else {
-        Modal.alert('enable success')
+        Toast.success('enable success')
       }
     })
   }
-
   return (
     <LayoutDexHome {...props}>
       <div className="">
@@ -329,7 +326,8 @@ function ListTodos (props) {
         <div className="bg-white">
           {
             data.map((item, index) =>
-              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs} gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
             )
           }
         </div>
