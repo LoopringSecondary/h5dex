@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
-import {TickersFm,TickerFm} from 'modules/tickers/formatters'
+import {TickersFm,TickerFm,sorterByMarket,sorterByPirce,sorterByChange} from 'modules/tickers/formatters'
 import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
@@ -11,23 +11,43 @@ import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
 import markets from 'modules/storage/markets'
 
-export const TickerHeader = ({list,actions})=>{
-    return (
-        <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-          <div className="col-5 fs13 color-black-4 text-left">{intl.get('common.market')}</div>
-          <div className="col text-left pr10">
-            <div className="fs13 color-black-4 ">{intl.get('common.price')}</div>
-          </div>
-          <div className="col-3 text-right">
-            <div className="fs13 color-black-4">{intl.get('ticker.change')}</div>
-          </div>
+export const TickerHeader = ({sort,dispatch})=>{
+  const sortByType = (type) => {
+    dispatch({
+      type:'sockets/extraChange',
+      payload:{
+        id:'loopringTickers',
+        extra:{
+          sort: {
+            sortBy:type ,
+            orderBy:sort.orderBy === 'ASC' ? 'DESC' : 'ASC'
+          }
+        }
+      }
+    })
+  }
+  return (
+    <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
+      <div className="col-5 fs13 color-black-4 text-left" onClick={sortByType.bind(this, 'market')}>
+        {intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
+      </div>
+      <div className="col text-left pr10">
+        <div className="fs13 color-black-4 " onClick={sortByType.bind(this, 'price')}>
+          {intl.get('common.price')}{sort.sortBy === 'price' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
         </div>
-    )
+      </div>
+      <div className="col-3 text-right">
+        <div className="fs13 color-black-4" onClick={sortByType.bind(this, 'change')}>
+          {intl.get('ticker.change')}{sort.sortBy === 'change' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
     if(!item){ return null }
-    const {extra:{favored={},keywords}} = tickersList
+    const {extra:{favored={}, sort={}, keywords}} = tickersList
     const tickerFm = new TickerFm(item)
     const tokens = tickerFm.getTokens()
     const direction = tickerFm.getChangeDirection()
@@ -107,12 +127,37 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
     )
 }
 export const TickerList = ({items,loading,dispatch, tickersList})=>{
+  const {extra:{sort={}, keywords}} = tickersList
+  const sortedItems = [...items]
+  if(sort.sortBy) {
+    switch(sort.sortBy) {
+      case 'market':
+        sortedItems.sort(sorterByMarket)
+        if(sort.orderBy === 'DESC') {
+          sortedItems.reverse()
+        }
+        break;
+      case 'price':
+        sortedItems.sort(sorterByPirce)
+        if(sort.orderBy === 'DESC') {
+          sortedItems.reverse()
+        }
+        break;
+      case 'change':
+        sortedItems.sort(sorterByChange)
+        if(sort.orderBy === 'DESC') {
+          sortedItems.reverse()
+        }
+        break;
+    }
+  }
+
   return (
     <div className="">
       <Spin spinning={loading}>
-        <TickerHeader />
+        <TickerHeader sort={sort} dispatch={dispatch}/>
         <div className="divider 1px zb-b-t"></div>
-        {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} tickersList={tickersList}/>)}
+        {sortedItems.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} tickersList={tickersList}/>)}
         {!loading && items.length === 0 &&
           <div className="p10 text-center color-black-3">
             {intl.get('common.list.no_data')}
