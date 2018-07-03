@@ -7,7 +7,7 @@ import routeActions from 'common/utils/routeActions'
 
 function HelperOfTokenActions(props) {
   const {helperOfTokenActions,dispatch} = props
-  const {symbol,hiddenBuy} = helperOfTokenActions
+  const {symbol,hiddenBuy=false} = helperOfTokenActions
   const showLayer = (payload = {}) => {
     dispatch({
       type: 'layers/showLayer',

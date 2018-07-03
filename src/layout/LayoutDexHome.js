@@ -30,7 +30,10 @@ class DexHomeLayout extends React.Component {
       const tf = new TokenFormatter({symbol})
       const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
       const unitBalance = tf.toPricisionFixed(tf.getUnitAmount(assets.balance))
-      const selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
+      let selling = tf.toPricisionFixed(toNumber(tf.getUnitAmount(value)))
+      if (symbol.toUpperCase() === 'LRC') {
+        selling = toNumber(selling) + toNumber(tf.getUnitAmount(allocates['frozenLrcFee'] || 0))
+      }
       if (toNumber(unitBalance) < toNumber(selling)) {
         todos = todos + 1
       }
