@@ -144,13 +144,13 @@ const PlaceOrderForm = (props)=>{
     let currency = preference.currency;
     let priceSymbol = getDisplaySymbol(currency)
     if(currency === 'USD') {
-      priceSymbol = '100' + priceSymbol
-      if(totalWorth.gt(100)) {
+      priceSymbol = '10' + priceSymbol
+      if(totalWorth.gt(10)) {
         allowed = true
       }
     } else {
-      priceSymbol = '500' + priceSymbol
-      if(totalWorth.gt(500)) {
+      priceSymbol = '50' + priceSymbol
+      if(totalWorth.gt(50)) {
         allowed = true
       }
     }
