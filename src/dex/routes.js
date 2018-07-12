@@ -18,12 +18,10 @@ import storage from 'modules/storage'
 const UnLogged = ()=>{
   const isLogged = !!storage.wallet.getUnlockedAddress()
   if(isLogged){
-    return <Redirect to="/wallet" />
+    return <Redirect to="/dex" />
   }else{
     return (
-      <Switch>
-        <Route path="/home" component={Pages.Todo} />
-      </Switch>
+      <Redirect to="/auth" />
     )
   }
 }
@@ -63,9 +61,6 @@ export default class Routes extends React.Component {
     super(props)
   }
   render() {
-    const {match,location} = this.props;
-    // const {url} = match;
-    const url = ""
     return (
       <Switch>
         <Route path={`/dex`}  component={Logged} />
