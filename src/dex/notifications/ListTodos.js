@@ -19,13 +19,7 @@ const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
 
 const TodoItem = (props) => {
-  const {item = {}, actions, key, index, balance, dispatch, pendingTxs, gasPrice} = props
-  const gotoDetail = () => {
-    routeActions.gotoPath('/trade/detail')
-  }
-  const showReceive = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'receiveToken', symbol: item.symbol}})
-  }
+  const {item = {}, balance, dispatch, pendingTxs, gasPrice} = props
   const showActions = () => {
     dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol,hideBuy:false}})
   }
@@ -83,9 +77,9 @@ const TodoItem = (props) => {
       })
     }, function (error) {
       if (error) {
-        Modal.alert(error.message)
+        Toast.fail(intl.get('notifications.title.enable_failed') + ":"+error.message)
       } else {
-        Modal.alert('enable success')
+        Toast.success(intl.get('notifications.title.enable_suc'))
       }
     })
 

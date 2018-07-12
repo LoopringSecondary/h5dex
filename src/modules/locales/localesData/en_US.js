@@ -98,7 +98,9 @@ const notifications = {
     cancel_fail:'{type} Cancel Failed',
     invalid_number:'Please input valid number',
     convert_suc:'Convert Successfully',
-    convert_fail:'Convert Failed'
+    convert_fail:'Convert Failed',
+    enable_suc:'Enable Successfully',
+    enable_fail:'Enable failed'
   },
   message: {
     wallet_locked: 'Your wallet seems locked yet, please unlock first',
