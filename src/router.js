@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route, Switch } from 'dva/router';
-import WalletRoutes from './wallet/routes';
 import DexRoutes from './dex/routes';
 import AuthRoutes from './auth/routes';
 import Face2FaceRoutes from './face2face/routes';
