@@ -19,10 +19,9 @@ class Markets extends React.Component {
             mode="light"
             icon={null && <Icon type="left" />}
             leftContent={ [
-              <i key="1" className="icon-home" />,
             ]}
             rightContent={[
-              <i onClick={()=>window.Toast.info('Coming Soon', 1)} key="1" className="icon-search" />,
+              <i onClick={()=>routeActions.gotoPath('/dex/markets/search')} key="1" className="icon-search" />,
             ]}
           >
             {intl.get('common.markets')}

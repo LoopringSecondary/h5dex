@@ -4,6 +4,7 @@ import Pages from './pages';
 import Orders from './orders';
 import Tokens from './tokens';
 import Markets from './tickers/Markets';
+import MarketsSearch from './tickers/ListSearchTickers';
 import MarketDetail from './tickers/Detail';
 import Convert from './tokens/ConvertForm'
 import PlaceOrder from './orders/PlaceOrderPage'
@@ -32,6 +33,7 @@ const Logged = ()=>{
       <div>
         <Switch>
           <Route path={`/dex/markets`} exact component={Markets} />
+          <Route path={`/dex/markets/search`} exact component={MarketsSearch} />
           <Route path={`/dex/markets/:market`} component={MarketDetail} />
           <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
