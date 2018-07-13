@@ -60,9 +60,9 @@ class UserCenter extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.assets')}</Badge> },
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.orders')}</Badge> },
-                  { title: <Badge className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.fills')}</Badge> },
+                  { title: <div onClick={changeTab.bind(this,'assets')} className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.assets')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'orders')} className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.orders')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'fills')} className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.fills')}</div> },
                 ]
               }
               initialPage={0}
