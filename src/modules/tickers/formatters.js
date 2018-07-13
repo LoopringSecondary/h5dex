@@ -10,6 +10,9 @@ export class TickersFm{
   getFavoredTickers(){
     return getFavoredTickers(this.tickers)
   }
+  getSearchTickers(keyword) {
+    return getSearchTickers(this.tickers, keyword)
+  }
   getRecentTickers(){
     return getRecentTickers(this.tickers)
   }
@@ -79,6 +82,16 @@ export const getFavoredTickers = (tickers)=>{
 
   if(extra.keywords){
     new_items = new_items.filter(item=>item.market.toLowerCase().indexOf(extra.keywords.toLowerCase())> -1 )
+  }
+
+  return sortTickers(new_items)
+};
+export const getSearchTickers = (tickers, keyword)=>{
+  const {extra,items} = tickers;
+  let new_items = items;
+
+  if(keyword){
+    new_items = new_items.filter(item=>item.market.toLowerCase().indexOf(keyword.toLowerCase())> -1 )
   }
 
   return sortTickers(new_items)
