@@ -14,40 +14,30 @@ class Auth extends React.Component {
           mode="light"
         >
           <div>
-            Auth
+            Auth By Wallets
           </div>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
-        <div className="p30">
+        <div className="p30 text-center" onClick={()=>{routeActions.gotoPath('/auth/imtoken')}}>
             <div className="d-inline-block color-black-1 text-center" style={{
               width: '40px',
               height: '40px',
             }}>
               <img style={{borderRadius:"6px"}}  width="100%" src={require('../assets/images/imtoken.png')} alt=""/>
             </div>
-            <div className="">Imtoken Wallet</div>
+            <div className="pt10 fs16">Imtoken Wallet</div>
         </div>
         <div className="divider 1px zb-b-t"></div>
-        <div className="p30">
-            <div className="d-inline-block color-black-1 text-center" style={{
-              width: '40px',
-              height: '40px',
-            }}>
-              <img style={{borderRadius:"6px"}}  width="100%" src={require('../assets/images/tokenest.png')} alt=""/>
-            </div>
-            <div className="">Tokenest Wallet</div>
-        </div>
-        <div className="divider 1px zb-b-t"></div>
-        <div className="p30">
+        <div className="p30 text-center" onClick={()=>{routeActions.gotoPath('/auth/loopr')}}>
             <div className="d-inline-block color-black-1 text-center" style={{
               width: '40px',
               height: '40px',
             }}>
               <img style={{borderRadius:"6px"}}  width="100%" src={require('../assets/images/loopr.png')} alt=""/>
             </div>
-            <div className="">Loopr Wallet</div>
+            <div className="pt10 fs16">Loopr Wallet</div>
         </div>
-
+        <div className="divider 1px zb-b-t"></div>
       </div>
     )
   }
