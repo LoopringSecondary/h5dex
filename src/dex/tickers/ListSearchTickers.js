@@ -114,7 +114,7 @@ class ListPlaceOrderTickers extends React.Component {
             onChange={search}
           />
           <div className="divider 1px zb-b-t"></div>
-          <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />
+          {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />}
         </div>
       )
   }
