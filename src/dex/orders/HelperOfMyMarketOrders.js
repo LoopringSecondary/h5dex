@@ -219,7 +219,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         </tbody>
       </table>
       <div className="">
-        <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter')}>
+        <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/orders')}>
           <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 align-items-center">
             <div className="col text-center">
               <WebIcon className="mr5" type="exclamation-circle-o"/>

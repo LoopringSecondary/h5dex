@@ -20,6 +20,11 @@ class UserCenter extends React.Component {
     const changeTab = (path) => {
       routeActions.gotoPath(`${url}/${path}`);
     }
+    const isActive = (path) => {
+      if(pathname === `${url}/${path}`){
+        return true
+      }
+    }
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
@@ -30,7 +35,7 @@ class UserCenter extends React.Component {
             </NoticeBar>
           }
           <NavBar
-            className="bg-primary-dark"
+            className="bg-primary"
             mode="dark"
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
@@ -47,9 +52,12 @@ class UserCenter extends React.Component {
               <div className="col">
                 <div className="text-center color-white fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
-                  <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1)}>
-                    {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
-                  </div>
+                  {
+                    false &&
+                    <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1)}>
+                      {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
+                    </div>
+                  }
                 </div>
               </div>
               <div className="col-auto">
@@ -60,9 +68,9 @@ class UserCenter extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div onClick={changeTab.bind(this,'assets')} className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.assets')}</div> },
-                  { title: <div onClick={changeTab.bind(this,'orders')} className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.orders')}</div> },
-                  { title: <div onClick={changeTab.bind(this,'fills')} className="pt5 pb5 fs16 d-block w-100 text-center">{intl.get('common.fills')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : 'color-black'}`}>{intl.get('common.assets')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : 'color-black'}`}>{intl.get('common.orders')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('common.fills')}</div> },
                 ]
               }
               initialPage={0}
@@ -102,7 +110,6 @@ class UserCenter extends React.Component {
               }} />
               <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
             </Switch>
-
             <div className="pb50"></div>
           </div>
           <div className="pb50"></div>
