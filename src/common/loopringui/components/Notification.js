@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import {Button,notification} from 'antd';
+import { Toast } from 'antd-mobile';
 import Alert from './Alert';
 import './Notification.less';
 
@@ -13,12 +14,23 @@ export default {
     if(type==='error'){
       rest.duration = 9
     }
-    notification.success({
-      ...rest,
-      className,
-      description:null,
-      icon:null,
-      message:<Alert {...alertProps} />
-    })
+    switch(type) {
+      case 'error':
+        Toast.fail(description, 5, null)
+        break;
+      case 'success':
+        Toast.success(description, 3, null)
+        break;
+      default:
+        Toast.info(description, 3, null)
+        break;
+    }
+    // notification.success({
+    //   ...rest,
+    //   className,
+    //   description:null,
+    //   icon:null,
+    //   message:<Alert {...alertProps} />
+    // })
   }
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 import {Link, Redirect, Route, Switch} from 'dva/router'
 import routeActions from 'common/utils/routeActions'
-import AuthByAddress from './address/AuthByAddress'
 import AuthByLoopr from './loopr/AuthByLoopr'
 import AuthByImtoken from './imtoken/AuthByImtoken'
+import Terms from './imtoken/Terms'
 import AuthByMock from './mock/AuthByMock'
+import Auth from './index.js'
 import storage from 'modules/storage'
 
 const UnLogged = ()=>{
@@ -14,12 +15,11 @@ const UnLogged = ()=>{
   }else{
     return (
       <Switch>
-         <Route path={`/`} exact component={AuthByAddress} />
-         <Route path={`/auth`} exact component={AuthByAddress} />
+         <Route path={`/auth`} exact component={Auth} />
          <Route path={`/auth/mock`} exact component={AuthByMock} />
          <Route path={`/auth/loopr`} exact component={AuthByLoopr} />
          <Route path={`/auth/imtoken`} exact component={AuthByImtoken} />
-         <Route path={`/auth/address`} exact component={AuthByAddress} />
+         <Route path={`/auth/imtoken/terms`} exact component={Terms} />
        </Switch>
     )
   }
@@ -39,7 +39,6 @@ export default class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path={`/`}  component={UnLogged} />
         <Route path={`/auth`}  component={UnLogged} />
       </Switch>
     );

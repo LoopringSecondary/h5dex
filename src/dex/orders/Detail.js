@@ -111,10 +111,12 @@ function OrderDetail(props) {
                   余额为0，订单无法进行撮合
               </NoticeBar>
             }
-
-            <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
-                余额不足，订单无法全部被撮合
-            </NoticeBar>
+            {
+              false &&
+              <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
+                  余额不足，订单无法全部被撮合
+              </NoticeBar>
+            }
             {
               false &&
               <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>

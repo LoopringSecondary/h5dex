@@ -110,7 +110,7 @@ const notifications = {
     eth_is_required_when_place_order: '由于需要支付ETH油费, 根据您当前订单需要发送的以太坊交易计算，还需要 {required} ETH',
     lrcfee_is_required_when_place_order: '由于需要支付LRC油费, 汇总您历史订单所需LRC，还需要 {required} LRC',
     some_items_not_signed: "您可能还有一些数据还未签名，请把所有未签名项签名后再继续操作",
-    place_order_success: '恭喜, 您的订单已经可以等待交易',
+    place_order_success: '您的订单已经提交成功',
     place_order_balance_not_enough: '为使订单全部成交, 至少还需要{amount} {token}',
     confirm_warn_ledger: "请在您的Ledger设备上确认签名信息, 之后再回来提交订单",
     confirm_warn_trezor: "请在您的Trezor设备上确认签名信息, 之后再回来提交订单",
@@ -219,7 +219,7 @@ export default {
     cancel_all_title: "取消全部{market}订单?",
     cancel_all_mes:'{amount,number} {market} 个订单将被取消',
     no_open_orders:'没有需要取消的订单',
-    confirm_yes:words.cancel,
+    confirm_yes:'确认取消',
     confirm_no:words.back
   },
   helper_of_market_order: {

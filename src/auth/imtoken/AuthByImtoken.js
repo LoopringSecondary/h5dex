@@ -64,52 +64,30 @@ class AuthByImtoken extends React.Component {
           ]}
         >
           <div>
-            Auth By Imtoken
+            Loopring DEX
           </div>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
         <div className="bg-white">
-          <div className="pt35 pb35">
-            <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
-              <div className="col text-center">
-                <div className="d-inline-block color-black-1 text-center" style={{
-                  width: '40px',
-                  height: '40px',
-                }}>
-                  <img style={{borderRadius:"6px"}}  width="100%" src={require('../../assets/images/imtoken.png')} alt=""/>
-                </div>
-              </div>
-              <div className="col-auto text-center" style={{width: '30px'}}>
-                <i className={`icon-long-arrow-right color-black-1 fs20`}/>
-              </div>
-              <div className="col text-center">
-                <div className="d-inline-block color-black-1 text-center" style={{
-                  width: '40px',
-                  height: '40px',
-                }}>
-                  <img style={{borderRadius:"6px"}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
-                </div>
-              </div>
-            </div>
-            <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center lh1">
-              <div className="col text-center">
-                <div className="color-black-2 fs16">imToken</div>
-              </div>
-              <div className="col-auto text-center position-relative" style={{width: '30px'}}>
-                <div className="color-black-3 fs16"></div>
-              </div>
-              <div className="col text-center">
-                <div className="color-black-2 fs16">Loopring Dex</div>
-              </div>
-            </div>
+          <div className="pt40 pb20 text-center">
+           <div className="d-inline-block color-black-1 text-center" style={{
+             width: '60px',
+             height: '60px',
+           }}>
+             <img style={{borderRadius:"50em"}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
+           </div>
+           <div className="text-center">
+             <div className="color-black-1 fs20 pt20 pb20">欢迎来到 路印 去中心化交易所</div>
+             <div className="color-black-2 fs14 pl20 pr20">
+              您即将进入的dApp是一个运行在以太坊区块链上去中心化交易所。
+              通过点击"我同意"，即表示您同意我们的
+              <a onClick={routeActions.gotoPath.bind(this,'/auth/imtoken/terms')} className="text-primary"> 用户服务协议 </a> 和 <a onClick={routeActions.gotoPath.bind(this,'/auth/imtoken/terms')} className="text-primary"> 用户隐私政策 </a>
+              。
+             </div>
+             <Button className="m20" type="primary" onClick={this.goToDex}>我同意</Button>
+           </div>
           </div>
-
           <div className="divider 1px zb-b-t"></div>
-          <div className="p15">
-            <Button type="primary" onClick={this.goToDex}>授权登录</Button>
-            { false && <Button type="primary"  onClick={this.goToDex}>进入DEX</Button> }
-            { false && <Button type="primary"  onClick={this.goToFace2Face}>Face2Face</Button> }
-          </div>
         </div>
 
       </div>
