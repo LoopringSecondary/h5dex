@@ -156,7 +156,34 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   const gotoAll = () => {}
   return (
     <div className="">
-
+      { false &&
+        <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<WebIcon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<WebIcon type="right" /></span>}>
+            订单无法进行撮合
+        </NoticeBar>
+      }
+      { false &&
+        <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<WebIcon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<WebIcon type="right" /></span>}>
+            余额为0，订单无法进行撮合
+        </NoticeBar>
+      }
+      {
+        false &&
+        <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<WebIcon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<WebIcon type="right" /></span>}>
+            余额不足，订单无法全部被撮合
+        </NoticeBar>
+      }
+      {
+        false &&
+        <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<WebIcon type="right" /></span>}>
+            该订单正在进行撮合
+        </NoticeBar>
+      }
+      {
+        false &&
+        <NoticeBar  className="text-left t-info s-lg" icon={<WebIcon type="question-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看原因<WebIcon type="right" /></span>}>
+            为什么订单没有撮合成交？
+        </NoticeBar>
+      }
       <table className="w-100 fs13" style={{overflow: 'auto'}}>
         <thead>
         <tr className="">
