@@ -171,8 +171,8 @@ function PlaceOrderSteps(props) {
     } else {
       Notification.open({
         message:intl.get('notifications.title.place_order_success'),
-        description:'successfully submit order',
-        type:'info'
+        description:intl.get('notifications.message.place_order_success'),
+        type:'success'
       })
     }
   }
