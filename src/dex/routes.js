@@ -38,7 +38,7 @@ const Logged = ()=>{
           <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
           <Route path={`/dex/todos`} exact component={ListTodos} />
-          <Route path={`/dex/usercenter`} exact component={UserCenter} />
+          <Route path={`/dex/usercenter`} component={UserCenter} />
           <Route path={`/dex/convert`} exact component={Convert} />
           <Route path={`/dex/face2face`} exact component={Face2FacePage} />
           <Route path={`/dex/messages`} exact component={Pages.Todo} />

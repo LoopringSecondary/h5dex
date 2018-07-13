@@ -1,6 +1,7 @@
 import React from 'react'
 import { Badge, Grid, NavBar, NoticeBar, SegmentedControl, Tabs } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
+import {Link, Redirect, Route, Switch} from 'dva/router'
 import Containers from 'modules/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
@@ -11,63 +12,14 @@ import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal'
 
-const OrderListHeader = ()=>{
-  return null
-  // return (
-  //   <div className="color-black-2">
-  //     <div className="row ml0 mr0 fs14">
-  //       <div className="col text-center pt10 pb10 zb-b-r">
-  //         {intl.get('common.markets')} <WebIcon className="fs12" type="down" />
-  //       </div>
-  //       <div className="col text-center pt10 pb10 zb-b-r">
-  //         {intl.get('common.sides')} <WebIcon className="fs12" type="down" />
-  //       </div>
-  //       <div className="col text-center pt10 pb10 ">
-  //         {intl.get('common.status')} <WebIcon className="fs12" type="down" />
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
-}
-
 class UserCenter extends React.Component {
   render() {
-    const OrderStatus = [
-      {
-        icon: <Badge text="3"><WebIcon type="exclamation-circle-o" className="fs22 color-black-1 mb5" /></Badge>,
-        text: <div className="fs14 color-black-2">Error</div>,
-      },
-      {
-        icon: <WebIcon type="clock-circle-o" className="fs20 color-black-1 mb5" />,
-        text: <div className="fs14 color-black-2">Open</div>,
-      },
-      {
-        icon: <WebIcon type="pay-circle-o" className="fs20 color-black-1 mb5" />,
-        text: <div className="fs14 color-black-2">Matched</div>,
-      },
-      {
-        icon: <WebIcon type="check-circle-o" className="fs20 color-black-1 mb5" />,
-        text: <div className="fs14 color-black-2">Completed</div>,
-      },
-      {
-        icon: <WebIcon type="close-circle-o" className="fs20 color-black-1 mb5" />,
-        text: <div className="fs14 color-black-2">Closed</div>,
-      },
-    ]
-    const txStatus = [
-      {
-        icon: <WebIcon type="clock-circle-o" className="fs20 color-black-2 mb5" />,
-        text: <div className="fs14 color-black-2">Pending</div>,
-      },
-      {
-        icon: <WebIcon type="check-circle-o" className="fs20 color-black-2 mb5" />,
-        text: <div className="fs14 color-black-2">Success</div>,
-      },
-      {
-        icon: <WebIcon type="close-circle-o" className="fs20 color-black-2 mb5" />,
-        text: <div className="fs14 color-black-2">Failed</div>,
-      },
-    ]
+    const {match,location} = this.props;
+    const {url} = match;
+    const {pathname} = location;
+    const changeTab = (path) => {
+      routeActions.gotoPath(`${url}/${path}`);
+    }
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
@@ -89,6 +41,7 @@ class UserCenter extends React.Component {
           >
           {intl.get('usercenter.page_title')}
           </NavBar>
+
           <div className="pt35 pb35 text-left bg-primary">
             <div className="row align-items-center ml0 mr0 no-gutters">
               <div className="col">
@@ -117,24 +70,39 @@ class UserCenter extends React.Component {
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div>
-                <div className="divider 1px zb-b-b"></div>
-                <ListBalance />
-              </div>
-              <div>
-                <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
-                  <OrderListHeader />
-                  <div className="divider 1px zb-b-b"></div>
-                  <OpenOrderList />
-                </Containers.Orders>
-              </div>
-              <div>
-                <div className="divider 1px zb-b-b"></div>
-                <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
-                  <ListMyFills />
-                </Containers.Fills>
-              </div>
             </Tabs>
+            <Switch>
+              <Route path={`${url}/assets`} exact render={()=>{
+                return (
+                  <div>
+                    <div className="divider 1px zb-b-b"></div>
+                    <ListBalance />
+                  </div>
+                )
+              }} />
+              <Route path={`${url}/orders`} exact render={()=>{
+                return (
+                  <div>
+                    <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
+                      <div className="divider 1px zb-b-b"></div>
+                      <OpenOrderList />
+                    </Containers.Orders>
+                  </div>
+                )
+              }} />
+              <Route path={`${url}/fills`} exact render={()=>{
+                return (
+                  <div>
+                    <div className="divider 1px zb-b-b"></div>
+                    <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
+                      <ListMyFills />
+                    </Containers.Fills>
+                  </div>
+                )
+              }} />
+              <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
+            </Switch>
+
             <div className="pb50"></div>
           </div>
           <div className="pb50"></div>
