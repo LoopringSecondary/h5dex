@@ -217,7 +217,7 @@ export default {
     cancel_all_title: "Cancel all {market} orders ?",
     cancel_all_mes:'{amount,number} open {market} orders will be canceled',
     no_open_orders:'No open orders to cancel',
-    confirm_yes:words.yes,
+    confirm_yes:'Yes, cancel order',
     confirm_no:words.no
   },
   helper_of_amount: {
