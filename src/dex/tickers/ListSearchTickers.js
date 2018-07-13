@@ -92,7 +92,7 @@ class ListPlaceOrderTickers extends React.Component {
       const {extra:{favored={},keywords}} = list
 
       const recentTickers = tickersFm.getRecentTickers()
-      const filtedTickers = tickersFm.getSearchTickers(this.state.keyword)
+      const filtedTickers = this.state.keyword ? tickersFm.getSearchTickers(this.state.keyword) : []
 
       const search = (value) => {
         this.setState({keyword:value})
