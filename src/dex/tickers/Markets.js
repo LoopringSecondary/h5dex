@@ -28,6 +28,8 @@ class Markets extends React.Component {
           </NavBar>
           <div className="divider 1px zb-b-t"></div>
           <ListMarketTickers />
+          <div className="pb50"></div>
+          <div className="pb15"></div>
         </div>
       </LayoutDexHome>
     )

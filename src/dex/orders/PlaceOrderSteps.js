@@ -223,8 +223,8 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
-                <OrderMetaItem showArrow={true} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
-                <OrderMetaItem showArrow={true} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
+                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
+                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
               </div>
               <div>
                 <div className="pt10 pb10 clor-black-3 fs12 zb-b-t">
