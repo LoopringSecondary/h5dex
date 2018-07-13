@@ -161,14 +161,14 @@ const PlaceOrderForm = (props)=>{
         allowed = true
       }
     }
-    // if(!allowed) {
-    //   Notification.open({
-    //     message:intl.get('notifications.title.not_allowed_place_order_worth'),
-    //     description:intl.get('notifications.message.not_allowed_place_order_worth', {worth: priceSymbol}),
-    //     type:'error'
-    //   })
-    //   return
-    // }
+    if(!allowed) {
+      Notification.open({
+        message:intl.get('notifications.title.not_allowed_place_order_worth'),
+        description:intl.get('notifications.message.not_allowed_place_order_worth', {worth: priceSymbol}),
+        type:'error'
+      })
+      return
+    }
     const validSince = moment()
     const validUntil = moment().add(1, 'months')
     dispatch({type:'placeOrder/validTimeChange', payload:{validSince, validUntil}})
