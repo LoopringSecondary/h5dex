@@ -72,10 +72,10 @@ const basicSchemas = {
         required: true,
         enum: ['latest', 'earliest', 'pending']
     },
-  NUM:{
-    type: 'number',
-    required: true,
-  }
+    NUM: {
+        type: 'number',
+        required: true
+    }
 };
 
 export default basicSchemas;
