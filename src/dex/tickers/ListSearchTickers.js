@@ -76,6 +76,9 @@ export const TickerList = ({items,loading,dispatch,market})=>{
 }
 
 class ListPlaceOrderTickers extends React.Component {
+  state={
+    keyword:''
+  };
   constructor(props) {
     super(props);
   }
@@ -89,7 +92,11 @@ class ListPlaceOrderTickers extends React.Component {
       const {extra:{favored={},keywords}} = list
 
       const recentTickers = tickersFm.getRecentTickers()
-      const filtedTickers = tickersFm.getAllTickers()
+      const filtedTickers = tickersFm.getSearchTickers(this.state.keyword)
+
+      const search = (value) => {
+        this.setState({keyword:value})
+      }
 
       return (
         <div className="">
@@ -102,7 +109,9 @@ class ListPlaceOrderTickers extends React.Component {
             {intl.get('common.search')}搜索
           </NavBar>
           <SearchBar
-            placeholder="Search" ref={ref => this.autoFocusInst = ref}
+            placeholder="Search"
+            ref={ref => this.autoFocusInst = ref}
+            onChange={search}
           />
           <div className="divider 1px zb-b-t"></div>
           <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />
