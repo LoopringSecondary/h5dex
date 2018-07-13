@@ -1,5 +1,0 @@
-export default {
-  getWalletType:()=>{
-    // TODO
-  },
-}

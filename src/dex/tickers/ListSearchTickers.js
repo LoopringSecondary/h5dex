@@ -4,7 +4,7 @@ import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
 import { Spin } from 'antd'
-import { Tabs } from 'antd-mobile'
+import { Tabs,SearchBar,NavBar,Icon} from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
 import {formatPrice} from 'modules/orders/formatters'
@@ -76,39 +76,46 @@ export const TickerList = ({items,loading,dispatch,market})=>{
 }
 
 class ListPlaceOrderTickers extends React.Component {
+  state={
+    keyword:''
+  };
   constructor(props) {
     super(props);
+  }
+  componentDidMount() {
+      this.autoFocusInst.focus();
   }
   render(){
       const {loopringTickers:list,dispatch,market} = this.props
       const tickersFm = new TickersFm(list)
+
       const {extra:{favored={},keywords}} = list
-      const allTickers = tickersFm.getAllTickers()
-      const favoredTickers = tickersFm.getFavoredTickers()
+
       const recentTickers = tickersFm.getRecentTickers()
+      const filtedTickers = tickersFm.getSearchTickers(this.state.keyword)
+
+      const search = (value) => {
+        this.setState({keyword:value})
+      }
 
       return (
-          <Tabs
-            tabs={
-              [
-                { title: <div className="fs16">Favorites</div> },
-                { title: <div className="fs16">WETH</div> },
-                { title: <div className="fs16">LRC</div> },
-              ]
-            }
-            tabBarBackgroundColor={"#fff"}
-            tabBarActiveTextColor={"#000"}
-            tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
-            tabBarTextStyle={{}}
-            initialPage={1}
-            swipeable={false}
-            onChange={(tab, index) => {}}
-            onTabClick={(tab, index) => { }}
+        <div className="">
+          <NavBar
+            mode="light"
+            icon={<Icon onClick={()=>{routeActions.goBack()}} type="left" />}
+            leftContent={ [
+            ]}
           >
-            <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
-          </Tabs>
+            {intl.get('common.search')}搜索
+          </NavBar>
+          <SearchBar
+            placeholder="Search"
+            ref={ref => this.autoFocusInst = ref}
+            onChange={search}
+          />
+          <div className="divider 1px zb-b-t"></div>
+          <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />
+        </div>
       )
   }
 }

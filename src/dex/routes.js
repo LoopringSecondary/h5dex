@@ -4,6 +4,7 @@ import Pages from './pages';
 import Orders from './orders';
 import Tokens from './tokens';
 import Markets from './tickers/Markets';
+import MarketsSearch from './tickers/ListSearchTickers';
 import MarketDetail from './tickers/Detail';
 import Convert from './tokens/ConvertForm'
 import PlaceOrder from './orders/PlaceOrderPage'
@@ -18,12 +19,10 @@ import storage from 'modules/storage'
 const UnLogged = ()=>{
   const isLogged = !!storage.wallet.getUnlockedAddress()
   if(isLogged){
-    return <Redirect to="/wallet" />
+    return <Redirect to="/dex" />
   }else{
     return (
-      <Switch>
-        <Route path="/home" component={Pages.Todo} />
-      </Switch>
+      <Redirect to="/auth" />
     )
   }
 }
@@ -34,11 +33,12 @@ const Logged = ()=>{
       <div>
         <Switch>
           <Route path={`/dex/markets`} exact component={Markets} />
+          <Route path={`/dex/markets/search`} exact component={MarketsSearch} />
           <Route path={`/dex/markets/:market`} component={MarketDetail} />
           <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
           <Route path={`/dex/todos`} exact component={ListTodos} />
-          <Route path={`/dex/usercenter`} exact component={UserCenter} />
+          <Route path={`/dex/usercenter`} component={UserCenter} />
           <Route path={`/dex/convert`} exact component={Convert} />
           <Route path={`/dex/face2face`} exact component={Face2FacePage} />
           <Route path={`/dex/messages`} exact component={Pages.Todo} />
@@ -63,9 +63,6 @@ export default class Routes extends React.Component {
     super(props)
   }
   render() {
-    const {match,location} = this.props;
-    // const {url} = match;
-    const url = ""
     return (
       <Switch>
         <Route path={`/dex`}  component={Logged} />

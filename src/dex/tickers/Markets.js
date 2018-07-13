@@ -18,12 +18,10 @@ class Markets extends React.Component {
             className="w-100 zb-b-t bg-white"
             mode="light"
             icon={null && <Icon type="left" />}
-            onLeftClick={() => routeActions.gotoPath('/wallet/trade')}
             leftContent={ [
-              <i key="1" className="icon-home" />,
             ]}
             rightContent={[
-              <i onClick={()=>window.Toast.info('Coming Soon', 1)} key="1" className="icon-search" />,
+              <i onClick={()=>routeActions.gotoPath('/dex/markets/search')} key="1" className="icon-search" />,
             ]}
           >
             {intl.get('common.markets')}
