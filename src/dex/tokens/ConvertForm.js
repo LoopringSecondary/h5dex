@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, List, NavBar,Toast,Modal,InputItem,Icon} from 'antd-mobile'
-import { Icon as WebIcon, Input,InputNumber } from 'antd'
+import { Button, List, NavBar, Toast, Modal, InputItem, Icon } from 'antd-mobile'
+import { Icon as WebIcon, Input, InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
 import { toHex, toBig, toNumber } from '../../common/loopringjs/src/common/formatter'
@@ -10,29 +10,29 @@ import config from '../../common/config'
 import intl from 'react-intl-universal'
 import storage from 'modules/storage'
 import Worth from 'modules/settings/Worth'
-import {signTx,signMessage} from '../../common/utils/signUtils'
+import { signTx, signMessage } from '../../common/utils/signUtils'
 import Notification from 'LoopringUI/components/Notification'
 import ConvertHelperOfBalance from './ConvertHelperOfBalance'
-
 
 const WETH = Contracts.WETH
 const Item = List.Item
 const Brief = Item.Brief
 
 class Convert extends React.Component {
-  state={
-    token:'ETH'
+  state = {
+    token: 'ETH'
   }
 
-  componentDidMount(){
-    const {convertToken} = this.props;
-    if(convertToken && convertToken.token){
-      this.setState({token:convertToken.token})
+  componentDidMount () {
+    const {convertToken} = this.props
+    if (convertToken && convertToken.token) {
+      this.setState({token: convertToken.token})
     }
   }
+
   render () {
-    const {dispatch, balance, amount,gas} = this.props
-    const {token} = this.state;
+    const {dispatch, balance, amount, gas} = this.props
+    const {token} = this.state
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
     const gasPrice = gas.tabSelected === 'estimate' ? gas.gasPrice.estimate : gas.gasPrice.current
@@ -76,7 +76,7 @@ class Convert extends React.Component {
       }
 
       if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-        Toast.info(intl.get('convert.not_enough_tip',{token}))
+        Toast.info(intl.get('convert.not_enough_tip', {token}))
         return
       }
       let data = ''
@@ -109,18 +109,18 @@ class Convert extends React.Component {
                 from: address
               })
               Toast.success(intl.get('notifications.title.convert_suc'))
-              hideLayer({id:'convertToken'})
-            }else{
-              Toast.fail(intl.get('notifications.title.convert_fail')+":"+resp.error.message)
+              hideLayer({id: 'convertToken'})
+            } else {
+              Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message)
             }
           })
-        }else{
-          Toast.fail(intl.get('notifications.title.convert_fail')+":"+res.error.message)
+        } else {
+          Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message)
         }
       })
     }
-    const amountChange = (e) => {
-        dispatch({type:'convert/amountChange',payload:{amount:e.target.value}})
+    const amountChange = (value) => {
+      dispatch({type: 'convert/amountChange', payload: {amount:value }})
     }
     const swap = () => {
       const {token} = this.state
@@ -138,7 +138,7 @@ class Convert extends React.Component {
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={()=>routeActions.goBack()}
+          onLeftClick={() => routeActions.goBack()}
           leftContent={[
             <span key='1' className=""><Icon type="left"/></span>,
           ]}
@@ -149,17 +149,17 @@ class Convert extends React.Component {
           {fromToken} → {toToken}
         </NavBar>
         <div className="zb-b-b">
-          <div hidden={true} className="" >
+          <div hidden={true} className="">
             <List>
-                <InputItem
-                  type="text"
-                  onFocus={()=>{alert('focused')}}
-                  ref={el => _this.inputRef = el}
-                >
-                </InputItem>
+              <InputItem
+                type="text"
+                onFocus={() => {alert('focused')}}
+                ref={el => _this.inputRef = el}
+              >
+              </InputItem>
             </List>
             <div className="mt15">
-              <Input className="d-block w-100" />
+              <Input className="d-block w-100"/>
             </div>
           </div>
           <div className="p15">
@@ -175,33 +175,36 @@ class Convert extends React.Component {
             </div>
             <div className="zb-b row ml0 mr0 no-gutters align-items-stretch justify-content-center">
               <div className="col text-right no-border am-list-bg-none bg-grey-100">
-                <List >
-                    <InputItem
-                      type="money"
-                      defaultValue="0"
-                    >
-                    </InputItem>
+                <List>
+                  <InputItem
+                    type="money"
+                    onChange={amountChange}
+                    value={amount}
+                  >
+                  </InputItem>
                 </List>
                 {
                   false &&
-                  <InputNumber prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
+                  <InputNumber prefix={token} className="text-right" type="text" onChange={amountChange}
+                               value={amount}/>
                 }
               </div>
-              <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap} style={{width: '44px'}}>
-                <WebIcon type="swap" className="fs20 text-primary" />
+              <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap}
+                   style={{width: '44px'}}>
+                <WebIcon type="swap" className="fs20 text-primary"/>
               </div>
               <div className="col text-left no-border am-list-bg-none bg-grey-100">
                 <List>
-                    <InputItem
-                      type="money"
-                      defaultValue="0"
-                      clear
-                      disabled={true}
-                    ></InputItem>
+                  <InputItem
+                    type="money"
+                    value={amount}
+                    disabled={true}
+                  />
                 </List>
                 {
                   false &&
-                  <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text" onChange={amountChange} value={amount}/>
+                  <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text"
+                         onChange={amountChange} value={amount}/>
                 }
               </div>
             </div>
@@ -210,12 +213,12 @@ class Convert extends React.Component {
                 <div className="color-black-2 fs14 text-left">{intl.get('common.gas')}</div>
               </div>
               <div className="col-auto fs14 color-black-2">
-                  <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-                  <WebIcon className="ml5 text-primary" type="right"/>
+                <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
+                <WebIcon className="ml5 text-primary" type="right"/>
               </div>
             </div>
             <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
-              {token.toLowerCase() === 'eth' ?  intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
+              {token.toLowerCase() === 'eth' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
             </Button>
           </div>
           <div hidden className='mt20'>w
@@ -223,7 +226,7 @@ class Convert extends React.Component {
           </div>
           <div className="bg-grey-100 mt15">
             <div className="divider zb-b-b 1px"></div>
-            <ConvertHelperOfBalance />
+            <ConvertHelperOfBalance/>
           </div>
         </div>
       </div>
@@ -236,7 +239,7 @@ function mapStateToProps (state) {
     balance: state.sockets.balance,
     prices: state.sockets.marketcap.items,
     amount: state.convert.amount,
-    gas:state.gas
+    gas: state.gas
   }
 }
 
