@@ -51,20 +51,20 @@ function HelperOfGas(props) {
 
   return (
     <div className="">
-      <div className="pt10 pb10 fs18 color-black-1 zb-b-b text-center">Set Gas</div>
-      <div className="bg-grey-100">
+      <div className="pt10 pb10 fs18 color-black-1 zb-b-b text-center">设置油费</div>
+      <div className="bg-white">
         <div className="row p15 ml0 mr0 zb-b-b">
-          <div className="col color-black-1 text-left pl15" onClick={tabChanged.bind(this, 'estimate')}>
+          <div className="col color-black-1 text-left pl25" onClick={tabChanged.bind(this, 'estimate')}>
             {gasShow(gasPriceStore.estimate, '推荐Gas')}
           </div>
           {gas.tabSelected === 'estimate' && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
         </div>
         <div className="p15 pb35" onClick={tabChanged.bind(this, 'custom')}>
-          <div className="color-black-1 pl15 pb25 text-left">
+          <div className="color-black-1 pl25 pb25 text-left">
             {gasShow(gasPriceStore.current, '自定义Gas')}
           </div>
           <Slider
-            className="ml15 mr10"
+            className="ml25 mr25"
             defaultValue={gasPriceStore.current}
             min={1}
             max={100}
