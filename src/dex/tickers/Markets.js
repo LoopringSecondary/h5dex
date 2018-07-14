@@ -21,7 +21,7 @@ class Markets extends React.Component {
             leftContent={ [
             ]}
             rightContent={[
-              <i onClick={()=>routeActions.gotoPath('/dex/markets/search')} key="1" className="icon-search" />,
+              <i style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'right'}} onClick={()=>routeActions.gotoPath('/dex/markets/search')} key="1" className="icon-search" />,
             ]}
           >
             {intl.get('common.markets')}

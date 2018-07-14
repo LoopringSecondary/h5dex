@@ -3,7 +3,7 @@ import {connect} from 'dva'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { Spin } from 'antd'
+import { Spin,Icon as WebIcon} from 'antd'
 import { Tabs,SearchBar,NavBar,Icon} from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
@@ -83,9 +83,10 @@ class ListPlaceOrderTickers extends React.Component {
     super(props);
   }
   componentDidMount() {
-      this.autoFocusInst.focus();
+    // this.autoFocusInst.focus();
   }
   render(){
+      const _this = this
       const {loopringTickers:list,dispatch,market} = this.props
       const tickersFm = new TickersFm(list)
 
@@ -99,22 +100,21 @@ class ListPlaceOrderTickers extends React.Component {
       }
 
       return (
-        <div className="">
-          <NavBar
-            mode="light"
-            icon={<Icon onClick={()=>{routeActions.goBack()}} type="left" />}
-            leftContent={ [
-            ]}
-          >
-            {intl.get('common.search')}搜索
-          </NavBar>
-          <SearchBar
-            placeholder="Search"
-            ref={ref => this.autoFocusInst = ref}
-            onChange={search}
-          />
-          <div className="divider 1px zb-b-t"></div>
-          {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />}
+        <div className="selectable">
+            <NavBar
+              mode="light"
+              leftContent={[
+                <WebIcon style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'left'}} onClick={()=>routeActions.goBack()} key="1" type="left" />,
+              ]}
+            >
+              搜索
+            </NavBar>
+            <SearchBar
+              placeholder="Search"
+              onChange={search}
+            />
+            <div className="divider 1px zb-b-t"></div>
+            {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />}
         </div>
       )
   }
