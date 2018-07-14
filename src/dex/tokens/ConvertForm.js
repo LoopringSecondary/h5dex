@@ -19,6 +19,17 @@ const WETH = Contracts.WETH
 const Item = List.Item
 const Brief = Item.Brief
 
+// 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
+// https://github.com/ant-design/ant-design-mobile/issues/307
+// https://github.com/ant-design/ant-design-mobile/issues/163
+const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+let moneyKeyboardWrapProps;
+if (isIPhone) {
+  moneyKeyboardWrapProps = {
+    onTouchStart: e => e.preventDefault(),
+  }
+}
+
 class Convert extends React.Component {
   state={
     token:'ETH'
@@ -132,6 +143,9 @@ class Convert extends React.Component {
         this.setState({token: 'ETH'})
       }
     }
+    const handleClick = () => {
+        this.inputRef.focus();
+    }
     return (
       <div className="bg-white">
         <NavBar
@@ -149,53 +163,42 @@ class Convert extends React.Component {
         </NavBar>
         <div className="zb-b-b">
           <div className="p15">
-            <div hidden className="row ml0 mr0 no-gutters align-items-center justify-content-center">
-              <div className="col text-center d-flex align-items-center justify-content-center">
-                <div className="d-inline-flex align-items-center justify-content-center bg-primary color-white radius-circle" style={{width:'40px',height:'40px'}}>
-                  <i className={`icon-token-${token.toUpperCase()} fs24`}/>
-                </div>
-                <span className="ml5">{token}</span>
+            <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
+              <div className="col text-left">
+                <div className="color-black-2 fs14">{token}</div>
               </div>
-              <div className="col-auto text-center" style={{width: '44px'}}>
-                <i className={`icon-long-arrow-right color-black-1 fs20`}/>
+              <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
               </div>
-              <div className="col text-center d-flex align-items-center justify-content-center">
-                <span className="mr5">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</span>
-                <div className="d-inline-flex align-items-center justify-content-center bg-primary color-white radius-circle" style={{width:'40px',height:'40px'}}>
-                  <i className={`icon-token-${token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} fs24`}/>
-                </div>
+              <div className="col text-right">
+                <div className="color-black-2 fs14">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</div>
               </div>
             </div>
-            <div className="row ml0 mr0 mt10 no-gutters align-items-center justify-content-center">
-              <div className="col text-right">
-                <List>
+            <div className="zb-b row ml0 mr0 no-gutters align-items-stretch justify-content-center">
+              <div className="col text-right no-border am-list-bg-none bg-grey-100">
+                <List >
                     <InputItem
-                      onChange={amountChange}
-                      value={amount}
-                      type="number"
-                      defaultValue={amount}
-                      clear
-                      moneyKeyboardAlign="right"
-                    >{token}</InputItem>
+                      type="digit"
+                      onClick={()=>{this.inputRef.focus()}}
+                      ref={el => this.inputRef = el}
+                      defaultValue="0"
+                    >
+                    </InputItem>
                 </List>
                 {
                   false &&
                   <Input prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
                 }
               </div>
-              <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
+              <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap} style={{width: '44px'}}>
                 <WebIcon type="swap" className="fs20 text-primary" />
               </div>
-              <div className="col text-left">
+              <div className="col text-left no-border am-list-bg-none bg-grey-100">
                 <List>
                     <InputItem
-                      onChange={amountChange}
-                      value={amount}
-                      type="number"
-                      defaultValue={amount}
+                      type="digit"
+                      defaultValue="0"
                       clear
-                      moneyKeyboardAlign="left"
-                      extra={token}
+                      disabled={true}
                     ></InputItem>
                 </List>
                 {
@@ -204,6 +207,7 @@ class Convert extends React.Component {
                 }
               </div>
             </div>
+
             <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
               <div className="col">
                 <div className="color-black-2 fs14 text-left">Gas Fee</div>
