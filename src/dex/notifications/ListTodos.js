@@ -200,8 +200,8 @@ function ListTodos (props) {
     const value = allocates[symbol]
     const tf = new TokenFormatter({symbol})
     const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
-    const unitBalance = tf.toPricisionFixed(assets.balance)
-    let selling = tf.toPricisionFixed(tf.getUnitAmount(value))
+    const unitBalance = assets.balance
+    let selling = tf.getUnitAmount(value)
     if (symbol.toUpperCase() === 'LRC') {
       selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
     }
@@ -209,14 +209,14 @@ function ListTodos (props) {
       data.push({
         symbol: symbol,
         type: 'balance',
-        balance: unitBalance,
-        selling,
-        lack: selling - unitBalance,
+        balance: tf.toPricisionFixed(unitBalance),
+        selling:tf.toPricisionFixed(selling),
+        lack: toNumber(selling) - toNumber(unitBalance),
         title: `${symbol} balance is insufficient for orders`
       })
     }
     let allowance = assets.allowance
-    if (allowance.lt(tf.getUnitAmount(toBig(value)))) {
+    if (allowance.lt(toBig(selling))) {
       data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
     }
     callback()
