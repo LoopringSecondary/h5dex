@@ -40,7 +40,7 @@ class UserCenter extends React.Component {
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
-            rightContent={[
+            rightContent={null && [
               <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1)}><i className="icon-cog-o"></i></span>
             ]}
           >

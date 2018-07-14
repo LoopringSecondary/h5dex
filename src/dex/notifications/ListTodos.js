@@ -304,7 +304,7 @@ function ListTodos (props) {
           leftContent={null && [
             <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
           ]}
-          rightContent={[
+          rightContent={null && [
             <WebIcon onClick={() => window.Toast.info('Coming Soon', 1)} key="1" type="question-circle-o"
                      className=""/>,
           ]}
