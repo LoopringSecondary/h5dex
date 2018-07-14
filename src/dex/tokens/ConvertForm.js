@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, List, NavBar, Toast,Modal,InputItem} from 'antd-mobile'
-import { Icon as WebIcon, Input } from 'antd'
+import { Button, List, NavBar,Toast,Modal,InputItem,Icon} from 'antd-mobile'
+import { Icon as WebIcon, Input,InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
 import { toHex, toBig, toNumber } from '../../common/loopringjs/src/common/formatter'
@@ -19,17 +19,6 @@ const WETH = Contracts.WETH
 const Item = List.Item
 const Brief = Item.Brief
 
-// 通过自定义 moneyKeyboardWrapProps 修复虚拟键盘滚动穿透问题
-// https://github.com/ant-design/ant-design-mobile/issues/307
-// https://github.com/ant-design/ant-design-mobile/issues/163
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
-let moneyKeyboardWrapProps;
-if (isIPhone) {
-  moneyKeyboardWrapProps = {
-    onTouchStart: e => e.preventDefault(),
-  }
-}
-
 class Convert extends React.Component {
   state={
     token:'ETH'
@@ -41,8 +30,6 @@ class Convert extends React.Component {
       this.setState({token:convertToken.token})
     }
   }
-
-
   render () {
     const {dispatch, balance, amount,gas} = this.props
     const {token} = this.state;
@@ -143,50 +130,61 @@ class Convert extends React.Component {
         this.setState({token: 'ETH'})
       }
     }
-    const handleClick = () => {
-        this.inputRef.focus();
-    }
+    const _this = this
+    const fromToken = token
+    const toToken = token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
     return (
       <div className="bg-white">
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={()=>hideLayer({id:'convertToken'})}
+          onLeftClick={()=>routeActions.goBack()}
           leftContent={[
-            <span key='1' className=""><WebIcon type="close"/></span>,
+            <span key='1' className=""><Icon type="left"/></span>,
           ]}
           rightContent={null && [
             <WebIcon key="1" type="question-circle-o"/>,
           ]}
         >
-          {intl.get('common.convert')}
+          {fromToken} → {toToken}
         </NavBar>
         <div className="zb-b-b">
+          <div hidden={true} className="" >
+            <List>
+                <InputItem
+                  type="text"
+                  onFocus={()=>{alert('focused')}}
+                  ref={el => _this.inputRef = el}
+                >
+                </InputItem>
+            </List>
+            <div className="mt15">
+              <Input className="d-block w-100" />
+            </div>
+          </div>
           <div className="p15">
             <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
               <div className="col text-left">
-                <div className="color-black-2 fs14">{token}</div>
+                <div className="color-black-2 fs14">{fromToken}</div>
               </div>
               <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
               </div>
               <div className="col text-right">
-                <div className="color-black-2 fs14">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</div>
+                <div className="color-black-2 fs14">{toToken}</div>
               </div>
             </div>
             <div className="zb-b row ml0 mr0 no-gutters align-items-stretch justify-content-center">
               <div className="col text-right no-border am-list-bg-none bg-grey-100">
                 <List >
                     <InputItem
-                      type="digit"
-                      onClick={()=>{this.inputRef.focus()}}
-                      ref={el => this.inputRef = el}
+                      type="money"
                       defaultValue="0"
                     >
                     </InputItem>
                 </List>
                 {
                   false &&
-                  <Input prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
+                  <InputNumber prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
                 }
               </div>
               <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap} style={{width: '44px'}}>
@@ -195,7 +193,7 @@ class Convert extends React.Component {
               <div className="col text-left no-border am-list-bg-none bg-grey-100">
                 <List>
                     <InputItem
-                      type="digit"
+                      type="money"
                       defaultValue="0"
                       clear
                       disabled={true}
@@ -207,14 +205,13 @@ class Convert extends React.Component {
                 }
               </div>
             </div>
-
-            <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
+            <div className="row ml0 mr0 pt20 pb20 no-gutters zb-b-b" onClick={setGas}>
               <div className="col">
-                <div className="color-black-2 fs14 text-left">Gas Fee</div>
+                <div className="color-black-2 fs14 text-left">{intl.get('common.gas')}</div>
               </div>
               <div className="col-auto fs14 color-black-2">
                   <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-                <WebIcon type="right"/>
+                  <WebIcon className="ml5 text-primary" type="right"/>
               </div>
             </div>
             <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
@@ -224,7 +221,8 @@ class Convert extends React.Component {
           <div hidden className='mt20'>w
             <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
-          <div hidden className="bg-grey-100 mt15">
+          <div className="bg-grey-100 mt15">
+            <div className="divider zb-b-b 1px"></div>
             <ConvertHelperOfBalance />
           </div>
         </div>
