@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'dva'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { Button, Icon, Modal, NavBar, NoticeBar, SegmentedControl, Switch, Toast } from 'antd-mobile'
+import { Button, Icon, NavBar, NoticeBar, SegmentedControl, Switch, Toast } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
 import { toBig, toHex, toNumber } from 'LoopringJS/common/formatter'
@@ -260,7 +260,7 @@ function ListTodos (props) {
       })
       nonce = nonce + 1
     }, function (error) {
-      Modal.alert(error.message)
+      Toast.fail(error.message)
     })
 
     eachLimit(txs, 1, async (tx, callback) => {
@@ -286,7 +286,7 @@ function ListTodos (props) {
       if (error) {
         Toast.fail(error.message)
       } else {
-        Toast.success('enable success')
+        Toast.success(intl.get('notifications.title.enable_suc'))
       }
     })
   }
