@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, List, NavBar, Toast,Modal} from 'antd-mobile'
+import { Button, List, NavBar, Toast,Modal,InputItem} from 'antd-mobile'
 import { Icon as WebIcon, Input } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
@@ -141,7 +141,7 @@ class Convert extends React.Component {
           leftContent={[
             <span key='1' className=""><WebIcon type="close"/></span>,
           ]}
-          rightContent={[
+          rightContent={null && [
             <WebIcon key="1" type="question-circle-o"/>,
           ]}
         >
@@ -168,13 +168,40 @@ class Convert extends React.Component {
             </div>
             <div className="row ml0 mr0 mt10 no-gutters align-items-center justify-content-center">
               <div className="col text-right">
-                <Input prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
+                <List>
+                    <InputItem
+                      onChange={amountChange}
+                      value={amount}
+                      type="number"
+                      defaultValue={amount}
+                      clear
+                      moneyKeyboardAlign="right"
+                    >{token}</InputItem>
+                </List>
+                {
+                  false &&
+                  <Input prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
+                }
               </div>
               <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
                 <WebIcon type="swap" className="fs20 text-primary" />
               </div>
               <div className="col text-left">
-                <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text" onChange={amountChange} value={amount}/>
+                <List>
+                    <InputItem
+                      onChange={amountChange}
+                      value={amount}
+                      type="number"
+                      defaultValue={amount}
+                      clear
+                      moneyKeyboardAlign="left"
+                      extra={token}
+                    ></InputItem>
+                </List>
+                {
+                  false &&
+                  <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text" onChange={amountChange} value={amount}/>
+                }
               </div>
             </div>
             <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
