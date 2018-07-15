@@ -226,7 +226,7 @@ class Convert extends React.Component {
           </div>
           <div className="bg-grey-100 mt15">
             <div className="divider zb-b-b 1px"></div>
-            <ConvertHelperOfBalance/>
+            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance}} gasFee={gasFee}/>
           </div>
         </div>
       </div>
