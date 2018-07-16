@@ -6,9 +6,14 @@ import { NavBar,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
+import {connect} from 'dva'
 
 class Markets extends React.Component {
   render(){
+    const search = () => {
+      console.log(111)
+      routeActions.gotoPath('/dex/markets/search/fromMarkets')
+    }
     return (
       <LayoutDexHome {...this.props}>
         <div className=""  style={{height:'100%'}}>
@@ -21,7 +26,7 @@ class Markets extends React.Component {
             leftContent={ [
             ]}
             rightContent={[
-              <i style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'right'}} onClick={()=>routeActions.gotoPath('/dex/markets/search')} key="1" className="icon-search" />,
+              <i style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'right'}} onClick={search} key="1" className="icon-search" />,
             ]}
           >
             {intl.get('common.markets')}
@@ -35,4 +40,4 @@ class Markets extends React.Component {
     )
   }
 }
-export default Markets
+export default connect() (Markets)

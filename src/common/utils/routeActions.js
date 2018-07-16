@@ -14,7 +14,7 @@ export default  {
   gotoPath:(path,state)=>{
     history.push({
       pathname:path,
-      ...state,
+      state,
     });
   },
   gotoHref:(href)=>{
