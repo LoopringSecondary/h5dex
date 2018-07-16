@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import { Modal,List,Button } from 'antd-mobile';
+import { Modal,List,Button,NavBar,Icon} from 'antd-mobile';
 import intl from 'react-intl-universal';
 import config from '../../common/config'
 import routeActions from 'common/utils/routeActions'
@@ -42,11 +42,31 @@ function HelperOfTokenActions(props) {
 
   return (
     <div className="">
-        <List renderHeader={() => <div className="pt5 pb5 fs18 color-black-1">{symbol} {intl.get('common.actions')}</div>} className="popup-list">
+        <NavBar
+          className="zb-b-b"
+          mode="light"
+          onLeftClick={() => hideLayer({id:'helperOfTokenActions'})}
+          leftContent={[
+            <span key='1' className=""><Icon type="cross"/></span>,
+          ]}
+        >
+          {symbol} {intl.get('common.actions')}
+        </NavBar>
+        <div className="p10">
+          <Button onClick={showReceive} className="" type="primary">{intl.get('common.receive')} {symbol}</Button>
+          {
+            !hideBuy &&
+            <Button onClick={gotoTrading} className="mt10" type="primary">{intl.get('common.buy')} {symbol}</Button>
+          }
+
+          {
+            symbol !== 'ETH' &&
+            <Button onClick={()=>window.toast('ComingSoon')} disabled className="mt10" type="">Enable {symbol}</Button>
+          }
           {false &&
             symbol === 'WETH' &&
             <List.Item arrow="horizontal" extra={``}>
-              {intl.get('convert.convert_eth_title')}
+                <Button className="m10" type="primary">{intl.get('convert.convert_eth_title')}</Button>
             </List.Item>
           }
           {false &&
@@ -54,13 +74,6 @@ function HelperOfTokenActions(props) {
             <List.Item arrow="horizontal" extra={``}>
               {intl.get('convert.convert_weth_title')}
             </List.Item>
-          }
-          <List.Item onClick={showReceive} arrow="horizontal" extra={`0.000 ${symbol}`}>
-            {intl.get('common.receive')} {symbol}
-          </List.Item>
-          {!hideBuy && <List.Item onClick={gotoTrading} arrow="horizontal" extra={`0.000 ${symbol}`}>
-            {intl.get('common.buy')} {symbol}
-          </List.Item>
           }
           {
             false && symbol !== 'ETH' &&
@@ -72,13 +85,7 @@ function HelperOfTokenActions(props) {
             Switch Wallet
           </List.Item>
           }
-          {false &&
-            symbol !== 'ETH' &&
-            <List.Item arrow="horizontal" disabled>
-              Enable {symbol} to trade
-            </List.Item>
-          }
-        </List>
+        </div>
     </div>
   )
 }

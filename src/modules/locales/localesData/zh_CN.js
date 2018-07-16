@@ -60,8 +60,13 @@ const words = {
   yes:'是',
   no:'否',
   more:'更多',
+  comingsoon:'即将到来',
+  set:'设置',
+  helper:'助手',
+  depth:'深度',
   list:{
     no_data:'暂无数据',
+    no_data_custom:'暂无{title}',
     loading:'加载中...',
   }
 }

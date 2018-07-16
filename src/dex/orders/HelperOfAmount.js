@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Tabs,Slider,Icon } from 'antd-mobile';
+import { Tabs,Slider,Icon,NavBar } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import intl from 'react-intl-universal';
 import HelperOfDepth from './HelperOfDepth'
@@ -33,6 +33,14 @@ function HelperOfAmount(props) {
     dispatch({type:'placeOrderHelper/amountPercentageEffects', payload:{percentage}})
     const amount = availableAmount.times(percentage).div(100).toString(10)
     dispatch({type:'placeOrder/amountChange', payload:{amountInput:amount}})
+  }
+  const hideLayer = (payload = {}) => {
+    dispatch({
+      type: 'layers/hideLayer',
+      payload: {
+        ...payload
+      }
+    })
   }
 
   const Content = () => {
@@ -101,7 +109,7 @@ function HelperOfAmount(props) {
       )
     } else {
       return (
-        <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
+        <div className="bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
           <HelperOfDepth />
         </div>
       )
@@ -110,7 +118,19 @@ function HelperOfAmount(props) {
 
   return (
     <div className="tabs-no-border">
-      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b text-center">Amount Helper</div>
+      <NavBar
+        className="zb-b-b"
+        mode="light"
+        onLeftClick={() => hideLayer({id:'helperOfPrice'})}
+        leftContent={[
+          <span key='1' className=""><Icon type="cross"/></span>,
+        ]}
+        rightContent={[
+          <span key='1' onClick={()=>window.Toast.info('请点击价格或数量')} className=""><WebIcon type="question-circle-o"/></span>,
+        ]}
+      >
+        {intl.get('common.amount')}{intl.get('common.helper')}
+      </NavBar>
       <Content />
     </div>
   )

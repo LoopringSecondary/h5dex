@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Spin} from 'antd';
+import {Spin,Icon as WebIcon} from 'antd';
+import {NavBar,Icon} from 'antd-mobile';
 import intl from 'react-intl-universal';
 import {getTokensByMarket} from 'modules/formatter/common'
 import HelperOfDepth from './HelperOfDepth'
@@ -19,19 +20,41 @@ function HelperOfPrice(props) {
       }
     })
   }
+  const hideLayer = (payload = {}) => {
+    dispatch({
+      type: 'layers/hideLayer',
+      payload: {
+        ...payload
+      }
+    })
+  }
   return (
     <div className="tabs-no-border">
-      <div hidden className="pt15 pb15 fs18 color-black-1 zb-b-b">Price Helper</div>
+      <NavBar
+        className=""
+        mode="light"
+        onLeftClick={() => hideLayer({id:'helperOfPrice'})}
+        leftContent={[
+          <span key='1' className=""><Icon type="cross"/></span>,
+        ]}
+        rightContent={[
+          <span key='1' onClick={()=>window.Toast.info('请点击价格或数量')} className=""><WebIcon type="question-circle-o"/></span>,
+        ]}
+      >
+        {intl.get('common.price')}{intl.get('common.helper')}
+      </NavBar>
       <div className="zb-b-t">
-        <div className="row ml0 mr0 zb-b-b align-items-center ">
-          <div className="col pt15 pb15 color-black-1 text-left pl10">
+        <div className="row ml0 mr0 zb-b-b align-items-center no-gutters">
+          <div className="col-auto p10 color-black-1 text-left ">
             {intl.get('ticker.last')}
           </div>
-          { priceDisplay &&
-            <div className="col-auto pt15 pb15 color-black-2 hover-default" onClick={changePrice.bind(this,priceDisplay)}>
-              <span className="color-black-4 mr5"><Worth amount={priceDisplay} symbol={tokens.right}/></span>{priceDisplay} {tokens.right}
-            </div>
-          }
+          <div className="col-auto pt10 pb10 color-black-1 hover-default" onClick={changePrice.bind(this,priceDisplay)}>
+            {priceDisplay} {tokens.right}
+            <span className="color-black-4 ml5 fs12">
+              <Worth amount={priceDisplay} symbol={tokens.right}/>
+            </span>
+          </div>
+          <div className="col"></div>
         </div>
         <div className="bg-grey-100" style={{maxHeight:'50vh',overflow:'auto'}}>
           <HelperOfDepth />

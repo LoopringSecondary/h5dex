@@ -5,10 +5,10 @@ import intl from 'react-intl-universal'
 import { Toast } from 'antd-mobile';
 
 const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
-  // const maxHeight = (60*maxRows+32) + 'px'
+
   const sell = depth.item && depth.item.sell ? [...depth.item.sell].reverse() : []
   const changePrice = (value)=>{
-    Toast.info('Price has changed', 3, null, false);
+    // Toast.info('Price has changed', 3, null, false);
     dispatch({
       type:'placeOrder/priceChangeEffects',
       payload:{
@@ -17,7 +17,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
     })
   }
   const changeAmount = (value)=>{
-    Toast.info('Amount has changed', 3, null, false);
+    // Toast.info('Amount has changed', 3, null, false);
     dispatch({
       type:'placeOrder/amountChange',
       payload:{
@@ -25,7 +25,8 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
       }
     })
   }
-  const maxHeight = 'auto'
+  // const maxHeight = 'auto'
+  const maxHeight = (32*maxRows+28) + 'px'
   return (
     <div style={{maxHeight,overflow:'auto'}}>
       <div className="row no-gutters ml0 mr0">
@@ -35,7 +36,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
               <thead>
                 <tr className="">
                   <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.amount")}</th>
-                  <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.buy")}</th>
+                  <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.buy")}{intl.get("common.price")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -56,7 +57,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                     depth.item && depth.item.buy && depth.item.buy.length == 0 &&
                       <tr>
                         <td colSpan="10" className="p10 zb-b-b text-center align-middle color-black-4 fs12">
-                          {intl.get('common.list.no_data')}
+                          {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
                         </td>
                       </tr>
                   }
@@ -69,7 +70,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
             <table className="w-100 fs13 zb-b-l">
               <thead>
                 <tr className="">
-                  <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.sell")}</th>
+                  <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.sell")}{intl.get("common.price")}</th>
                   <th className="zb-b-b text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.amount")}</th>
                 </tr>
               </thead>
@@ -91,7 +92,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                       depth.item && depth.item.sell && depth.item.sell.length == 0 &&
                         <tr className="">
                           <td colSpan="10" className="p10 zb-b-b text-center align-middle color-black-4 fs12">
-                            {intl.get('common.list.no_data')}
+                            {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
                           </td>
                         </tr>
                     }

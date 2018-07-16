@@ -59,8 +59,13 @@ const words = {
   yes:'Yes',
   no:'No',
   more:'More',
+  comingsoon:'Coming Soon',
+  depth:'Depth',
+  set:'Set',
+  helper:'Helper',
   list:{
     no_data:'No Data',
+    no_data_custom:'No {title}',
     loading:'Loading...',
   }
 }
