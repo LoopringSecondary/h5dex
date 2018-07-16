@@ -1,17 +1,11 @@
-import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid,NoticeBar } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { connect } from 'dva';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
+import React from 'react'
+import { Button } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
+import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import * as tokenFormatter from 'modules/tokens/TokenFm'
-import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
+import { toFixed } from 'LoopringJS/common/formatter'
 import TokensFm from 'modules/tokens/TokensFm'
-import intl from 'react-intl-universal';
-
-const Item = List.Item;
-const Brief = Item.Brief;
+import intl from 'react-intl-universal'
 
 const TokenListComp = (props)=>{
   const {tokens,balance,marketcap, dispatch} = props
@@ -31,7 +25,8 @@ const TokenListComp = (props)=>{
   }
 
   const showConvert = (token) => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'convertToken',token}});
+    routeActions.gotoPath(`/dex/convert/${token}`)
+    // dispatch({type: 'layers/showLayer', payload: {id: 'convertToken',token}});
   }
   const showActions = (symbol) => {
     dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions',symbol,hideBuy:false}});
