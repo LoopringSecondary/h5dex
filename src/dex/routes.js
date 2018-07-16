@@ -33,7 +33,7 @@ const Logged = ()=>{
       <div>
         <Switch>
           <Route path={`/dex/markets`} exact component={Markets} />
-          <Route path={`/dex/markets/search`} exact component={MarketsSearch} />
+          <Route path={`/dex/markets/search/:type`} exact component={MarketsSearch} />
           <Route path={`/dex/markets/:market`} component={MarketDetail} />
           <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
