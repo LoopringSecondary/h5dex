@@ -9,11 +9,17 @@ import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
 import {formatPrice} from 'modules/orders/formatters'
 
-const TickerItem = ({item,actions,key,dispatch})=>{
+const TickerItem = ({item,actions,key,from,dispatch})=>{
     if(!item){ return null }
     const tickerFm = new TickerFm(item)
     const changeMarket = ()=>{
-      routeActions.gotoPath(`/dex/placeOrder/${item.market}`)
+      if(from) {
+        if (from === 'fromMarkets') {
+          routeActions.gotoPath(`/dex/markets/${item.market}`)
+        } else if (from === 'fromMarket') {
+          routeActions.gotoPath(`/dex/placeOrder/${item.market}`)
+        }
+      }
       dispatch({
         type:"layers/hideLayer",
         payload:{
@@ -55,7 +61,7 @@ const TickerItem = ({item,actions,key,dispatch})=>{
     )
 }
 
-export const TickerList = ({items,loading,dispatch,market})=>{
+export const TickerList = ({items,loading,dispatch,market,from})=>{
   return (
     <div className="bg-white">
       <Spin spinning={loading}>
@@ -64,7 +70,7 @@ export const TickerList = ({items,loading,dispatch,market})=>{
           Current: {market}
         </div>
         <div className="divider 1px zb-b-t"></div>
-        {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
+        {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} from={from}/>)}
         {items.length === 0 &&
           <div className="p10 text-center color-black-3">
             {intl.get('common.list.no_data')}
@@ -88,6 +94,7 @@ class ListPlaceOrderTickers extends React.Component {
   render(){
       const _this = this
       const {loopringTickers:list,dispatch,market} = this.props
+      const from = this.props.location.pathname.replace(`/dex/markets/search/`, '')
       const tickersFm = new TickersFm(list)
 
       const {extra:{favored={},keywords}} = list
@@ -114,7 +121,7 @@ class ListPlaceOrderTickers extends React.Component {
               onChange={search}
             />
             <div className="divider 1px zb-b-t"></div>
-            {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} />}
+            {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} from={from}/>}
         </div>
       )
   }

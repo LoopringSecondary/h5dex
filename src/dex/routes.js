@@ -33,13 +33,13 @@ const Logged = ()=>{
       <div>
         <Switch>
           <Route path={`/dex/markets`} exact component={Markets} />
-          <Route path={`/dex/markets/search`} exact component={MarketsSearch} />
+          <Route path={`/dex/markets/search/:type`} exact component={MarketsSearch} />
           <Route path={`/dex/markets/:market`} component={MarketDetail} />
           <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
           <Route path={`/dex/todos`} exact component={ListTodos} />
           <Route path={`/dex/usercenter`} component={UserCenter} />
-          <Route path={`/dex/convert`} exact component={Convert} />
+          <Route path={`/dex/convert/:token`} component={Convert} />
           <Route path={`/dex/face2face`} exact component={Face2FacePage} />
           <Route path={`/dex/messages`} exact component={Pages.Todo} />
           <Route path={`/dex/myOrders`} exact component={Orders.ListMyOrders} />

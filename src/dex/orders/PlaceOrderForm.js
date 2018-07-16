@@ -1,11 +1,9 @@
-import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps,Toast } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { connect } from 'dva';
-import routeActions from 'common/utils/routeActions'
-import {getTokensByMarket} from 'modules/formatter/common'
-import {toBig,toNumber,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
-import intl from 'react-intl-universal';
+import React from 'react'
+import { Button, InputItem, List, SegmentedControl, Toast } from 'antd-mobile'
+import { connect } from 'dva'
+import { getTokensByMarket } from 'modules/formatter/common'
+import { getDisplaySymbol, toBig} from 'LoopringJS/common/formatter'
+import intl from 'react-intl-universal'
 import * as orderFormatter from 'modules/orders/formatters'
 import moment from 'moment'
 import config from 'common/config'

@@ -74,23 +74,25 @@ function HelperOfAmount(props) {
               </div>
               {!amountSliderSelected && amountPercentage === 25 && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
             </div>
-            <div className="row pt15 pb15 ml0 mr0">
-              <div className="col color-black-1 text-left pl20">
-                <span className="ml5">{amountSlider}%</span>
-                <span className="color-black-3 ml25">{`${prefix} ${availableAmount.times(amountSlider).div(100).toString(10)}${tokens.left}`}</span>
+            {false && <div>
+              <div className="row pt15 pb15 ml0 mr0">
+                <div className="col color-black-1 text-left pl20">
+                  <span className="ml5">{amountSlider}%</span>
+                  <span className="color-black-3 ml25">{`${prefix} ${availableAmount.times(amountSlider).div(100).toString(10)}${tokens.left}`}</span>
+                </div>
+                {amountSliderSelected && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
               </div>
-              {amountSliderSelected && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
-            </div>
-            <div className="mt15 pb25 pl25 pr20">
-              <Slider
-                className=""
-                defaultValue={10}
-                min={0}
-                max={100}
-                onChange={amountSliderChange}
-                onAfterChange={()=>{}}
-              />
-            </div>
+              <div className="mt15 pb25 pl25 pr20">
+                <Slider
+                  className=""
+                  defaultValue={10}
+                  min={0}
+                  max={100}
+                  onChange={amountSliderChange}
+                  onAfterChange={()=>{}}
+                />
+              </div>
+            </div>}
           </div>
           <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
             <HelperOfDepth />

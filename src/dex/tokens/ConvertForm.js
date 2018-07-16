@@ -1,22 +1,19 @@
 import React from 'react'
-import { Button, List, NavBar, Toast, Modal, InputItem, Icon } from 'antd-mobile'
+import { Button, Icon, InputItem, List, NavBar, Toast } from 'antd-mobile'
 import { Icon as WebIcon, Input, InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import { toHex, toBig, toNumber } from '../../common/loopringjs/src/common/formatter'
+import { toBig, toHex, toNumber } from '../../common/loopringjs/src/common/formatter'
 import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
-import TokenFormatter, { getBalanceBySymbol, getPriceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
+import TokenFormatter, { getBalanceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
 import intl from 'react-intl-universal'
 import storage from 'modules/storage'
 import Worth from 'modules/settings/Worth'
-import { signTx, signMessage } from '../../common/utils/signUtils'
-import Notification from 'LoopringUI/components/Notification'
+import { signTx } from '../../common/utils/signUtils'
 import ConvertHelperOfBalance from './ConvertHelperOfBalance'
 
 const WETH = Contracts.WETH
-const Item = List.Item
-const Brief = Item.Brief
 
 class Convert extends React.Component {
   state = {
@@ -24,9 +21,9 @@ class Convert extends React.Component {
   }
 
   componentDidMount () {
-    const {convertToken} = this.props
-    if (convertToken && convertToken.token) {
-      this.setState({token: convertToken.token})
+    const {match} = this.props
+    if (match && match.params && match.params.token) {
+      this.setState({token: match.params.token})
     }
   }
 
