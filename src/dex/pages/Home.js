@@ -40,7 +40,7 @@ class Home extends React.Component {
                     title={intl.get("common.markets")}
                     key="markets"
                     icon={
-                      <i className="icon-LRC" className="fs22" style={{marginTop:'4px'}}></i>
+                      <i className="icon-LRC fs22"  style={{marginTop:'4px'}}></i>
                     }
                     selectedIcon={
                       <WebIcon type="line-chart" className="fs22" style={{marginTop:'4px'}} />

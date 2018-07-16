@@ -1,12 +1,11 @@
-import React from 'react';
-import { connect } from 'dva';
-import { Button,NoticeBar } from 'antd-mobile';
-import { Switch,Icon as WebIcon } from 'antd';
+import React from 'react'
+import { connect } from 'dva'
+import { Button } from 'antd-mobile'
+import { Icon as WebIcon, Switch } from 'antd'
 import routeActions from 'common/utils/routeActions'
-import {getTokensByMarket} from 'modules/formatter/common'
+import { getTokensByMarket } from 'modules/formatter/common'
 import * as tokenFormatter from 'modules/tokens/TokenFm'
-import {FormatAmount} from 'modules/formatter/FormatNumber'
-import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
+import {toFixed } from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal'
 
 const HelperOfBalance = (props)=>{
@@ -34,13 +33,13 @@ const HelperOfBalance = (props)=>{
   }
   relatedTokens.push(balanceL)
   relatedTokens.push(balanceR)
-  // if(tokens.right === 'WETH') {
-  //   relatedTokens.push({
-  //     symbol:'ETH',
-  //     name:'ETH',
-  //     ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
-  //   })
-  // }
+  if(tokens.right === 'WETH') {
+    relatedTokens.push({
+      symbol:'ETH',
+      name:'ETH',
+      ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
+    })
+  }
   const gotoReceive = (payload)=>{
     showLayer({id:'receiveToken',...payload})
   }
@@ -49,7 +48,9 @@ const HelperOfBalance = (props)=>{
   }
 
   const gotoConvert = (payload)=>{
-    showLayer({id:'convertToken',...payload})
+    // showLayer({id:'convertToken',...payload})
+    routeActions.gotoPath(`/dex/convert/${payload.token}`)
+    // showLayer({id:'convertToken',...payload})
   }
   const gotoAll = (payload)=>{
     // TODO
@@ -89,11 +90,11 @@ const HelperOfBalance = (props)=>{
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right text-nowrap">
                     {
                       token.symbol === 'ETH' &&
-                      <Button onClick={gotoConvert.bind(this,{type:"eth2weth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
+                      <Button onClick={gotoConvert.bind(this,{token:"ETH"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
                     {
                       token.symbol === 'WETH' &&
-                      <Button onClick={gotoConvert.bind(this,{type:"weth2eth"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
+                      <Button onClick={gotoConvert.bind(this,{token:'WETH'})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
                     <Button onClick={showActions.bind(this,{symbol:token.symbol,hideBuy:true})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
                       <WebIcon type="ellipsis" />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Tabs,Slider,Icon } from 'antd-mobile';
+import { Tabs,Slider,Icon,NavBar} from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import intl from 'react-intl-universal';
 import {toBig, toNumber, toFixed} from 'LoopringJS/common/formatter'
@@ -48,10 +48,29 @@ function HelperOfGas(props) {
     }
     return <div>{`${title} 无`}</div>
   }
-
+  const hideLayer = (payload = {}) => {
+    dispatch({
+      type: 'layers/hideLayer',
+      payload: {
+        ...payload
+      }
+    })
+  }
   return (
     <div className="">
-      <div className="pt10 pb10 fs18 color-black-1 zb-b-b text-center">设置油费</div>
+      <NavBar
+        className="zb-b-b"
+        mode="light"
+        onLeftClick={()=>hideLayer({id:'helperOfGas'})}
+        leftContent={[
+          <span key='1' className=""><WebIcon type="close"/></span>,
+        ]}
+        rightContent={null && [
+          <WebIcon key="1" type="question-circle-o"/>,
+        ]}
+      >
+        设置油费
+      </NavBar>
       <div className="bg-white">
         <div className="row p15 ml0 mr0 zb-b-b">
           <div className="col color-black-1 text-left pl25" onClick={tabChanged.bind(this, 'estimate')}>

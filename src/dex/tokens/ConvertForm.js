@@ -1,40 +1,35 @@
 import React from 'react'
-import { Button, List, NavBar, Toast,Modal} from 'antd-mobile'
-import { Icon as WebIcon, Input } from 'antd'
+import { Button, Icon, InputItem, List, NavBar, Toast } from 'antd-mobile'
+import { Icon as WebIcon, Input, InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import { toHex, toBig, toNumber } from '../../common/loopringjs/src/common/formatter'
+import { toBig, toHex, toNumber } from '../../common/loopringjs/src/common/formatter'
 import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
-import TokenFormatter, { getBalanceBySymbol, getPriceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
+import TokenFormatter, { getBalanceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
 import intl from 'react-intl-universal'
 import storage from 'modules/storage'
 import Worth from 'modules/settings/Worth'
-import {signTx,signMessage} from '../../common/utils/signUtils'
-import Notification from 'LoopringUI/components/Notification'
+import { signTx } from '../../common/utils/signUtils'
 import ConvertHelperOfBalance from './ConvertHelperOfBalance'
 
-
 const WETH = Contracts.WETH
-const Item = List.Item
-const Brief = Item.Brief
 
 class Convert extends React.Component {
-  state={
-    token:'ETH'
+  state = {
+    token: 'ETH'
   }
 
-  componentDidMount(){
-    const {convertToken} = this.props;
-    if(convertToken && convertToken.token){
-      this.setState({token:convertToken.token})
+  componentDidMount () {
+    const {match} = this.props
+    if (match && match.params && match.params.token) {
+      this.setState({token: match.params.token})
     }
   }
 
-
   render () {
-    const {dispatch, balance, amount,gas} = this.props
-    const {token} = this.state;
+    const {dispatch, balance, amount, gas} = this.props
+    const {token} = this.state
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
     const gasPrice = gas.tabSelected === 'estimate' ? gas.gasPrice.estimate : gas.gasPrice.current
@@ -78,7 +73,7 @@ class Convert extends React.Component {
       }
 
       if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-        Toast.info(intl.get('convert.not_enough_tip',{token}))
+        Toast.info(intl.get('convert.not_enough_tip', {token}))
         return
       }
       let data = ''
@@ -111,18 +106,18 @@ class Convert extends React.Component {
                 from: address
               })
               Toast.success(intl.get('notifications.title.convert_suc'))
-              hideLayer({id:'convertToken'})
-            }else{
-              Toast.fail(intl.get('notifications.title.convert_fail')+":"+resp.error.message)
+              hideLayer({id: 'convertToken'})
+            } else {
+              Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message)
             }
           })
-        }else{
-          Toast.fail(intl.get('notifications.title.convert_fail')+":"+res.error.message)
+        } else {
+          Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message)
         }
       })
     }
-    const amountChange = (e) => {
-        dispatch({type:'convert/amountChange',payload:{amount:e.target.value}})
+    const amountChange = (value) => {
+      dispatch({type: 'convert/amountChange', payload: {amount:value }})
     }
     const swap = () => {
       const {token} = this.state
@@ -132,69 +127,103 @@ class Convert extends React.Component {
         this.setState({token: 'ETH'})
       }
     }
+    const _this = this
+    const fromToken = token
+    const toToken = token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
     return (
       <div className="bg-white">
         <NavBar
           className="zb-b-b"
           mode="light"
-          onLeftClick={()=>hideLayer({id:'convertToken'})}
+          onLeftClick={() => routeActions.goBack()}
           leftContent={[
-            <span key='1' className=""><WebIcon type="close"/></span>,
+            <span key='1' className=""><Icon type="left"/></span>,
           ]}
-          rightContent={[
+          rightContent={null && [
             <WebIcon key="1" type="question-circle-o"/>,
           ]}
         >
-          {intl.get('common.convert')}
+          {fromToken} → {toToken}
         </NavBar>
         <div className="zb-b-b">
-          <div className="p15">
-            <div hidden className="row ml0 mr0 no-gutters align-items-center justify-content-center">
-              <div className="col text-center d-flex align-items-center justify-content-center">
-                <div className="d-inline-flex align-items-center justify-content-center bg-primary color-white radius-circle" style={{width:'40px',height:'40px'}}>
-                  <i className={`icon-token-${token.toUpperCase()} fs24`}/>
-                </div>
-                <span className="ml5">{token}</span>
-              </div>
-              <div className="col-auto text-center" style={{width: '44px'}}>
-                <i className={`icon-long-arrow-right color-black-1 fs20`}/>
-              </div>
-              <div className="col text-center d-flex align-items-center justify-content-center">
-                <span className="mr5">{token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'}</span>
-                <div className="d-inline-flex align-items-center justify-content-center bg-primary color-white radius-circle" style={{width:'40px',height:'40px'}}>
-                  <i className={`icon-token-${token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} fs24`}/>
-                </div>
-              </div>
+          <div hidden={true} className="">
+            <List>
+              <InputItem
+                type="text"
+                onFocus={() => {alert('focused')}}
+                ref={el => _this.inputRef = el}
+              >
+              </InputItem>
+            </List>
+            <div className="mt15">
+              <Input className="d-block w-100"/>
             </div>
-            <div className="row ml0 mr0 mt10 no-gutters align-items-center justify-content-center">
-              <div className="col text-right">
-                <Input prefix={token} className="text-right" type="text" onChange={amountChange} value={amount}/>
+          </div>
+          <div className="p15">
+            <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
+              <div className="col text-left">
+                <div className="color-black-2 fs14">{fromToken}</div>
               </div>
               <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
-                <WebIcon type="swap" className="fs20 text-primary" />
               </div>
-              <div className="col text-left">
-                <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text" onChange={amountChange} value={amount}/>
+              <div className="col text-right">
+                <div className="color-black-2 fs14">{toToken}</div>
               </div>
             </div>
-            <div className="row ml0 mr0 mt20 no-gutters" onClick={setGas}>
+            <div className="zb-b row ml0 mr0 no-gutters align-items-stretch justify-content-center">
+              <div className="col text-right no-border am-list-bg-none bg-grey-100">
+                <List>
+                  <InputItem
+                    type="money"
+                    onChange={amountChange}
+                    value={amount}
+                  >
+                  </InputItem>
+                </List>
+                {
+                  false &&
+                  <InputNumber prefix={token} className="text-right" type="text" onChange={amountChange}
+                               value={amount}/>
+                }
+              </div>
+              <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap}
+                   style={{width: '44px'}}>
+                <WebIcon type="swap" className="fs20 text-primary"/>
+              </div>
+              <div className="col text-left no-border am-list-bg-none bg-grey-100">
+                <List>
+                  <InputItem
+                    type="money"
+                    value={amount}
+                    disabled={true}
+                  />
+                </List>
+                {
+                  false &&
+                  <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text"
+                         onChange={amountChange} value={amount}/>
+                }
+              </div>
+            </div>
+            <div className="row ml0 mr0 pt20 pb20 no-gutters zb-b-b" onClick={setGas}>
               <div className="col">
-                <div className="color-black-2 fs14 text-left">Gas Fee</div>
+                <div className="color-black-2 fs14 text-left">{intl.get('common.gas')}</div>
               </div>
               <div className="col-auto fs14 color-black-2">
-                  <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-                <WebIcon type="right"/>
+                <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
+                <WebIcon className="ml5 text-primary" type="right"/>
               </div>
             </div>
             <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
-              {token.toLowerCase() === 'eth' ?  intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
+              {token.toLowerCase() === 'eth' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
             </Button>
           </div>
           <div hidden className='mt20'>w
             <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
-          <div hidden className="bg-grey-100 mt15">
-            <ConvertHelperOfBalance />
+          <div className="bg-grey-100 mt15">
+            <div className="divider zb-b-b 1px"></div>
+            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance}} gasFee={gasFee}/>
           </div>
         </div>
       </div>
@@ -207,7 +236,7 @@ function mapStateToProps (state) {
     balance: state.sockets.balance,
     prices: state.sockets.marketcap.items,
     amount: state.convert.amount,
-    gas:state.gas
+    gas: state.gas
   }
 }
 

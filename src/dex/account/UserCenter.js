@@ -1,7 +1,7 @@
 import React from 'react'
-import { Badge, Grid, NavBar, NoticeBar, SegmentedControl, Tabs } from 'antd-mobile'
+import { NavBar, NoticeBar, Tabs } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
-import {Link, Redirect, Route, Switch} from 'dva/router'
+import { Link, Redirect, Route, Switch } from 'dva/router'
 import Containers from 'modules/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
@@ -11,6 +11,8 @@ import ListMyFills from '../fills/ListMyFills'
 import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal'
+
+
 
 class UserCenter extends React.Component {
   render() {
@@ -40,7 +42,7 @@ class UserCenter extends React.Component {
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
-            rightContent={[
+            rightContent={null && [
               <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1)}><i className="icon-cog-o"></i></span>
             ]}
           >
