@@ -13,7 +13,8 @@ const TickerItem = ({item,actions,key,dispatch})=>{
     if(!item){ return null }
     const tickerFm = new TickerFm(item)
     const changeMarket = ()=>{
-      routeActions.gotoPath(`/dex/placeOrder/${item.market}`)
+      // routeActions.gotoPath(`/dex/placeOrder/${item.market}`)
+      routeActions.gotoPath(`/dex/markets/${item.market}`)
       dispatch({
         type:"layers/hideLayer",
         payload:{

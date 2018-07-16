@@ -3,6 +3,7 @@ import { Input,Icon as WebIcon } from 'antd';
 import { Modal,List,Button,NavBar } from 'antd-mobile';
 import intl from 'react-intl-universal';
 import ListPlaceOrderTickers from '../tickers/ListPlaceOrderTickers'
+import routeActions from 'common/utils/routeActions'
 
 function HelperOfMarket(props) {
   const {helperOfMarket} = props
@@ -16,7 +17,7 @@ function HelperOfMarket(props) {
           <span className="color-black-1" key="1"  onClick={helperOfMarket.hideLayer.bind(this,{id:'helperOfMarket'})}><WebIcon type="close" /></span>
         ]}
         rightContent={[
-          <span className="color-black-1" key="1"><WebIcon type="search" /></span>,
+          <i onClick={()=>routeActions.gotoPath('/dex/markets/search')} key="1" className="icon-search" />,
         ]}
       >
         Market
