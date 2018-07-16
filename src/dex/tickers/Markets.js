@@ -11,7 +11,6 @@ import {connect} from 'dva'
 class Markets extends React.Component {
   render(){
     const search = () => {
-      console.log(111)
       routeActions.gotoPath('/dex/markets/search/fromMarkets')
     }
     return (
