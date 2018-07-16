@@ -55,11 +55,11 @@ const TokenListComp = (props)=>{
                     <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
                       {
                         token.symbol === 'ETH' &&
-                        <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={() => showConvert('WETH')}>{intl.get('common.convert')}</Button>
+                        <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={() => showConvert('ETH')}>{intl.get('common.convert')}</Button>
                       }
                       {
                         token.symbol === 'WETH' &&
-                        <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={() => showConvert('ETH')}>{intl.get('common.convert')}</Button>
+                        <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={() => showConvert('WETH')}>{intl.get('common.convert')}</Button>
                       }
                       <Button type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small" onClick={() => showActions(token.symbol)}>
                         <WebIcon type="ellipsis" />
