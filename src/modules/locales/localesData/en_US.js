@@ -405,7 +405,7 @@ export default {
     title_reference_tickers: 'Reference Markets',
     title_recent: 'Recent',
     title_favorites: 'Favorites',
-    title_innovation: "Innovation"
+    title_innovation: "New"
   },
   // -----------
   // token
