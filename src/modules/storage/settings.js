@@ -88,6 +88,18 @@ const getTokensConfig = ()=>{
   }
 }
 
+const setMarketsConfig = (markets)=>{
+  localStorage.marketsConfig = JSON.stringify(markets)
+}
+
+const getMarketsConfig = ()=>{
+  if(localStorage.marketsConfig){
+    return JSON.parse(localStorage.marketsConfig)
+  }else{
+    return []
+  }
+}
+
 export default {
   set,
   get,
@@ -96,6 +108,8 @@ export default {
   getRelay,
   getContractVersion,
   setTokensConfig,
-  getTokensConfig
+  getTokensConfig,
+  setMarketsConfig,
+  getMarketsConfig
 }
 
