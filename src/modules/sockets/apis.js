@@ -162,15 +162,15 @@ const transfromers = {
       })
     },
     resTransformer:(id,res)=>{
-      // if(!res) return null
-      // console.log(res)
-      // res = JSON.parse(res)
-      // //console.log(id,'res',res)
-      // let item = {}
-      // if(!res.error && res.data){
-      //   item ={...res.data}
-      // }
-      // updateItem(item,id)
+      if(!res) return null
+      console.log(res)
+      res = JSON.parse(res)
+      //console.log(id,'res',res)
+      let item = {}
+      if(!res.error && res.data){
+        item ={...res.data}
+      }
+      updateItem(item,id)
     },
   },
   loopringTickers:{
