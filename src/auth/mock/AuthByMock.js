@@ -31,7 +31,6 @@ class AuthByImtoken extends React.Component {
       }
       storage.wallet.storeUnlockedAddress("mock", window.Wallet.address)
       window.RELAY.account.register(window.Wallet.address)
-      _props.dispatch({type:'locales/setLocale', payload:{locale:language}});
       _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
       _props.dispatch({type: 'sockets/unlocked'});
       Toast.hide()
@@ -39,6 +38,11 @@ class AuthByImtoken extends React.Component {
   }
 
   goToDex = () => {
+    let language = 'en-US'
+    if(window.Wallet.language.indexOf('zh') !== -1){
+      language = 'zh-CN'
+    }
+    this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
     routeActions.gotoPath('/dex');
   }
   goToFace2Face = () => {

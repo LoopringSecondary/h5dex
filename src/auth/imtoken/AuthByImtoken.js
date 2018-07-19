@@ -24,7 +24,6 @@ class AuthByImtoken extends React.Component {
       window.Wallet.setConfigs().then(res => {
         storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
         window.RELAY.account.register(window.Wallet.address)
-        _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
         _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
         _props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
@@ -35,7 +34,6 @@ class AuthByImtoken extends React.Component {
         window.Wallet.setConfigs().then(res => {
           storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
           window.RELAY.account.register(window.Wallet.address)
-          _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
           _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
           _props.dispatch({type: 'sockets/unlocked'});
          Toast.hide()
@@ -45,6 +43,7 @@ class AuthByImtoken extends React.Component {
   }
 
   goToDex = () => {
+    this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
     routeActions.gotoPath('/dex');
   }
   goToFace2Face = () => {

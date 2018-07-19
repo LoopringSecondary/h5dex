@@ -29,7 +29,6 @@ class Routes extends React.Component {
         window.Wallet.setConfigs().then(res => {
           storage.wallet.storeUnlockedAddress('loopr', window.Wallet.address)
           window.RELAY.account.register(window.Wallet.address)
-          _this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           _this.props.dispatch({
             type: 'settings/preferenceChange',
             payload: {language: window.Wallet.language, currency: window.Wallet.currency}
@@ -42,6 +41,7 @@ class Routes extends React.Component {
   }
 
   goToDex = () => {
+    this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
     routeActions.gotoPath('/dex')
   }
 

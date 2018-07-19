@@ -1,6 +1,5 @@
-import React from 'react';
-import {Link, Redirect, Route, Switch} from 'dva/router'
-import routeActions from 'common/utils/routeActions'
+import React from 'react'
+import { Link, Redirect, Route, Switch } from 'dva/router'
 import AuthByLoopr from './loopr/AuthByLoopr'
 import AuthByImtoken from './imtoken/AuthByImtoken'
 import Terms from './imtoken/Terms'
