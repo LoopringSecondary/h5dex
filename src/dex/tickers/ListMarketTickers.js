@@ -188,6 +188,20 @@ class ListMarketTickers extends React.Component {
       const newMarktsTickers = tickersFm.getAllTickers().filter(item=>isInNewMarket(item.market))
       const favoredTickers = tickersFm.getFavoredTickers()
       const recentTickers = tickersFm.getRecentTickers()
+      const sorter = (a,b)=>{
+        if(a.vol === b.vol ){
+          if(a.last === b.last){
+            return b.market > a.market ? -1 : 1
+          }else{
+            return Number(b.last) - Number(a.last)
+          }
+        }else{
+          return Number(b.vol) - Number(a.vol)
+        }
+      }
+      allTickers.sort(sorter)
+      newMarktsTickers.sort(sorter)
+      favoredTickers.sort(sorter)
       const tabs = [
         { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
         { title: <div className="fs16">WETH</div> },

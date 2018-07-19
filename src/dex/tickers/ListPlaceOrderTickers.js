@@ -8,6 +8,7 @@ import { Tabs } from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
 import {formatPrice} from 'modules/orders/formatters'
+import {configs} from 'common/config/data'
 
 const TickerItem = ({item,actions,key,dispatch})=>{
     if(!item){ return null }
@@ -83,19 +84,42 @@ class ListPlaceOrderTickers extends React.Component {
       const {loopringTickers:list,dispatch,market} = this.props
       const tickersFm = new TickersFm(list)
       const {extra:{favored={},keywords}} = list
-      const allTickers = tickersFm.getAllTickers()
+      const newMarkets = configs.newMarkets
+      const isInNewMarket = (market) => {
+        const m = market.toLowerCase().split('-')
+        return newMarkets.find((i)=> {
+          return (i.tokenx.toLowerCase() === m[0] && i.tokeny.toLowerCase() === m[1]) || (i.tokeny.toLowerCase() === m[0] && i.tokenx.toLowerCase() === m[1])
+        })
+      }
+      const allTickers = tickersFm.getAllTickers().filter(item=>!isInNewMarket(item.market))
+      const newMarktsTickers = tickersFm.getAllTickers().filter(item=>isInNewMarket(item.market))
       const favoredTickers = tickersFm.getFavoredTickers()
       const recentTickers = tickersFm.getRecentTickers()
-
+      const sorter = (a,b)=>{
+        if(a.vol === b.vol ){
+          if(a.last === b.last){
+            return b.market > a.market ? -1 : 1
+          }else{
+            return Number(b.last) - Number(a.last)
+          }
+        }else{
+          return Number(b.vol) - Number(a.vol)
+        }
+      }
+      allTickers.sort(sorter)
+      newMarktsTickers.sort(sorter)
+      favoredTickers.sort(sorter)
+      const tabs = [
+        { title: <div className="fs16">Favorites</div> },
+        { title: <div className="fs16">WETH</div> },
+        { title: <div className="fs16">LRC</div> },
+      ]
+      if(configs.newMarkets && configs.newMarkets.length > 0){
+        tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
+      }
       return (
           <Tabs
-            tabs={
-              [
-                { title: <div className="fs16">Favorites</div> },
-                { title: <div className="fs16">WETH</div> },
-                { title: <div className="fs16">LRC</div> },
-              ]
-            }
+            tabs={tabs}
             tabBarBackgroundColor={"#fff"}
             tabBarActiveTextColor={"#000"}
             tabBarInactiveTextColor={"rgba(0,0,0,0.3)"}
@@ -108,6 +132,7 @@ class ListPlaceOrderTickers extends React.Component {
             <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
+            <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} market={market} />
           </Tabs>
       )
   }
