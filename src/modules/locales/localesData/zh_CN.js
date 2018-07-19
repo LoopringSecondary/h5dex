@@ -588,7 +588,7 @@ export default {
     // balance_not_enount_title:"{symbol} balance is insufficient for orders",
   },
   usercenter:{
-    page_title:'我的',
+    page_title:'我的账户',
     actions_switch_wallet:'切换钱包',
   },
   market: {
