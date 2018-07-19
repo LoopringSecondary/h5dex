@@ -110,7 +110,7 @@ class ListPlaceOrderTickers extends React.Component {
       newMarktsTickers.sort(sorter)
       favoredTickers.sort(sorter)
       const tabs = [
-        { title: <div className="fs16">Favorites</div> },
+        { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
         { title: <div className="fs16">WETH</div> },
         { title: <div className="fs16">LRC</div> },
       ]
