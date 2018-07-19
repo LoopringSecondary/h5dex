@@ -177,8 +177,15 @@ class ListMarketTickers extends React.Component {
       const {loopringTickers:list,dispatch} = this.props
       const tickersFm = new TickersFm(list)
       const {extra:{favored={},keywords}} = list
-      const newMarkets = configs.newMarkets ? configs.newMarkets.map(item => item.toLowerCase()) : []
-      const allTickers = tickersFm.getAllTickers().filter(item=>!newMarkets.includes(item.market.toLowerCase()))
+      const newMarkets = configs.newMarkets
+      const isInNewMarket = (market) => {
+        const m = market.toLowerCase().split('-')
+        return newMarkets.find((i)=> {
+          return (i.tokenx.toLowerCase() === m[0] && i.tokeny.toLowerCase() === m[1]) || (i.tokeny.toLowerCase() === m[0] && i.tokenx.toLowerCase() === m[1])
+        })
+      }
+      const allTickers = tickersFm.getAllTickers().filter(item=>!isInNewMarket(item.market))
+      const newMarktsTickers = tickersFm.getAllTickers().filter(item=>isInNewMarket(item.market))
       const favoredTickers = tickersFm.getFavoredTickers()
       const recentTickers = tickersFm.getRecentTickers()
       const tabs = [
@@ -202,7 +209,7 @@ class ListMarketTickers extends React.Component {
             <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={newMarkets} loading={list.loading} dispatch={dispatch} tickersList={list}/>
+            <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={[]} loading={list.loading} dispatch={dispatch} />
           </Tabs>
       )
