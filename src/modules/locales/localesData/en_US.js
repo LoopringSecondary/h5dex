@@ -405,7 +405,7 @@ export default {
     title_reference_tickers: 'Reference Markets',
     title_recent: 'Recent',
     title_favorites: 'Favorites',
-    title_innovation: "Innovation"
+    title_innovation: "New"
   },
   // -----------
   // token
@@ -582,7 +582,7 @@ export default {
     actions_receive:words.receive,
   },
   usercenter:{
-    page_title:'My',
+    page_title:'My Account',
     actions_switch_wallet:'Switch Wallet',
   },
   market: {
