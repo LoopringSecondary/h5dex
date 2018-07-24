@@ -42,10 +42,6 @@
   ],
   "relays": [
     {
-      "value":"relaycluster-514799526.ap-northeast-1.elb.amazonaws.com",
-      "name":"pre"
-    },
-    {
       "value": "//relay1.loopring.io",
       "name": "Default Loopring Relay"
     },
