@@ -8,13 +8,7 @@ import storage from 'modules/storage';
 
 class AuthByImtoken extends React.Component {
 
-  componentWillMount(){
-    const address = storage.wallet.getUnlockedAddress()
-    if(address){
-      routeActions.gotoPath('/dex');
-    }
-  }
-  componentDidMount () {
+  goToDex = () => {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
     })
@@ -26,7 +20,9 @@ class AuthByImtoken extends React.Component {
         window.RELAY.account.register(window.Wallet.address)
         _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
         _props.dispatch({type: 'sockets/unlocked'});
+        this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
         Toast.hide()
+        routeActions.gotoPath('/dex');
       })
     } else {
       window.addEventListener('sdkReady', function () {
@@ -36,15 +32,14 @@ class AuthByImtoken extends React.Component {
           window.RELAY.account.register(window.Wallet.address)
           _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
           _props.dispatch({type: 'sockets/unlocked'});
-         Toast.hide()
+          this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+          Toast.hide()
+          routeActions.gotoPath('/dex');
         })
       })
     }
-  }
 
-  goToDex = () => {
-    this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
-    routeActions.gotoPath('/dex');
+
   }
   goToFace2Face = () => {
     routeActions.gotoPath('/face2face');
@@ -80,7 +75,7 @@ class AuthByImtoken extends React.Component {
              <div className="color-black-2 fs14 pl20 pr20">
               您即将进入的dApp是一个运行在以太坊区块链上去中心化交易所。
               通过点击"我同意"，即表示您同意我们的
-              <a onClick={routeActions.gotoPath.bind(this,'/auth/imtoken/terms')} className="text-primary"> 用户服务协议 </a> 和 <a onClick={routeActions.gotoPath.bind(this,'/auth/imtoken/terms')} className="text-primary"> 用户隐私政策 </a>
+              <a href = 'https://github.com/Loopring/loopring.org/blob/master/terms.md' className="text-primary"> 用户服务协议 </a> 和 <a href="https://github.com/Loopring/loopring.org/blob/master/privacyPolicy.md" className="text-primary"> 用户隐私政策 </a>
               。
              </div>
              <Button className="m20" type="primary" onClick={this.goToDex}>我同意</Button>
