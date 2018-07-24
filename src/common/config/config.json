@@ -118,11 +118,6 @@
       "pricePrecision": 8
     },
     {
-      "tokenx": "EOS",
-      "tokeny": "LRC",
-      "pricePrecision": 8
-    },
-    {
       "tokenx": "OMG",
       "tokeny": "LRC",
       "pricePrecision": 8
