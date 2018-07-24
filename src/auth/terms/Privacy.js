@@ -6,65 +6,103 @@ export default function Privacy() {
 
 
   return(
-    <div>
-      Privacy Policy
-      Last Updated: July 19, 2018
-
-      Introduction
-      1.1 UpBlockchain recognizes that people who use UpBlockchain value their privacy. This Privacy Policy details important information regarding the collection, use and disclosure of User information collected on the UpBlockchain DEX website at https://upblockchain.io (the Site). UpBlockchain provides this Privacy Policy to help you understand how your personal information is used by us and your choices regarding our use of it. By using the Site, you agree that we can collect, use, disclose, and process your information as described in this Privacy Policy. This Privacy Policy only applies to the Site and the UpBlockchain Services, and not to any other websites, products or services you may be able to access or link to via the Site or UpBlockchain Services. We encourage you to read the privacy policies of any other websites you visit before providing your information to them.
-
-      1.2 While our values will not shift, the Site and UpBlockchain Services will evolve over time, and this Privacy Policy will change to reflect that evolution. If we make any change, the date at the top of this Privacy Policy will be revised accordingly. In some cases, if we make significant changes, we may give you additional notice by adding a statement to our homepage. We encourage you to review this Privacy Policy periodically to stay informed about our practices.
-
-      1.3 Some of third-party providers may place cookies or pixels - small data files stored on your hard drive or in device memory - on your browser or hard drive. Note that this Privacy Policy does not cover the use of cookies or pixels by such third parties. Most web browsers are set to accept cookies and pixels by default, but you can usually set your browser to remove or reject browser cookies or pixels. If you do choose to remove or reject cookies or pixels, however, your ability to use the Site or the UpBlockchain Services might be affected.
-
-      1.4 This Privacy Policy should be read in conjunction with our Terms of Use, available at https://upblockchain.io. By accessing the UpBlockchain Services, you are consenting to the information collection and use practices described in this Privacy Policy.
-
-      1.5 Your use of the UpBlockchain Services and any personal information you provide through the UpBlockchain Services remains subject to the terms of this Privacy Policy and our Terms of Use, as each may be updated from time to time.
-
-      1.6 Any questions, comments or complaints that you might have should be emailed to privacy@upblockchain.org.
-
-      Information We Collect
-      2.1 Network information regarding transactions, including, among other things, the type of device you use, access times, hardware model, operating system and version, and other unique device identifiers.
-
-      2.2 We may receive network information from you as a result of your interaction with the UpBlockchain Services.
-
-      2.3 The UpBlockchain Services require the highest level of browser permissions that could potentially lead to procurement of more personal information. Information on how we use these permissions for a limited purpose, and why this is necessary, can be found in paragraph 3 below.
-
-      The Way UpBlockchain Uses Your Personal Information
-      3.1 As with nearly all interactions that take place on the World Wide Web, our servers may receive information by virtue of your interaction with them, including but not limited to IP Addresses.
-
-      3.2 UpBlockchain services require full browser permissions that could potentially be used to access additional personal information. Such browser permissions are used for an extremely limited technical purpose for allowing the UpBlockchain Services to properly interact with your browser. No additional information is obtained beyond what is necessary to provide the Service. No information received is shared with any third-party except those affiliated with UpBlockchain or as required for provision of the Service.
-
-      3.3 Public blockchains provide transparency into transactions and UpBlockchain is not responsible for preventing or managing information broadcasted on a blockchain.
-
-      What We Do With Information We Collect
-      4.1 UpBlockchain may use the information we collect in the following ways: To analyze trends for how the Site and the UpBlockchain Services are being used; To improve the Site and Service; To help personalize your experience of the Site and the UpBlockchain Services; and If you gave us your contact information, we may use that information to contact you to send you technical notices, updates, confirmations, security alerts, to provide support to you, to tell you about other products and services that we think might interest you, or to respond to your comments or questions.
-
-      4.2 UpBlockchain may share the information we collect with third parties who need to access it in order to do work on our behalf, including doing things like helping us make the Site or the UpBlockchain Services available, or providing analytics services for us. We work hard to ensure that these third parties only access and use your information as necessary to perform their functions.
-
-      4.3 UpBlockchain may create aggregations and anonymizations that contain your information in a way that does not directly identify you. UpBlockchain may use and/or share those aggregations and anonymizations for a variety of purposes related to the Site, the UpBlockchain Services, or its own and its business.
-
-      4.4 UpBlockchain may disclose your personal information to its subsidiaries, affiliated or associated companies, agents, businesses, or service providers who process your personal information on our behalf in providing the UpBlockchain Services to you. Our agreements with these service providers limit the kinds of information they can use or process and ensure they use reasonable efforts to keep your personal information secure.
-
-      4.5 UpBlockchain also reserves the right to disclose personal information that UpBlockchain believes, in good faith, is appropriate or necessary to enforce our Terms of Use, take precautions against liability or harm, to investigate and respond to third-party claims or allegations, to respond to court orders or official requests, to protect the security or integrity of our Service, and to protect the rights, property, or safety of UpBlockchain, our users or others.
-
-      4.6 In the event that UpBlockchain is involved in a merger, acquisition, sale, bankruptcy, insolvency, reorganization, receivership, assignment for the benefit of creditors, or the application of laws or equitable principles affecting creditors’ rights generally, or other change of control, there may be a disclosure of your information to another entity related to such event.
-
-      4.7 Your Choice - UpBlockchain will process your personal information in accordance with this Privacy Policy, and as part of that you will have limited or no opportunity to otherwise modify how your information is used by UpBlockchain.
-
-      4.8 Cookies - UpBlockchain does not use cookies at this time but reserves the right to do so in the future, in which case these terms shall be updated accordingly.
-
-      4.9 Information - We Don’t Collect We do not collect any other personally-identifiable information about you, unless you give it to us directly: by filling out a form, giving us written feedback, communicating with us via third party social media sites, or otherwise communicating with us via the Site, the UpBlockchain Services or any other means.
-
-      4.10 We do not collect your Ethereum public address, but you should understand that transactions that take place through the Site or the UpBlockchain Services are confirmed and managed via the Ethereum blockchain. You understand that your Ethereum public address will be made publicly visible whenever you engage in a transaction that is confirmed and managed via the Ethereum blockchain.
-
-      4.11 Whilst neither we, nor any other organization, can guarantee the security of information processed online, we do have appropriate security measures in place to protect your personal information. For example, we store the personal information you provide on computer systems with limited access, encryption, or both.
-
-      4.12 This Privacy Policy may be revised periodically and this will be reflected by the “Last update posted” date above. Please revisit this page to stay aware of any changes. Your continued use of the UpBlockchain Service constitutes your agreement to this Privacy Policy and any future revisions.
-
-      4.13 Contact Information: privacy@upblockchain.org
-
-      As for any issues not covered in this Policy, you shall comply with the announcements and relevant rules as updated by UpBlockChain from time to time.
+    <div className="article">
+      <div className="header">
+        <h1>Privacy Policy</h1>
+        <small>Last Updated: July 19, 2018</small>
+      </div>
+      <div className="body">
+        <h3>Introduction</h3>
+        <section>
+          <p>
+          1.1 UpBlockchain recognizes that people who use UpBlockchain value their privacy. This Privacy Policy details important information regarding the collection, use and disclosure of User information collected on the UpBlockchain DEX website at https://upblockchain.io (the Site). UpBlockchain provides this Privacy Policy to help you understand how your personal information is used by us and your choices regarding our use of it. By using the Site, you agree that we can collect, use, disclose, and process your information as described in this Privacy Policy. This Privacy Policy only applies to the Site and the UpBlockchain Services, and not to any other websites, products or services you may be able to access or link to via the Site or UpBlockchain Services. We encourage you to read the privacy policies of any other websites you visit before providing your information to them.
+          </p>
+          <p>
+          1.2 While our values will not shift, the Site and UpBlockchain Services will evolve over time, and this Privacy Policy will change to reflect that evolution. If we make any change, the date at the top of this Privacy Policy will be revised accordingly. In some cases, if we make significant changes, we may give you additional notice by adding a statement to our homepage. We encourage you to review this Privacy Policy periodically to stay informed about our practices.
+          </p>
+          <p>
+          1.3 Some of third-party providers may place cookies or pixels - small data files stored on your hard drive or in device memory - on your browser or hard drive. Note that this Privacy Policy does not cover the use of cookies or pixels by such third parties. Most web browsers are set to accept cookies and pixels by default, but you can usually set your browser to remove or reject browser cookies or pixels. If you do choose to remove or reject cookies or pixels, however, your ability to use the Site or the UpBlockchain Services might be affected.
+          </p>
+          <p>
+          1.4 This Privacy Policy should be read in conjunction with our Terms of Use, available at https://upblockchain.io. By accessing the UpBlockchain Services, you are consenting to the information collection and use practices described in this Privacy Policy.
+          </p>
+          <p>
+          1.5 Your use of the UpBlockchain Services and any personal information you provide through the UpBlockchain Services remains subject to the terms of this Privacy Policy and our Terms of Use, as each may be updated from time to time.
+          </p>
+          <p>
+          1.6 Any questions, comments or complaints that you might have should be emailed to privacy@upblockchain.org.
+          </p>
+        </section>
+        <section>
+          <h3>Information We Collect</h3>
+          <p>
+          2.1 Network information regarding transactions, including, among other things, the type of device you use, access times, hardware model, operating system and version, and other unique device identifiers.
+          </p>
+          <p>
+          2.2 We may receive network information from you as a result of your interaction with the UpBlockchain Services.
+          </p>
+          <p>
+          2.3 The UpBlockchain Services require the highest level of browser permissions that could potentially lead to procurement of more personal information. Information on how we use these permissions for a limited purpose, and why this is necessary, can be found in paragraph 3 below.
+          </p>
+        </section>
+        <section>
+          <h3>The Way UpBlockchain Uses Your Personal Information</h3>
+          <p>
+          3.1 As with nearly all interactions that take place on the World Wide Web, our servers may receive information by virtue of your interaction with them, including but not limited to IP Addresses.
+          </p>
+          <p>
+          3.2 UpBlockchain services require full browser permissions that could potentially be used to access additional personal information. Such browser permissions are used for an extremely limited technical purpose for allowing the UpBlockchain Services to properly interact with your browser. No additional information is obtained beyond what is necessary to provide the Service. No information received is shared with any third-party except those affiliated with UpBlockchain or as required for provision of the Service.
+          </p>
+          <p>
+          3.3 Public blockchains provide transparency into transactions and UpBlockchain is not responsible for preventing or managing information broadcasted on a blockchain.
+          </p>
+        </section>
+        <section>
+          <h3>What We Do With Information We Collect</h3>
+          <p>
+          4.1 UpBlockchain may use the information we collect in the following ways: To analyze trends for how the Site and the UpBlockchain Services are being used; To improve the Site and Service; To help personalize your experience of the Site and the UpBlockchain Services; and If you gave us your contact information, we may use that information to contact you to send you technical notices, updates, confirmations, security alerts, to provide support to you, to tell you about other products and services that we think might interest you, or to respond to your comments or questions.
+          </p>
+          <p>
+          4.2 UpBlockchain may share the information we collect with third parties who need to access it in order to do work on our behalf, including doing things like helping us make the Site or the UpBlockchain Services available, or providing analytics services for us. We work hard to ensure that these third parties only access and use your information as necessary to perform their functions.
+          </p>
+          <p>
+          4.3 UpBlockchain may create aggregations and anonymizations that contain your information in a way that does not directly identify you. UpBlockchain may use and/or share those aggregations and anonymizations for a variety of purposes related to the Site, the UpBlockchain Services, or its own and its business.
+          </p>
+          <p>
+          4.4 UpBlockchain may disclose your personal information to its subsidiaries, affiliated or associated companies, agents, businesses, or service providers who process your personal information on our behalf in providing the UpBlockchain Services to you. Our agreements with these service providers limit the kinds of information they can use or process and ensure they use reasonable efforts to keep your personal information secure.
+          </p>
+          <p>
+          4.5 UpBlockchain also reserves the right to disclose personal information that UpBlockchain believes, in good faith, is appropriate or necessary to enforce our Terms of Use, take precautions against liability or harm, to investigate and respond to third-party claims or allegations, to respond to court orders or official requests, to protect the security or integrity of our Service, and to protect the rights, property, or safety of UpBlockchain, our users or others.
+          </p>
+          <p>
+          4.6 In the event that UpBlockchain is involved in a merger, acquisition, sale, bankruptcy, insolvency, reorganization, receivership, assignment for the benefit of creditors, or the application of laws or equitable principles affecting creditors’ rights generally, or other change of control, there may be a disclosure of your information to another entity related to such event.
+          </p>
+          <p>
+          4.7 Your Choice - UpBlockchain will process your personal information in accordance with this Privacy Policy, and as part of that you will have limited or no opportunity to otherwise modify how your information is used by UpBlockchain.
+          </p>
+          <p>
+          4.8 Cookies - UpBlockchain does not use cookies at this time but reserves the right to do so in the future, in which case these terms shall be updated accordingly.
+          </p>
+          <p>
+          4.9 Information - We Don’t Collect We do not collect any other personally-identifiable information about you, unless you give it to us directly: by filling out a form, giving us written feedback, communicating with us via third party social media sites, or otherwise communicating with us via the Site, the UpBlockchain Services or any other means.
+          </p>
+          <p>
+          4.10 We do not collect your Ethereum public address, but you should understand that transactions that take place through the Site or the UpBlockchain Services are confirmed and managed via the Ethereum blockchain. You understand that your Ethereum public address will be made publicly visible whenever you engage in a transaction that is confirmed and managed via the Ethereum blockchain.
+          </p>
+          <p>
+          4.11 Whilst neither we, nor any other organization, can guarantee the security of information processed online, we do have appropriate security measures in place to protect your personal information. For example, we store the personal information you provide on computer systems with limited access, encryption, or both.
+          </p>
+          <p>
+          4.12 This Privacy Policy may be revised periodically and this will be reflected by the “Last update posted” date above. Please revisit this page to stay aware of any changes. Your continued use of the UpBlockchain Service constitutes your agreement to this Privacy Policy and any future revisions.
+          </p>
+          <p>
+          4.13 Contact Information: privacy@upblockchain.org
+          </p>
+          <p>
+          As for any issues not covered in this Policy, you shall comply with the announcements and relevant rules as updated by UpBlockChain from time to time.
+          </p>
+        </section>
+      </div>
     </div>
   )
 
