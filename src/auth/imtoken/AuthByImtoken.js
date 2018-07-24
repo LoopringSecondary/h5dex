@@ -75,7 +75,7 @@ class AuthByImtoken extends React.Component {
              <div className="color-black-2 fs14 pl20 pr20">
               您即将进入的dApp是一个运行在以太坊区块链上去中心化交易所。
               通过点击"我同意"，即表示您同意我们的
-              <a href = 'https://github.com/Loopring/loopring.org/blob/master/terms.md' className="text-primary"> 用户服务协议 </a> 和 <a href="https://github.com/Loopring/loopring.org/blob/master/privacyPolicy.md" className="text-primary"> 用户隐私政策 </a>
+              <a onClick={()=> routeActions.gotoPath('/auth/terms')} className="text-primary"> 用户服务协议 </a> 和 <a onClick={()=> routeActions.gotoPath('/auth/privacy')} className="text-primary"> 用户隐私政策 </a>
               。
              </div>
              <Button className="m20" type="primary" onClick={this.goToDex}>我同意</Button>
