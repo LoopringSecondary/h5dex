@@ -1,6 +1,7 @@
 import { getOrders } from 'LoopringJS/relay/rpc/order'
 import config from 'common/config'
 import storage from 'modules/storage'
+import {configs} from 'common/config/data'
 
 export async function fetchList(payload){
     let {page,filters,sort} = payload
@@ -14,7 +15,8 @@ export async function fetchList(payload){
     }
     filter.delegateAddress = config.getDelegateAddress();
     filter.owner = storage.wallet.getUnlockedAddress()
-    const host = storage.settings.get().relay.selected
+    // const host = storage.settings.get().relay.selected
+    const host = configs.relays[0].value
     console.log('getOrders req',filter)
     return getOrders(host,filter).then(res=>{
       console.log('getOrders res',res)
