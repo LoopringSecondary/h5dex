@@ -1,5 +1,6 @@
 import apis from './apis'
 import storage from 'modules/storage';
+import {configs} from '../../common/config/data'
 
 const namespace = 'sockets'
 let initState = {
@@ -19,7 +20,8 @@ let initState = {
 export default {
   namespace,
   state: {
-    'url':storage.settings.get().relay.selected,
+    // 'url':storage.settings.get().relay.selected,
+    'url':configs.relays[0].value,
     'socket':null,
     'transaction':{...initState,filters:{token:'LRC'}},
     'balance':{...initState,filters:{currency:'usd'}},

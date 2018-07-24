@@ -21,7 +21,9 @@ if(latestVersion > oldVersion) {
 }
 window.Toast = Toast
 
-const host = storage.settings.get().relay.selected;
+// TODO fixbug
+// const host = storage.settings.get().relay.selected;
+const host = configs.relays[0].value
 
 window.ETH = new Eth(`${host}/eth`);
 window.RELAY = new Relay(`${host}/rpc/v2`);
