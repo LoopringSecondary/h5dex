@@ -67,11 +67,6 @@
       "pricePrecision": 8
     },
     {
-      "tokenx": "EOS",
-      "tokeny": "WETH",
-      "pricePrecision": 8
-    },
-    {
       "tokenx": "OMG",
       "tokeny": "WETH",
       "pricePrecision": 8
