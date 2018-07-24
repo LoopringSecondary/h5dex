@@ -7,6 +7,7 @@ import SocketProvider from 'modules/sockets/Provider';
 import Locales from './modules/locales/container'
 import Test from './test'
 
+
 function RouterConfig({ history }) {
   return (
     <SocketProvider>
