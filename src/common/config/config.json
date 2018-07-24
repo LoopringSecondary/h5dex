@@ -12,7 +12,7 @@
   "bindContractAddress": "0xbf78B6E180ba2d1404c92Fc546cbc9233f616C42",
   "minimumLrcfeeInEth":0.00045,
   "demoAccount":"0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00",
-  "localStorageVersion":201807241500,
+  "localStorageVersion":201807241501,
   "walletAddress":"0xb94065482ad64d4c2b9252358d746b39e820a582",
   "contracts": [
     {
@@ -59,11 +59,6 @@
     },
     {
       "tokenx": "DAI",
-      "tokeny": "WETH",
-      "pricePrecision": 8
-    },
-    {
-      "tokenx": "EOS",
       "tokeny": "WETH",
       "pricePrecision": 8
     },
@@ -120,11 +115,6 @@
     {
       "tokenx": "ARP",
       "tokeny": "WETH",
-      "pricePrecision": 8
-    },
-    {
-      "tokenx": "EOS",
-      "tokeny": "LRC",
       "pricePrecision": 8
     },
     {
@@ -288,35 +278,35 @@
   "txs": [
     {
       "type":"eth_transfer",
-      "gasLimit":"0x5208"
+      "gasLimit":"0x5319"
     },
     {
       "type":"token_transfer",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x187b1"
     },
     {
       "type":"approve",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x187b1"
     },
     {
       "type":"withdraw",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x187b1"
     },
     {
       "type":"deposit",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x187b1"
     },
     {
       "type":"cancelOrder",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x24b01"
     },
     {
       "type":"cancelAllOrder",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x187b1"
     },
     {
       "type":"cancelOrderByTokenPair",
-      "gasLimit":"0x249f0"
+      "gasLimit":"0x187b1"
     }
 
   ],

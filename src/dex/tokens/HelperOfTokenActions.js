@@ -29,7 +29,13 @@ function HelperOfTokenActions(props) {
     showLayer({id:'receiveToken',symbol})
   }
 
+
+  const isSupportedTrading = () => {
+    const market = config.getTokenSupportedMarket(symbol)
+    return !!market
+  }
   const gotoTrading = () => {
+
     hideLayer({id:'helperOfTokenActions'})
     const market = config.getTokenSupportedMarket(symbol)
     if (market) {
@@ -37,7 +43,6 @@ function HelperOfTokenActions(props) {
       return
     }
     routeActions.gotoPath(`/dex/placeOrder`)
-
   }
 
   return (
@@ -55,7 +60,7 @@ function HelperOfTokenActions(props) {
         <div className="p10">
           <Button onClick={showReceive} className="" type="primary">{intl.get('common.receive')} {symbol}</Button>
           {
-            !hideBuy &&
+            isSupportedTrading() && !hideBuy &&
             <Button onClick={gotoTrading} className="mt10" type="primary">{intl.get('common.buy')} {symbol}</Button>
           }
 
