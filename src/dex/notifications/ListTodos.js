@@ -309,9 +309,13 @@ function ListTodos (props) {
                      className=""/>,
           ]}
         >
-          <SegmentedControl
-            values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
-            style={{width: '180px', height: '32px'}}/>
+          {
+            false &&
+            <SegmentedControl
+              values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
+              style={{width: '180px', height: '32px'}}/>
+          }
+          {intl.get('todo_list.todo_list_title')}
         </NavBar>
         {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
         <NoticeBar onClick={enableAll} className="text-left t-error s-lg"

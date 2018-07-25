@@ -83,7 +83,10 @@ class DexHomeLayout extends React.Component {
               icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position: 'relative', top: '2px'}}/>}
               selectedIcon={<i className="icon-bell fs22 text-primary" style={{position: 'relative', top: '2px'}}/>}
               title={<span className={isActive('/dex/todos') ? 'text-primary' : ''}
-                           style={{position: 'relative', top: '-2px'}}>{intl.get('todos.tab_title')}</span>}
+                           style={{position: 'relative', top: '-2px'}}>
+                            {false && intl.get('todos.tab_title')}
+                            {intl.get('todo_list.todo_list_title')}
+                           </span>}
               key="Notifications"
               selected={isActive('/dex/todos')}
               onPress={() => {
