@@ -35,9 +35,8 @@ function HelperOfTokenActions(props) {
     return !!market
   }
   const gotoTrading = () => {
-
     hideLayer({id:'helperOfTokenActions'})
-    const market = config.getTokenSupportedMarket(symbol)
+    const market = symbol.toLowerCase() === 'lrc'? config.getMarketBySymbol('lrc','weth') : config.getTokenSupportedMarket(symbol)
     if (market) {
       routeActions.gotoPath(`/dex/placeOrder/${market}`)
       return
