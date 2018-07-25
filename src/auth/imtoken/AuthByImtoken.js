@@ -57,9 +57,6 @@ class AuthByImtoken extends React.Component {
             <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
           ]}
         >
-          <div>
-            Loopring DEX
-          </div>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
         <div className="bg-white">
