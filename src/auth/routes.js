@@ -15,7 +15,6 @@ const UnLogged = ()=>{
   }else{
     return (
       <Switch>
-
          <Route path={`/auth`} exact component={Auth} />
          <Route path={`/auth/mock`} exact component={AuthByMock} />
          <Route path={`/auth/loopr`} exact component={AuthByLoopr} />

@@ -14,7 +14,6 @@ class Routes extends React.Component {
     const address = storage.wallet.getUnlockedAddress()
     if(address){
       this.goToDex()
-      routeActions.gotoPath('/dex');
     }
   }
 
@@ -36,7 +35,7 @@ class Routes extends React.Component {
             payload: {language: window.Wallet.language, currency: window.Wallet.currency}
           })
           _this.props.dispatch({type: 'sockets/unlocked'})
-          this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+          _this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           Toast.hide()
         })
       }

@@ -12,10 +12,8 @@ class AuthByImtoken extends React.Component {
     const address = storage.wallet.getUnlockedAddress()
     if(address){
       this.goToDex();
-      routeActions.gotoPath('/dex');
     }
   }
-
 
   goToDex = () => {
     Toast.loading('Loading configs...', 0, () => {
@@ -29,9 +27,9 @@ class AuthByImtoken extends React.Component {
         window.RELAY.account.register(window.Wallet.address)
         _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
         _props.dispatch({type: 'sockets/unlocked'});
-        this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
         Toast.hide()
         routeActions.gotoPath('/dex');
+        this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
       })
     } else {
       window.addEventListener('sdkReady', function () {
@@ -41,9 +39,9 @@ class AuthByImtoken extends React.Component {
           window.RELAY.account.register(window.Wallet.address)
           _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
           _props.dispatch({type: 'sockets/unlocked'});
-          this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
           Toast.hide()
           routeActions.gotoPath('/dex');
+          _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
         })
       })
     }
