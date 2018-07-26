@@ -14,6 +14,7 @@ import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
 import markets from 'modules/storage/markets'
 import {TickersFm,TickerFm} from 'modules/tickers/formatters'
+import storage from 'modules/storage'
 const Item = List.Item;
 const Brief = Item.Brief;
 
@@ -109,6 +110,7 @@ class MarketDetail extends React.Component {
     }
     const menu1 = `${intl.get("common.buy")} ${tokens.left}`
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
+    const left = storage.wallet && storage.wallet.getUnlockedType() === 'imtoken' ? '' : <Icon key="1" type="left" onClick={routeActions.goBack} className="" />
     return (
       <div className="">
         <NavBar
@@ -117,7 +119,7 @@ class MarketDetail extends React.Component {
           icon={null && <Icon type="left" />}
           onLeftClick={() => console.log('onLeftClick')}
           leftContent={[
-            <Icon key="1" type="left" onClick={routeActions.goBack} className="" />,
+            left,
           ]}
           rightContent={[
             <WebIcon className="fs18" key="1" type={favored[market] ? "star" : "star-o"} onClick={toggleTickerFavored.bind(this, market)}/>

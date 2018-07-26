@@ -56,21 +56,20 @@ class AuthByImtoken extends React.Component {
   render () {
     return (
       <div>
-        <NavBar
-          className=""
-          mode="light"
-          leftContent={null &&[
-            <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
-          ]}
-          rightContent={null && [
-            <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
-          ]}
-        >
-          <div>
-            Loopring DEX
-          </div>
-        </NavBar>
-        <div className="divider 1px zb-b-t"></div>
+        {
+          false &&
+          <NavBar
+            className=""
+            mode="light"
+            leftContent={null &&[
+              <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
+            ]}
+            rightContent={null && [
+              <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
+            ]}
+          >
+          </NavBar>
+        }
         <div className="bg-white">
           <div className="pt40 pb20 text-center">
            <div className="d-inline-block color-black-1 text-center" style={{
