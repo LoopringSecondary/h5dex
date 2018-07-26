@@ -29,7 +29,7 @@ class AuthByImtoken extends React.Component {
         _props.dispatch({type: 'sockets/unlocked'});
         Toast.hide()
         routeActions.gotoPath('/dex');
-        this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+        _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
       })
     } else {
       window.addEventListener('sdkReady', function () {
