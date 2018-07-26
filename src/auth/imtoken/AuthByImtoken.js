@@ -11,7 +11,39 @@ class AuthByImtoken extends React.Component {
   componentWillMount(){
     const address = storage.wallet.getUnlockedAddress()
     if(address){
-      this.goToDex();
+      Toast.loading('Loading configs...', 0, () => {
+        Toast.success('Load complete !!!')
+      })
+      const _props = this.props
+      if (window.imToken) {
+        window.Wallet = new Imtoken(window.imToken)
+        window.Wallet.setConfigs().then(res => {
+          if(address.toLowerCase() !== window.Wallet.address.toLowerCase()){
+            storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+            window.RELAY.account.register(window.Wallet.address)
+          }
+          _props.dispatch({type: 'sockets/unlocked'});
+          _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
+          Toast.hide()
+          routeActions.gotoPath('/dex');
+          _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+        })
+      } else {
+        window.addEventListener('sdkReady', function () {
+          window.Wallet = new Imtoken(window.imToken)
+          window.Wallet.setConfigs().then(res => {
+            if(address.toLowerCase() !== window.Wallet.address.toLowerCase()){
+              storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+              window.RELAY.account.register(window.Wallet.address)
+            }
+            _props.dispatch({type: 'sockets/unlocked'});
+            _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
+            Toast.hide()
+            routeActions.gotoPath('/dex');
+            _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+          })
+        })
+      }
     }
   }
 
