@@ -8,6 +8,15 @@ import storage from 'modules/storage';
 
 class AuthByImtoken extends React.Component {
 
+  componentWillMount(){
+    const address = storage.wallet.getUnlockedAddress()
+    if(address){
+      this.goToDex();
+      routeActions.gotoPath('/dex');
+    }
+  }
+
+
   goToDex = () => {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
@@ -38,9 +47,9 @@ class AuthByImtoken extends React.Component {
         })
       })
     }
-
-
   }
+
+
   goToFace2Face = () => {
     routeActions.gotoPath('/face2face');
   }

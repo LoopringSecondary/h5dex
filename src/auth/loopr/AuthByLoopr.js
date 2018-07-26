@@ -13,11 +13,13 @@ class Routes extends React.Component {
   componentWillMount(){
     const address = storage.wallet.getUnlockedAddress()
     if(address){
+      this.goToDex()
       routeActions.gotoPath('/dex');
     }
   }
 
-  componentDidMount () {
+
+  goToDex = () => {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
     })
@@ -34,14 +36,11 @@ class Routes extends React.Component {
             payload: {language: window.Wallet.language, currency: window.Wallet.currency}
           })
           _this.props.dispatch({type: 'sockets/unlocked'})
+          this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           Toast.hide()
         })
       }
     },1000)
-  }
-
-  goToDex = () => {
-    this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
     routeActions.gotoPath('/dex')
   }
 
