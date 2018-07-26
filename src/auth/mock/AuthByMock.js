@@ -11,10 +11,11 @@ class AuthByImtoken extends React.Component {
   componentWillMount(){
     const address = storage.wallet.getUnlockedAddress()
     if(address){
+      this.goToDex();
       routeActions.gotoPath('/dex');
     }
   }
-  componentDidMount () {
+  goToDex = () => {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
     })
@@ -33,16 +34,9 @@ class AuthByImtoken extends React.Component {
       window.RELAY.account.register(window.Wallet.address)
       _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
       _props.dispatch({type: 'sockets/unlocked'});
+      this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
       Toast.hide()
     })
-  }
-
-  goToDex = () => {
-    let language = 'en-US'
-    if(window.Wallet.language.indexOf('zh') !== -1){
-      language = 'zh-CN'
-    }
-    this.props.dispatch({type:'locales/setLocale', payload:{locale:language}});
     routeActions.gotoPath('/dex');
   }
   goToFace2Face = () => {

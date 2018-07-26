@@ -10,7 +10,7 @@ import Terms from './terms/Terms'
 
 const UnLogged = ()=>{
   const isLogged = !!storage.wallet.getUnlockedAddress()
-  if(isLogged){
+  if(false){
     return <Redirect to="/dex" />
   }else{
     return (
