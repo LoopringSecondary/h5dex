@@ -1,39 +1,50 @@
 import React from 'react'
 import Imtoken from './Imtoken'
-import {Icon as WebIcon} from 'antd'
-import {Toast, Button,NavBar,Modal} from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
+import { Toast, Button, NavBar, Modal } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
-import {connect} from 'dva'
-import storage from 'modules/storage';
+import { connect } from 'dva'
+import storage from 'modules/storage'
 
 class AuthByImtoken extends React.Component {
 
-  componentWillMount(){
+  componentWillMount () {
     const address = storage.wallet.getUnlockedAddress()
-    if(address){
+    if (address) {
       Toast.loading('Loading configs...', 0, () => {
         Toast.success('Load complete !!!')
       })
       const _props = this.props
       const handler = () => {
+        window.removeEventListener('sdkReady',handler)
         window.Wallet = new Imtoken(window.imToken)
         window.Wallet.setConfigs().then(res => {
           if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
-            storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+            storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
             window.RELAY.account.register(window.Wallet.address)
           }
-          _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
-          _props.dispatch({type: 'sockets/unlocked'});
-          _props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+          _props.dispatch({type: 'sockets/unlocked'})
+          const payload = {}
+          const pref = storage.settings.get().preference
+          if (pref.currency.toLowerCase() !== window.Wallet.currency) {
+            payload.currency = window.Wallet.currency
+          }
+          if (pref.language.toLowerCase() !== window.Wallet.language.toLowerCase()) {
+            payload.language = window.Wallet.language
+            _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+          }
+          _props.dispatch({
+            type: 'settings/preferenceChange',
+            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+          })
           Toast.hide()
-          window.removeEventListener('sdkReady',handler)
-          routeActions.gotoPath('/dex');
-      })
+          routeActions.gotoPath('/dex')
+        })
       }
+
       if (window.imToken) {
         handler()
-      }
-      else {
+      } else {
         window.addEventListener('sdkReady', handler)
       }
     }
@@ -47,37 +58,42 @@ class AuthByImtoken extends React.Component {
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
-        storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+        storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
         window.RELAY.account.register(window.Wallet.address)
-        _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
-        _props.dispatch({type: 'sockets/unlocked'});
-        this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+        _props.dispatch({
+          type: 'settings/preferenceChange',
+          payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+        })
+        _props.dispatch({type: 'sockets/unlocked'})
+        this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
         Toast.hide()
-        routeActions.gotoPath('/dex');
+        routeActions.gotoPath('/dex')
       })
     } else {
       window.addEventListener('sdkReady', function () {
         window.Wallet = new Imtoken(window.imToken)
         window.Wallet.setConfigs().then(res => {
-          storage.wallet.storeUnlockedAddress("imtoken", window.Wallet.address)
+          storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
           window.RELAY.account.register(window.Wallet.address)
-          _props.dispatch({type:'settings/preferenceChange',payload:{language:window.Wallet.language,currency:window.Wallet.currency}})
-          _props.dispatch({type: 'sockets/unlocked'});
-          this.props.dispatch({type:'locales/setLocale', payload:{locale:window.Wallet.language}});
+          _props.dispatch({
+            type: 'settings/preferenceChange',
+            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+          })
+          _props.dispatch({type: 'sockets/unlocked'})
+          this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           Toast.hide()
-          routeActions.gotoPath('/dex');
+          routeActions.gotoPath('/dex')
         })
       })
     }
 
-
   }
   goToFace2Face = () => {
-    routeActions.gotoPath('/face2face');
+    routeActions.gotoPath('/face2face')
   }
+
   render () {
     const address = storage.wallet.getUnlockedAddress()
-
 
     return (
       <div>
@@ -86,11 +102,11 @@ class AuthByImtoken extends React.Component {
           <NavBar
             className=""
             mode="light"
-            leftContent={null &&[
-              <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
+            leftContent={null && [
+              <span onClick={() => {}} className="color-black-1" key="1"><WebIcon type="left"/></span>,
             ]}
             rightContent={null && [
-              <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
+              <span className="color-black-1" key="1" onClick={() => {}}><WebIcon type="question-circle-o"/></span>
             ]}
           >
           </NavBar>
@@ -101,7 +117,7 @@ class AuthByImtoken extends React.Component {
               width: '60px',
               height: '60px',
             }}>
-              <img style={{borderRadius: "50em"}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
+              <img style={{borderRadius: '50em'}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
             </div>
             <div className="text-center">
               <div className="color-black-1 fs20 pt20 pb20">欢迎来到 路印 去中心化交易所</div>
