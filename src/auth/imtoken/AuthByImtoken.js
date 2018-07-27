@@ -33,10 +33,10 @@ class AuthByImtoken extends React.Component {
             payload.language = window.Wallet.language
             _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           }
-          _props.dispatch({
-            type: 'settings/preferenceChange',
-            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
-          })
+
+          if(payload.currency || payload.language){
+            _props.dispatch({type: 'settings/preferenceChange', payload})
+          }
           Toast.hide()
           routeActions.gotoPath('/dex')
         })
