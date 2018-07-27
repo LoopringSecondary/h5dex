@@ -9,13 +9,12 @@ import Privacy from './terms/Privacy'
 import Terms from './terms/Terms'
 
 const UnLogged = ()=>{
-  const isLogged = !!storage.wallet.getUnlockedAddress()
-  if(isLogged){
-    return <Redirect to="/dex" />
-  }else{
+  // const isLogged = !!storage.wallet.getUnlockedAddress()
+  // if(false){
+  //   return <Redirect to="/dex" />
+  // }else{
     return (
       <Switch>
-
          <Route path={`/auth`} exact component={Auth} />
          <Route path={`/auth/mock`} exact component={AuthByMock} />
          <Route path={`/auth/loopr`} exact component={AuthByLoopr} />
@@ -24,7 +23,7 @@ const UnLogged = ()=>{
         <Route path={`/auth/privacy`} exact component={Privacy} />
        </Switch>
     )
-  }
+  // }
 }
 const Logged = ()=>{
   const isLogged =  !!storage.wallet.getUnlockedAddress()

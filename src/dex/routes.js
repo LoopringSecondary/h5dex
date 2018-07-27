@@ -1,11 +1,11 @@
-import React from 'react';
-import { Route, Switch,Redirect} from 'dva/router';
-import Pages from './pages';
-import Orders from './orders';
-import Tokens from './tokens';
-import Markets from './tickers/Markets';
-import MarketsSearch from './tickers/ListSearchTickers';
-import MarketDetail from './tickers/Detail';
+import React from 'react'
+import { Redirect, Route, Switch } from 'dva/router'
+import Pages from './pages'
+import Orders from './orders'
+import Tokens from './tokens'
+import Markets from './tickers/Markets'
+import MarketsSearch from './tickers/ListSearchTickers'
+import MarketDetail from './tickers/Detail'
 import Convert from './tokens/ConvertForm'
 import PlaceOrder from './orders/PlaceOrderPage'
 import UserCenter from './account/UserCenter'
@@ -14,7 +14,6 @@ import Face2FacePage from '../face2face/Face2FacePage'
 import Face2FaceModals from '../face2face/Modals'
 import CommonModals from '../components/Modals'
 import storage from 'modules/storage'
-
 
 const UnLogged = ()=>{
   const isLogged = !!storage.wallet.getUnlockedAddress()
