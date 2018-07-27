@@ -9,56 +9,46 @@ import storage from 'modules/storage'
 class AuthByImtoken extends React.Component {
 
   componentWillMount () {
-    console.log('this.props',this.props)
+    console.log('this.props', this.props)
     const address = storage.wallet.getUnlockedAddress()
     if (address) {
       Toast.loading('Loading configs...', 0, () => {
         Toast.success('Load complete !!!')
-      },false)
+      }, false)
       const _props = this.props
       const handler = () => {
-        // Modal.alert('handler 1')
-        window.removeEventListener('sdkReady',handler)
+        Modal.alert('handler 1')
+        window.removeEventListener('sdkReady', handler)
+        Toast.hide()
         window.Wallet = new Imtoken(window.imToken)
-        // Modal.alert('handler 2')
+        Modal.alert('handler 2')
         window.Wallet.setConfigs().then(res => {
-          if(!window.Wallet.currency){ window.Wallet.currency = 'CNY'}
-          if(!window.Wallet.language){ window.Wallet.language = 'zh-CN'}
+          if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
+          if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
 
-          // Modal.alert('setConfigs res',res.address + ' - ' +res.language)
+          Modal.alert('setConfigs res', res.address + ' - ' + res.language)
           if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
             storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
             window.RELAY.account.register(window.Wallet.address)
           }
-          // Modal.alert('handler 3')
+          Modal.alert('handler 3')
           _props.dispatch({type: 'sockets/unlocked'})
-          // Modal.alert('handler 4')
-          // const payload = {}
-          // const pref = storage.settings.get().preference
-
-          // if (pref.currency.toLowerCase() !== window.Wallet.currency.toLowerCase()) {
-          //   payload.currency = window.Wallet.currency
-          // }
-
-          // if (pref.language.toLowerCase() !== window.Wallet.language.toLowerCase()) {
-          //   payload.language = window.Wallet.language
-          //   _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
-          // }
-          // Modal.alert('handler 5')
-          // if(payload.currency || payload.language){
-          //   _props.dispatch({type: 'settings/preferenceChange', payload})
-          // }
-          // Modal.alert('handler 6')
-          Toast.hide()
+          Modal.alert('handler 4')
+          _props.dispatch({
+            type: 'settings/preferenceChange',
+            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+          })
+          _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+          Modal.alert('handler 5')
           routeActions.gotoPath('/dex')
         })
       }
 
       if (window.imToken) {
-        // Modal.alert('handler start : imtoken  exsits')
+        Modal.alert('handler start : imtoken  exsits')
         handler()
       } else {
-        // Modal.alert('handler start :imtoken not exsits')
+        Modal.alert('handler start :imtoken not exsits')
         window.addEventListener('sdkReady', handler)
       }
     }
@@ -67,13 +57,13 @@ class AuthByImtoken extends React.Component {
   goToDex = () => {
     Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
-    },false)
+    }, false)
     const _props = this.props
     if (window.imToken) {
       window.Wallet = new Imtoken(window.imToken)
       window.Wallet.setConfigs().then(res => {
-        if(!window.Wallet.currency){ window.Wallet.currency = 'CNY'}
-        if(!window.Wallet.language){ window.Wallet.language = 'zh-CN'}
+        if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
+        if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
         storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
         window.RELAY.account.register(window.Wallet.address)
         _props.dispatch({
@@ -81,7 +71,7 @@ class AuthByImtoken extends React.Component {
           payload: {language: window.Wallet.language, currency: window.Wallet.currency}
         })
         _props.dispatch({type: 'sockets/unlocked'})
-        this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+        _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
         Toast.hide()
         routeActions.gotoPath('/dex')
       })
@@ -89,8 +79,8 @@ class AuthByImtoken extends React.Component {
       window.addEventListener('sdkReady', function () {
         window.Wallet = new Imtoken(window.imToken)
         window.Wallet.setConfigs().then(res => {
-          if(!window.Wallet.currency){ window.Wallet.currency = 'CNY'}
-          if(!window.Wallet.language){ window.Wallet.language = 'zh-CN'}
+          if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
+          if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
           storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
           window.RELAY.account.register(window.Wallet.address)
           _props.dispatch({
@@ -98,7 +88,7 @@ class AuthByImtoken extends React.Component {
             payload: {language: window.Wallet.language, currency: window.Wallet.currency}
           })
           _props.dispatch({type: 'sockets/unlocked'})
-          this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+          _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
           Toast.hide()
           routeActions.gotoPath('/dex')
         })

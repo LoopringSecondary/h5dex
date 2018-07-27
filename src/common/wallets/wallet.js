@@ -57,11 +57,11 @@ export default class Wallet {
 
   setConfigs = async () => {
     this.address =  (await this.getCurrentAccount()).result
-    // Modal.alert('setConfigs address',this.address)
-    // this.language = (await this.getLanguage()).result
-    // Modal.alert('setConfigs language',this.language)
-    // this.currency = (await this.getCurrency()).result
-    // Modal.alert('setConfigs currency',this.currency)
+    Modal.alert('setConfigs address',this.address)
+    this.language = (await this.getLanguage()).result
+    Modal.alert('setConfigs language',this.language)
+    this.currency = (await this.getCurrency()).result
+    Modal.alert('setConfigs currency',this.currency)
     return this
   }
 

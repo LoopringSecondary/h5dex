@@ -16,11 +16,11 @@ export default class Imtoken extends Wallet {
     return new Promise((resolve) => {
       this.imtoken.callAPI('device.getCurrentLanguage', (error,result) => {
         // Modal.alert('getLanguage res',result)
+        let language = 'en-US'
         if(error){
           // Modal.alert('getLanguage res error',error)
-          resolve({error})
+          resolve({result:language})
         }else{
-          let language = 'en-US'
           if(result.indexOf('zh') !== -1){
             language = 'zh-CN'
           }
@@ -33,10 +33,11 @@ export default class Imtoken extends Wallet {
   getCurrency() {
     return new Promise((resolve) => {
       this.imtoken.callAPI('device.getCurrentCurrency', (error,result) => {
+        let currency = 'USD'
         if(error){
-          resolve({error})
+          resolve({result:currency})
         }else{
-          let currency = 'USD'
+
           if(result === 'CNY'){
             currency = 'CNY'
           }
