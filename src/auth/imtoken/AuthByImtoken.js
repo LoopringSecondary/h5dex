@@ -12,7 +12,7 @@ class AuthByImtoken extends React.Component {
     console.log('this.props',this.props)
     const address = storage.wallet.getUnlockedAddress()
     if (address) {
-      Toast.info('Loading configs...', 0, () => {
+      Toast.loading('Loading configs...', 0, () => {
         Toast.success('Load complete !!!')
       },false)
       const _props = this.props
@@ -25,7 +25,7 @@ class AuthByImtoken extends React.Component {
           if(!window.Wallet.currency){ window.Wallet.currency = 'CNY'}
           if(!window.Wallet.language){ window.Wallet.language = 'zh-CN'}
 
-          Modal.alert('setConfigs res',res.address + ' - ' +res.language)
+          // Modal.alert('setConfigs res',res.address + ' - ' +res.language)
           if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
             storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
             window.RELAY.account.register(window.Wallet.address)
@@ -65,7 +65,7 @@ class AuthByImtoken extends React.Component {
   }
 
   goToDex = () => {
-    Toast.info('Loading configs...', 0, () => {
+    Toast.loading('Loading configs...', 0, () => {
       Toast.success('Load complete !!!')
     },false)
     const _props = this.props
