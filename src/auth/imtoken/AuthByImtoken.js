@@ -9,23 +9,21 @@ import storage from 'modules/storage'
 class AuthByImtoken extends React.Component {
 
   componentWillMount () {
-    console.log('this.props', this.props)
+   console.log(this.props)
     const address = storage.wallet.getUnlockedAddress()
     if (address) {
-      Toast.loading('Loading configs...', 0, () => {
-        Toast.success('Load complete !!!')
-      }, false)
+      // Toast.loading('Loading configs...', 0, () => {
+      //   Toast.success('Load complete !!!')
+      // }, false)
       const _props = this.props
       const handler = () => {
         Modal.alert('handler 1')
+      //  Toast.hide()
+        Toast.info(this.props)
         window.removeEventListener('sdkReady', handler)
-        Toast.hide()
         window.Wallet = new Imtoken(window.imToken)
         Modal.alert('handler 2')
         window.Wallet.setConfigs().then(res => {
-          if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
-          if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
-
           Modal.alert('setConfigs res', res.address + ' - ' + res.language)
           if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
             storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
