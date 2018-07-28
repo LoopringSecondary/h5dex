@@ -9,46 +9,47 @@ import storage from 'modules/storage'
 class AuthByImtoken extends React.Component {
 
   componentWillMount () {
-   console.log(this.props)
+
     const address = storage.wallet.getUnlockedAddress()
     if (address) {
       // Toast.loading('Loading configs...', 0, () => {
       //   Toast.success('Load complete !!!')
       // }, false)
       const _props = this.props
-      const handler = () => {
+      const handler = async () => {
         Modal.alert('handler 1')
-      //  Toast.hide()
+        //  Toast.hide()
         Toast.info(this.props)
         window.removeEventListener('sdkReady', handler)
         window.Wallet = new Imtoken(window.imToken)
         Modal.alert('handler 2')
-        window.Wallet.setConfigs().then(res => {
-          Modal.alert('setConfigs res', res.address + ' - ' + res.language)
-          if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
-            storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
-            window.RELAY.account.register(window.Wallet.address)
-          }
-          Modal.alert('handler 3')
-          _props.dispatch({type: 'sockets/unlocked'})
-          Modal.alert('handler 4')
-          _props.dispatch({
-            type: 'settings/preferenceChange',
-            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
-          })
-          _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
-          Modal.alert('handler 5')
-          routeActions.gotoPath('/dex')
+        await window.Wallet.setConfigs()
+        if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
+          storage.wallet.storeUnlockedAddress('imtoken', window.Wallet.address)
+          window.RELAY.account.register(window.Wallet.address)
+        }
+        Modal.alert('handler 3')
+        _props.dispatch({type: 'sockets/unlocked'})
+        Modal.alert('handler 4')
+        _props.dispatch({
+          type: 'settings/preferenceChange',
+          payload: {language: window.Wallet.language, currency: window.Wallet.currency}
         })
+        _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+        Modal.alert('handler 5')
+        routeActions.gotoPath('/dex')
       }
-
-      if (window.imToken) {
-        Modal.alert('handler start : imtoken  exsits')
-        handler()
-      } else {
-        Modal.alert('handler start :imtoken not exsits')
-        window.addEventListener('sdkReady', handler)
-      }
+      Modal.alert('handler start :imtoken not exsits')
+      window.addEventListener('sdkReady', handler)
+      setTimeout(() => {
+        // if (window.imToken) {
+        //   Modal.alert('handler start : imtoken  exsits')
+        //   handler()
+        // } else {
+          Modal.alert('handler start :imtoken not exsits')
+          window.addEventListener('sdkReady', handler)
+      //  }
+      }, 1000)
     }
   }
 
