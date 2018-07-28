@@ -12,13 +12,10 @@ export default class Imtoken extends Wallet {
     this.walletType = 'imtoken'
   }
   getLanguage() {
-    Modal.alert('getLanguage start')
     return new Promise((resolve) => {
       this.imtoken.callAPI('device.getCurrentLanguage', (error,result) => {
-        Modal.alert('getLanguage res',result)
         let language = 'en-US'
         if(error){
-          Modal.alert('getLanguage res error',error)
           resolve({result:language})
         }else{
           if(result.indexOf('zh') !== -1){
@@ -88,17 +85,6 @@ export default class Imtoken extends Wallet {
         }
       })
     })
-  }
-
-
-  setConfigs = async () => {
-    this.address =  (await this.getCurrentAccount()).result
-    // this.language = (await this.getLanguage()).result
-    // Modal.alert('setConfigs language',this.language)
-    this.language = 'zh-CN'
-    this.currency = (await this.getCurrency()).result
-    Modal.alert('setConfigs currency',this.currency)
-    return this
   }
 }
 
