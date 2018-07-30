@@ -211,7 +211,7 @@ function ListTodos (props) {
         type: 'balance',
         balance: tf.toPricisionFixed(unitBalance),
         selling:tf.toPricisionFixed(selling),
-        lack: toNumber(selling) - toNumber(unitBalance),
+        lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
         title: `${symbol} balance is insufficient for orders`
       })
     }
