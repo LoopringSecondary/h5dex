@@ -232,6 +232,9 @@ export default {
     selling: "Selling",
     no_fills_of_market: "No fills of {market}",
   },
+  helper_of_balance: {
+    description: "We only show your {pair} assets at current page"
+  },
   settings: {
     title: 'Settings',
     preferences: 'Preferences',
