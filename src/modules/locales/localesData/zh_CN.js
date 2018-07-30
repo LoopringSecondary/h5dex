@@ -234,6 +234,9 @@ export default {
   helper_of_amount: {
     depth: "深度"
   },
+  helper_of_balance: {
+    description: "当前仅显示您的{pair}资产"
+  },
   settings: {
     title: '设置',
     preferences: '偏好',
