@@ -51,7 +51,7 @@ const TokenListComp = (props)=>{
                       {token.symbol}
                       <span hidden className="color-black-3 ml5">{token.symbol}</span>
                     </td>
-                    <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance, token.precision)}</td>
+                    <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance, 8)}</td>
                     <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">
                       {
                         token.symbol === 'ETH' &&
