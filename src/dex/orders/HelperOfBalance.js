@@ -111,7 +111,7 @@ const HelperOfBalance = (props)=>{
           <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 align-items-center">
             <div className="col text-center">
               <WebIcon className="mr5" type="exclamation-circle-o"/>
-              <span>当前仅显示您的{pair}资产</span>
+              <span>{intl.get("helper_of_balance.description", {pair})}</span>
               <span className="text-primary ml5">{intl.get('common.all')}</span>
             </div>
           </div>
