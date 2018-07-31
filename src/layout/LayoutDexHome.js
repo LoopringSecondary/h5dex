@@ -25,21 +25,22 @@ class DexHomeLayout extends React.Component {
     }
     let todos = 0
     const lrcFee  = allocates['frozenLrcFee'] || 0 ;
-    delete allocates.frozenLrcFee
     const symbols = Object.keys(allocates)
     symbols.forEach((symbol, index) => {
-      const value = allocates[symbol]
-      const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-      let selling = toBig(value)
-      if (symbol.toUpperCase() === 'LRC') {
-        selling = selling.plus(toBig(lrcFee))
-      }
-      if (selling.gt(assets.balance)) {
-        todos = todos + 1
-      }
-      let allowance = assets.allowance
-      if (selling.gt(allowance)) {
+      if(symbol.toLocaleLowerCase() !== "frozenlrcfee"){
+        const value = allocates[symbol]
+        const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
+        let selling = toBig(value)
+        if (symbol.toUpperCase() === 'LRC') {
+          selling = selling.plus(toBig(lrcFee))
+        }
+        if (selling.gt(assets.balance)) {
           todos = todos + 1
+        }
+        let allowance = assets.allowance
+        if (selling.gt(allowance)) {
+          todos = todos + 1
+        }
       }
     })
 

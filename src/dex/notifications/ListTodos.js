@@ -194,32 +194,35 @@ function ListTodos (props) {
   }
   let data = []
   const lrcFee = allocates['frozenLrcFee'] || 0
-  delete allocates.frozenLrcFee
   const symbols = Object.keys(allocates)
   each(symbols, (symbol, callback) => {
-    const value = allocates[symbol]
-    const tf = new TokenFormatter({symbol})
-    const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
-    const unitBalance = assets.balance
-    let selling = tf.getUnitAmount(value)
-    if (symbol.toUpperCase() === 'LRC') {
-      selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+    if(symbol.toLowerCase()  !== "frozenlrcfee"){
+      const value = allocates[symbol]
+      const tf = new TokenFormatter({symbol})
+      const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
+      const unitBalance = assets.balance
+      let selling = tf.getUnitAmount(value)
+      if (symbol.toUpperCase() === 'LRC') {
+        selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+      }
+      if (toNumber(unitBalance) < toNumber(selling)) {
+        data.push({
+          symbol: symbol,
+          type: 'balance',
+          balance: tf.toPricisionFixed(unitBalance),
+          selling:tf.toPricisionFixed(selling),
+          lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
+          title: `${symbol} balance is insufficient for orders`
+        })
+      }
+      let allowance = assets.allowance
+      if (allowance.lt(toBig(selling))) {
+        data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
+      }
+      callback()
+    }else{
+      callback()
     }
-    if (toNumber(unitBalance) < toNumber(selling)) {
-      data.push({
-        symbol: symbol,
-        type: 'balance',
-        balance: tf.toPricisionFixed(unitBalance),
-        selling:tf.toPricisionFixed(selling),
-        lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
-        title: `${symbol} balance is insufficient for orders`
-      })
-    }
-    let allowance = assets.allowance
-    if (allowance.lt(toBig(selling))) {
-      data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
-    }
-    callback()
   }, (error) => {
     data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
   })
