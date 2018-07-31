@@ -563,7 +563,7 @@ export default {
   user_center:{
     receive:'收款',
     send:'转账',
-    tab_title: "我的"
+    tab_title: "我"
   },
   kline_chart:{
     kline_chart:'K线图',

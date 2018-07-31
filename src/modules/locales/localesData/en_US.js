@@ -558,7 +558,7 @@ export default {
   user_center:{
     receive:'Receive',
     send:'Send',
-    tab_title: "My"
+    tab_title: "Me"
   },
   kline_chart:{
     kline_chart:'Kline Chart',
@@ -573,7 +573,7 @@ export default {
     message_list_title:'Messages',
   },
   todo_list:{
-    todo_list_title:'Todos',
+    todo_list_title:'Tasks',
     allowance_not_enough_title:"{symbol} is disabled to trade",
     balance_not_enough_title:"{symbol} balance is insufficient",
     balance:"Balance",
