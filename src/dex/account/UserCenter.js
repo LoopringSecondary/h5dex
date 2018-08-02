@@ -43,7 +43,7 @@ class UserCenter extends React.Component {
               <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
             rightContent={null && [
-              <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1)}><i className="icon-cog-o"></i></span>
+              <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
             ]}
           >
           {intl.get('usercenter.page_title')}
@@ -56,7 +56,7 @@ class UserCenter extends React.Component {
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
                   {
                     false &&
-                    <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1)}>
+                    <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
                       {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
                     </div>
                   }

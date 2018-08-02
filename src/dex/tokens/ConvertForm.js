@@ -68,12 +68,12 @@ class Convert extends React.Component {
     }
     const gotoConfirm = async () => {
       if (!isValidNumber(amount)) {
-        Toast.info(intl.get('notifications.title.invalid_number'))
+        Toast.info(intl.get('notifications.title.invalid_number'), 1, null, false)
         return
       }
 
       if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-        Toast.info(intl.get('convert.not_enough_tip', {token}))
+        Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
         return
       }
       let data = ''
@@ -105,14 +105,14 @@ class Convert extends React.Component {
                 rawTx: tx,
                 from: address
               })
-              Toast.success(intl.get('notifications.title.convert_suc'))
+              Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
               hideLayer({id: 'convertToken'})
             } else {
-              Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message)
+              Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message, 3, null, false)
             }
           })
         } else {
-          Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message)
+          Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message, 3, null, false)
         }
       })
     }

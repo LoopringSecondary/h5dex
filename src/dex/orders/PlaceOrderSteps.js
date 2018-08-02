@@ -27,7 +27,7 @@ const OrderMetaItem = (props) => {
       {
         !!showArrow &&
         <div className="col-auto text-right">
-          <div className="fs14 color-black-1 text-wrap lh30 text-left">
+          <div className="fs14 text-primary text-wrap lh30 text-left ml5">
             <Icon type="right" />
           </div>
         </div>
@@ -123,6 +123,10 @@ function PlaceOrderSteps(props) {
         ...payload
       }
     })
+  }
+  const showTTL = () => {
+    // hideLayer({id:'placeOrderSteps'})
+    showLayer({id:'helperOfTTL'})
   }
   const next = async (page) => {
     hideLayer({id:'placeOrderSteps'})
@@ -223,8 +227,8 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
-                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
-                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1)} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
+                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1, null, false)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
+                <OrderMetaItem showArrow={true} onClick={()=>showTTL()} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
               </div>
               <div>
                 <div className="pt10 pb10 clor-black-3 fs12 zb-b-t">

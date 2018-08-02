@@ -38,7 +38,7 @@ function HelperOfPrice(props) {
           <span key='1' className=""><Icon type="cross"/></span>,
         ]}
         rightContent={[
-          <span key='1' onClick={()=>window.Toast.info('请点击价格或数量')} className=""><WebIcon type="question-circle-o"/></span>,
+          <span key='1' onClick={()=>window.Toast.info('请点击价格或数量', 1, null, false)} className=""><WebIcon type="question-circle-o"/></span>,
         ]}
       >
         {intl.get('common.price')}{intl.get('common.helper')}

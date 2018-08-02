@@ -63,7 +63,7 @@ import { toNumber } from '../../common/loopringjs/src/common/formatter'
   render(){
     const {symbol,amount} =  this.state
     const address = storage.wallet.getUnlockedAddress()
-    const copyAddress = ()=>{ copy(address) ?  Toast.info(intl.get('notifications.title.copy_suc')) : Toast.fail(intl.get('notifications.title.copy_suc')) }
+    const copyAddress = ()=>{ copy(address) ?  Toast.info(intl.get('notifications.title.copy_suc')) : Toast.fail(intl.get('notifications.title.copy_suc'), 3, null, false) }
     return (
       <Card>
         <div className="text-center">
