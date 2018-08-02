@@ -1,12 +1,11 @@
-import React from 'react';
-import { connect } from 'dva';
-import { Tabs,Slider,Icon,NavBar} from 'antd-mobile';
-import { Icon as WebIcon } from 'antd';
-import intl from 'react-intl-universal';
-import {toBig, toNumber, toFixed} from 'LoopringJS/common/formatter'
-import {getTokensByMarket} from 'modules/formatter/common'
+import React from 'react'
+import { connect } from 'dva'
+import { NavBar, Slider } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
+import { toNumber } from 'LoopringJS/common/formatter'
 import Worth from 'modules/settings/Worth'
-import {calculateGas} from 'LoopringJS/common/utils'
+import { calculateGas } from 'LoopringJS/common/utils'
+import intl from 'react-intl-universal'
 
 function HelperOfGas(props) {
   const tabs = [
@@ -46,7 +45,7 @@ function HelperOfGas(props) {
         </div>
       )
     }
-    return <div>{`${title} 无`}</div>
+    return <div>{`${title} ${intl.get('gas_setting.none')}`}</div>
   }
   const hideLayer = (payload = {}) => {
     dispatch({
@@ -69,18 +68,18 @@ function HelperOfGas(props) {
           <WebIcon key="1" type="question-circle-o"/>,
         ]}
       >
-        设置油费
+        {intl.get('gas_setting.title')}
       </NavBar>
       <div className="bg-white">
         <div className="row p15 ml0 mr0 zb-b-b">
           <div className="col color-black-1 text-left pl25" onClick={tabChanged.bind(this, 'estimate')}>
-            {gasShow(gasPriceStore.estimate, '推荐Gas')}
+            {gasShow(gasPriceStore.estimate, intl.get('gas_setting.mode_easy_title'))}
           </div>
           {gas.tabSelected === 'estimate' && <div className="col-auto fs18 color-black-1"><WebIcon type="check-circle-o" /></div>}
         </div>
         <div className="p15 pb35" onClick={tabChanged.bind(this, 'custom')}>
           <div className="color-black-1 pl25 pb25 text-left">
-            {gasShow(gasPriceStore.current, '自定义Gas')}
+            {gasShow(gasPriceStore.current, intl.get('gas_setting.gas_selector_custom'))}
           </div>
           <Slider
             className="ml25 mr25"
@@ -95,11 +94,7 @@ function HelperOfGas(props) {
     </div>
   )
 }
-export default connect(({
-  gas,
-})=>({
-  gas
-}))(HelperOfGas)
+export default connect(({gas,})=>({gas}))(HelperOfGas)
 
 
 

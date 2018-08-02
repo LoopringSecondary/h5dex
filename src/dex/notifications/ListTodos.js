@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'dva'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { Button, Icon, NavBar, NoticeBar, SegmentedControl, Switch, Toast } from 'antd-mobile'
+import { Button, Icon, NavBar, NoticeBar, SegmentedControl, Modal, Toast } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
 import { toBig, toHex, toNumber } from 'LoopringJS/common/formatter'
@@ -110,7 +110,6 @@ const TodoItem = (props) => {
         </div>
         <div className="col-auto">
           <div>
-            {false && <Switch onChange={enable.bind(this, item)}/>}
             <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
                     onClick={enable}>
               {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}

@@ -254,7 +254,7 @@ export default {
     title: 'Set Gas Fee',
     gas_selector_last: 'Last use',
     gas_selector_estimate: 'Estimate',
-    gas_selector_custom: 'Custom setting',
+    gas_selector_custom: 'Custom Gas',
     mode_easy_title: 'Recommended',
     mode_advanced_title: 'Advanced',
     gas_limit: 'Gas Limit',
