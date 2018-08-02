@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'dva'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
-import { Button, Icon, NavBar, NoticeBar, SegmentedControl, Switch, Toast } from 'antd-mobile'
+import { Button, Icon, NavBar, NoticeBar, SegmentedControl, Modal, Toast } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import LayoutDexHome from '../../layout/LayoutDexHome'
 import { toBig, toHex, toNumber } from 'LoopringJS/common/formatter'
@@ -65,7 +65,6 @@ const TodoItem = (props) => {
                 rawTx: tx,
                 from: storage.wallet.getUnlockedAddress()
               }).then(response => {
-                Toast.info(response)
                 callback()
               })
             } else {
