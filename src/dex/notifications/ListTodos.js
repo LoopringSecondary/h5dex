@@ -65,6 +65,7 @@ const TodoItem = (props) => {
                 rawTx: tx,
                 from: storage.wallet.getUnlockedAddress()
               }).then(response => {
+                Toast.info(response)
                 callback()
               })
             } else {
@@ -110,7 +111,6 @@ const TodoItem = (props) => {
         </div>
         <div className="col-auto">
           <div>
-            {false && <Switch onChange={enable.bind(this, item)}/>}
             <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
                     onClick={enable}>
               {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}
