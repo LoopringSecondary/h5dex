@@ -567,7 +567,8 @@ export default {
     price_chart:'Price Chart',
   },
   todos: {
-    tab_title: "Notifications"
+    tab_title: "Notifications",
+    instruction: "There may have some tasks you should do with your available orders to make them available.<br>1. Allowance of tokens you about to sell are not enough. <br>2. Your token balances are not enough to sell."
   },
   message_list:{
     message_list_title:'Messages',
