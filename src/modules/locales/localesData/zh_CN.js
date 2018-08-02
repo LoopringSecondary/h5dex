@@ -572,7 +572,8 @@ export default {
     price_chart:'价格行情',
   },
   todos: {
-    tab_title: "通知"
+    tab_title: "通知",
+    instruction: "当您有效订单中需要额外完成一些任务以使订单生效时会在这里给您提示。<br>1.您要卖出的代币授权不足<br>2.代币余额数量不足"
   },
   message_list:{
     message_list_title:'消息',

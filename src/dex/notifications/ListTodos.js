@@ -332,6 +332,10 @@ function ListTodos (props) {
                         gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
             )
           }
+          {!data || data.length === 0 &&
+          <div className="pl10 pt10 pb10 color-black-4 fs12">
+            {intl.getHTML('todos.instruction')}
+          </div>}
         </div>
         <div className="pt50"></div>
       </div>
