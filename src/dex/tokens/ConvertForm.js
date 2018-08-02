@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, InputItem, List, NavBar, Toast } from 'antd-mobile'
+import { Button, Icon, InputItem, List, NavBar, Toast, Popover } from 'antd-mobile'
 import { Icon as WebIcon, Input, InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
@@ -139,8 +139,27 @@ class Convert extends React.Component {
           leftContent={[
             <span key='1' className=""><Icon type="left"/></span>,
           ]}
-          rightContent={null && [
-            <WebIcon key="1" type="question-circle-o"/>,
+          rightContent={[
+            null && <Popover mask
+                     overlayClassName="fortest"
+                     overlayStyle={{ color: 'currentColor' }}
+                     visible={this.state.visible}
+                     overlay={[
+                       (<Popover.Item key="4" value="scan" data-seed="logId">Scan</Popover.Item>),
+                       (<Popover.Item key="5" value="special" style={{ whiteSpace: 'nowrap' }}>My Qrcode</Popover.Item>),
+                       (<Popover.Item key="6" value="button ct">
+                         <span style={{ marginRight: 5 }}>Help</span>
+                       </Popover.Item>),
+                     ]}
+                     align={{
+                       overflow: { adjustY: 0, adjustX: 0 },
+                       offset: [-10, 0],
+                     }}
+                     onVisibleChange={this.handleVisibleChange}
+                     onSelect={this.onSelect}
+            >
+              <WebIcon key="1" type="question-circle-o"/>
+            </Popover>,
           ]}
         >
           {fromToken} → {toToken}
