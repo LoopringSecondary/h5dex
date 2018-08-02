@@ -77,9 +77,9 @@ const TodoItem = (props) => {
       })
     }, function (error) {
       if (error) {
-        Toast.fail(intl.get('notifications.title.enable_failed') + ":"+error.message)
+        Toast.fail(intl.get('notifications.title.enable_failed') + ":"+error.message, 3, null, false)
       } else {
-        Toast.success(intl.get('notifications.title.enable_suc'))
+        Toast.success(intl.get('notifications.title.enable_suc'), 3, null, false)
       }
     })
 
@@ -262,7 +262,7 @@ function ListTodos (props) {
       })
       nonce = nonce + 1
     }, function (error) {
-      Toast.fail(error.message)
+      Toast.fail(error.message, 3, null, false)
     })
 
     eachLimit(txs, 1, async (tx, callback) => {
@@ -286,9 +286,9 @@ function ListTodos (props) {
       })
     }, function (error) {
       if (error) {
-        Toast.fail(error.message)
+        Toast.fail(error.message, 3, null, false)
       } else {
-        Toast.success(intl.get('notifications.title.enable_suc'))
+        Toast.success(intl.get('notifications.title.enable_suc'), 3, null, false)
       }
     })
   }
@@ -307,7 +307,7 @@ function ListTodos (props) {
             <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
           ]}
           rightContent={null && [
-            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1)} key="1" type="question-circle-o"
+            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1, null, false)} key="1" type="question-circle-o"
                      className=""/>,
           ]}
         >

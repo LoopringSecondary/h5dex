@@ -21,7 +21,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     const tokenS = config.getTokenBySymbol(item.originalOrder.tokenS)
     const market = config.getMarketBySymbol(item.originalOrder.tokenB, item.originalOrder.tokenS)
     const price = item.originalOrder.side.toLowerCase() === 'buy' ? toBig(item.originalOrder.amountS).div('1e' + tokenS.digits).div(toBig(item.originalOrder.amountB).div('1e' + tokenB.digits)).toFixed(market.pricePrecision) : toBig(item.originalOrder.amountB).div('1e' + tokenB.digits).div(toBig(item.originalOrder.amountS).div('1e' + tokenS.digits)).toFixed(market.pricePrecision)
-    Toast.info('Price has changed', 3, null, false)
+    Toast.info('Price has changed', 1, null, false)
     dispatch({
       type: 'placeOrder/priceChangeEffects',
       payload: {
@@ -35,7 +35,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     token = token || {digits: 18, precision: 6}
     const amount = side === 'buy' ? item.originalOrder.amountB : item.originalOrder.amountS
     const amountInput = toFixed(toBig(amount).div('1e' + token.digits), token.precision)
-    Toast.info('Amount has changed', 3, null, false)
+    Toast.info('Amount has changed', 1, null, false)
     dispatch({
       type: 'placeOrder/amountChange',
       payload: {
@@ -79,13 +79,13 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                   type:1
                 }).then(response => {
                   if (response.error) {
-                    Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`)
+                    Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`, 3, null, false)
                   } else {
-                    Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}))
+                    Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}), 3, null, false)
                   }
                 })
           } else {
-            Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`)
+            Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`, 3, null, false)
           }
         })
       }
@@ -114,20 +114,20 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
                     tokenB
                   }).then(response => {
                     if (response.error) {
-                      Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`)
+                      Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`, 3, null, false)
                     } else {
-                      Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}))
+                      Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}), 3, null, false)
                     }
                   })
             } else {
-              Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`)
+              Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`, 3, null, false)
             }
           })
         }
         },
       ])
     } else {
-      Toast.info(intl.get('order_cancel.no_open_orders'))
+      Toast.info(intl.get('order_cancel.no_open_orders'), 3, null, false)
     }
   }
   const orderStatus = (item) => {

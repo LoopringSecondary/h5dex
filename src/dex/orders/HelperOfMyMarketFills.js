@@ -19,7 +19,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
     const market = config.getMarketByPair(item.market);
     const price = item.side.toLowerCase() === 'buy' ? tokenS.getUnitAmount(item.amountS).div(tokenB.getUnitAmount(item.amountB)) :
       tokenB.getUnitAmount(item.amountB).div(tokenS.getUnitAmount(item.amountS));
-    Toast.info('Price has changed', 3, null, false);
+    Toast.info('Price has changed', 1, null, false);
     dispatch({
       type:'placeOrder/priceChangeEffects',
       payload:{
@@ -30,7 +30,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
   const changeAmount = (item)=>{
     const fmS = item.side.toLowerCase() === 'buy' ? new TokenFm({symbol: item.tokenB}) : new TokenFm({symbol: item.tokenS});
     const amount = item.side.toLowerCase() === 'buy' ? fmS.getUnitAmount(item.amountB) : fmS.getUnitAmount(item.amountS);
-    Toast.info('Amount has changed', 3, null, false);
+    Toast.info('Amount has changed', 1, null, false);
     dispatch({
       type:'placeOrder/amountChange',
       payload:{

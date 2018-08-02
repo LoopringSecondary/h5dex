@@ -8,6 +8,8 @@ import HelperOfPrice from './HelperOfPrice'
 import HelperOfAmount from './HelperOfAmount'
 import HelperOfMarket from './HelperOfMarket'
 import CancelOrderConfirm  from './CancelOrderConfirm'
+import HelperOfTTL from './HelperOfTTL'
+import HelperOfLRCFee from './HelperOfLRCFee'
 
 function Modals(props) {
   return (
@@ -40,6 +42,16 @@ function Modals(props) {
       <Containers.Layers id="helperOfMarket">
         <UiContainers.Popups id="helperOfMarket">
           <HelperOfMarket />
+        </UiContainers.Popups>
+      </Containers.Layers>
+      <Containers.Layers id="helperOfTTL">
+        <UiContainers.Popups id="helperOfTTL">
+          <HelperOfTTL />
+        </UiContainers.Popups>
+      </Containers.Layers>
+      <Containers.Layers id="helperOfLRCFee">
+        <UiContainers.Popups id="helperOfLRCFee">
+          <HelperOfLRCFee />
         </UiContainers.Popups>
       </Containers.Layers>
       <Containers.Layers id="cancelOrderConfirm">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input,Icon,Button as WebButton,Steps as WebSteps,Badge} from 'antd';
-import { Modal,List,Button,Accordion,Steps,Tabs,NoticeBar} from 'antd-mobile';
+import { Modal,List,Button,Accordion,Steps,Tabs,NoticeBar,NavBar} from 'antd-mobile';
 import config from 'common/config'
 import intl from 'react-intl-universal';
 import * as datas from 'common/config/data'
@@ -75,30 +75,16 @@ function OrderDetail(props) {
   }
   return (
     <div className="bg-white no-underline">
-      <div hidden className="color-black-1 fs18 zb-b-b text-center">
-        <div className="row ml0 mr0 pt15 pb15 no-gutters align-items-center">
-          <div className="col-auto text-left pl15 pr15" onClick={hideLayer.bind(this,{id:'orderDetail'})}>
-            <Icon type="close"/>
-          </div>
-          <div className="col">Order Detail</div>
-          {false && <div className="col-auto text-right pl15 pr15 color-white">
-            <Button className="" size="small" type="ghost">Cancel</Button>
-          </div>}
-        </div>
-      </div>
-      <Tabs
-        tabs={[
-          { title: <div className="text-center">{intl.get('order_detail.tabs_basic')}</div> },
-          //{ title: <div className="text-center">{intl.get('order_detail.tabs_fills')}</div> },
-          // { title: <div className="text-center">{intl.get('order_detail.tabs_logs')}</div> },
+      <NavBar
+        className="zb-b-b"
+        mode="light"
+        onLeftClick={() => hideLayer({id:'orderDetail'})}
+        leftContent={[
+          <span key='1' className=""><Icon type="cross"/></span>,
         ]}
-        tabBarActiveTextColor={"#000"}
-        tabBarInactiveTextColor={"rgba(0,0,0,0.35)"}
-        swipeable={false}
-        initialPage={0}
-        onChange={(tab, index) => { console.log('onChange', index, tab); }}
-        onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
       >
+        {intl.get('order_detail.tabs_basic')}
+      </NavBar>
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
             { false &&
@@ -139,7 +125,8 @@ function OrderDetail(props) {
             <OrderMetaItem label={intl.get('order.validUntil')} value={orderFm.getExpiredTime()}/>
           </div>
         </div>
-        <div className="pt15 pl20 pr20 bg-white text-left">
+
+        <div hidden className="pt15 pl20 pr20 bg-white text-left">
           <div className="pt15 pb0">
             <div className="text-left pt20 pb35 zb-b-b">
              <Steps direction="horizontal" size="" current={1}>
@@ -149,6 +136,7 @@ function OrderDetail(props) {
              </Steps>
             </div>
           </div>
+
           <WebSteps progressDot direction="vertical" size="small" current={4}>
               <WebSteps.Step description="2018-06-10 10:00" title="Submited Successfully" />
               <WebSteps.Step description="2018-06-10 18:00" title="Match Successfully" />
@@ -201,7 +189,6 @@ function OrderDetail(props) {
             </WebSteps>
           }
         </div>
-      </Tabs>
     </div>
   )
 }

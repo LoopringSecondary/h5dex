@@ -16,13 +16,13 @@ export default {
     }
     switch(type) {
       case 'error':
-        Toast.fail(description, 5, null)
+        Toast.fail(description, 3, null, false)
         break;
       case 'success':
-        Toast.success(description, 3, null)
+        Toast.success(description, 3, null, false)
         break;
       default:
-        Toast.info(description, 3, null)
+        Toast.info(description, 3, null, false)
         break;
     }
     // notification.success({

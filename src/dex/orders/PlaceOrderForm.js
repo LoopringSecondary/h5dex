@@ -109,11 +109,11 @@ const PlaceOrderForm = (props)=>{
   }
   const toConfirm = async () => {
     if (!orderFormatter.isValidAmount(price)) {
-      Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 3, null, false);
+      Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 1, null, false);
       return
     }
     if (!orderFormatter.isValidAmount(amount)) {
-      Toast.info(intl.get('common.invalid_item', {item: intl.get('common.amount')}), 3, null, false);
+      Toast.info(intl.get('common.invalid_item', {item: intl.get('common.amount')}), 1, null, false);
       return
     }
     if(price !== placeOrder.priceInput) {
@@ -177,7 +177,7 @@ const PlaceOrderForm = (props)=>{
       if(Number(price) > 0) {
         showLayer({id:'helperOfAmount',side:'sell'})
       } else {
-        Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 3, null, false);
+        Toast.info(intl.get('common.invalid_item', {item: intl.get('common.price')}), 1, null, false);
       }
     } else {
       showLayer({id:'helperOfAmount',side:'sell'})

@@ -17,7 +17,7 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
     const tokenS = config.getTokenBySymbol(item.originalOrder.tokenS)
     const market = config.getMarketBySymbol(item.originalOrder.tokenB, item.originalOrder.tokenS)
     const price = item.originalOrder.side.toLowerCase() === 'buy' ? toBig(item.originalOrder.amountS).div('1e' + tokenS.digits).div(toBig(item.originalOrder.amountB).div('1e' + tokenB.digits)).toFixed(market.pricePrecision) : toBig(item.originalOrder.amountB).div('1e' + tokenB.digits).div(toBig(item.originalOrder.amountS).div('1e' + tokenS.digits)).toFixed(market.pricePrecision)
-    Toast.info('Price has changed', 3, null, false)
+    Toast.info('Price has changed', 1, null, false)
     dispatch({
       type: 'placeOrder/priceChangeEffects',
       payload: {
@@ -31,7 +31,7 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
     token = token || {digits: 18, precision: 6}
     const amount = side === 'buy' ? item.originalOrder.amountB : item.originalOrder.amountS
     const amountInput = toFixed(toBig(amount).div('1e' + token.digits), token.precision)
-    Toast.info('Amount has changed', 3, null, false)
+    Toast.info('Amount has changed', 1, null, false)
     dispatch({
       type: 'placeOrder/amountChange',
       payload: {
@@ -64,13 +64,13 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
               type: 1
             }).then(response => {
               if (response.error) {
-                Toast.fail(`relay cancel failed:${response.error.message}`)
+                Toast.fail(`relay cancel failed:${response.error.message}`, 3, null, false)
               } else {
-                Toast.success(`succeed to cancel order`)
+                Toast.success(`succeed to cancel order`, 3, null, false)
               }
             })
           } else {
-            Toast.fail(`sign cancel failed:${res.error.message}`)
+            Toast.fail(`sign cancel failed:${res.error.message}`, 3, null, false)
           }
         })
       }
@@ -99,13 +99,13 @@ const Face2FaceOrders = ({orders = {}, dispatch}) => {
                 tokenB
               }).then(response => {
                 if (response.error) {
-                  Toast.fail(`cancel failed:${response.error.message}`)
+                  Toast.fail(`cancel failed:${response.error.message}`, 3, null, false)
                 } else {
-                  Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`)
+                  Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`, 3, null, false)
                 }
               })
             } else {
-              Toast.fail(`cancel failed:${res.error.message}`)
+              Toast.fail(`cancel failed:${res.error.message}`, 3, null, false)
             }
           })
         }
