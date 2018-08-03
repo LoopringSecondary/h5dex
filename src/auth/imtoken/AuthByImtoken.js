@@ -5,19 +5,18 @@ import { Toast, Button, NavBar, Modal } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
+import intl from 'react-intl-universal'
 
 class AuthByImtoken extends React.Component {
 
   componentDidMount () {
-
+    const _props = this.props
     const address = storage.wallet.getUnlockedAddress()
     if (address) {
       Toast.loading('Loading configs...', 0, () => {
         Toast.success('Load complete !!!')
       }, false)
-      const _props = this.props
       const handler = async () => {
-         Toast.hide()
         window.removeEventListener('sdkReady', handler)
         window.Wallet = new Imtoken(window.imToken)
         await window.Wallet.setConfigs()
@@ -31,6 +30,7 @@ class AuthByImtoken extends React.Component {
           payload: {language: window.Wallet.language, currency: window.Wallet.currency}
         })
         _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+        Toast.hide()
         routeActions.gotoPath('/dex')
       }
       // Modal.alert('handler start :imtoken not exsits')
@@ -42,6 +42,10 @@ class AuthByImtoken extends React.Component {
           window.addEventListener('sdkReady', handler)
         }
       }, 1000)
+    } else {
+      const location = _props.location
+      const language = location.search.replace(`?locale=`, '')
+      _props.dispatch({type: 'locales/setLocale', payload: {locale: language}})
     }
   }
 
@@ -119,15 +123,14 @@ class AuthByImtoken extends React.Component {
               <img style={{borderRadius: '50em'}} width="100%" src={require('../../assets/images/loopr.png')} alt=""/>
             </div>
             <div className="text-center">
-              <div className="color-black-1 fs20 pt20 pb20">欢迎来到 路印 去中心化交易所</div>
+              <div className="color-black-1 fs20 pt20 pb20">{intl.get("imtoken.welcome")}</div>
               <div className="color-black-2 fs14 pl20 pr20">
-                您即将进入的dApp是一个运行在以太坊区块链上去中心化交易所。
-                通过点击"我同意"，即表示您同意我们的
-                <a onClick={() => routeActions.gotoPath('/auth/terms')} className="text-primary"> 用户服务协议 </a> 和 <a
-                onClick={() => routeActions.gotoPath('/auth/privacy')} className="text-primary"> 用户隐私政策 </a>
+                {intl.get("imtoken.description_1")}
+                <a onClick={() => routeActions.gotoPath('/auth/terms')} className="text-primary"> {intl.get("imtoken.description_2")} </a> {intl.get("imtoken.description_3")} <a
+                onClick={() => routeActions.gotoPath('/auth/privacy')} className="text-primary"> {intl.get("imtoken.description_4")} </a>
                 。
               </div>
-              <Button className="m20" type="primary" onClick={this.goToDex}>我同意</Button>
+              <Button className="m20" type="primary" onClick={this.goToDex}>{intl.get("imtoken.agree")}</Button>
             </div>
           </div>
           <div className="divider 1px zb-b-t"></div>
