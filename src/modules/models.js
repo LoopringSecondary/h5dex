@@ -11,7 +11,7 @@ export default [
   require('./tokens/ConvertModel').default,
   require('./transactions/ListModel').default,
   require('./account/model').default,
-  // require('./settings/model').default,
+  require('./settings/model').default,
   require('LoopringUI/modules/LayersModel').default,
   require('LoopringUI/modules/ModalsModel').default,
   require('LoopringUI/modules/TabsModel').default,
