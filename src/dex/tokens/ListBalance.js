@@ -34,7 +34,7 @@ const TokenListComp = (props)=>{
 
   return (
     <div className="fs20">
-      <table className="w-100 fs13">
+      <table className="w-100 fs14">
         <thead>
           <tr className="">
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.token')}</th>

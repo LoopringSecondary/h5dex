@@ -111,18 +111,6 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
              {tickerFm.getChange()}
             </Button>
           }
-          {
-            false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-300 color-white">+28.2%</Button>
-          }
-          {
-            false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-success color-white">+50.2%</Button>
-          }
-          {
-            false &&
-            <Button style={{height:'36px',lineHeight:'36px'}} className="border-none radius-4 pl10 pr10 fs16 bg-green-700 color-white">+158.2%</Button>
-          }
         </div>
       </div>
     )
