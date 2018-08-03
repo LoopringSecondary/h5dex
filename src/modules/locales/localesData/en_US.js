@@ -593,6 +593,13 @@ export default {
     tab_charts: "Charts",
     tab_depth: "Depth",
     tab_fills: "Fills"
+  },
+  imtoken: {
+    welcome: "Welcome to Loopring - a decentralized exchange",
+    description_1: "You will enter into a dapp which is a decentralized exchange operating on the Ethereum blockchain. If you click \"I agree\", it means that you agree with our",
+    description_2: "User Agreement",
+    description_3: "and",
+    description_4: "Privacy Policy",
+    agree: "I Agree"
   }
-
 }
