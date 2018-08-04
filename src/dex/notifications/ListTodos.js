@@ -135,8 +135,7 @@ const TodoItem = (props) => {
           </div>
         </div>
         <div className="row ml0 mr0 pl10 pr10 pb15 pt5 align-items-center zb-b-b no-gutters" onClick={() => {}}>
-          <div className="col-auo pr15 text-center color-white">
-            <WebIcon className="color-white fs16" type="exclamation-circle"/>
+          <div className="col-auo pr30 text-center color-white">
           </div>
           <div className="col fs14 color-black-3 pr30">
             <div className="row no-gutters ml0 mr0 ">
@@ -325,18 +324,21 @@ function ListTodos (props) {
                    mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
           One click to enable all tokens ?
         </NoticeBar>}
-        <div className="bg-white">
-          {
-            data.map((item, index) =>
-              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
-                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
-            )
-          }
+        <div className="">
+          <div className="bg-white">
+            {
+              data.map((item, index) =>
+                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                          gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+              )
+            }
+          </div>
           {!data || data.length === 0 &&
-          <div className="pl10 pt10 pb10 color-black-4 fs12">
+          <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
             {false && intl.getHTML('todos.instruction')}
             {intl.get('common.list.no_data')}
-          </div>}
+          </div>
+          }
         </div>
         <div className="pt50"></div>
       </div>

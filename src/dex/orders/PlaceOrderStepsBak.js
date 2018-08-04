@@ -129,7 +129,56 @@ function PlaceOrderSteps(props) {
     showLayer({id:'helperOfTTL'})
   }
   const next = async (page) => {
-    page.gotoPage({id:'wallet'})
+    hideLayer({id:'placeOrderSteps'})
+    let order = {};
+    order.owner = storage.wallet.getUnlockedAddress()
+    order.delegateAddress = config.getDelegateAddress();
+    order.protocol = settings.trading.contract.address;
+    const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
+    const tokenS = side.toLowerCase() === "sell" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
+    order.tokenB = tokenB.address;
+    order.tokenS = tokenS.address;
+    order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
+    order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
+    order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
+    order.validSince = toHex(validSince.unix());
+    order.validUntil = toHex(validUntil.unix());
+    order.marginSplitPercentage = 50;
+    order.buyNoMoreThanAmountB = side.toLowerCase() === "buy";
+    order.walletAddress = config.getWalletAddress();
+    order.orderType = 'market_order'
+    const authAccount = createWallet()
+    order.authAddr = authAccount.getAddressString();
+    order.authPrivateKey = clearHexPrefix(authAccount.getPrivateKeyString());
+    dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
+    // TODO 验证钱包类型
+    // page.gotoPage({id:'wallet'})
+    const signResult = await signOrder(order)
+    if(signResult.error) {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:signResult.error.message,
+        type:'error'
+      })
+      return
+    }
+    const signedOrder = {...order, ...signResult.result};
+    signedOrder.powNonce = 100;
+    const response = await window.RELAY.order.placeOrder(signedOrder)
+    // console.log('...submit order :', response)
+    if (response.error) {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_failed'),
+        description:response.error.message,
+        type:'error'
+      })
+    } else {
+      Notification.open({
+        message:intl.get('notifications.title.place_order_success'),
+        description:intl.get('notifications.message.place_order_success'),
+        type:'success'
+      })
+    }
   }
   return (
     <div className="">

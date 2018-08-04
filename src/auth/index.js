@@ -14,7 +14,7 @@ class Auth extends React.Component {
           mode="light"
         >
           <div>
-            Auth By Wallets
+            开始交易
           </div>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
