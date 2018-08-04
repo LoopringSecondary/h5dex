@@ -195,23 +195,29 @@ function PlaceOrderSteps(props) {
           }/>
           <Page id="wallet" render={({page})=>
             <div className="div">
-              <div className="p15 color-black-1 fs18 zb-b-b text-center no-gutters">
+              <div className="p10 color-black-1 fs18 zb-b-b text-center no-gutters">
                 <div className="row">
                   <div className="col-auto text-left pl20 pr20" onClick={page.gotoPage.bind(this,{id:'order'})}>
                     <Icon type="left"/>
                   </div>
-                  <div className="col">Select Wallet</div>
+                  <div className="col">签名方式</div>
                   <div className="col-auto color-white pl20 pr20">
                     <Icon type="left"/>
                   </div>
                 </div>
               </div>
-              <div className="bg-white">
-                <WalletItem icon={<i className="icon-LRC fs32" />} title="Loopr" description="Loopring Official Wallet ( pc & mobile )" showArrow={true}/>
-                <WalletItem icon="metamaskwallet" title="Metamask" description="Browser wallet ( only pc supported)" showArrow={true}/>
-                <WalletItem icon="ledgerwallet" title="Ledger" description="Hardware wallet ( only pc supported)" showArrow={true}/>
-                <WalletItem icon="hourglass" title="imToken" description="Comming Soon" showArrow={true}/>
-                <WalletItem icon={<Icon type="plus" />} title="More Wallets" description="Comming Soon" showArrow={true}/>
+              { false &&
+                <div className="bg-white">
+                  <WalletItem icon={<i className="icon-LRC fs32" />} title="Loopr" description="Loopring Official Wallet ( pc & mobile )" showArrow={true}/>
+                  <WalletItem icon="metamaskwallet" title="Metamask" description="Browser wallet ( only pc supported)" showArrow={true}/>
+                  <WalletItem icon="ledgerwallet" title="Ledger" description="Hardware wallet ( only pc supported)" showArrow={true}/>
+                  <WalletItem icon="hourglass" title="imToken" description="Comming Soon" showArrow={true}/>
+                  <WalletItem icon={<Icon type="plus" />} title="More Wallets" description="Comming Soon" showArrow={true}/>
+                </div>
+              }
+              <div>
+                <Button onClick={()=>{}} className="m10" type="primary">Loopr 钱包</Button>
+                <Button onClick={()=>{}} disabled className="m10" type="">imToken 钱包</Button>
               </div>
             </div>
           }/>
