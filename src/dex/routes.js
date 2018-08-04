@@ -24,7 +24,8 @@ const UnLogged = ()=>{
   }
 }
 const Logged = ()=>{
-  const isLogged =  !!storage.wallet.getUnlockedAddress()
+  // const isLogged =  !!storage.wallet.getUnlockedAddress() 
+  const isLogged =  true
   if(isLogged){
     return (
       <div>

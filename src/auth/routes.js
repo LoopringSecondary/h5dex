@@ -16,9 +16,9 @@ const UnLogged = ()=>{
     return (
       <Switch>
          <Route path={`/auth`} exact component={Auth} />
-         <Route path={`/auth/mock`} exact component={AuthByMock} />
-         <Route path={`/auth/loopr`} exact component={AuthByLoopr} />
-         <Route path={`/auth/imtoken`} exact component={AuthByImtoken} />
+         { false && <Route path={`/auth/mock`} exact component={AuthByMock} /> }
+         { false && <Route path={`/auth/loopr`} exact component={AuthByLoopr} /> }
+         { false && <Route path={`/auth/imtoken`} exact component={AuthByImtoken} /> }
          <Route path={`/auth/terms`} exact component={Terms} />
         <Route path={`/auth/privacy`} exact component={Privacy} />
        </Switch>
