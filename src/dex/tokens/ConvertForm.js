@@ -82,10 +82,10 @@ class Convert extends React.Component {
         return
       }
       const owner = storage.wallet.getUnlockedAddress()
-      // if (owner && toBig(amount).plus(gasFee).gt(assets.balance)) {
-      //   Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
-      //   return
-      // }
+      if (owner && toBig(amount).plus(gasFee).gt(assets.balance)) {
+        Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
+        return
+      }
       let data = ''
       let value = ''
       if (token.toLowerCase() === 'eth') {
@@ -113,11 +113,9 @@ class Convert extends React.Component {
         _this.setState({hash})
         if (!res.error) {
           // hideLayer({id: 'placeOrderSteps'})
-          showLayer({id: 'helperOfSign', type: 'order', data: {type: 'sign', value: hash}})
+          showLayer({id: 'helperOfSign', type: 'convert', data: {type: 'convert', value: hash}})
         }
       })
-
-
       // signTx(tx).then(res => {
       //   if (res.result) {
       //     window.ETH.sendRawTransaction(res.result).then(resp => {
