@@ -33,7 +33,8 @@ export default {
     'pendingTx':{...initState},
     'orders':{...initState,filters:{market:'LRC-WETH'}},
     'estimatedGasPrice':{...initState,filters:{}},
-    'orderAllocateChange':{...initState}
+    'orderAllocateChange':{...initState},
+    'addressUnlock':{...initState}
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -181,10 +182,10 @@ export default {
     },
     *emitEvent({ payload={} },{call,select,put}) {
       let {id} = payload
-      const {socket,[id]:{page,filters,sort}} = yield select(({ [namespace]:model }) => model )
+      const {socket,[id]:{page,filters,sort,extra}} = yield select(({ [namespace]:model }) => model )
       if(socket){
         // console.log('emitEvent',id)
-        let new_payload = {page,filters,sort,socket,id}
+        let new_payload = {page,filters,sort,socket,id,extra}
         yield call(apis.emitEvent, new_payload)
       }else{
         // console.log('socket is not connected! emitEvent',id)

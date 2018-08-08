@@ -119,14 +119,14 @@ const PlaceOrderForm = (props)=>{
     if(price !== placeOrder.priceInput) {
       priceChange(price)
     }
-    if(!storage.wallet.getUnlockedAddress()) {
-      Notification.open({
-        message: intl.get('notifications.title.place_order_failed'),
-        type: "error",
-        description: intl.get('notifications.message.wallet_locked')
-      });
-      return
-    }
+    // if(!storage.wallet.getUnlockedAddress()) {
+    //   Notification.open({
+    //     message: intl.get('notifications.title.place_order_failed'),
+    //     type: "error",
+    //     description: intl.get('notifications.message.wallet_locked')
+    //   });
+    //   return
+    // }
     if(!balance || !marketcap) {
       Notification.open({
         message:intl.get('notifications.title.place_order_failed'),

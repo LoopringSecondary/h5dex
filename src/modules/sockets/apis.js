@@ -241,7 +241,24 @@ const transfromers = {
       }
       updateItems(items,id)
     },
-  }
+  },
+  addressUnlock: {
+    queryTransformer: (payload) => {
+      const {extra} = payload
+      return JSON.stringify({
+        "uuid": extra.uuid,
+      })
+    },
+    resTransformer: (id, res) => {
+      if (!res) return null
+      res = JSON.parse(res)
+      let item = {}
+      if (!res.error && res.data) {
+        item = {...res.data}
+      }
+      updateItem(item,id)
+    },
+  },
 
 }
 const getQueryTransformer = (id)=>{

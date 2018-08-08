@@ -2,7 +2,7 @@ import storage from 'modules/storage'
 import Imtoken from '../../auth/imtoken/Imtoken'
 import Loopr from '../../auth/loopr/loopr'
 import Mock from '../../auth/mock/mock'
-
+import {Modal} from 'antd-mobile';
 
 export function signMessage (message) {
   if (window.Wallet) {
