@@ -1,12 +1,15 @@
 import React from 'react'
 import { Icon } from 'antd'
 import { Button } from 'antd-mobile'
-import { toBig } from 'LoopringJS/common/formatter'
+import { toBig,toHex,clearHexPrefix } from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal'
 import * as orderFormatter from 'modules/orders/formatters'
 import { getTokensByMarket } from 'modules/formatter/common'
 import { Page, Pages } from 'LoopringUI/components/Pages'
 import { connect } from 'dva'
+import config from '../../common/config'
+import storage from 'modules/storage'
+
 
 const OrderMetaItem = (props) => {
   const {label, value, showArrow = false, onClick = () => {}} = props
@@ -127,7 +130,30 @@ function PlaceOrderSteps (props) {
     hideLayer({id: 'placeOrderSteps'})
     showLayer({id: 'helperOfSign'})
 
-    //page.gotoPage({id: 'wallet'})
+    hideLayer({id:'placeOrderSteps'})
+    let order = {};
+    order.owner = storage.wallet.getUnlockedAddress()
+    order.delegateAddress = config.getDelegateAddress();
+    order.protocol = settings.trading.contract.address;
+    const tokenB =  side.toLowerCase() === "buy" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
+    const tokenS = side.toLowerCase() === "sell" ? config.getTokenBySymbol(tokens.left) : config.getTokenBySymbol(tokens.right);
+    order.tokenB = tokenB.address;
+    order.tokenS = tokenS.address;
+    order.amountB = toHex(toBig(side.toLowerCase() === "buy" ? amountInput : total).times('1e' + tokenB.digits));
+    order.amountS = toHex(toBig(side.toLowerCase() === "sell" ? amountInput : total).times('1e' + tokenS.digits));
+    order.lrcFee = toHex(toBig(lrcFeeValue).times(1e18));
+    order.validSince = toHex(validSince.unix());
+    order.validUntil = toHex(validUntil.unix());
+    order.marginSplitPercentage = 50;
+    order.buyNoMoreThanAmountB = side.toLowerCase() === "buy";
+    order.walletAddress = config.getWalletAddress();
+    order.orderType = 'market_order'
+    const authAccount = createWallet()
+    order.authAddr = authAccount.getAddressString();
+    order.authPrivateKey = clearHexPrefix(authAccount.getPrivateKeyString());
+    dispatch({type:'placeOrder/rawOrderChange', payload:{rawOrder:order}})
+
+
   }
   return (
     <div className="">
