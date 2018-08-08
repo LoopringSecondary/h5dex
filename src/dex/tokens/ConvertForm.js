@@ -12,12 +12,22 @@ import storage from 'modules/storage'
 import Worth from 'modules/settings/Worth'
 import { signTx } from '../../common/utils/signUtils'
 import ConvertHelperOfBalance from './ConvertHelperOfBalance'
+import { keccakHash } from 'LoopringJS/common/utils'
 
 const WETH = Contracts.WETH
 
 class Convert extends React.Component {
   state = {
-    token: 'ETH'
+    token: 'ETH',
+    hash:''
+  }
+  componentWillReceiveProps (newProps) {
+    const {auth} = newProps
+    const {hash} = this.state
+    if (hash === auth.hash && auth.status === 'accept') {
+      Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
+      this.setState({hash: ''})
+    }
   }
 
   componentDidMount () {
@@ -71,11 +81,11 @@ class Convert extends React.Component {
         Toast.info(intl.get('notifications.title.invalid_number'), 1, null, false)
         return
       }
-
-      if (toBig(amount).plus(gasFee).gt(assets.balance)) {
-        Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
-        return
-      }
+      const owner = storage.wallet.getUnlockedAddress()
+      // if (owner && toBig(amount).plus(gasFee).gt(assets.balance)) {
+      //   Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
+      //   return
+      // }
       let data = ''
       let value = ''
       if (token.toLowerCase() === 'eth') {
@@ -92,32 +102,44 @@ class Convert extends React.Component {
         to,
         gasPrice: toHex(toBig(gasPrice).times(1e9)),
         chainId: config.getChainId(),
-        value,
-        nonce: toHex((await window.RELAY.account.getNonce(address)).result)
+        value
       }
-
-      signTx(tx).then(res => {
-        if (res.result) {
-          window.ETH.sendRawTransaction(res.result).then(resp => {
-            if (resp.result) {
-              window.RELAY.account.notifyTransactionSubmitted({
-                txHash: resp.result,
-                rawTx: tx,
-                from: address
-              })
-              Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
-              hideLayer({id: 'convertToken'})
-            } else {
-              Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message, 3, null, false)
-            }
-          })
-        } else {
-          Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message, 3, null, false)
+      if(owner){
+        tx.nonce = toHex((await window.RELAY.account.getNonce(address)).result)
+      }
+      const hash = keccakHash(JSON.stringify(tx))
+      const _this = this
+      window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(tx)).then(res => {
+        _this.setState({hash})
+        if (!res.error) {
+          // hideLayer({id: 'placeOrderSteps'})
+          showLayer({id: 'helperOfSign', type: 'order', data: {type: 'sign', value: hash}})
         }
       })
+
+
+      // signTx(tx).then(res => {
+      //   if (res.result) {
+      //     window.ETH.sendRawTransaction(res.result).then(resp => {
+      //       if (resp.result) {
+      //         window.RELAY.account.notifyTransactionSubmitted({
+      //           txHash: resp.result,
+      //           rawTx: tx,
+      //           from: address
+      //         })
+      //         Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
+      //         hideLayer({id: 'convertToken'})
+      //       } else {
+      //         Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message, 3, null, false)
+      //       }
+      //     })
+      //   } else {
+      //     Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message, 3, null, false)
+      //   }
+      // })
     }
     const amountChange = (value) => {
-      dispatch({type: 'convert/amountChange', payload: {amount:value }})
+      dispatch({type: 'convert/amountChange', payload: {amount: value}})
     }
     const swap = () => {
       const {token} = this.state
@@ -141,22 +163,23 @@ class Convert extends React.Component {
           ]}
           rightContent={[
             null && <Popover mask
-                     overlayClassName="fortest"
-                     overlayStyle={{ color: 'currentColor' }}
-                     visible={this.state.visible}
-                     overlay={[
-                       (<Popover.Item key="4" value="scan" data-seed="logId">Scan</Popover.Item>),
-                       (<Popover.Item key="5" value="special" style={{ whiteSpace: 'nowrap' }}>My Qrcode</Popover.Item>),
-                       (<Popover.Item key="6" value="button ct">
-                         <span style={{ marginRight: 5 }}>Help</span>
-                       </Popover.Item>),
-                     ]}
-                     align={{
-                       overflow: { adjustY: 0, adjustX: 0 },
-                       offset: [-10, 0],
-                     }}
-                     onVisibleChange={this.handleVisibleChange}
-                     onSelect={this.onSelect}
+                             overlayClassName="fortest"
+                             overlayStyle={{color: 'currentColor'}}
+                             visible={this.state.visible}
+                             overlay={[
+                               (<Popover.Item key="4" value="scan" data-seed="logId">Scan</Popover.Item>),
+                               (<Popover.Item key="5" value="special" style={{whiteSpace: 'nowrap'}}>My
+                                 Qrcode</Popover.Item>),
+                               (<Popover.Item key="6" value="button ct">
+                                 <span style={{marginRight: 5}}>Help</span>
+                               </Popover.Item>),
+                             ]}
+                             align={{
+                               overflow: {adjustY: 0, adjustX: 0},
+                               offset: [-10, 0],
+                             }}
+                             onVisibleChange={this.handleVisibleChange}
+                             onSelect={this.onSelect}
             >
               <WebIcon key="1" type="question-circle-o"/>
             </Popover>,
@@ -242,7 +265,8 @@ class Convert extends React.Component {
           </div>
           <div className="bg-grey-100 mt15">
             <div className="divider zb-b-b 1px"></div>
-            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance}} gasFee={gasFee}/>
+            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol: token, balance: assets.balance}}
+                                    gasFee={gasFee}/>
           </div>
         </div>
       </div>
@@ -255,7 +279,8 @@ function mapStateToProps (state) {
     balance: state.sockets.balance,
     prices: state.sockets.marketcap.items,
     amount: state.convert.amount,
-    gas: state.gas
+    gas: state.gas,
+    auth: state.sockets.circulrNotify.item
   }
 }
 

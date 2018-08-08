@@ -259,7 +259,23 @@ const transfromers = {
       updateItem(item,id)
     },
   },
-
+  circulrNotify: {
+    queryTransformer: (payload) => {
+      const {extra} = payload;
+      return JSON.stringify({
+        owner: extra.hash,
+      })
+    },
+    resTransformer: (id, res) => {
+      if (!res) return null
+      res = JSON.parse(res)
+      let item = {}
+      if (!res.error && res.data && res.data.body) {
+        item = {...res.data.body}
+      }
+      updateItem(item, id)
+    },
+  },
 }
 const getQueryTransformer = (id)=>{
   if(transfromers[id] && transfromers[id].queryTransformer){

@@ -1,6 +1,5 @@
 import React from 'react'
-import { Icon as WebIcon } from 'antd'
-import { Toast, Button, NavBar } from 'antd-mobile'
+import { Button, NavBar, Toast } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
@@ -13,9 +12,9 @@ class Auth extends React.Component {
     const {uuid,item} = newProps
     if(uuid === item.uuid){
       Toast.success("登录成功,即将进入",3)
-      storage.wallet.storeUnlockedAddress('address', item.address)
+      storage.wallet.storeUnlockedAddress('address', item.owner)
       window.RELAY.account.register(item.address)
-      routeActions.gotoPath('/dex')
+       routeActions.gotoPath('/dex')
       this.props.dispatch({
         type: 'sockets/extraChange',
         payload: {id: 'addressUnlock', extra: {uuid:""}}
@@ -53,8 +52,7 @@ class Auth extends React.Component {
           <Button onClick={() => {}} disabled className="m10" type="">Address</Button>
           <Button onClick={() => {routeActions.gotoPath('/dex')}} className="m10" type="primary">登录</Button>
         </div>
-        <div>{item.uuid}</div>
-        {(!uuid  || uuid !== item.uuid) && <div className="bg-white" style={{position: 'absolute', left: '0', bottom: '0', width: '100%'}}>
+        <div className="bg-white" style={{position: 'absolute', left: '0', bottom: '0', width: '100%'}}>
           <div className="divider 1px zb-b-t"></div>
           <div className="p10">
             <div className="fs16 color-black-2 text-center">第三钱包登录</div>
@@ -111,7 +109,7 @@ class Auth extends React.Component {
 
           </div>
           <div className="divider 1px zb-b-t"></div>
-        </div>}
+        </div>
       </div>
     )
   }

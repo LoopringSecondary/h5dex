@@ -3,19 +3,15 @@ import { connect } from 'dva/'
 
 class SignByThirdWallet extends React.Component {
 
-
-  componentDidMount(){
-    console.log(this.props)
-  }
-
   sign = (wallet) => {
-
-
-
+    const {helperOfSign} = this.props
+    const {data} = helperOfSign
+    window.location = `${wallet}://${JSON.stringify(data)}`
   }
+
   render () {
     return (
-      <div className="bg-white" >
+      <div className="bg-white">
         <div className="divider 1px zb-b-t"></div>
         <div className="p10">
           <div className="fs16 color-black-2 text-center">第三方钱包签名授权</div>
@@ -69,7 +65,6 @@ class SignByThirdWallet extends React.Component {
               <div className="pt5 fs14 color-black-3">Kcash</div>
             </div>
           </div>
-
         </div>
         <div className="divider 1px zb-b-t"></div>
       </div>
@@ -78,5 +73,9 @@ class SignByThirdWallet extends React.Component {
 
 }
 
+
+function mapStateToProps (state) {
+
+}
 
 export default connect()(SignByThirdWallet)

@@ -34,7 +34,8 @@ export default {
     'orders':{...initState,filters:{market:'LRC-WETH'}},
     'estimatedGasPrice':{...initState,filters:{}},
     'orderAllocateChange':{...initState},
-    'addressUnlock':{...initState}
+    'addressUnlock':{...initState},
+    'circulrNotify':{...initState},
   },
   subscriptions: {
     setup({ dispatch, history }) {

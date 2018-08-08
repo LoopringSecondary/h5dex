@@ -12,8 +12,6 @@ import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal'
 
-
-
 class UserCenter extends React.Component {
   render() {
     const {match,location} = this.props;
@@ -55,11 +53,11 @@ class UserCenter extends React.Component {
                 <div className="text-center color-white fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
                   {
-                    false &&
-                    <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
-                      {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
-                    </div>
-                  }
+                  false &&
+                  <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
+                    {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
+                  </div>
+                }
                 </div>
               </div>
               <div className="col-auto">
