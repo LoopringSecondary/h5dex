@@ -113,6 +113,10 @@ class Convert extends React.Component {
         _this.setState({hash})
         if (!res.error) {
           // hideLayer({id: 'placeOrderSteps'})
+          dispatch({
+            type: 'sockets/extraChange',
+            payload: {id: 'circulrNotify', extra: {hash}}
+          })
           showLayer({id: 'helperOfSign', type: 'convert', data: {type: 'convert', value: hash}})
         }
       })

@@ -89,6 +89,10 @@ class HelperOfMyOrders extends React.Component {
       window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(data)).then(res => {
         _this.setState({hash})
         if (!res.error) {
+          dispatch({
+            type: 'sockets/extraChange',
+            payload: {id: 'circulrNotify', extra: {hash}}
+          })
           showLayer({id: 'helperOfSign', type: 'cancelOrder', data: {type: 'cancelOrder', value: hash}})
         }
       })

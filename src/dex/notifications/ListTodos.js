@@ -74,6 +74,10 @@ const TodoItem = (props) => {
     window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(txs)).then(res => {
       approveCb(hash)
       if (!res.error) {
+        dispatch({
+          type: 'sockets/extraChange',
+          payload: {id: 'circulrNotify', extra: {hash}}
+        })
         showLayer({id: 'helperOfSign', type: 'approve', data: {type: 'approve', value: hash}})
       }
     })
