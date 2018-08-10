@@ -71,7 +71,7 @@ const TodoItem = (props) => {
       })
     }
     const hash = keccakHash(txs)
-    window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(txs)).then(res => {
+    window.RELAY.order.setTempStore(hash, JSON.stringify(txs)).then(res => {
       approveCb(hash)
       if (!res.error) {
         dispatch({

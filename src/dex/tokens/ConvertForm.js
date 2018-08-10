@@ -109,7 +109,7 @@ class Convert extends React.Component {
       }
       const hash = keccakHash(JSON.stringify(tx))
       const _this = this
-      window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(tx)).then(res => {
+      window.RELAY.order.setTempStore(hash, JSON.stringify(tx)).then(res => {
         _this.setState({hash})
         if (!res.error) {
           // hideLayer({id: 'placeOrderSteps'})

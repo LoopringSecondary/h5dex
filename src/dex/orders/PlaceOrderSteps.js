@@ -133,7 +133,7 @@ class PlaceOrderSteps extends React.Component {
       dispatch({type: 'placeOrder/rawOrderChange', payload: {rawOrder: order}})
       const hash = keccakHash(JSON.stringify(order))
       const _this = this
-      window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(order)).then(res => {
+      window.RELAY.order.setTempStore(hash, JSON.stringify(order)).then(res => {
         _this.setState({hash})
         if (!res.error) {
           hideLayer({id: 'placeOrderSteps'})

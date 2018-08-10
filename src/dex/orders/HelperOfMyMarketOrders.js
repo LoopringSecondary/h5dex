@@ -86,7 +86,7 @@ class HelperOfMyOrders extends React.Component {
       const {timestamp} = data
       const hash = keccakHash(timestamp)
       const _this = this
-      window.RELAY.order.storeDatasInShortTerm(hash, JSON.stringify(data)).then(res => {
+      window.RELAY.order.setTempStore(hash, JSON.stringify(data)).then(res => {
         _this.setState({hash})
         if (!res.error) {
           dispatch({
