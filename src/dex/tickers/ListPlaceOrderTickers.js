@@ -8,6 +8,7 @@ import { Tabs } from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
 import {formatPrice} from 'modules/orders/formatters'
+import storage from '../../modules/storage'
 
 const TickerItem = ({item,actions,key,dispatch})=>{
     if(!item){ return null }
@@ -84,8 +85,9 @@ class ListPlaceOrderTickers extends React.Component {
       const tickersFm = new TickersFm(list)
       const {extra:{favored={},keywords}} = list
       let newMarkets = []
-      if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.newMarkets) {
-        newMarkets = window.REMOTE_CONFIG.newMarkets
+      const confs = storage.settings.getConfigs()
+      if(confs && confs.newMarkets) {
+        newMarkets = confs.newMarkets
       }
       const isInNewMarket = (market) => {
         const m = market.toLowerCase().split('-')

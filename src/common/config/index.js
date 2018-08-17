@@ -23,7 +23,6 @@ async function  isinWhiteList(address) {
 
 function getChainId(){
   return config.chainId
-
 }
 
 function getTokenBySymbol(symbol){
@@ -42,8 +41,9 @@ function getCustomTokens(){
 
 function getTokens(){
   // return config.tokens || []
-  if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.tokens) {
-    return window.REMOTE_CONFIG.tokens
+  const cacheConfigs = STORAGE.settings.getConfigs()
+  if(cacheConfigs && cacheConfigs.tokens) {
+    return cacheConfigs.tokens
   }
   return []
 }
@@ -73,8 +73,9 @@ function getProjectByLrx(lrx) {
 
 function getSupportedMarketsTokenR() {
   // return config.supportedTokenRInMarkets
-  if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.supportedTokenRInMarkets) {
-    return window.REMOTE_CONFIG.supportedTokenRInMarkets
+  const cacheConfigs = STORAGE.settings.getConfigs()
+  if(cacheConfigs && cacheConfigs.supportedTokenRInMarkets) {
+    return cacheConfigs.supportedTokenRInMarkets
   }
   return []
 }
@@ -141,8 +142,9 @@ function getTokenSupportedMarkets(token) {
 
 function getMarkets() {
   // return config.markets.concat(config.newMarkets)
-  if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.markets && window.REMOTE_CONFIG.newMarkets) {
-    return window.REMOTE_CONFIG.markets.concat(window.REMOTE_CONFIG.newMarkets)
+  const cacheConfigs = STORAGE.settings.getConfigs()
+  if(cacheConfigs && cacheConfigs.markets && cacheConfigs.newMarkets) {
+    return cacheConfigs.markets.concat(cacheConfigs.newMarkets)
   }
   return []
 }
