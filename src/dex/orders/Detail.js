@@ -3,7 +3,6 @@ import { Input,Icon,Button as WebButton,Steps as WebSteps,Badge} from 'antd';
 import { Modal,List,Button,Accordion,Steps,Tabs,NoticeBar,NavBar} from 'antd-mobile';
 import config from 'common/config'
 import intl from 'react-intl-universal';
-import * as datas from 'common/config/data'
 import * as orderFormatter from 'modules/orders/formatters'
 import {createWallet} from 'LoopringJS/ethereum/account';
 import * as uiFormatter from 'modules/formatter/common'
