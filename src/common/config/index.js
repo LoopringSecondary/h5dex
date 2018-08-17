@@ -41,7 +41,11 @@ function getCustomTokens(){
 }
 
 function getTokens(){
-  return config.tokens || []
+  // return config.tokens || []
+  if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.tokens) {
+    return window.REMOTE_CONFIG.tokens
+  }
+  return []
 }
 
 function getMarketByPair(pair) {
@@ -68,7 +72,11 @@ function getProjectByLrx(lrx) {
 }
 
 function getSupportedMarketsTokenR() {
-  return config.supportedTokenRInMarkets
+  // return config.supportedTokenRInMarkets
+  if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.supportedTokenRInMarkets) {
+    return window.REMOTE_CONFIG.supportedTokenRInMarkets
+  }
+  return []
 }
 
 function isSupportedMarket(market) {
@@ -132,7 +140,11 @@ function getTokenSupportedMarkets(token) {
 }
 
 function getMarkets() {
-  return config.markets.concat(config.newMarkets)
+  // return config.markets.concat(config.newMarkets)
+  if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.markets && window.REMOTE_CONFIG.newMarkets) {
+    return window.REMOTE_CONFIG.markets.concat(window.REMOTE_CONFIG.newMarkets)
+  }
+  return []
 }
 
 function getGasLimitByType(type) {
@@ -153,6 +165,22 @@ function getWallets() {
   return data.wallets
 }
 
+function getRemoteConfig() {
+  return fetch("https://config.loopring.io/h5dex/config.json", {
+    method:'get',
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      console.log(`https://config.loopring.io/h5dex/config.json response:`, res);
+      return res
+    })
+}
 
 export default {
   getTokenBySymbol,
@@ -175,5 +203,6 @@ export default {
   getWalletAddress,
   getDelegateAddress,
   getWallets,
-  getCustomTokens
+  getCustomTokens,
+  getRemoteConfig
 }

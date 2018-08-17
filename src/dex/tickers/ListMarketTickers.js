@@ -10,7 +10,6 @@ import { getMarketTickersBySymbol } from './formatters'
 import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
 import markets from 'modules/storage/markets'
-import {configs} from 'common/config/data'
 
 export const TickerHeader = ({sort,dispatch})=>{
   const sortByType = (type) => {
@@ -144,9 +143,13 @@ export const TickerList = ({items,loading,dispatch, tickersList})=>{
   return (
     <div className="">
       <Spin spinning={loading}>
-        <TickerHeader sort={sort} dispatch={dispatch}/>
-        <div className="divider 1px zb-b-t"></div>
-        {sortedItems.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} tickersList={tickersList}/>)}
+        {!loading && items.length > 0 &&
+          <div>
+            <TickerHeader sort={sort} dispatch={dispatch}/>
+            <div className="divider 1px zb-b-t"></div>
+            {sortedItems.map((item, index) => <TickerItem key={index} item={item} dispatch={dispatch} tickersList={tickersList}/>)}
+          </div>
+        }
         {!loading && items.length === 0 &&
           <div className="p10 text-center color-black-3">
             {intl.get('common.list.no_data')}
@@ -165,7 +168,10 @@ class ListMarketTickers extends React.Component {
       const {loopringTickers:list,dispatch} = this.props
       const tickersFm = new TickersFm(list)
       const {extra:{favored={},keywords}} = list
-      const newMarkets = configs.newMarkets
+      let newMarkets = []
+      if(window.REMOTE_CONFIG && window.REMOTE_CONFIG.newMarkets) {
+        newMarkets = window.REMOTE_CONFIG.newMarkets
+      }
       const isInNewMarket = (market) => {
         const m = market.toLowerCase().split('-')
         return newMarkets.find((i)=> {
@@ -194,9 +200,10 @@ class ListMarketTickers extends React.Component {
         { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
         { title: <div className="fs16">WETH</div> },
         { title: <div className="fs16">LRC</div> },
+        { title: <div className="fs16">USDT</div> },
         // { title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> },
       ]
-      if(configs.newMarkets && configs.newMarkets.length > 0){
+      if(newMarkets && newMarkets.length > 0){
         tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
       }
       return (
@@ -211,6 +218,7 @@ class ListMarketTickers extends React.Component {
             <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
+            <TickerList items={getMarketTickersBySymbol("USDT",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={[]} loading={list.loading} dispatch={dispatch} />
           </Tabs>
