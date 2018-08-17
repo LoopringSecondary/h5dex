@@ -8,7 +8,6 @@ import {setLocale} from "./common/utils/localeSetting";
 import storage from './modules/storage';
 import Eth from 'LoopringJS/ethereum/eth';
 import Relay from 'LoopringJS/relay/relay';
-import {getSupportedToken, getSupportedMarkets} from './init'
 import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
 import {configs} from './common/config/data'
@@ -62,7 +61,8 @@ const getLocalConfig = () => {
 config.getRemoteConfig().then(res=>{
 //getLocalConfig().then(res=>{
   if(res) {
-    window.REMOTE_CONFIG = res
+    // window.REMOTE_CONFIG = res
+    storage.settings.setConfigs(res)
     app._store.dispatch({type:'tokens/itemsChange', payload:{items:res.tokens}})
   }
 }).catch(error=> {
