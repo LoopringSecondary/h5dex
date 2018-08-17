@@ -60,7 +60,6 @@ const getLocalConfig = () => {
 }
 
 config.getRemoteConfig().then(res=>{
-// TODO test local config
 //getLocalConfig().then(res=>{
   if(res) {
     window.REMOTE_CONFIG = res
