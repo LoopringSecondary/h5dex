@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, InputItem, List, SegmentedControl, Toast } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
 import { getTokensByMarket } from 'modules/formatter/common'
 import { getDisplaySymbol, toBig} from 'LoopringJS/common/formatter'
@@ -202,16 +203,18 @@ const PlaceOrderForm = (props)=>{
           className=""
           placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
           value={price ? price : null}
-          clear
-          moneyKeyboardAlign="right"
+          clear={false}
+          moneyKeyboardAlign="left"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={
-            <div style={{width:'25px',textAlign:'right'}}>
-              <i className="fs18 icon-chevron-right color-black-1" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
+            <div style={{width:'auto',textAlign:'right'}}>
+              <span className="mr10 color-black-3">≈$0.12</span>
+              <span className="mr5 color-black-3">ETH</span>
+              <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
             </div>
           }
           onChange={priceChange}
-        ><div className="fs16 color-black-3">{intl.get("common.price")}</div></InputItem>
+        ><div className="fs16 color-black-3 pr5">{intl.get("common.price")}</div></InputItem>
       </List>
       <div className="divider 1px zb-b-t"></div>
       <List className="no-border">
@@ -219,36 +222,52 @@ const PlaceOrderForm = (props)=>{
           type="money"
           placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
           value={amount ? amount : null}
-          clear
+          clear={false}
           onChange={amountChange}
-          moneyKeyboardAlign="right"
+          moneyKeyboardAlign="left"
           moneyKeyboardWrapProps={moneyKeyboardWrapProps}
           extra={
-            <div style={{width:'25px',textAlign:'right'}}>
-              <i className="fs18 icon-chevron-right color-black-1" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+            <div style={{width:'auto',textAlign:'right'}}>
+              <span className="mr5 color-black-3">LRC</span>
+              <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
             </div>
           }
-        ><div className="fs16 color-black-3">{intl.get("common.amount")}</div></InputItem>
+        ><div className="fs16 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
       </List>
       <div className="divider 1px zb-b-t"></div>
       <List className="no-border">
         <Item>
-          <div className="row align-items-center ml0 mr0 mb10 mt5 fs16 lh25 no-gutters">
-            <div className="col color-black-3 pl0 fs16">{intl.get("common.total")}</div>
-            <div className="col-auto pr0">
-              <span className="color-black-1">{total} {tokens.right} ≈ </span>
-              <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/></span>
+          <div hidden className="row align-items-center ml0 mr0 mb10 mt5 fs16 lh25 no-gutters">
+            <div className="col-auto color-black-3 pl0 fs16">{intl.get("common.total")}</div>
+            <div className="col pl10">
+              <span className="color-black-1">{total} {tokens.right} </span>
+              <span className="color-black-1">
+                { false && <Worth amount={total} symbol={tokens.right}/> }
+              </span>
             </div>
           </div>
+          { false && 
+              <SegmentedControl
+                values={[
+                  <span>{amount ? amount : 0} {tokens.left}</span>, <span>{total} {tokens.right}</span>]}
+                style={{height:'45px',}}
+                className="m-auto bg-primary mt5 mb5 fs18"
+                selectedIndex={side === 'buy' ? 0 : 1}
+              />
+          }
           {
-            side === 'sell' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb10 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
-              {intl.get("common.sell")} {amount ? amount : 0} {tokens.left}
+            true && 
+            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
+              <div className="row ml10 mr10 no-gutters">
+                <div className="col">{amount ? amount : 0} {tokens.left}</div>
+                <div className="col-auto pl10 pr10" style={{borderLeft:'1px solid rgba(0,0,0,0.05)',borderRight:'1px solid rgba(0,0,0,0.05)'}}>→</div>
+                <div className="col">{total} {tokens.right}</div>
+              </div>
             </Button>
           }
           {
-            side === 'buy' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb10 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
+             false && side === 'buy' &&
+            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
               {intl.get("common.buy")} {amount ? amount : 0} {tokens.left}
             </Button>
           }

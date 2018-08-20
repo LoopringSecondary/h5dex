@@ -9,6 +9,7 @@ import HelperOfMyMarketOrders from './HelperOfMyMarketOrders'
 import HelperOfMyMarketFills from './HelperOfMyMarketFills'
 import HelperOfBalance from './HelperOfBalance'
 import HelperOfFAQ from './HelperOfFAQ'
+import HelperOfDepth from './HelperOfDepth'
 import PlaceOrderForm from './PlaceOrderForm'
 import {toBig,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal';
@@ -69,8 +70,8 @@ class PlaceOrderPage extends React.Component {
           <NavBar
             className=""
             mode="light"
-            leftContent={null && [
-              <span onClick={routeActions.goBack} className="" key="1"><WebIcon type="left" /></span>,
+            leftContent={[
+              <span onClick={routeActions.goBack} className="" key="1"><WebIcon type="question-circle-o" /></span>,
             ]}
             rightContent={[
               <span className="" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><i className="icon-chart"></i></span>
@@ -88,10 +89,10 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.assets")}</div></div>, tab:'assets' },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.orders")}</div></div>, tab:'orders' },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.fills")}</div></div>, tab:'fills' },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get("place_order.help")}</div></div>, tab:'help' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">深度</div></div>, tab:'depth' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">成交</div></div>, tab:'fills' },
+                  // { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的余额</div></div>, tab:'assets' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的订单</div></div>, tab:'orders' },
                 ]
               }
               initialPage={0}
@@ -100,13 +101,16 @@ class PlaceOrderPage extends React.Component {
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
               <div className="">
+                <HelperOfDepth />
+              </div>
+              <div className="">
+                <HelperOfMyMarketFills />
+              </div>
+              <div hidden className="">
                 <HelperOfBalance />
               </div>
               <div className="">
                 <HelperOfMyMarketOrders />
-              </div>
-              <div className="">
-                <HelperOfMyMarketFills />
               </div>
               <div className="">
                 <HelperOfFAQ />
