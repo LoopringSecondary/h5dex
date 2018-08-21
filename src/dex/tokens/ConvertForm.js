@@ -69,6 +69,7 @@ class Convert extends React.Component {
     }
     const gotoConfirm = async () => {
       this.setState({loading:true})
+      const _this = this;
       if (!isValidNumber(amount)) {
         Toast.info(intl.get('notifications.title.invalid_number'), 1, null, false)
         this.setState({loading:false})
@@ -103,7 +104,7 @@ class Convert extends React.Component {
       signTx(tx).then(res => {
         if (res.result) {
           window.ETH.sendRawTransaction(res.result).then(resp => {
-            this.setState({loading:false})
+            _this.setState({loading:false})
             if (resp.result) {
               window.RELAY.account.notifyTransactionSubmitted({
                 txHash: resp.result,
@@ -117,7 +118,8 @@ class Convert extends React.Component {
             }
           })
         } else {
-          this.setState({loading:false})
+          console.log("loading false")
+          _this.setState({loading:false})
           Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message, 3, null, false)
         }
       })
