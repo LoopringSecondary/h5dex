@@ -1,5 +1,6 @@
 import React from 'react';
-import { Spin } from 'antd';
+import { Spin,Icon as WebIcon } from 'antd';
+import { NoticeBar,Icon } from 'antd-mobile';
 import { connect } from 'dva';
 import intl from 'react-intl-universal'
 import { Toast } from 'antd-mobile';
@@ -29,6 +30,9 @@ const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
   const maxHeight = (32*maxRows+28) + 'px'
   return (
     <div style={{}}>
+      <NoticeBar  className="text-left t-info s-lg" icon={<WebIcon type="info-circle-o"/>} mode="closable" marqueeProps={{ loop: true}}>
+          点击价格和数量快速下单
+      </NoticeBar>
       <div className="row no-gutters ml0 mr0">
         <div className="col-6">
           <Spin spinning={depth.loading}>

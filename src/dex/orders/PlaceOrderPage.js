@@ -71,7 +71,7 @@ class PlaceOrderPage extends React.Component {
             className=""
             mode="light"
             leftContent={[
-              <span onClick={routeActions.goBack} className="" key="1"><WebIcon type="question-circle-o" /></span>,
+              <span onClick={()=>{}} className="" key="1"><WebIcon type="question-circle-o" /></span>,
             ]}
             rightContent={[
               <span className="" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><i className="icon-chart"></i></span>
