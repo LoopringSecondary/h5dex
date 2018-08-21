@@ -4,6 +4,8 @@ import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
 import config from "common/config";
 import commonFm from "../formatter/common";
 import {formatter} from 'modules/formatter/FormatNumber'
+import moment from 'moment'
+import TokenFm from "../tokens/TokenFm";
 
 const status = {
   ORDER_NEW: {},
@@ -81,6 +83,14 @@ export class OrderFm {
       return null
     }
   }
+  getBuy() {
+    const tf = new TokenFm({symbol:this.order.originalOrder.tokenB})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.order.originalOrder.amountB))} ${this.order.originalOrder.tokenB}`
+  }
+  getSell() {
+    const tf = new TokenFm({symbol:this.order.originalOrder.tokenS})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.order.originalOrder.amountS))} ${this.order.originalOrder.tokenS}`
+  }
   getLRCFee(){
     if(this.order.originalOrder){
       let token = config.getTokenBySymbol('LRC');
@@ -101,6 +111,15 @@ export class OrderFm {
   getExpiredTime(){
     if(this.order.originalOrder){
       return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validUntil),'MM-DD HH:MM')
+    }else{
+      return null
+    }
+  }
+  getValidTime(){
+    if(this.order.originalOrder){
+      const validSince = moment.unix(toNumber(this.order.originalOrder.validSince))
+      const validUntil = moment.unix(toNumber(this.order.originalOrder.validUntil))
+      return `${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`
     }else{
       return null
     }

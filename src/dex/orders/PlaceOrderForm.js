@@ -201,7 +201,6 @@ const PlaceOrderForm = (props)=>{
          <List className="no-border am-list-bg-none selectable">
           <InputItem
             type="money"
-            className=""
             placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
             value={price ? price : null}
             clear={false}
@@ -210,7 +209,7 @@ const PlaceOrderForm = (props)=>{
             className="circle h-default"
             extra={
               <div style={{width:'auto',textAlign:'right'}}>
-                <span className="mr10 color-black-3">￥1.58</span>
+                <span className="mr10 color-black-3"><Worth amount={price} symbol={tokens.right}/></span>
                 <span className="color-black-3">{tokens.right}</span>
                 <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
               </div>

@@ -89,11 +89,11 @@ const HelperOfBalance = (props)=>{
                   <td hidden className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">0.00</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right text-nowrap">
                     {
-                      token.symbol === 'ETH' &&
+                      false && token.symbol === 'ETH' &&
                       <Button onClick={gotoConvert.bind(this,{token:"ETH"})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
                     {
-                      token.symbol === 'WETH' &&
+                      false && token.symbol === 'WETH' &&
                       <Button onClick={gotoConvert.bind(this,{token:'WETH'})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
                     <Button onClick={showActions.bind(this,{symbol:token.symbol,hideBuy:true})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
@@ -108,11 +108,17 @@ const HelperOfBalance = (props)=>{
 
       <div className="">
         <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/assets')}>
-          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 align-items-center">
-            <div className="col text-center">
+          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
+            <div className="col text-left">
               <WebIcon className="mr5" type="exclamation-circle-o"/>
               <span>{intl.get("helper_of_balance.description", {pair})}</span>
               <span className="text-primary ml5">{intl.get('common.all')}</span>
+            </div>
+          </div>
+          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
+            <div className="col text-left">
+              <WebIcon className="mr5" type="exclamation-circle-o"/>
+              <span>余额不足也可以下单</span>
             </div>
           </div>
         </div>
