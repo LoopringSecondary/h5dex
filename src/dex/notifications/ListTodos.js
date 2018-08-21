@@ -325,15 +325,17 @@ function ListTodos (props) {
                    mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
           One click to enable all tokens ?
         </NoticeBar>}
-        <div className="bg-white">
-          {
-            data.map((item, index) =>
-              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
-                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
-            )
-          }
+        <div className="">
+          <div className="bg-white">
+            {
+              data.map((item, index) =>
+                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                          gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+              )
+            }
+          </div>
           {!data || data.length === 0 &&
-          <div className="pl10 pt10 pb10 color-black-4 fs12">
+          <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
             {false && intl.getHTML('todos.instruction')}
             {intl.get('common.list.no_data')}
           </div>}
