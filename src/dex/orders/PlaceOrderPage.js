@@ -89,9 +89,9 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">市场深度</div></div>, tab:'depth' },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的订单</div></div>, tab:'orders' },
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的资产</div></div>, tab:'assets' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.depth')}</div></div>, tab:'depth' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.orders')}</div></div>, tab:'orders' },
+                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.assets')}</div></div>, tab:'assets' },
                 ]
               }
               initialPage={0}

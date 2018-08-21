@@ -213,6 +213,7 @@ export default {
     order_type: 'Order Type',
     order_since: "Valid Since",
     order_until: "Valid Until",
+    depth:'Depth',
     assets: "Assets",
     orders: "Orders",
     fills: "Fills",

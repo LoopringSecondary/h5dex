@@ -215,6 +215,7 @@ export default {
     order_type: '订单类型',
     order_since: "订单生效时间",
     order_until: "订单失效时间",
+    depth:'深度',
     assets: "资产",
     orders: "订单",
     fills: "成交",
