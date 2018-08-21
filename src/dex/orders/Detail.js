@@ -77,7 +77,7 @@ function OrderDetail(props) {
     <div className="bg-white no-underline">
       <Tabs tabs={[
         { title: intl.get('order_detail.tabs_basic') },
-        { title: '订单成交' },
+        { title: intl.get('order_detail.tabs_fills') },
       ]}
             initialPage={0}
       >

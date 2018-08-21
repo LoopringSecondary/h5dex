@@ -16,7 +16,6 @@ export default class Fills extends React.Component {
     const {pageSize, pageIndex} = this.state;
     const {order} = this.props;
     let hash = order.originalOrder.hash
-    //TODO mock, to remove
     // hash = '0xd8c1aa755d35c9570b58c227ab66d72a38d4c291fc7ca5693aff5a8fdc523836'
     window.RELAY.ring.getFills({pageSize, pageIndex, orderHash: hash}).then(res => {
       if (!res.error) {
@@ -69,9 +68,9 @@ export default class Fills extends React.Component {
                           { item.side === 'sell' && <div className="color-error">{intl.get('common.sell')}</div> }
                         </td>
                         <td className="pl10 pr5 pt10 pb10 zb-b-b color-black-1 text-left align-middle ">
-                         <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('common.price')}</span> {fillFm.getPrice()} WETH</div>
-                         <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('common.amount')}</span> {fillFm.getAmount()} LRC</div>
-                         <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('common.total')}</span> {fillFm.getTotal()} WETH</div>
+                         <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('common.buy')}</span> {fillFm.getBuy()}</div>
+                         <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('common.sell')}</span> {fillFm.getSell()}</div>
+                         <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('common.price')}</span> {fillFm.getPrice()} </div>
                          <div><span className="color-black-2 d-inline-block" style={{width:'60px'}}>{intl.get('order.LRCFee')}</span> {fillFm.getLRCFee()}</div>
                         </td>
                         <td hidden className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
