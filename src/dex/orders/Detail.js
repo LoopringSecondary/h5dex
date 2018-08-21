@@ -11,6 +11,7 @@ import {Pages,Page} from 'LoopringUI/components/Pages'
 import {connect} from 'dva'
 import routeActions from 'common/utils/routeActions'
 import {OrderFm} from 'modules/orders/OrderFm';
+import DetailFills from './DetailFills'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -74,44 +75,40 @@ function OrderDetail(props) {
   }
   return (
     <div className="bg-white no-underline">
-      <NavBar
-        className="zb-b-b"
-        mode="light"
-        onLeftClick={() => hideLayer({id:'orderDetail'})}
-        leftContent={[
-          <span key='1' className=""><Icon type="cross"/></span>,
-        ]}
+      <Tabs tabs={[
+        { title: intl.get('order_detail.tabs_basic') },
+        { title: '订单成交' },
+      ]}
+            initialPage={0}
       >
-        {intl.get('order_detail.tabs_basic')}
-      </NavBar>
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
             { false &&
-              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
-                  订单无法进行撮合
-              </NoticeBar>
+            <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              订单无法进行撮合
+            </NoticeBar>
             }
             { false &&
-              <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
-                  余额为0，订单无法进行撮合
-              </NoticeBar>
+            <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
+              余额为0，订单无法进行撮合
+            </NoticeBar>
             }
             {
               false &&
               <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="exclamation-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看详情<Icon type="right" /></span>}>
-                  余额不足，订单无法全部被撮合
+                余额不足，订单无法全部被撮合
               </NoticeBar>
             }
             {
               false &&
               <NoticeBar  onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-info s-lg" mode="link" marqueeProps={{ loop: true}} action={<span>查看日志<Icon type="right" /></span>}>
-                  该订单正在进行撮合
+                该订单正在进行撮合
               </NoticeBar>
             }
             {
               false &&
               <NoticeBar  className="text-left t-info s-lg" icon={<Icon type="question-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>查看原因<Icon type="right" /></span>}>
-                  为什么订单没有撮合成交？
+                为什么订单没有撮合成交？
               </NoticeBar>
             }
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
@@ -124,6 +121,12 @@ function OrderDetail(props) {
             <OrderMetaItem label={intl.get('order.validUntil')} value={orderFm.getExpiredTime()}/>
           </div>
         </div>
+        <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
+          <DetailFills order={order}/>
+        </div>
+      </Tabs>
+
+
 
         <div hidden className="pt15 pl20 pr20 bg-white text-left">
           <div className="pt15 pb0">
