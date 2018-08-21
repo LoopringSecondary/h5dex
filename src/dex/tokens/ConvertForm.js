@@ -179,7 +179,7 @@ class Convert extends React.Component {
             </div>
           </div>
           <div className="p15">
-            <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
+            <div hidden className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
               <div className="col text-left">
                 <div className="color-black-2 fs14">{fromToken}</div>
               </div>
@@ -189,58 +189,51 @@ class Convert extends React.Component {
                 <div className="color-black-2 fs14">{toToken}</div>
               </div>
             </div>
-            <div className="zb-b row ml0 mr0 no-gutters align-items-stretch justify-content-center">
-              <div className="col text-right no-border am-list-bg-none bg-grey-100">
-                <List>
+            <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center" style={{}}>
+              <div className="col text-right no-border am-list-bg-none">
+                <List  className="selectable">
                   <InputItem
                     type="money"
                     onChange={amountChange}
+                    moneyKeyboardAlign="left"
                     value={amount}
+                    extra={<div className="fs14 color-black-3">{fromToken}</div>}
+                    className="circle h-default"
                   >
                   </InputItem>
-                </List>
-                {
-                  false &&
-                  <InputNumber prefix={token} className="text-right" type="text" onChange={amountChange}
-                               value={amount}/>
-                }
-              </div>
-              <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap}
-                   style={{width: '44px'}}>
-                <WebIcon type="swap" className="fs20 text-primary"/>
-              </div>
-              <div className="col text-left no-border am-list-bg-none bg-grey-100">
-                <List>
                   <InputItem
                     type="money"
-                    value={amount}
-                    disabled={true}
-                  />
+                    disabled
+                    extra={<div onClick={gotoConfirm} className="fs14 color-black-3">
+                      <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
+                      <WebIcon hidden className="ml5 text-primary" type="right"/>
+                    </div>}
+                    className="circle h-default mt15"
+                  >
+                  <div className="fs13 color-black-3">{intl.get('common.gas')}</div>
+                  </InputItem>
+
                 </List>
-                {
-                  false &&
-                  <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text"
-                         onChange={amountChange} value={amount}/>
-                }
               </div>
             </div>
-            <div className="row ml0 mr0 pt20 pb20 no-gutters zb-b-b" onClick={setGas}>
-              <div className="col">
-                <div className="color-black-2 fs14 text-left">{intl.get('common.gas')}</div>
+            <Button hidden className="b-block w-100 mt15 mb15  color-black-1" size="large" onClick={gotoConfirm} type="default">
+              <div className="row ml5 mr10 no-gutters fs14 align-items-center color-black-1">
+                <div className="col-auto"><span className="fs14 pl10">{intl.get('common.gas')}</span></div>
+                <div className="col text-right">
+                  <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
+                  
+                </div>
               </div>
-              <div className="col-auto fs14 color-black-2">
-                <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-                <WebIcon className="ml5 text-primary" type="right"/>
+            </Button>
+            <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary">
+              <div className="row ml0 mr0 no-gutters fs18 align-items-center">
+                <div className="col">{amount.toString()} <span className="fs14">{fromToken}</span></div>
+                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
+                <div className="col">{amount.toString()} <span className="fs14">{toToken}</span></div>
               </div>
-            </div>
-            <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
-              {token.toLowerCase() === 'eth' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
             </Button>
           </div>
-          <div hidden className='mt20'>w
-            <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
-          </div>
-          <div className="bg-grey-100 mt15">
+          <div className="bg-grey-100">
             <div className="divider zb-b-b 1px"></div>
             <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance}} gasFee={gasFee}/>
           </div>
