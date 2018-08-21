@@ -238,19 +238,23 @@ const PlaceOrderForm = (props)=>{
       <List className="no-border">
         <Item>
           {
-            true && 
-            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
+            side === 'sell' &&
+            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col">{amount ? amount : 0} {tokens.left}</div>
-                <div className="col-auto" style={{background:'rgba(0,0,0,0.03)',padding:'0 1.2rem'}}>→</div>
+                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
                 <div className="col">{total} {tokens.right}</div>
               </div>
             </Button>
           }
           {
-             false && side === 'buy' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
-              {intl.get("common.buy")} {amount ? amount : 0} {tokens.left}
+             side === 'buy' &&
+            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+              <div className="row ml0 mr0 no-gutters">
+                <div className="col">{total} {tokens.right}</div>
+                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
+                <div className="col">{amount ? amount : 0} {tokens.left}</div>
+              </div>
             </Button>
           }
         </Item>
