@@ -64,6 +64,7 @@ const words = {
   set:'设置',
   helper:'助手',
   depth:'深度',
+  Help:'帮助',
   list:{
     no_data:'暂无数据',
     no_data_custom:'暂无{title}',

@@ -10,7 +10,6 @@ import HelperOfMyMarketFills from './HelperOfMyMarketFills'
 import HelperOfBalance from './HelperOfBalance'
 import HelperOfFAQ from './HelperOfFAQ'
 import HelperOfDepth from './HelperOfDepth'
-import HelperOfDepthSell from './HelperOfDepthSell'
 import PlaceOrderForm from './PlaceOrderForm'
 import {toBig,toHex,getDisplaySymbol} from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal';
@@ -91,7 +90,6 @@ class PlaceOrderPage extends React.Component {
               tabs={
                 [
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">市场深度</div></div>, tab:'depth' },
-                  // { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的余额</div></div>, tab:'assets' },
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的订单</div></div>, tab:'orders' },
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">我的资产</div></div>, tab:'assets' },
                 ]

@@ -63,6 +63,7 @@ const words = {
   depth:'Depth',
   set:'Set',
   helper:'Helper',
+  help:'Help',
   list:{
     no_data:'No Data',
     no_data_custom:'No {title}',

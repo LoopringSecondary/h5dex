@@ -28,7 +28,7 @@ const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
   // const maxHeight = 'auto'
   const maxHeight = (32*maxRows+28) + 'px'
   return (
-    <div style={{maxHeight,overflow:'auto'}}>
+    <div style={{}}>
       <div className="row no-gutters ml0 mr0">
         <div className="col-6">
           <Spin spinning={depth.loading}>
@@ -41,7 +41,7 @@ const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
               </thead>
               <tbody>
                   {
-                    depth.item && depth.item.buy && depth.item.buy.map((item,index)=>
+                    depth.item && depth.item.buy && depth.item.buy.slice(0,15).map((item,index)=>
                       <tr key={index}>
                         <td className="hover-default pl10 pr5 pt5 pb5 zb-b-b color-black-2 text-left align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                           {Number(item[1]).toFixed(4)}
@@ -76,7 +76,7 @@ const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
               </thead>
                 <tbody>
                     {
-                      sell && sell.map((item,index)=>
+                      sell && sell.slice(0,15).map((item,index)=>
                         <tr key={index} className="">
                           <td className="hover-default pl5 pr5 pt5 pb5 zb-b-b text-left color-error align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                             {Number(item[0]).toFixed(8)}
