@@ -207,7 +207,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
               </Button>
             }
             {
-              orders.items && orders.items.length == 0 && intl.get('common.status')
+              orders.items && orders.items.length === 0 && intl.get('common.status')
             }
           </th>
         </tr>

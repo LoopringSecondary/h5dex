@@ -16,7 +16,10 @@ export default class Fills extends React.Component {
   componentDidMount() {
     const {pageSize, pageIndex} = this.state;
     const {order} = this.props;
-    window.RELAY.ring.getFills({pageSize, pageIndex, orderHash: order.originalOrder.hash}).then(res => {
+    let hash = order.originalOrder.hash
+    //TODO mock, to remove
+    hash = '0xd8c1aa755d35c9570b58c227ab66d72a38d4c291fc7ca5693aff5a8fdc523836'
+    window.RELAY.ring.getFills({pageSize, pageIndex, orderHash: hash}).then(res => {
       if (!res.error) {
         this.setState({fills: res.result.data, loading: false, total: res.result.total})
       }else{
@@ -70,9 +73,9 @@ export default class Fills extends React.Component {
             </tr>
         })}
         {
-          fills.length ===0 && <div>
-            NO Data
-          </div>
+          fills.length ===0 && <tr>
+            <td col="10">NO Data</td>
+          </tr>
         }
         </tbody>
       </table>
