@@ -5,6 +5,7 @@ import config from "common/config";
 import commonFm from "../formatter/common";
 import {formatter} from 'modules/formatter/FormatNumber'
 import moment from 'moment'
+import TokenFm from "../tokens/TokenFm";
 
 const status = {
   ORDER_NEW: {},
@@ -81,6 +82,14 @@ export class OrderFm {
     }else{
       return null
     }
+  }
+  getBuy() {
+    const tf = new TokenFm({symbol:this.order.originalOrder.tokenB})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.order.originalOrder.amountB))} ${this.order.originalOrder.tokenB}`
+  }
+  getSell() {
+    const tf = new TokenFm({symbol:this.order.originalOrder.tokenS})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.order.originalOrder.amountS))} ${this.order.originalOrder.tokenS}`
   }
   getLRCFee(){
     if(this.order.originalOrder){
