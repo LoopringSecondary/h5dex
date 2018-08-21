@@ -188,58 +188,54 @@ const PlaceOrderForm = (props)=>{
   const menu2 = `${intl.get("common.sell")} ${tokens.left}`
   return (
     <div>
-       <div className="pl10 pr10 pt10 pb5 bg-white segmented-fs16">
-         <SegmentedControl
-           values={[menu1, menu2]}
-           style={{height:'40px'}}
-           className="m-auto"
-           selectedIndex={side === 'buy' ? 0 : 1}
-           onChange={sideChange}
-         />
-       </div>
-       <List className="no-border selectable">
-        <InputItem
-          type="money"
-          className=""
-          placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
-          value={price ? price : null}
-          clear={false}
-          moneyKeyboardAlign="left"
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={
-            <div style={{width:'auto',textAlign:'right'}}>
-              <span className="mr10 color-black-3">≈$0.12</span>
-              <span className="mr5 color-black-3">{tokens.right}</span>
-              <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
-            </div>
-          }
-          onChange={priceChange}
-        ><div className="fs16 color-black-3 pr5">{intl.get("common.price")}</div></InputItem>
-      </List>
-      <div className="divider 1px zb-b-t"></div>
-      <List className="no-border">
-        <InputItem
-          type="money"
-          placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
-          value={amount ? amount : null}
-          clear={false}
-          onChange={amountChange}
-          moneyKeyboardAlign="left"
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={
-            <div style={{width:'auto',textAlign:'right'}}>
-              <span className="mr5 color-black-3">{tokens.left}</span>
-              <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
-            </div>
-          }
-        ><div className="fs16 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
-      </List>
-      <div className="divider 1px zb-b-t"></div>
-      <List className="no-border">
-        <Item>
+      <div className="bg-white p10">
+        <div className="segmented-fs16 mb10">
+          <SegmentedControl
+            values={[menu1, menu2]}
+            style={{height:'40px'}}
+            className="m-auto"
+            selectedIndex={side === 'buy' ? 0 : 1}
+            onChange={sideChange}
+          />
+        </div>
+         <List className="no-border am-list-bg-none selectable">
+          <InputItem
+            type="money"
+            className=""
+            placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
+            value={price ? price : null}
+            clear={false}
+            moneyKeyboardAlign="left"
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            className="circle h-default"
+            extra={
+              <div style={{width:'auto',textAlign:'right'}}>
+                <span className="mr10 color-black-3">￥1.58</span>
+                <span className="color-black-3">{tokens.right}</span>
+                <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+              </div>
+            }
+            onChange={priceChange}
+          ><div className="fs14 color-black-3 pr5">{intl.get("common.price")}</div></InputItem>
+          <InputItem
+            type="money"
+            placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
+            value={amount ? amount : null}
+            clear={false}
+            onChange={amountChange}
+            moneyKeyboardAlign="left"
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            className="circle h-default mt10"
+            extra={
+              <div style={{width:'auto',textAlign:'right'}}>
+                <span className="mr5 color-black-3">{tokens.left}</span>
+                <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+              </div>
+            }
+          ><div className="fs14 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+            <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col">{amount ? amount : 0} {tokens.left}</div>
                 <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
@@ -249,7 +245,7 @@ const PlaceOrderForm = (props)=>{
           }
           {
              side === 'buy' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb5 mt5 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+            <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
               <div className="row ml0 mr0 no-gutters">
                 <div className="col">{total} {tokens.right}</div>
                 <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
@@ -257,8 +253,8 @@ const PlaceOrderForm = (props)=>{
               </div>
             </Button>
           }
-        </Item>
-      </List>
+        </List>
+      </div>
       <div className="divider 1px zb-b-t"></div>
     </div>
   )

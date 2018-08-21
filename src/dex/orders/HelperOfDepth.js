@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import intl from 'react-intl-universal'
 import { Toast } from 'antd-mobile';
 
-const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
+const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
 
   const sell = depth.item && depth.item.sell ? [...depth.item.sell].reverse() : []
   const changePrice = (value)=>{
@@ -36,19 +36,19 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
               <thead>
                 <tr className="">
                   <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.amount")}</th>
-                  <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.buy")}{intl.get("common.price")}</th>
+                  <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.buy")}</th>
                 </tr>
               </thead>
               <tbody>
                   {
                     depth.item && depth.item.buy && depth.item.buy.map((item,index)=>
                       <tr key={index}>
-                        <td className="hover-default pl10 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
+                        <td className="hover-default pl10 pr5 pt5 pb5 zb-b-b color-black-2 text-left align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                           {Number(item[1]).toFixed(4)}
                         </td>
-                        <td className="hover-default pl5 pr5 pt10 pb10 zb-b-b text-right color-success align-middle" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
+                        <td className="hover-default pl5 pr5 pt5 pb5 zb-b-b text-right color-success align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                           {Number(item[0]).toFixed(8)}
-                          <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
+                          <div className="fs12 color-black-4">￥1.52</div>
                         </td>
                       </tr>
                     )
@@ -56,7 +56,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                   {
                     depth.item && depth.item.buy && depth.item.buy.length == 0 &&
                       <tr>
-                        <td colSpan="10" className="p10 zb-b-b text-center align-middle color-black-4 fs12">
+                        <td colSpan="10" className="p10 zb-b-b text-center align-top color-black-4 fs12">
                           {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
                         </td>
                       </tr>
@@ -70,7 +70,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
             <table className="w-100 fs13 zb-b-l">
               <thead>
                 <tr className="">
-                  <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.sell")}{intl.get("common.price")}</th>
+                  <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.sell")}</th>
                   <th className="zb-b-b text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.amount")}</th>
                 </tr>
               </thead>
@@ -78,11 +78,11 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                     {
                       sell && sell.map((item,index)=>
                         <tr key={index} className="">
-                          <td className="hover-default pl5 pr5 pt10 pb10 zb-b-b text-left color-error align-middle" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
+                          <td className="hover-default pl5 pr5 pt5 pb5 zb-b-b text-left color-error align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                             {Number(item[0]).toFixed(8)}
-                            <div hidden className="fs12 color-black-4 mr5">￥8.52</div>
+                            <div className="fs12 color-black-4">￥1.52</div>
                           </td>
-                          <td className="hover-default pl5 pr10 pt10 pb10 zb-b-b color-black-2 text-right align-middle" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
+                          <td className="hover-default pl5 pr10 pt5 pb5 zb-b-b color-black-2 text-right align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                             {Number(item[1]).toFixed(4)}
                           </td>
                         </tr>
@@ -91,7 +91,7 @@ const HelperOfDepth = ({depth={},maxRows=5,dispatch})=>{
                     {
                       depth.item && depth.item.sell && depth.item.sell.length == 0 &&
                         <tr className="">
-                          <td colSpan="10" className="p10 zb-b-b text-center align-middle color-black-4 fs12">
+                          <td colSpan="10" className="p10 zb-b-b text-center align-top color-black-4 fs12">
                             {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
                           </td>
                         </tr>
