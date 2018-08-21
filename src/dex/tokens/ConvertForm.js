@@ -140,29 +140,10 @@ class Convert extends React.Component {
             <span key='1' className=""><Icon type="left"/></span>,
           ]}
           rightContent={[
-            null && <Popover mask
-                     overlayClassName="fortest"
-                     overlayStyle={{ color: 'currentColor' }}
-                     visible={this.state.visible}
-                     overlay={[
-                       (<Popover.Item key="4" value="scan" data-seed="logId">Scan</Popover.Item>),
-                       (<Popover.Item key="5" value="special" style={{ whiteSpace: 'nowrap' }}>My Qrcode</Popover.Item>),
-                       (<Popover.Item key="6" value="button ct">
-                         <span style={{ marginRight: 5 }}>Help</span>
-                       </Popover.Item>),
-                     ]}
-                     align={{
-                       overflow: { adjustY: 0, adjustX: 0 },
-                       offset: [-10, 0],
-                     }}
-                     onVisibleChange={this.handleVisibleChange}
-                     onSelect={this.onSelect}
-            >
-              <WebIcon key="1" type="question-circle-o"/>
-            </Popover>,
+            <Button size="small" onClick={swap} key='1' className="text-primary"><WebIcon type="swap"/></Button>,
           ]}
         >
-          {fromToken} → {toToken}
+          {fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
         </NavBar>
         <div className="zb-b-b">
           <div hidden={true} className="">
@@ -179,16 +160,6 @@ class Convert extends React.Component {
             </div>
           </div>
           <div className="p15">
-            <div hidden className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
-              <div className="col text-left">
-                <div className="color-black-2 fs14">{fromToken}</div>
-              </div>
-              <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
-              </div>
-              <div className="col text-right">
-                <div className="color-black-2 fs14">{toToken}</div>
-              </div>
-            </div>
             <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center" style={{}}>
               <div className="col text-right no-border am-list-bg-none">
                 <List  className="selectable">
@@ -210,21 +181,11 @@ class Convert extends React.Component {
                     </div>}
                     className="circle h-default mt15"
                   >
-                  <div className="fs13 color-black-3">{intl.get('common.gas')}</div>
+                    <div className="fs13 color-black-3">{intl.get('common.gas')}</div>
                   </InputItem>
-
                 </List>
               </div>
             </div>
-            <Button hidden className="b-block w-100 mt15 mb15  color-black-1" size="large" onClick={gotoConfirm} type="default">
-              <div className="row ml5 mr10 no-gutters fs14 align-items-center color-black-1">
-                <div className="col-auto"><span className="fs14 pl10">{intl.get('common.gas')}</span></div>
-                <div className="col text-right">
-                  <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-                  
-                </div>
-              </div>
-            </Button>
             <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary">
               <div className="row ml0 mr0 no-gutters fs18 align-items-center">
                 <div className="col">{amount.toString()} <span className="fs14">{fromToken}</span></div>
