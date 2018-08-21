@@ -117,8 +117,7 @@ function OrderDetail(props) {
             <OrderMetaItem label={intl.get('order.total')} value={orderFm.getTotal()}/>
             <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
-            <OrderMetaItem label={intl.get('order.validSince')} value={orderFm.getCreateTime()}/>
-            <OrderMetaItem label={intl.get('order.validUntil')} value={orderFm.getExpiredTime()}/>
+            <OrderMetaItem label={intl.get('common.ttl')} value={orderFm.getValidTime()}/>
           </div>
         </div>
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
