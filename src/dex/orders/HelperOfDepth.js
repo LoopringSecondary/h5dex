@@ -30,7 +30,7 @@ const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
   const maxHeight = (32*maxRows+28) + 'px'
   return (
     <div style={{}}>
-      <NoticeBar  className="text-left t-info s-lg" icon={<WebIcon type="info-circle-o"/>} mode="closable" marqueeProps={{ loop: true}}>
+      <NoticeBar  className="text-left t-primary shape-rounded ml5 mr5 mt5" icon={<WebIcon type="info-circle"/>} mode="closable" marqueeProps={{ loop: true}}>
           点击价格和数量快速下单
       </NoticeBar>
       <div className="row no-gutters ml0 mr0">
@@ -105,7 +105,6 @@ const HelperOfDepth = ({depth={},maxRows=15,dispatch})=>{
           </Spin>
         </div>
       </div>
-
     </div>
   )
 }
