@@ -3,7 +3,7 @@ import { Button, Icon, InputItem, List, NavBar, Toast, Popover } from 'antd-mobi
 import { Icon as WebIcon, Input, InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import { toBig, toHex, toNumber } from '../../common/loopringjs/src/common/formatter'
+import { toBig, toHex, toNumber,toFixed } from '../../common/loopringjs/src/common/formatter'
 import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
 import TokenFormatter, { getBalanceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
@@ -17,7 +17,8 @@ const WETH = Contracts.WETH
 
 class Convert extends React.Component {
   state = {
-    token: 'ETH'
+    token: 'ETH',
+    loading:false
   }
 
   componentDidMount () {
@@ -29,7 +30,7 @@ class Convert extends React.Component {
 
   render () {
     const {dispatch, balance, amount, gas} = this.props
-    const {token} = this.state
+    const {token,loading} = this.state
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
     const gasPrice = gas.tabSelected === 'estimate' ? gas.gasPrice.estimate : gas.gasPrice.current
@@ -67,13 +68,16 @@ class Convert extends React.Component {
       dispatch({type: 'convert/setMax', payload: {amount: max, amount1: max}})
     }
     const gotoConfirm = async () => {
+      this.setState({loading:true})
       if (!isValidNumber(amount)) {
         Toast.info(intl.get('notifications.title.invalid_number'), 1, null, false)
+        this.setState({loading:false})
         return
       }
 
       if (toBig(amount).plus(gasFee).gt(assets.balance)) {
         Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
+        this.setState({loading:false})
         return
       }
       let data = ''
@@ -99,6 +103,7 @@ class Convert extends React.Component {
       signTx(tx).then(res => {
         if (res.result) {
           window.ETH.sendRawTransaction(res.result).then(resp => {
+            this.setState({loading:false})
             if (resp.result) {
               window.RELAY.account.notifyTransactionSubmitted({
                 txHash: resp.result,
@@ -112,6 +117,7 @@ class Convert extends React.Component {
             }
           })
         } else {
+          this.setState({loading:false})
           Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message, 3, null, false)
         }
       })
@@ -176,7 +182,7 @@ class Convert extends React.Component {
                     type="money"
                     disabled
                     extra={<div onClick={gotoConfirm} className="fs14 color-black-3">
-                      <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
+                      <Worth amount={gasFee} symbol='ETh'/> ≈ {tf.toPricisionFixed(toNumber(gasFee))} ETH
                       <WebIcon hidden className="ml5 text-primary" type="right"/>
                     </div>}
                     className="circle h-default mt15"
@@ -186,11 +192,11 @@ class Convert extends React.Component {
                 </List>
               </div>
             </div>
-            <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary">
-              <div className="row ml0 mr0 no-gutters fs18 align-items-center">
-                <div className="col">{amount.toString()} <span className="fs14">{fromToken}</span></div>
+            <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary" loading={loading} disabled={loading}>
+              <div className="row ml0 mr0 no-gutters fs16 align-items-center">
+                <div className="col">{tf.toPricisionFixed(toBig(amount))} <span className="fs14">{fromToken}</span></div>
                 <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
-                <div className="col">{amount.toString()} <span className="fs14">{toToken}</span></div>
+                <div className="col">{tf.toPricisionFixed(toBig(amount))} <span className="fs14">{toToken}</span></div>
               </div>
             </Button>
           </div>
