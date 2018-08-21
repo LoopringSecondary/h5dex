@@ -54,7 +54,7 @@
       "name": "Test"
     }
   ],
-  "supportedTokenRInMarkets":["WETH", "LRC"],
+  "supportedTokenRInMarkets":["WETH", "LRC", "USDT"],
   "markets": [
     {
       "tokenx": "LRC",
@@ -175,6 +175,76 @@
       "tokenx": "ARP",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "LRC",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "WETH",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "DAI",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "OMG",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "RDN",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "IOST",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "SNT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "BAT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "RHOC",
+      "tokeny": "USDT",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "KNC",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "REQ",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "BNT",
+      "tokeny": "USDT",
+      "pricePrecision": 2
+    },
+    {
+      "tokenx": "VITE",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "ARP",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     }
   ],
   "newMarkets": [
@@ -189,6 +259,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "TEN",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "DET",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -197,6 +272,11 @@
       "tokenx": "DET",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "DET",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "HT",
@@ -209,6 +289,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "HT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "BNB",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -217,6 +302,11 @@
       "tokenx": "BNB",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "BNB",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "WTC",
@@ -229,14 +319,24 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "WTC",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "AION",
       "tokeny": "WETH",
-      "pricePrecision": 8
+      "pricePrecision": 3
     },
     {
       "tokenx": "AION",
       "tokeny": "LRC",
-      "pricePrecision": 8
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "AION",
+      "tokeny": "USDT",
+      "pricePrecision": 3
     },
     {
       "tokenx": "CPC",
@@ -249,6 +349,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "CPC",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "PNT",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -257,6 +362,11 @@
       "tokenx": "PNT",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "PNT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "GTO",
@@ -269,6 +379,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "GTO",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "BKBT",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -277,6 +392,11 @@
       "tokenx": "BKBT",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "BKBT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "BTO",
@@ -289,6 +409,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "BTO",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "BTK",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -297,6 +422,11 @@
       "tokenx": "BTK",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "BTK",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "INK",
@@ -306,6 +436,11 @@
     {
       "tokenx": "INK",
       "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "INK",
+      "tokeny": "USDT",
       "pricePrecision": 3
     },
     {
@@ -319,6 +454,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "BIZ",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "XMM",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -327,6 +467,11 @@
       "tokenx": "XMM",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "XMM",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "INSUR",
@@ -339,6 +484,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "INSUR",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "TRAC",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -347,6 +497,11 @@
       "tokenx": "TRAC",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "TRAC",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "BOS",
@@ -359,6 +514,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "BOS",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "ALI",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -367,6 +527,11 @@
       "tokenx": "ALI",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "ALI",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "IDHUB",
@@ -379,6 +544,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "IDHUB",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "FKX",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -387,6 +557,11 @@
       "tokenx": "FKX",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "FKX",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "QUBE",
@@ -399,6 +574,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "QUBE",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "SET",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -409,6 +589,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "SET",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "TCT",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -417,6 +602,11 @@
       "tokenx": "TCT",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "TCT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "EPH",
@@ -426,6 +616,11 @@
     {
       "tokenx": "EPH",
       "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "EPH",
+      "tokeny": "USDT",
       "pricePrecision": 3
     },
     {
@@ -439,6 +634,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "JNT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "NTK",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -449,6 +649,11 @@
       "pricePrecision": 8
     },
     {
+      "tokenx": "NTK",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
       "tokenx": "ATN",
       "tokeny": "WETH",
       "pricePrecision": 8
@@ -457,6 +662,11 @@
       "tokenx": "ATN",
       "tokeny": "LRC",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "ATN",
+      "tokeny": "USDT",
+      "pricePrecision": 5
     },
     {
       "tokenx": "TUC",
@@ -466,6 +676,101 @@
     {
       "tokenx": "TUC",
       "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "TUC",
+      "tokeny": "USDT",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "MT",
+      "tokeny": "LRC",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "MT",
+      "tokeny": "WETH",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "MT",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "QCH",
+      "tokeny": "LRC",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "QCH",
+      "tokeny": "WETH",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "QCH",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "CVH",
+      "tokeny": "LRC",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "CVH",
+      "tokeny": "WETH",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "CVH",
+      "tokeny": "USDT",
+      "pricePrecision": 5
+    },
+    {
+      "tokenx": "HVN",
+      "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "HVN",
+      "tokeny": "WETH",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "HVN",
+      "tokeny": "USDT",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "WIC",
+      "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "WIC",
+      "tokeny": "WETH",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "WIC",
+      "tokeny": "USDT",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "CYBER",
+      "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "CYBER",
+      "tokeny": "WETH",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "CYBER",
+      "tokeny": "USDT",
       "pricePrecision": 3
     }
   ],
@@ -1346,6 +1651,42 @@
       "minTradeValue": 0.001
     },
     {
+      "symbol": "MT",
+      "name": "MT Token",
+      "digits": 18,
+      "address": "0x9b4e2B4B13d125238Aa0480dD42B4f6fC71b37CC",
+      "unit": "MT",
+      "website": "",
+      "allowance": "1000000000000000000000",
+      "allowanceWarn": "100000000000000000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "QCH",
+      "name": "QChi",
+      "digits": 18,
+      "address": "0x687BfC3E73f6af55F0CccA8450114D107E781a0e",
+      "unit": "QCH",
+      "website": "",
+      "allowance": "1000000000000000000000",
+      "allowanceWarn": "100000000000000000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "CVH",
+      "name": "Curriculum Vitae",
+      "digits": 18,
+      "address": "0x52DB8ebF894036ec997Da693C5fa237A4fb69d10",
+      "unit": "CVH",
+      "website": "",
+      "allowance": "1000000000000000000000",
+      "allowanceWarn": "100000000000000000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
       "symbol": "ROL",
       "name": "DICE",
       "digits": 16,
@@ -1610,6 +1951,42 @@
       "minTradeValue": 0.001
     },
     {
+      "symbol": "HVN",
+      "name": "Hive Project Token",
+      "digits": 8,
+      "address": "0xC0Eb85285d83217CD7c891702bcbC0FC401E2D9D",
+      "unit": "HVN",
+      "website": "",
+      "allowance": "100000000000",
+      "allowanceWarn": "500000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "WIC",
+      "name": "WaykiCoin",
+      "digits": 8,
+      "address": "0x4f878C0852722b0976A955d68B376E4Cd4Ae99E5",
+      "unit": "WIC",
+      "website": "",
+      "allowance": "100000000000",
+      "allowanceWarn": "500000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "CYBER",
+      "name": "CyberChain",
+      "digits": 8,
+      "address": "0x17e16D30a05324B44CF78Df847137Fa1220448f8",
+      "unit": "CYBER",
+      "website": "",
+      "allowance": "100000000000",
+      "allowanceWarn": "500000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
       "symbol": "TAAS",
       "name": "Taas",
       "digits": 6,
@@ -1639,6 +2016,18 @@
       "digits": 6,
       "address": "0x595832f8fc6bf59c85c527fec3740a1b7a361269",
       "unit": "POWR",
+      "website": "",
+      "allowance": "1000000000",
+      "allowanceWarn": "5000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "USDT",
+      "name": "Tether USD",
+      "digits": 6,
+      "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "unit": "USDT",
       "website": "",
       "allowance": "1000000000",
       "allowanceWarn": "5000000",
