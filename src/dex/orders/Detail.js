@@ -16,7 +16,7 @@ import DetailFills from './DetailFills'
 const OrderMetaItem = (props) => {
   const {label, value} = props
   return (
-    <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters align-items-center" style={{padding:'7px 0px'}}>
+    <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters align-items-center bg-grey-100" style={{padding:'7px 0px'}}>
       <div className="col">
         <div className="fs14 color-black-1 text-left">{label}</div>
       </div>
@@ -112,10 +112,10 @@ function OrderDetail(props) {
               </NoticeBar>
             }
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
+            <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
             <OrderMetaItem label={intl.get('order.price')} value={`${orderFm.getPrice()} ${orderFm.getMarketPair()}`}/>
             <OrderMetaItem label={intl.get('order.amount')} value={`${orderFm.getAmount()} ${orderFm.getAmountSymbol()}`}/>
             <OrderMetaItem label={intl.get('order.total')} value={orderFm.getTotal()}/>
-            <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
             <OrderMetaItem label={intl.get('common.ttl')} value={orderFm.getValidTime()}/>
           </div>
