@@ -16,8 +16,9 @@ class AuthByTPWallet extends React.Component {
       Toast.loading('Loading configs...', 0, () => {
         Toast.success('Load complete !!!')
       }, false)
-      setTimeout( async () => {
+      const load = setInterval(async () => {
         if (window.TPWallet) {
+          clearInterval(load)
           window.Wallet = new TPWallet(window.wallet)
           await window.Wallet.setConfigs()
           if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
@@ -46,23 +47,28 @@ class AuthByTPWallet extends React.Component {
       Toast.success('Load complete !!!')
     }, false)
     const _props = this.props
-    if (window.TPWallet) {
-      window.Wallet = new TPWallet(window.TPWallet)
-      window.Wallet.setConfigs().then(res => {
-        if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
-        if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
-        storage.wallet.storeUnlockedAddress('tpwallet', window.Wallet.address)
-        window.RELAY.account.register(window.Wallet.address)
-        _props.dispatch({
-          type: 'settings/preferenceChange',
-          payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+    const load = setInterval(() => {
+      if (window.TPWallet) {
+        clearInterval(load)
+        window.Wallet = new TPWallet(window.TPWallet)
+        window.Wallet.setConfigs().then(res => {
+          if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
+          if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
+          storage.wallet.storeUnlockedAddress('tpwallet', window.Wallet.address)
+          window.RELAY.account.register(window.Wallet.address)
+          _props.dispatch({
+            type: 'settings/preferenceChange',
+            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+          })
+          _props.dispatch({type: 'sockets/unlocked'})
+          _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+          Toast.hide()
+          routeActions.gotoPath('/dex')
         })
-        _props.dispatch({type: 'sockets/unlocked'})
-        _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
-        Toast.hide()
-        routeActions.gotoPath('/dex')
-      })
-    }
+      }
+
+    },1000)
+
   }
   goToFace2Face = () => {
     routeActions.gotoPath('/face2face')
