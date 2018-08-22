@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, InputItem, List, SegmentedControl, Toast } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
 import { getTokensByMarket } from 'modules/formatter/common'
 import { getDisplaySymbol, toBig} from 'LoopringJS/common/formatter'
@@ -187,73 +188,72 @@ const PlaceOrderForm = (props)=>{
   const menu2 = `${intl.get("common.sell")} ${tokens.left}`
   return (
     <div>
-       <div className="pl10 pr10 pt10 pb5 bg-white segmented-fs16">
-         <SegmentedControl
-           values={[menu1, menu2]}
-           style={{height:'40px'}}
-           className="m-auto"
-           selectedIndex={side === 'buy' ? 0 : 1}
-           onChange={sideChange}
-         />
-       </div>
-       <List className="no-border selectable">
-        <InputItem
-          type="money"
-          className=""
-          placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
-          value={price ? price : null}
-          clear
-          moneyKeyboardAlign="right"
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={
-            <div style={{width:'25px',textAlign:'right'}}>
-              <i className="fs18 icon-chevron-right color-black-1" style={{padding:'2px 0px 5px'}}onClick={showLayer.bind(this,{id:'helperOfPrice',side:'sell'})} />
-            </div>
-          }
-          onChange={priceChange}
-        ><div className="fs16 color-black-3">{intl.get("common.price")}</div></InputItem>
-      </List>
-      <div className="divider 1px zb-b-t"></div>
-      <List className="no-border">
-        <InputItem
-          type="money"
-          placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
-          value={amount ? amount : null}
-          clear
-          onChange={amountChange}
-          moneyKeyboardAlign="right"
-          moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-          extra={
-            <div style={{width:'25px',textAlign:'right'}}>
-              <i className="fs18 icon-chevron-right color-black-1" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
-            </div>
-          }
-        ><div className="fs16 color-black-3">{intl.get("common.amount")}</div></InputItem>
-      </List>
-      <div className="divider 1px zb-b-t"></div>
-      <List className="no-border">
-        <Item>
-          <div className="row align-items-center ml0 mr0 mb10 mt5 fs16 lh25 no-gutters">
-            <div className="col color-black-3 pl0 fs16">{intl.get("common.total")}</div>
-            <div className="col-auto pr0">
-              <span className="color-black-1">{total} {tokens.right} ≈ </span>
-              <span className="color-black-1"><Worth amount={total} symbol={tokens.right}/></span>
-            </div>
-          </div>
+      <div className="bg-white p10">
+        <div className="segmented-fs16 mb10">
+          <SegmentedControl
+            values={[menu1, menu2]}
+            style={{height:'40px'}}
+            className="m-auto"
+            selectedIndex={side === 'buy' ? 0 : 1}
+            onChange={sideChange}
+          />
+        </div>
+         <List className="no-border am-list-bg-none selectable">
+          <InputItem
+            type="money"
+            placeholder={`0.${'0'.repeat(marketConfig.pricePrecision)}`}
+            value={price ? price : null}
+            clear={false}
+            moneyKeyboardAlign="left"
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            className="circle h-default"
+            extra={
+              <div style={{width:'auto',textAlign:'right'}}>
+                <span className="mr10 color-black-3"><Worth amount={price} symbol={tokens.right}/></span>
+                <span className="color-black-3">{tokens.right}</span>
+                <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+              </div>
+            }
+            onChange={priceChange}
+          ><div className="fs14 color-black-3 pr5">{intl.get("common.price")}</div></InputItem>
+          <InputItem
+            type="money"
+            placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
+            value={amount ? amount : null}
+            clear={false}
+            onChange={amountChange}
+            moneyKeyboardAlign="left"
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            className="circle h-default mt10"
+            extra={
+              <div style={{width:'auto',textAlign:'right'}}>
+                <span className="mr5 color-black-3">{tokens.left}</span>
+                <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+              </div>
+            }
+          ><div className="fs14 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
           {
             side === 'sell' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb10 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
-              {intl.get("common.sell")} {amount ? amount : 0} {tokens.left}
+            <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+              <div className="row ml0 mr0 no-gutters">
+                <div className="col">{amount ? amount : 0} {tokens.left}</div>
+                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
+                <div className="col">{total} {tokens.right}</div>
+              </div>
             </Button>
           }
           {
-            side === 'buy' &&
-            <Button onClick={toConfirm} className={`w-100 d-block mb10 fs16 ${submitEnable ? " " : "t-light"}`} type={"primary"} disabled={false}>
-              {intl.get("common.buy")} {amount ? amount : 0} {tokens.left}
+             side === 'buy' &&
+            <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+              <div className="row ml0 mr0 no-gutters">
+                <div className="col">{total} {tokens.right}</div>
+                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
+                <div className="col">{amount ? amount : 0} {tokens.left}</div>
+              </div>
             </Button>
           }
-        </Item>
-      </List>
+        </List>
+      </div>
       <div className="divider 1px zb-b-t"></div>
     </div>
   )

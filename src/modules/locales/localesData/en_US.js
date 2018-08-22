@@ -63,6 +63,7 @@ const words = {
   depth:'Depth',
   set:'Set',
   helper:'Helper',
+  help:'Help',
   list:{
     no_data:'No Data',
     no_data_custom:'No {title}',
@@ -212,6 +213,7 @@ export default {
     order_type: 'Order Type',
     order_since: "Valid Since",
     order_until: "Valid Until",
+    depth:'Depth',
     assets: "Assets",
     orders: "Orders",
     fills: "Fills",
@@ -593,6 +595,13 @@ export default {
     tab_charts: "Charts",
     tab_depth: "Depth",
     tab_fills: "Fills"
+  },
+  imtoken: {
+    welcome: "Welcome to Loopring - a decentralized exchange",
+    description_1: "You will enter into a dapp which is a decentralized exchange operating on the Ethereum blockchain. If you click \"I Agree\", it means that you agree with our",
+    description_2: "User Agreement",
+    description_3: "and",
+    description_4: "Privacy Policy",
+    agree: "I Agree"
   }
-
 }

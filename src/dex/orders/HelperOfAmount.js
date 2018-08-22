@@ -10,10 +10,31 @@ import config from 'common/config'
 import * as tokenFormatter from 'modules/tokens/TokenFm'
 import * as orderFormatter from 'modules/orders/formatters'
 
+const FaqOfAmount = ()=>{
+  return (
+    <div className="text-left">
+      <div className="zb-b-b p10">
+        <div className="fs14 color-black-1 mb5">余额不足也可以下下单</div>
+        <div className="fs12 color-black-2 lh20">
+          1. 资产0托管：交易过程中资产一直在你的钱包里<br />
+          2. 资产0托管：交易过程中资产一直在你的钱包里<br />
+        </div>
+      </div>
+      <div className="zb-b-b p10">
+        <div className="fs14 color-black-1 mb5">转入余额后订单自动生效</div>
+        <div className="fs12 color-black-2 lh20">
+          1. 资产0托管：交易过程中资产一直在你的钱包里<br />
+          2. 资产0托管：交易过程中资产一直在你的钱包里<br />
+        </div>
+      </div>
+
+    </div>
+  )
+}
 function HelperOfAmount(props) {
   const tabs = [
     { title: <div className="text-center">{intl.get("common.balance")}</div> },
-    { title: <div className="text-center">{intl.get("helper_of_amount.depth")}</div> },
+    { title: <div className="text-center">{intl.get("common.help")}</div> },
   ]
   const {pair,side,amountInput,priceInput,amountPercentage,amountSlider,amountSliderSelected,balance,dispatch} = props
   const tokens = getTokensByMarket(pair)
@@ -103,14 +124,14 @@ function HelperOfAmount(props) {
             </div>}
           </div>
           <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
-            <HelperOfDepth />
+            <FaqOfAmount />
           </div>
         </Tabs>
       )
     } else {
       return (
         <div className="bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
-          <HelperOfDepth />
+          <FaqOfAmount />
         </div>
       )
     }
@@ -125,7 +146,7 @@ function HelperOfAmount(props) {
         leftContent={[
           <span key='1' className=""><Icon type="cross"/></span>,
         ]}
-        rightContent={[
+        rightContent={null && [
           <span key='1' onClick={()=>window.Toast.info('请点击价格或数量', 1, null, false)} className=""><WebIcon type="question-circle-o"/></span>,
         ]}
       >

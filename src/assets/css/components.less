@@ -207,7 +207,7 @@
     padding-bottom:4px;
 }
   &.t-primary{
-    background: fade(@brand-primary,8%);
+    background: fade(@brand-primary,5%);
     color:@brand-primary;
   }
   &.t-error{
@@ -236,17 +236,36 @@
 .no-border{
   .am-list-body::before {
     background: transparent !important;
+    border:none !important;
   }
   .am-list-body::after{
     background: transparent !important;
+    border:none !important;
+  }
+  .am-list-body div:not(:last-child) .am-list-line::after{
+    display: none !important;
   }
   .am-button-primary::before{
     border:none !important;
   }
+
 }
 
 .am-list-item.am-input-item{
   height: 50px !important;
+  &.h-default{
+    height:44px !important;
+  }
+}
+.am-list-item.circle{
+  border-radius: 50em;
+  border:1px solid #eeeeee;
+  &:last-child{
+    border-bottom:1px solid #eeeeee !important;
+  }
+}
+.am-list-item.h-default{
+  height:44px !important;
 }
 
 .am-list-header{

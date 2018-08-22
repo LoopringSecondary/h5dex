@@ -4,7 +4,6 @@ import { Modal,List,Button,Accordion,Steps} from 'antd-mobile';
 import {toBig, toHex, clearHexPrefix} from 'LoopringJS/common/formatter'
 import config from 'common/config'
 import intl from 'react-intl-universal';
-import * as datas from 'common/config/data'
 import eachLimit from 'async/eachLimit';
 import * as orderFormatter from 'modules/orders/formatters'
 import Notification from 'LoopringUI/components/Notification'

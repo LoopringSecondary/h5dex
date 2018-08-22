@@ -40,7 +40,7 @@ export default class MockWallet extends Wallet {
       if(this.key){
         resolve({result: this.wallet.getAddress()})
       }else{
-        resolve({result: "0xb94065482ad64d4c2b9252358d746b39e820a582"})
+        resolve({result: "0xA89cA1EA76D6c92834fA45254e99A637Bb8b199e"})
       }
     })
   }
@@ -53,6 +53,7 @@ export default class MockWallet extends Wallet {
         resolve({result: sig})
       }else{
         Toast.fail('Mock 模式不支持Sign操作')
+        resolve({error: {message:"Mock 模式不支持Sign操作"}})
       }
     })
   }
@@ -69,6 +70,7 @@ export default class MockWallet extends Wallet {
         resolve({result: sig})
       }else{
         Toast.fail('Mock 模式不支持Sign操作')
+        resolve({error: {message:"Mock 模式不支持Sign操作"}})
       }
 
     })
