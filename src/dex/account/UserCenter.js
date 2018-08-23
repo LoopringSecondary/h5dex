@@ -37,8 +37,8 @@ class UserCenter extends React.Component {
             </NoticeBar>
           }
           <NavBar
-            className="bg-primary"
-            mode="dark"
+            className=""
+            mode="light"
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
             ]}
@@ -48,15 +48,15 @@ class UserCenter extends React.Component {
           >
           {intl.get('usercenter.page_title')}
           </NavBar>
-
-          <div className="pt35 pb35 text-left bg-primary">
+          <div className="divider 1px"></div>
+          <div className="pt35 pb35 text-left bg-white">
             <div className="row align-items-center ml0 mr0 no-gutters">
               <div className="col">
-                <div className="text-center color-white fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
+                <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
                   {getShortAddress(storage.wallet.getUnlockedAddress())}
                   {
                     false &&
-                    <div className="fs14 color-white-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
+                    <div className="fs14 color-black-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
                       {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
                     </div>
                   }
@@ -66,6 +66,7 @@ class UserCenter extends React.Component {
               </div>
             </div>
           </div>
+          <div className="divider 1px"></div>
           <div className="height-auto tabs-no-border">
             <Tabs
               tabs={
