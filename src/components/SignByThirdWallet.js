@@ -4,9 +4,15 @@ import { connect } from 'dva/'
 class SignByThirdWallet extends React.Component {
 
   sign = (wallet) => {
-    const {helperOfSign} = this.props
+    const {helperOfSign,dispatch} = this.props
     const {data} = helperOfSign
     window.location = `${wallet}://${JSON.stringify(data)}`
+    dispatch({
+      type: 'layers/hideLayer',
+      payload: {
+        id: 'helperOfSign'
+      }
+    })
   }
 
   render () {
@@ -78,4 +84,4 @@ function mapStateToProps (state) {
 
 }
 
-export default connect()(SignByThirdWallet)
+export default connect(mapStateToProps)(SignByThirdWallet)

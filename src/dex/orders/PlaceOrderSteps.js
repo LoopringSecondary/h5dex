@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon } from 'antd'
-import { Button } from 'antd-mobile'
+import { Button,Modal,Toast} from 'antd-mobile'
 import { toBig, toHex, clearHexPrefix } from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal'
 import { createWallet } from 'LoopringJS/ethereum/account'
@@ -11,7 +11,7 @@ import { connect } from 'dva'
 import config from 'common/config'
 import storage from 'modules/storage'
 import { keccakHash } from 'LoopringJS/common/utils'
-import { Toast } from 'antd-mobile/lib/index'
+
 
 const OrderMetaItem = (props) => {
   const {label, value, showArrow = false, onClick = () => {}} = props
@@ -70,6 +70,10 @@ const WalletItem = (props) => {
 }
 
 class PlaceOrderSteps extends React.Component {
+
+  state={
+
+  }
 
   componentWillReceiveProps (newProps) {
     const {auth} = newProps
@@ -131,9 +135,9 @@ class PlaceOrderSteps extends React.Component {
       order.authAddr = authAccount.getAddressString()
       order.authPrivateKey = clearHexPrefix(authAccount.getPrivateKeyString())
       dispatch({type: 'placeOrder/rawOrderChange', payload: {rawOrder: order}})
-      const hash = keccakHash(JSON.stringify(order))
+      const hash = keccakHash(JSON.stringify([{type:"order",data:order}]))
       const _this = this
-      window.RELAY.order.setTempStore(hash, JSON.stringify(order)).then(res => {
+      window.RELAY.order.setTempStore(hash, JSON.stringify([{type:"order",data:order}])).then(res => {
         _this.setState({hash})
         if (!res.error) {
           hideLayer({id: 'placeOrderSteps'})

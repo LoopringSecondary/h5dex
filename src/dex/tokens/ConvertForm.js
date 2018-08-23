@@ -108,8 +108,12 @@ class Convert extends React.Component {
         tx.nonce = toHex((await window.RELAY.account.getNonce(address)).result)
       }
       const hash = keccakHash(JSON.stringify(tx))
+      const temData = {hash,tx}
+      if (owner) {
+        temData.owner = storage.wallet.getUnlockedAddress()
+      }
       const _this = this
-      window.RELAY.order.setTempStore(hash, JSON.stringify(tx)).then(res => {
+      window.RELAY.order.setTempStore(hash, JSON.stringify(temData)).then(res => {
         _this.setState({hash})
         if (!res.error) {
           // hideLayer({id: 'placeOrderSteps'})
@@ -120,25 +124,6 @@ class Convert extends React.Component {
           showLayer({id: 'helperOfSign', type: 'convert', data: {type: 'convert', value: hash}})
         }
       })
-      // signTx(tx).then(res => {
-      //   if (res.result) {
-      //     window.ETH.sendRawTransaction(res.result).then(resp => {
-      //       if (resp.result) {
-      //         window.RELAY.account.notifyTransactionSubmitted({
-      //           txHash: resp.result,
-      //           rawTx: tx,
-      //           from: address
-      //         })
-      //         Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
-      //         hideLayer({id: 'convertToken'})
-      //       } else {
-      //         Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message, 3, null, false)
-      //       }
-      //     })
-      //   } else {
-      //     Toast.fail(intl.get('notifications.title.convert_fail') + ':' + res.error.message, 3, null, false)
-      //   }
-      // })
     }
     const amountChange = (value) => {
       dispatch({type: 'convert/amountChange', payload: {amount: value}})

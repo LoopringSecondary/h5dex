@@ -15,10 +15,15 @@ import routeActions from 'common/utils/routeActions'
 import { keccakHash } from 'LoopringJS/common/utils'
 
 class HelperOfMyOrders extends React.Component {
+
+  state={
+
+  }
   componentWillReceiveProps (newProps) {
     const {auth} = newProps
     const {hash} = this.state
     if (hash === auth.hash && auth.status === 'accept') {
+      Modal.alert('取消成功')
       Toast.success(intl.get('notifications.title.cancel_suc', {type: intl.get('common.order')}), 3, null, false)
       this.setState({hash: ''})
     }
@@ -121,26 +126,11 @@ class HelperOfMyOrders extends React.Component {
               type: 1,
               timestamp
             }
+            const owner = storage.wallet.getUnlockedAddress()
+            if (owner) {
+              data.owner = storage.wallet.getUnlockedAddress()
+            }
             cancelBythirdParty(data)
-
-            // signMessage(timestamp).then(res => {
-            //   if (res.result) {
-            //     const sig = res.result
-            //     window.RELAY.order.cancelOrder({
-            //       sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
-            //       orderHash: item.originalOrder.hash,
-            //       type: 1
-            //     }).then(response => {
-            //       if (response.error) {
-            //         Toast.fail(`${intl.get('notifications.title.cancel_fail', {type: intl.get('common.order')})}:${response.error.message}`, 3, null, false)
-            //       } else {
-            //         Toast.success(intl.get('notifications.title.cancel_suc', {type: intl.get('common.order')}), 3, null, false)
-            //       }
-            //     })
-            //   } else {
-            //     Toast.fail(`${intl.get('notifications.title.cancel_fail', {type: intl.get('common.order')})}:${res.error.message}`, 3, null, false)
-            //   }
-            // })
           }
         },
       ])
@@ -166,30 +156,12 @@ class HelperOfMyOrders extends React.Component {
                 type: 4,
                 timestamp
               }
+              const owner = storage.wallet.getUnlockedAddress()
+              if (owner) {
+                data.owner = storage.wallet.getUnlockedAddress()
+              }
               cancelBythirdParty(data)
 
-              // signMessage(timestamp).then(res => {
-              //   if (res.result) {
-              //     const sig = res.result
-              //     const tokens = market.split('-')
-              //     const tokenS = config.getTokenBySymbol(tokens[0]).address
-              //     const tokenB = config.getTokenBySymbol(tokens[1]).address
-              //     window.RELAY.order.cancelOrder({
-              //       sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
-              //       type: 4,
-              //       tokenS,
-              //       tokenB
-              //     }).then(response => {
-              //       if (response.error) {
-              //         Toast.fail(`${intl.get('notifications.title.cancel_fail', {type: intl.get('common.order')})}:${response.error.message}`, 3, null, false)
-              //       } else {
-              //         Toast.success(intl.get('notifications.title.cancel_suc', {type: intl.get('common.order')}), 3, null, false)
-              //       }
-              //     })
-              //   } else {
-              //     Toast.fail(`${intl.get('notifications.title.cancel_fail', {type: intl.get('common.order')})}:${res.error.message}`, 3, null, false)
-              //   }
-              // })
             }
           },
         ])
@@ -225,42 +197,6 @@ class HelperOfMyOrders extends React.Component {
     const gotoAll = () => {}
     return (
       <div className="">
-        {false &&
-        <NoticeBar onClick={routeActions.gotoPath.bind(this, '/dex/todos')} className="text-left t-error s-lg"
-                   icon={<WebIcon type="close-circle"/>} mode="link" marqueeProps={{loop: true}}
-                   action={<span>Enable Order<WebIcon type="right"/></span>}>
-          订单无法进行撮合
-        </NoticeBar>
-        }
-        {false &&
-        <NoticeBar onClick={routeActions.gotoPath.bind(this, '/dex/todos')} className="text-left t-error s-lg"
-                   icon={<WebIcon type="close-circle"/>} mode="link" marqueeProps={{loop: true}}
-                   action={<span>Enable Order<WebIcon type="right"/></span>}>
-          余额为0，订单无法进行撮合
-        </NoticeBar>
-        }
-        {
-          false &&
-          <NoticeBar onClick={routeActions.gotoPath.bind(this, '/dex/todos')} className="text-left t-error s-lg"
-                     icon={<WebIcon type="exclamation-circle"/>} mode="link" marqueeProps={{loop: true}}
-                     action={<span>查看详情<WebIcon type="right"/></span>}>
-            余额不足，订单无法全部被撮合
-          </NoticeBar>
-        }
-        {
-          false &&
-          <NoticeBar onClick={routeActions.gotoPath.bind(this, '/dex/todos')} className="text-left t-info s-lg"
-                     mode="link" marqueeProps={{loop: true}} action={<span>查看日志<WebIcon type="right"/></span>}>
-            该订单正在进行撮合
-          </NoticeBar>
-        }
-        {
-          false &&
-          <NoticeBar className="text-left t-info s-lg" icon={<WebIcon type="question-circle"/>} mode="link"
-                     marqueeProps={{loop: true}} action={<span>查看原因<WebIcon type="right"/></span>}>
-            为什么订单没有撮合成交？
-          </NoticeBar>
-        }
         <table className="w-100 fs13" style={{overflow: 'auto'}}>
           <thead>
           <tr className="">

@@ -20,7 +20,7 @@ const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
 
 const TodoItem = (props) => {
-  const {item = {}, balance, dispatch, pendingTxs, gasPrice,approveCb} = props
+  const {item = {}, balance, dispatch, pendingTxs, gasPrice, approveCb} = props
   const showActions = () => {
     dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol, hideBuy: false}})
   }
@@ -71,119 +71,128 @@ const TodoItem = (props) => {
       })
     }
     const hash = keccakHash(txs)
-    window.RELAY.order.setTempStore(hash, JSON.stringify(txs)).then(res => {
-      approveCb(hash)
-      if (!res.error) {
-        dispatch({
-          type: 'sockets/extraChange',
-          payload: {id: 'circulrNotify', extra: {hash}}
-        })
-        showLayer({id: 'helperOfSign', type: 'approve', data: {type: 'approve', value: hash}})
-      }
-    })
-  }
-
-  const loading = () => {
-    const allowance = isApproving(pendingTxs, item.symbol)
-    const tf = new TokenFormatter({symbol: item.symbol})
-    if (allowance) {
-      return tf.getUnitAmount(allowance).gte(item.selling)
+    const temData = {txs,hash}
+    if (owner) {
+      temData.owner = owner
     }
-    return false
 
+  window.RELAY.order.setTempStore(hash, JSON.stringify(temData)).then(res => {
+    approveCb(hash)
+    if (!res.error) {
+      dispatch({
+        type: 'sockets/extraChange',
+        payload: {id: 'circulrNotify', extra: {hash}}
+      })
+      showLayer({id: 'helperOfSign', type: 'approve', data: {type: 'approve', value: hash}})
+    }
+  })
+}
+
+const loading = () => {
+  const allowance = isApproving(pendingTxs, item.symbol)
+  const tf = new TokenFormatter({symbol: item.symbol})
+  if (allowance) {
+    return tf.getUnitAmount(allowance).gte(item.selling)
   }
+  return false
 
-  if (item.type === 'allowance') {
-    return (
-      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+}
+
+if (item.type === 'allowance') {
+  return (
+    <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+      <div className="col-auo pr15 color-black text-center">
+        <WebIcon className="color-error fs16" type="close-circle"/>
+      </div>
+      <div className="col text-left">
+        <div>
+          <div className="fs16 color-black-1">
+            {intl.get('todo_list.allowance_not_enough_title', {symbol: item.symbol})}
+          </div>
+        </div>
+      </div>
+      <div className="col-auto">
+        <div>
+          <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+                  onClick={enable}>
+            {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
+if (item.type === 'balance') {
+  return (
+    <div className="">
+      <div className="row ml0 mr0 pl10 pr10 pt15 align-items-center no-gutters" onClick={() => {}}>
         <div className="col-auo pr15 color-black text-center">
-          <WebIcon className="color-error fs16" type="close-circle"/>
+          <WebIcon className="color-error fs16" type="exclamation-circle"/>
         </div>
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-              {intl.get('todo_list.allowance_not_enough_title', {symbol: item.symbol})}
+              {intl.get('todo_list.balance_not_enough_title', {symbol: item.symbol})}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row ml0 mr0 pl10 pr10 pb15 pt5 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+        <div className="col-auo pr30 text-center color-white">
+        </div>
+        <div className="col fs14 color-black-3 pr30">
+          <div className="row no-gutters ml0 mr0 ">
+            <div className="col-auto">
+              {intl.get('todo_list.balance')}
+            </div>
+            <div className="col text-right">
+              {item.balance}
+            </div>
+            <div className="col-auto pl5">
+              {item.symbol}
+            </div>
+          </div>
+          <div className="row no-gutters ml0 mr0">
+            <div className="col-auto">
+              {intl.get('todo_list.selling')}
+            </div>
+            <div className="col text-right">
+              {item.selling}
+            </div>
+            <div className="col-auto pl5">
+              {item.symbol}
+            </div>
+          </div>
+          <div className="row no-gutters ml0 mr0">
+            <div className="col-auto">
+              {intl.get('todo_list.lack')}
+            </div>
+            <div className="col text-right">
+              {item.lack}
+            </div>
+            <div className="col-auto pl5">
+              {item.symbol}
             </div>
           </div>
         </div>
         <div className="col-auto">
           <div>
-            <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
-                    onClick={enable}>
-              {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}
-            </Button>
+            <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+                    onClick={showActions}>
+              {intl.get('common.actions')} <WebIcon type="down"/></Button>
+            <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
           </div>
         </div>
       </div>
-    )
-  }
-  if (item.type === 'balance') {
-    return (
-      <div className="">
-        <div className="row ml0 mr0 pl10 pr10 pt15 align-items-center no-gutters" onClick={() => {}}>
-          <div className="col-auo pr15 color-black text-center">
-            <WebIcon className="color-error fs16" type="exclamation-circle"/>
-          </div>
-          <div className="col text-left">
-            <div>
-              <div className="fs16 color-black-1">
-                {intl.get('todo_list.balance_not_enough_title', {symbol: item.symbol})}
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row ml0 mr0 pl10 pr10 pb15 pt5 align-items-center zb-b-b no-gutters" onClick={() => {}}>
-          <div className="col-auo pr30 text-center color-white">
-          </div>
-          <div className="col fs14 color-black-3 pr30">
-            <div className="row no-gutters ml0 mr0 ">
-              <div className="col-auto">
-                {intl.get('todo_list.balance')}
-              </div>
-              <div className="col text-right">
-                {item.balance}
-              </div>
-              <div className="col-auto pl5">
-                {item.symbol}
-              </div>
-            </div>
-            <div className="row no-gutters ml0 mr0">
-              <div className="col-auto">
-                {intl.get('todo_list.selling')}
-              </div>
-              <div className="col text-right">
-                {item.selling}
-              </div>
-              <div className="col-auto pl5">
-                {item.symbol}
-              </div>
-            </div>
-            <div className="row no-gutters ml0 mr0">
-              <div className="col-auto">
-                {intl.get('todo_list.lack')}
-              </div>
-              <div className="col text-right">
-                {item.lack}
-              </div>
-              <div className="col-auto pl5">
-                {item.symbol}
-              </div>
-            </div>
-          </div>
-          <div className="col-auto">
-            <div>
-              <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
-                      onClick={showActions}>
-                {intl.get('common.actions')} <WebIcon type="down"/></Button>
-              <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
-            </div>
-          </div>
-        </div>
-      </div>)
-  }
+    </div>)
+}
 }
 
 class ListTodos extends React.Component {
+
+  state ={
+
+  }
 
   componentWillReceiveProps (newProps) {
     const {auth} = newProps
@@ -346,7 +355,8 @@ class ListTodos extends React.Component {
             <div className="bg-white">
               {
                 data.map((item, index) =>
-                  <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs} approveCb = {this.approveCb}
+                  <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                            approveCb={this.approveCb}
                             gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
                 )
               }
