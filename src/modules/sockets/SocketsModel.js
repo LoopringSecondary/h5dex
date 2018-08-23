@@ -138,6 +138,7 @@ export default {
       yield put({type:'fetch',payload:{id:'tickers'}})
       yield put({type:'fetch',payload:{id:'loopringTickers'}})
       yield put({type:'fetch',payload:{id:'estimatedGasPrice'}})
+      yield put({type:'fetch',payload:{id:'circulrNotify'}})
       if(storage.wallet.getUnlockedAddress()){
          yield put({type:'unlocked'})
       }
@@ -328,6 +329,10 @@ export default {
           sort:{
             ...payload.sort
           },
+          extra:{
+            ...state[id].extra,
+            ...payload.extra
+          }
 
         }
       }

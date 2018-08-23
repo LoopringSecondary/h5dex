@@ -4,6 +4,7 @@ import config from 'common/config'
 import storage from '../storage/'
 import {toBig, toFixed} from 'LoopringJS/common/formatter'
 
+
 const updateItems = (items,id)=>{
   const dispatch = require('../../index.js').default._store.dispatch
   dispatch({
@@ -295,6 +296,7 @@ const getResTransformer = (id)=>{
 const emitEvent = (payload)=>{
   let {id,socket} = payload
   const transfromer = getQueryTransformer(id)
+  console.log(id)
   socket.emit(`${id}_req`,transfromer(payload))
 }
 const onEvent = (payload)=>{

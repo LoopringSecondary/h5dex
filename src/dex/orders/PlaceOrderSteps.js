@@ -78,8 +78,8 @@ class PlaceOrderSteps extends React.Component {
   componentWillReceiveProps (newProps) {
     const {auth} = newProps
     const {hash} = this.state
-    if (hash === auth.hash && auth.status === 'accept') {
-      Toast.success('下单成功', 3)
+    if (hash === auth.hash && auth.status && auth.status.toLowerCase() === 'accept') {
+      Modal.alert(intl.get('notifications.title.place_order_success'))
       this.setState({hash: ''})
     }
   }
@@ -142,7 +142,7 @@ class PlaceOrderSteps extends React.Component {
         if (!res.error) {
           hideLayer({id: 'placeOrderSteps'})
           dispatch({
-            type: 'sockets/extraChange',
+            type: 'sockets/queryChange',
             payload: {id: 'circulrNotify', extra: {hash}}
           })
           showLayer({id: 'helperOfSign', type: 'order', data: {type: 'sign', value: hash}})

@@ -87,6 +87,7 @@ const validation_messages = {
 
 const notifications = {
   title: {
+    log_in_suc:"Log In Successfully",
     place_order_failed: "Whoops, order submission somehow failed!",
     place_order_success: "Order placed successfully.",
     place_order_warn: "Your order can not be fully filled.",

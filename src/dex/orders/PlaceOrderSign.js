@@ -22,7 +22,6 @@ const PlaceOrderSign = (props) => {
       return
     }
     try {
-      console.log(item.address, wallet.address)
       if(item.address !== wallet.address) {
         Notification.open({
           message: intl.get('trade.place_order_failed'),

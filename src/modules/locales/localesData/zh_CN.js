@@ -89,6 +89,7 @@ const validation_messages = {
 
 const notifications = {
   title: {
+    log_in_suc:"登录成功",
     place_order_failed: "订单提交失败 !",
     place_order_success: "下单成功!",
     place_order_warn: '您的订单只能被部分撮合',

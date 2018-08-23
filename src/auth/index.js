@@ -1,9 +1,10 @@
 import React from 'react'
-import { Button, NavBar, Toast } from 'antd-mobile'
+import { Button, NavBar, Modal } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
 import uuidv4 from 'uuid/v4'
+import intl from 'react-intl-universal'
 
 class Auth extends React.Component {
 
@@ -11,7 +12,7 @@ class Auth extends React.Component {
   componentWillReceiveProps(newProps){
     const {uuid,item} = newProps
     if(uuid === item.uuid){
-      Toast.success("登录成功,即将进入",3)
+      Modal.alert(intl.get('notifications.title.log_in_suc'))
       storage.wallet.storeUnlockedAddress('address', item.owner)
       window.RELAY.account.register(item.address)
        routeActions.gotoPath('/dex')
