@@ -24,7 +24,10 @@ export const OpenOrderList = ({orders={},dispatch})=>{
     <table className="w-100 fs13" style={{overflow:'auto'}}>
       <thead>
         <tr>
-          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="2" onClick={()=>{}}>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+            
+          </th>
+          <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
             {intl.get('common.market')}
             <WebIcon className="text-primary" type="filter" />
           </th>
@@ -45,12 +48,12 @@ export const OpenOrderList = ({orders={},dispatch})=>{
             const market = orderFm.getMarketPair()
             return (
               <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
-                <td className="zb-b-b pt10 pb10 pl5 pr0 text-left">
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                   {orderFm.getSide() === 'buy' &&
-                      <span className="bg-success color-white d-inline-block text-center" style={{width:'16px',height:'16px',lineHeight:'16px',borderRadius:'50em',fontSize:'9px'}}>{intl.get(`common.buy_short`)}</span>
+                      <span className="bg-success color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}>{intl.get(`common.buy_short`)}</span>
                   }
                   {orderFm.getSide() === 'sell' &&
-                    <span className="bg-error color-white d-inline-block text-center" style={{width:'16px',height:'16px',lineHeight:'16px',borderRadius:'50em',fontSize:'9px'}}> {intl.get(`common.sell_short`)}</span>
+                    <span className="bg-error color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}> {intl.get(`common.sell_short`)}</span>
                   }
                 </td>
                 <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">

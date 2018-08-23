@@ -292,8 +292,14 @@ function ListTodos (props) {
       }
     })
   }
-  const segmentChange = ()=>{
-
+  const segmentChange = (e)=>{
+     const side = e.nativeEvent.selectedSegmentIndex === 0 ? 'buy' : 'sell'
+     dispatch({
+       type:'placeOrder/sideChangeEffects',
+       payload:{
+         side
+       }
+     })
   }
   return (
     <LayoutDexHome {...props}>
@@ -312,12 +318,12 @@ function ListTodos (props) {
           ]}
         >
           {
-            false &&
+            true &&
             <SegmentedControl
-              values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
+              values={[intl.get('todo_list.todo_list_title'), 'ETH Tx']}
               style={{width: '180px', height: '32px'}}/>
           }
-          {intl.get('todo_list.todo_list_title')}
+          {false && intl.get('todo_list.todo_list_title')}
         </NavBar>
         {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
         <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
