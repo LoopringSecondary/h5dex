@@ -87,7 +87,7 @@ class Convert extends React.Component {
         return
       }
       const owner = storage.wallet.getUnlockedAddress()
-      if (owner && toBig(amount).plus(gasFee).gt(assets.balance)) {
+      if (owner && ((token.toLowerCase() === 'eth' && toBig(amount).plus(gasFee).gt(assets.balance)) ||(token.toLowerCase() === 'weth' && toBig(amount).gt(assets.balance)))) {
         Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
         this.setState({loading: false})
         return
