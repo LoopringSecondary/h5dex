@@ -8,10 +8,10 @@ import {setLocale} from "./common/utils/localeSetting";
 import storage from './modules/storage';
 import Eth from 'LoopringJS/ethereum/eth';
 import Relay from 'LoopringJS/relay/relay';
-import {getSupportedToken, getSupportedMarkets} from './init'
 import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
 import {configs} from './common/config/data'
+import config from "./common/config";
 
 const latestVersion = Number(configs.localStorageVersion)
 const oldVersion = Number(storage.getLocalStorageVersion())
@@ -53,6 +53,25 @@ app.router(require('./router').default)
 
 // 5. Start
 app.start('#root')
+
+const getLocalConfig = () => {
+  return Promise.resolve(configs)
+}
+
+config.getRemoteConfig().then(res=>{
+//getLocalConfig().then(res=>{
+  if(res) {
+    storage.settings.setConfigs(res)
+    app._store.dispatch({type:'tokens/itemsChange', payload:{items:res.tokens}})
+  }
+}).catch(error=> {
+  console.log(error)
+  Notification.open({
+    message:intl.get('notifications.title.init_failed'),
+    description:intl.get('notifications.message.failed_fetch_data_from_server'),
+    type:'error'
+  })
+})
 
 // STORE is available when current route has rendered
 // Becarefull to use STORE in render funtion

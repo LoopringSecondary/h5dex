@@ -320,10 +320,10 @@ class ListTodos extends React.Component {
     }
     const segmentChange = () => {
 
-    }
-    return (
-      <LayoutDexHome {...this.props}>
-        <div className="">
+  }
+  return (
+    <LayoutDexHome {...this.props}>
+      <div className="">
           <NavBar
             className="w-100 zb-b-b bg-white"
             mode="light"
@@ -357,7 +357,8 @@ class ListTodos extends React.Component {
                 data.map((item, index) =>
                   <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
                             approveCb={this.approveCb}
-                            gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+                            gasPrice={toHex(toBig(gasPrice).times(1e9))}
+                           />
                 )
               }
             </div>
@@ -365,12 +366,10 @@ class ListTodos extends React.Component {
             <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
               {false && intl.getHTML('todos.instruction')}
               {intl.get('common.list.no_data')}
-            </div>
-            }
+            </div>}
           </div>
-          <div className="pt50"></div>
-        </div>
-      </LayoutDexHome>
+      </div>
+    </LayoutDexHome>
     )
   }
 

@@ -23,7 +23,6 @@ async function  isinWhiteList(address) {
 
 function getChainId(){
   return config.chainId
-
 }
 
 function getTokenBySymbol(symbol){
@@ -41,7 +40,12 @@ function getCustomTokens(){
 }
 
 function getTokens(){
-  return config.tokens || []
+  // return config.tokens || []
+  const cacheConfigs = STORAGE.settings.getConfigs()
+  if(cacheConfigs && cacheConfigs.tokens) {
+    return cacheConfigs.tokens
+  }
+  return []
 }
 
 function getMarketByPair(pair) {
@@ -68,7 +72,12 @@ function getProjectByLrx(lrx) {
 }
 
 function getSupportedMarketsTokenR() {
-  return config.supportedTokenRInMarkets
+  // return config.supportedTokenRInMarkets
+  const cacheConfigs = STORAGE.settings.getConfigs()
+  if(cacheConfigs && cacheConfigs.supportedTokenRInMarkets) {
+    return cacheConfigs.supportedTokenRInMarkets
+  }
+  return []
 }
 
 function isSupportedMarket(market) {
@@ -132,7 +141,12 @@ function getTokenSupportedMarkets(token) {
 }
 
 function getMarkets() {
-  return config.markets.concat(config.newMarkets)
+  // return config.markets.concat(config.newMarkets)
+  const cacheConfigs = STORAGE.settings.getConfigs()
+  if(cacheConfigs && cacheConfigs.markets && cacheConfigs.newMarkets) {
+    return cacheConfigs.markets.concat(cacheConfigs.newMarkets)
+  }
+  return []
 }
 
 function getGasLimitByType(type) {
@@ -153,6 +167,22 @@ function getWallets() {
   return data.wallets
 }
 
+function getRemoteConfig() {
+  return fetch("https://config.loopring.io/h5dex/config.json", {
+    method:'get',
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+    .then(res => {
+      return res.json()
+    })
+    .then(res => {
+      console.log(`https://config.loopring.io/h5dex/config.json response:`, res);
+      return res
+    })
+}
 
 export default {
   getTokenBySymbol,
@@ -175,5 +205,6 @@ export default {
   getWalletAddress,
   getDelegateAddress,
   getWallets,
-  getCustomTokens
+  getCustomTokens,
+  getRemoteConfig
 }

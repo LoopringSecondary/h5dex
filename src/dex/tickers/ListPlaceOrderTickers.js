@@ -8,7 +8,7 @@ import { Tabs } from 'antd-mobile'
 import { getMarketTickersBySymbol } from './formatters'
 import { TickerHeader } from './ListMarketTickers'
 import {formatPrice} from 'modules/orders/formatters'
-import {configs} from 'common/config/data'
+import storage from '../../modules/storage'
 
 const TickerItem = ({item,actions,key,dispatch})=>{
     if(!item){ return null }
@@ -84,7 +84,11 @@ class ListPlaceOrderTickers extends React.Component {
       const {loopringTickers:list,dispatch,market} = this.props
       const tickersFm = new TickersFm(list)
       const {extra:{favored={},keywords}} = list
-      const newMarkets = configs.newMarkets
+      let newMarkets = []
+      const confs = storage.settings.getConfigs()
+      if(confs && confs.newMarkets) {
+        newMarkets = confs.newMarkets
+      }
       const isInNewMarket = (market) => {
         const m = market.toLowerCase().split('-')
         return newMarkets.find((i)=> {
@@ -113,8 +117,9 @@ class ListPlaceOrderTickers extends React.Component {
         { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
         { title: <div className="fs16">WETH</div> },
         { title: <div className="fs16">LRC</div> },
+        { title: <div className="fs16">USDT</div> },
       ]
-      if(configs.newMarkets && configs.newMarkets.length > 0){
+      if(newMarkets && newMarkets.length > 0){
         tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
       }
       return (
@@ -132,6 +137,7 @@ class ListPlaceOrderTickers extends React.Component {
             <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
+            <TickerList items={getMarketTickersBySymbol("USDT",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} market={market} />
           </Tabs>
       )

@@ -64,6 +64,7 @@ const words = {
   set:'设置',
   helper:'助手',
   depth:'深度',
+  Help:'帮助',
   list:{
     no_data:'暂无数据',
     no_data_custom:'暂无{title}',
@@ -214,6 +215,7 @@ export default {
     order_type: '订单类型',
     order_since: "订单生效时间",
     order_until: "订单失效时间",
+    depth:'深度',
     assets: "资产",
     orders: "订单",
     fills: "成交",
@@ -599,6 +601,14 @@ export default {
     tab_charts: "图表",
     tab_depth: "深度",
     tab_fills: "成交"
+  },
+  imtoken: {
+    welcome: "欢迎来到 路印 去中心化交易所",
+    description_1: "您即将进入的dApp是一个运行在以太坊区块链上去中心化交易所。通过点击\"我同意\"，即表示您同意我们的",
+    description_2: "用户服务协议",
+    description_3: "和",
+    description_4: "用户隐私政策",
+    agree: "我同意"
   }
 }
 
