@@ -24,6 +24,8 @@ const words = {
   nonce: '随机数',
   sell: '卖出',
   buy: '买入',
+  sell_short: '卖',
+  buy_short: '买',
   buying: "您正在购买",
   selling: "您正在出售",
   actions: '操作',

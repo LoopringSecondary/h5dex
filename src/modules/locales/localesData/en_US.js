@@ -24,6 +24,8 @@ const words = {
   nonce: 'Nonce',
   sell: 'Sell',
   buy: 'Buy',
+  sell_short: 'S',
+  buy_short: 'B',
   buying: "You are buying",
   selling: "You are selling",
   actions: 'Actions',

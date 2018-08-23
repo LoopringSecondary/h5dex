@@ -1,6 +1,6 @@
 import React from 'react'
 import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile'
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd'
+import { Icon as WebIcon,Switch as WebSwitch} from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
