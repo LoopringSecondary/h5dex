@@ -198,7 +198,7 @@ class ListTodos extends React.Component {
     const {auth} = newProps
     const {hash} = this.state
     if (hash === auth.hash && auth.status === 'accept') {
-      Toast.success(intl.get('notifications.title.enable_suc'), 3, null, false)
+     Modal.alert(intl.get('notifications.title.enable_suc'))
       this.setState({hash: ''})
     }
   }

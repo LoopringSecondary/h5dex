@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, InputItem, List, NavBar, Toast, Popover } from 'antd-mobile'
+import { Button, Icon, InputItem, List, NavBar, Toast, Modal } from 'antd-mobile'
 import { Icon as WebIcon, Input, InputNumber } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
@@ -27,7 +27,7 @@ class Convert extends React.Component {
     const {auth} = newProps
     const {hash} = this.state
     if (hash === auth.hash && auth.status === 'accept') {
-      Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
+      Modal.alert(intl.get('notifications.title.convert_suc'))
       this.setState({hash: ''})
     }
   }

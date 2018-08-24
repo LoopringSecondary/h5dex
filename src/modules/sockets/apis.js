@@ -264,7 +264,7 @@ const transfromers = {
     queryTransformer: (payload) => {
       const {extra} = payload;
       return JSON.stringify({
-        owner: extra.hash,
+        owner: storage.wallet.getUnlockedAddress()||extra.hash,
       })
     },
     resTransformer: (id, res) => {

@@ -23,8 +23,7 @@ class HelperOfMyOrders extends React.Component {
     const {auth} = newProps
     const {hash} = this.state
     if (hash === auth.hash && auth.status === 'accept') {
-      Modal.alert('取消成功')
-      Toast.success(intl.get('notifications.title.cancel_suc', {type: intl.get('common.order')}), 3, null, false)
+      Modal.alert(intl.get('notifications.title.cancel_suc', {type: intl.get('common.order')}))
       this.setState({hash: ''})
     }
   }
