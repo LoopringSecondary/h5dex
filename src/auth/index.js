@@ -1,13 +1,19 @@
 import React from 'react'
-import { Button, NavBar, Modal } from 'antd-mobile'
+import { Button, NavBar, Modal,List,InputItem,Toast } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
 import uuidv4 from 'uuid/v4'
 import intl from 'react-intl-universal'
 
+
+
 class Auth extends React.Component {
 
+
+  state={
+    address:''
+  }
 
   componentWillReceiveProps(newProps){
     const {uuid,item} = newProps
@@ -20,6 +26,7 @@ class Auth extends React.Component {
         type: 'sockets/extraChange',
         payload: {id: 'addressUnlock', extra: {uuid:""}}
       })
+      this.props.dispatch({type: 'sockets/unlocked'});
     }
   }
 
@@ -35,9 +42,30 @@ class Auth extends React.Component {
     window.location = `${wallet}://${JSON.stringify(data)}`
   }
 
+  authByAddress = () => {
+    const {address} = this.state;
+    const re = new RegExp("^0x[0-9a-fA-F]{40}$")
+    if(address && re.test(address)){
+      storage.wallet.storeUnlockedAddress('address', address)
+      window.RELAY.account.register(address)
+      routeActions.gotoPath('/dex')
+      this.props.dispatch({
+        type: 'sockets/extraChange',
+        payload: {id: 'addressUnlock', extra: {uuid:""}}
+      })
+      this.props.dispatch({type: 'sockets/unlocked'});
+    }else{
+      Toast.fail(intl.get("notifications.title.invalid_address_tip"))
+    }
+  }
+
+  amountChange = (value) => {
+    this.setState({address:value})
+  }
+
   render () {
     const {uuid,item} = this.props
-
+    const {address} = this.state;
     return (
       <div>
         <NavBar
@@ -45,18 +73,27 @@ class Auth extends React.Component {
           mode="light"
         >
           <div className="color-black-1">
-            登录
+            {intl.get('signIn.title')}
           </div>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
         <div className="p15">
-          <Button onClick={() => {}} disabled className="m10" type="">Address</Button>
-          <Button onClick={() => {routeActions.gotoPath('/dex')}} className="m10" type="primary">登录</Button>
+          <List className="selectable">
+            <InputItem
+              onChange={this.amountChange}
+              moneyKeyboardAlign="left"
+              value={address}
+              className=" h-default"
+            >
+              {intl.get('signIn.pre')}
+            </InputItem>
+          </List>
+          <Button onClick={this.authByAddress} className="m10" type="primary"> {intl.get('signIn.title')}</Button>
         </div>
         <div className="bg-white" style={{position: 'absolute', left: '0', bottom: '0', width: '100%'}}>
           <div className="divider 1px zb-b-t"></div>
           <div className="p10">
-            <div className="fs16 color-black-2 text-center">第三钱包登录</div>
+            <div className="fs16 color-black-2 text-center">{intl.get('signIn.tp_title')}</div>
           </div>
           <div className="divider 1px zb-b-t"></div>
           <div className="row pt15 pb15 align-items-center justify-content-center ml0 mr0">

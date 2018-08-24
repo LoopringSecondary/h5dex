@@ -89,6 +89,7 @@ const validation_messages = {
 
 const notifications = {
   title: {
+    invalid_address_tip:"请输入合法的地址",
     log_in_suc:"登录成功",
     place_order_failed: "订单提交失败 !",
     place_order_success: "下单成功!",
@@ -610,6 +611,11 @@ export default {
     description_3: "和",
     description_4: "用户隐私政策",
     agree: "我同意"
+  },
+  signIn:{
+    title:'登录',
+    tp_title:"第三钱包登录",
+    pre:"地址"
   }
 }
 
