@@ -202,6 +202,7 @@ class ListMarketTickers extends React.Component {
         { title: <div className="fs16">WETH</div> },
         { title: <div className="fs16">LRC</div> },
         { title: <div className="fs16">USDT</div> },
+        { title: <div className="fs16">TUSD</div> },
         // { title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> },
       ]
       if(newMarkets && newMarkets.length > 0){
@@ -220,6 +221,7 @@ class ListMarketTickers extends React.Component {
             <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={getMarketTickersBySymbol("USDT",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
+            <TickerList items={getMarketTickersBySymbol("TUSD",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
             <TickerList items={[]} loading={list.loading} dispatch={dispatch} />
           </Tabs>
