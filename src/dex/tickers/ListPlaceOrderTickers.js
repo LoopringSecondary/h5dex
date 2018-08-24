@@ -118,6 +118,7 @@ class ListPlaceOrderTickers extends React.Component {
         { title: <div className="fs16">WETH</div> },
         { title: <div className="fs16">LRC</div> },
         { title: <div className="fs16">USDT</div> },
+        { title: <div className="fs16">TUSD</div> },
       ]
       if(newMarkets && newMarkets.length > 0){
         tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
@@ -138,6 +139,7 @@ class ListPlaceOrderTickers extends React.Component {
             <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={getMarketTickersBySymbol("USDT",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
+            <TickerList items={getMarketTickersBySymbol("TUSD",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
             <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} market={market} />
           </Tabs>
       )
