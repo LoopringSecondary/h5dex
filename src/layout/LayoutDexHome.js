@@ -81,6 +81,21 @@ class DexHomeLayout extends React.Component {
             />
             <TabBar.Item
               badge={todos}
+              icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position: 'relative', top: '2px'}}/>}
+              selectedIcon={<i className="icon-bell fs22 text-primary" style={{position: 'relative', top: '2px'}}/>}
+              title={<span className={isActive('/dex/notifications') ? 'text-primary' : ''}
+                           style={{position: 'relative', top: '0px'}}>
+                            {false && intl.get('todos.tab_title')}
+                            {intl.get('todo_list.todo_list_title')}
+                           </span>}
+              key="Notifications"
+              selected={isActive('/dex/notifications')}
+              onPress={() => {
+                changeTab('notifications')
+              }}
+            />
+            <TabBar.Item
+              badge={todos}
               icon={<i className="icon-user fs22 color-primary-light-bak"/>}
               selectedIcon={<i className="icon-user fs22 text-primary"/>}
               title={
@@ -110,18 +125,4 @@ function mapStateToProps (state) {
 
 export default connect(mapStateToProps)(DexHomeLayout)
 
-// <TabBar.Item
-//   badge={todos}
-//   icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position: 'relative', top: '2px'}}/>}
-//   selectedIcon={<i className="icon-bell fs22 text-primary" style={{position: 'relative', top: '2px'}}/>}
-//   title={<span className={isActive('/dex/notifications') ? 'text-primary' : ''}
-//                style={{position: 'relative', top: '0px'}}>
-//                 {false && intl.get('todos.tab_title')}
-//                 {intl.get('todo_list.todo_list_title')}
-//                </span>}
-//   key="Notifications"
-//   selected={isActive('/dex/notifications')}
-//   onPress={() => {
-//     changeTab('notifications')
-//   }}
-// />
+

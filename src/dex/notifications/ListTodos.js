@@ -302,29 +302,7 @@ function ListTodos (props) {
      })
   }
   return (
-    <LayoutDexHome {...props}>
       <div className="">
-        <NavBar
-          className="w-100 zb-b-b bg-white"
-          mode="light"
-          icon={null && <Icon type="left"/>}
-          onLeftClick={() => routeActions.goBack()}
-          leftContent={null && [
-            <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
-          ]}
-          rightContent={null && [
-            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1, null, false)} key="1" type="question-circle-o"
-                     className=""/>,
-          ]}
-        >
-          {
-            true &&
-            <SegmentedControl
-              values={[intl.get('todo_list.todo_list_title'), 'ETH Tx']}
-              style={{width: '180px', height: '32px'}}/>
-          }
-          {false && intl.get('todo_list.todo_list_title')}
-        </NavBar>
         {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
         <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
                    icon={<WebIcon type="exclamation-circle-o"/>}
@@ -348,7 +326,6 @@ function ListTodos (props) {
         </div>
         <div className="pt50"></div>
       </div>
-    </LayoutDexHome>
   )
 }
 

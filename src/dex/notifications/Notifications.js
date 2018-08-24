@@ -2,13 +2,9 @@ import React from 'react'
 import { NavBar, NoticeBar, Tabs } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import { Link, Redirect, Route, Switch } from 'dva/router'
-import Containers from 'modules/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
-import { OpenOrderList } from '../orders/ListOrders'
-import ListBalance from '../tokens/ListBalance'
-import ListMyFills from '../fills/ListMyFills'
-import { getShortAddress } from '../../modules/formatter/common'
+import ListTodos from './ListTodos'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal'
 
@@ -28,12 +24,6 @@ class Notifications extends React.Component {
     return (
       <LayoutDexHome {...this.props}>
         <div className="bg-grey-100">
-          {
-            false &&
-            <NoticeBar marqueeProps={{ loop: true, style: { padding: '0 7.5px' } }} className="color-back-1" >
-                  Notice: Loopr is in Beta phase, traing fee is free for every order when total is over 1.0 WETH
-            </NoticeBar>
-          }
           <NavBar
             className=""
             mode="light"
@@ -51,9 +41,8 @@ class Notifications extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div onClick={changeTab.bind(this,'tasks')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('tasks') ? 'text-primary' : 'color-black'}`}>订单任务</div> },
-                  { title: <div onClick={changeTab.bind(this,'txs')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('txs') ? 'text-primary' : 'color-black'}`}>ETH Tx</div> },
-                  // { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('common.fills')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'tasks')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('tasks') ? 'text-primary' : 'color-black'}`}>Tasks</div> },
+                  { title: <div onClick={changeTab.bind(this,'txs')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('txs') ? 'text-primary' : 'color-black'}`}>ETH Txs</div> },
                 ]
               }
               initialPage={0}
@@ -67,7 +56,7 @@ class Notifications extends React.Component {
                 return (
                   <div>
                     <div className="divider 1px zb-b-b"></div>
-                    <div className="fs18 color-black-4 p15">Tasks</div>
+                    <ListTodos />
                   </div>
                 )
               }} />
