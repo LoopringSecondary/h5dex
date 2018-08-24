@@ -123,7 +123,7 @@ class Convert extends React.Component {
         if (!res.error) {
           // hideLayer({id: 'placeOrderSteps'})
           dispatch({
-            type: 'sockets/extraChange',
+            type: 'sockets/queryChange',
             payload: {id: 'circulrNotify', extra: {hash}}
           })
           showLayer({id: 'helperOfSign', type: 'convert', data: {type: 'convert', value: hash}})

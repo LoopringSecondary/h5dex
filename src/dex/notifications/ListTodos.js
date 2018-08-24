@@ -80,7 +80,7 @@ const TodoItem = (props) => {
     approveCb(hash)
     if (!res.error) {
       dispatch({
-        type: 'sockets/extraChange',
+        type: 'sockets/queryChange',
         payload: {id: 'circulrNotify', extra: {hash}}
       })
       showLayer({id: 'helperOfSign', type: 'approve', data: {type: 'approve', value: hash}})

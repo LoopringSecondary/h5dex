@@ -95,7 +95,7 @@ class HelperOfMyOrders extends React.Component {
         _this.setState({hash})
         if (!res.error) {
           dispatch({
-            type: 'sockets/extraChange',
+            type: 'sockets/queryChange',
             payload: {id: 'circulrNotify', extra: {hash}}
           })
           showLayer({id: 'helperOfSign', type: 'cancelOrder', data: {type: 'cancelOrder', value: hash}})
