@@ -52,7 +52,7 @@ class Notifications extends React.Component {
               tabs={
                 [
                   { title: <div onClick={changeTab.bind(this,'tasks')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('tasks') ? 'text-primary' : 'color-black'}`}>订单任务</div> },
-                  { title: <div onClick={changeTab.bind(this,'txs')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('txs') ? 'text-primary' : 'color-black'}`}>ETH Transaction</div> },
+                  { title: <div onClick={changeTab.bind(this,'txs')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('txs') ? 'text-primary' : 'color-black'}`}>ETH Tx</div> },
                   // { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('common.fills')}</div> },
                 ]
               }
@@ -79,7 +79,7 @@ class Notifications extends React.Component {
                   </div>
                 )
               }} />
-              <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
+              <Redirect path={`${match.url}/`} to={`${match.url}/tasks`}/>
             </Switch>
             <div className="pb50"></div>
           </div>

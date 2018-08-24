@@ -46,26 +46,33 @@ class UserCenter extends React.Component {
               <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
             ]}
           >
-          {intl.get('usercenter.page_title')}
+          <div className="text-center">
+            {getShortAddress(storage.wallet.getUnlockedAddress())}
+            <div hidden className="fs16 color-back-1">{intl.get('usercenter.page_title')}</div>
+            <div hidden className="fs12 color-black-3">{getShortAddress(storage.wallet.getUnlockedAddress())}</div>
+          </div>
           </NavBar>
           <div className="divider 1px"></div>
-          <div className="pt35 pb35 text-left bg-white">
-            <div className="row align-items-center ml0 mr0 no-gutters">
-              <div className="col">
-                <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
-                  {getShortAddress(storage.wallet.getUnlockedAddress())}
-                  {
-                    false &&
-                    <div className="fs14 color-black-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
-                      {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
+          {
+            false &&
+            <div className="pt35 pb35 text-left bg-white">
+                <div className="row align-items-center ml0 mr0 no-gutters">
+                  <div className="col">
+                    <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
+                      {getShortAddress(storage.wallet.getUnlockedAddress())}
+                      {
+                        false &&
+                        <div className="fs14 color-black-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
+                          {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
+                        </div>
+                      }
                     </div>
-                  }
-                </div>
-              </div>
-              <div className="col-auto">
-              </div>
+                  </div>
+                  <div className="col-auto">
+                  </div>
+                </div>  
             </div>
-          </div>
+          }
           <div className="divider 1px"></div>
           <div className="height-auto tabs-no-border">
             <Tabs
