@@ -584,8 +584,10 @@ export default {
   },
   todo_list:{
     todo_list_title:'任务',
-    allowance_not_enough_title:"{symbol} 还未授权交易",
-    balance_not_enough_title:"{symbol} 余额不足",
+    title_allowance_not_enough:"{symbol} 还未授权交易",
+    title_balance_not_enough:"{symbol} 余额不足",
+    title_converting_eth_to_weth:'转换 ETH 为 WETH',
+    title_converting_weth_to_weth:'转换 WETH 为 ETH',
     balance:"当前余额",
     selling:"出售数量",
     lack:"缺少数量",

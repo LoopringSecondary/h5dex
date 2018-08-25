@@ -108,7 +108,7 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-              {intl.get('todo_list.allowance_not_enough_title', {symbol: item.symbol})}
+              {intl.get('todo_list.title_allowance_not_enough', {symbol: item.symbol})}
             </div>
           </div>
         </div>
@@ -132,7 +132,8 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-             Converting ETH To WETH
+             {intl.get('todo_list.title_converting_eth_to_weth')}
+             {false && intl.get('todo_list.title_converting_weth_to_eth')}
             </div>
           </div>
         </div>
@@ -157,7 +158,7 @@ const TodoItem = (props) => {
           <div className="col text-left">
             <div>
               <div className="fs16 color-black-1">
-                {intl.get('todo_list.balance_not_enough_title', {symbol: item.symbol})}
+                {intl.get('todo_list.title_balance_not_enough', {symbol: item.symbol})}
               </div>
             </div>
           </div>

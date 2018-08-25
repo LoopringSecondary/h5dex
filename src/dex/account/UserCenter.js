@@ -12,8 +12,6 @@ import { getShortAddress } from '../../modules/formatter/common'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal'
 
-
-
 class UserCenter extends React.Component {
   render() {
     const {match,location} = this.props;
@@ -41,31 +39,21 @@ class UserCenter extends React.Component {
             ]}
           >
           <div className="text-center">
-            <div className="fs16 color-back-1">{intl.get('usercenter.page_title')}</div>
-            <div hidden className="fs12 color-black-3">{getShortAddress(storage.wallet.getUnlockedAddress())}</div>
+            {intl.get('usercenter.page_title')}
           </div>
           </NavBar>
           <div className="divider 1px"></div>
-          {
-            true &&
-            <div className="pt25 pb25 text-left bg-white">
-                <div className="row align-items-center ml0 mr0 no-gutters">
-                  <div className="col">
-                    <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
-                      {getShortAddress(storage.wallet.getUnlockedAddress())}
-                      {
-                        false &&
-                        <div className="fs14 color-black-3 mt5" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}>
-                          {intl.get('usercenter.actions_switch_wallet')} <WebIcon type="right" />
-                        </div>
-                      }
-                    </div>
+          <div className="pt25 pb25 text-left bg-white">
+              <div className="row align-items-center ml0 mr0 no-gutters">
+                <div className="col">
+                  <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
+                    {getShortAddress(storage.wallet.getUnlockedAddress())}
                   </div>
-                  <div className="col-auto">
-                  </div>
-                </div>  
-            </div>
-          }
+                </div>
+                <div className="col-auto">
+                </div>
+              </div>  
+          </div>
           <div className="divider 1px"></div>
           <div className="height-auto tabs-no-border">
             <Tabs

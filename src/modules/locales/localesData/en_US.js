@@ -579,8 +579,10 @@ export default {
   },
   todo_list:{
     todo_list_title:'Tasks',
-    allowance_not_enough_title:"{symbol} is disabled to trade",
-    balance_not_enough_title:"{symbol} balance is insufficient",
+    title_allowance_not_enough:"{symbol} is disabled to trade",
+    title_balance_not_enough:"{symbol} balance is insufficient",
+    title_converting_eth_to_weth:'Converting ETH To WETH',
+    title_converting_weth_to_weth:'Converting WETH To ETH',
     balance:"Balance",
     selling:"Selling",
     lack:"Lack",

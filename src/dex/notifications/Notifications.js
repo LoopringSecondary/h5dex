@@ -34,7 +34,7 @@ class Notifications extends React.Component {
               <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
             ]}
           >
-          任务
+          {intl.get('todo_list.todo_list_title')}
           </NavBar>
           <div className="divider 1px"></div>
           <ListTodos />
