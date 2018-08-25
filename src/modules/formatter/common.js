@@ -2,9 +2,9 @@ import * as moment from 'moment';
 import {toBig, toFixed, toNumber} from "LoopringJS/common/formatter";
 import intl from 'react-intl-universal';
 
-export function getShortAddress(address) {
+export function getShortAddress(address,length=6) {
   if (typeof address === 'string') {
-    return address.slice(0, 8) + '...' + address.slice(-6)
+    return address.slice(0, length+2) + '...' + address.slice(0 - length)
   } else {
     throw new Error('address must be string')
   }
