@@ -14,9 +14,13 @@ import each from 'async/each'
 import { isApproving } from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
 import { signTx } from '../../common/utils/signUtils'
+import { getShortAddress } from '../../modules/formatter/common'
 
 const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
+
+// mock 
+const txHash = "0x1c6104be1c29070a1f00945d9eb192da16bbcd931580e4ba7ac6ef6ea1a52066"
 
 const TodoItem = (props) => {
   const {item = {}, balance, dispatch, pendingTxs, gasPrice} = props
@@ -104,7 +108,7 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-              {intl.get('todo_list.allowance_not_enough_title', {symbol: item.symbol})}
+              {intl.get('todo_list.title_allowance_not_enough', {symbol: item.symbol})}
             </div>
           </div>
         </div>
@@ -119,6 +123,31 @@ const TodoItem = (props) => {
       </div>
     )
   }
+  if (item.type === 'convert') {
+    return (
+      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+        <div className="col-auo pr10 color-black text-center">
+          <WebIcon className="text-primary fs16" type="clock-circle"/>
+        </div>
+        <div className="col text-left">
+          <div>
+            <div className="fs16 color-black-1">
+             {intl.get('todo_list.title_converting_eth_to_weth')}
+             {false && intl.get('todo_list.title_converting_weth_to_eth')}
+            </div>
+          </div>
+        </div>
+        <div className="col-auto">
+          <div>
+            <Button disabled={false} inline={true} type="primary" size="small" className="" onClick={routeActions.gotoHref.bind(this,`https://etherscan.io/tx/${txHash}`)}>
+              {getShortAddress(txHash,4)}
+            </Button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (item.type === 'balance') {
     return (
       <div className="">
@@ -129,7 +158,7 @@ const TodoItem = (props) => {
           <div className="col text-left">
             <div>
               <div className="fs16 color-black-1">
-                {intl.get('todo_list.balance_not_enough_title', {symbol: item.symbol})}
+                {intl.get('todo_list.title_balance_not_enough', {symbol: item.symbol})}
               </div>
             </div>
           </div>
@@ -292,55 +321,39 @@ function ListTodos (props) {
       }
     })
   }
-  const segmentChange = ()=>{
-
+  const segmentChange = (e)=>{
+     const side = e.nativeEvent.selectedSegmentIndex === 0 ? 'buy' : 'sell'
+     dispatch({
+       type:'placeOrder/sideChangeEffects',
+       payload:{
+         side
+       }
+     })
   }
   return (
-    <LayoutDexHome {...props}>
       <div className="">
-        <NavBar
-          className="w-100 zb-b-b bg-white"
-          mode="light"
-          icon={null && <Icon type="left"/>}
-          onLeftClick={() => routeActions.goBack()}
-          leftContent={null && [
-            <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
-          ]}
-          rightContent={null && [
-            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1, null, false)} key="1" type="question-circle-o"
-                     className=""/>,
-          ]}
-        >
-          {
-            false &&
-            <SegmentedControl
-              values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
-              style={{width: '180px', height: '32px'}}/>
-          }
-          {intl.get('todo_list.todo_list_title')}
-        </NavBar>
         {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
         <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
                    icon={<WebIcon type="exclamation-circle-o"/>}
                    mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
           One click to enable all tokens ?
         </NoticeBar>}
-        <div className="bg-white">
-          {
-            data.map((item, index) =>
-              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
-                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
-            )
-          }
+        <div className="">
+          <div className="bg-white">
+            {
+              data.map((item, index) =>
+                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                          gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+              )
+            }
+            
+          </div>
           {!data || data.length === 0 &&
-          <div className="pl10 pt10 pb10 color-black-4 fs12">
-            {false && intl.getHTML('todos.instruction')}
+          <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
             {intl.get('common.list.no_data')}
           </div>}
         </div>
-        <div className="pt50"></div>
       </div>
-    </LayoutDexHome>
   )
 }
 

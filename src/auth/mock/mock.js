@@ -53,6 +53,7 @@ export default class MockWallet extends Wallet {
         resolve({result: sig})
       }else{
         Toast.fail('Mock 模式不支持Sign操作')
+        resolve({error: {message:"Mock 模式不支持Sign操作"}})
       }
     })
   }
@@ -69,6 +70,7 @@ export default class MockWallet extends Wallet {
         resolve({result: sig})
       }else{
         Toast.fail('Mock 模式不支持Sign操作')
+        resolve({error: {message:"Mock 模式不支持Sign操作"}})
       }
 
     })

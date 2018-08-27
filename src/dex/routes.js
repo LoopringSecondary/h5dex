@@ -9,6 +9,7 @@ import MarketDetail from './tickers/Detail'
 import Convert from './tokens/ConvertForm'
 import PlaceOrder from './orders/PlaceOrderPage'
 import UserCenter from './account/UserCenter'
+import Notifications from './notifications/Notifications'
 import ListTodos from './notifications/ListTodos'
 import CommonModals from '../components/Modals'
 import storage from 'modules/storage'
@@ -34,12 +35,11 @@ const Logged = ()=>{
           <Route path={`/dex/markets/:market`} component={MarketDetail} />
           <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
           <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
-          <Route path={`/dex/todos`} exact component={ListTodos} />
           <Route path={`/dex/usercenter`} component={UserCenter} />
           <Route path={`/dex/convert/:token`} component={Convert} />
+          <Route path={`/dex/notifications`} component={Notifications} />
+          <Route path={`/dex/todos`} exact component={ListTodos} />
           <Route path={`/dex/messages`} exact component={Pages.Todo} />
-          <Route path={`/dex/myOrders`} exact component={Orders.ListMyOrders} />
-          <Route path={`/dex/myFills`} exact component={Pages.Todo} />
           <Route path={`/dex/settings`} exact component={Pages.Todo} />
           <Redirect from="/dex" to="/dex/markets" />
         </Switch>

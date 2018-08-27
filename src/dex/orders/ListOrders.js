@@ -24,11 +24,20 @@ export const OpenOrderList = ({orders={},dispatch})=>{
     <table className="w-100 fs13" style={{overflow:'auto'}}>
       <thead>
         <tr>
-          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
-          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.amount')}</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
-          <th hidden className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
-          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">{intl.get('common.status')}</th>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+            
+          </th>
+          <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+            {intl.get('common.market')}
+            <WebIcon className="text-primary" type="filter" />
+          </th>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
+          <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
+          <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" onClick={()=>{}}>
+            {intl.get('common.status')}
+            <WebIcon className="text-primary" type="filter" />
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -39,25 +48,32 @@ export const OpenOrderList = ({orders={},dispatch})=>{
             const market = orderFm.getMarketPair()
             return (
               <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
-                <td className="zb-b-b p10 pl10 text-left">
-                  { orderFm.getSide() === 'buy' &&
-                    <span className="color-success">
-                      <div>{orderFm.getPrice()}</div>
-                      <div className="color-black-3">{market}</div>
-                    </span>
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                  {orderFm.getSide() === 'buy' &&
+                      <span className="bg-success color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}>{intl.get(`common.buy_short`)}</span>
                   }
-                  { orderFm.getSide() === 'sell' &&
-                    <span className="color-error">
-                      <div>{orderFm.getPrice()}</div>
-                      <div className="color-black-3">{market}</div>
-                    </span>
+                  {orderFm.getSide() === 'sell' &&
+                    <span className="bg-error color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}> {intl.get(`common.sell_short`)}</span>
                   }
                 </td>
-                <td className="zb-b-b p10 text-left text-nowrap">
-                  <div>{orderFm.getAmount()}</div>
-                  <div className="color-black-3">{tokens.left}</div>
+                <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">
+                  <div className="">
+                    <span className="font-weight-bold">{tokens.left}</span>-{tokens.right}
+                  </div>
+                  <div className="color-black-3 fs12">
+                    <span className="">{orderFm.getCreateTime()}</span>
+                  </div>
                 </td>
-                <td className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                 <div>{orderFm.getPrice()}</div>
+                 <div className="color-black-3 fs12">￥1.2</div>
+                </td>
+                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                  <div>50.00</div>
+                  <div className="color-black-3 fs12">{orderFm.getAmount()}</div>
+                </td>
+                <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
                 <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b p10 text-center">
                   {renders.status(orderFm,item.originalOrder)}
