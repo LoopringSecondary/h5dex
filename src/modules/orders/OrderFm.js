@@ -47,6 +47,23 @@ export class OrderFm {
       return null
     }
   }
+  getFilledAmount(ifFormatted){
+    if(this.order.originalOrder){
+      const side = this.order.originalOrder.side.toLowerCase();
+      let token =  side === 'buy' ? config.getTokenBySymbol(this.order.originalOrder.tokenB) : config.getTokenBySymbol(this.order.originalOrder.tokenS);
+      token = token || {digits: 18, precision: 6};
+      const amount = side === 'buy' ? this.order.dealtAmountB : this.order.dealtAmountS;
+      if(ifFormatted){
+        return formatter(toBig(amount).div('1e' + token.digits), 4).d
+      }else{
+        return toFixed(toBig(amount).div('1e' + token.digits), 4)
+      }
+
+      // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
+    }else{
+      return null
+    }
+  }
   getMarketPair() {
     return this.order.originalOrder.side.toLowerCase() === 'buy' ? `${this.order.originalOrder.tokenB}-${this.order.originalOrder.tokenS}` : `${this.order.originalOrder.tokenS}-${this.order.originalOrder.tokenB}`
   }
@@ -136,7 +153,6 @@ export class OrderFm {
     }else{
       return null
     }
-
   }
   getStatus(){return this.order.status}
 

@@ -24,6 +24,8 @@ const words = {
   nonce: 'Nonce',
   sell: 'Sell',
   buy: 'Buy',
+  sell_short: 'S',
+  buy_short: 'B',
   buying: "You are buying",
   selling: "You are selling",
   actions: 'Actions',
@@ -173,7 +175,7 @@ export default {
     total: words.total,
     LRCFee: words.lrc_fee,
     marginSplit: words.margin_split,
-    filled: 'Filled',
+    filled: 'Filled/Total',
     validSince: 'Valid Since',
     validUntil: 'Valid Until',
     status: words.status,
@@ -560,7 +562,9 @@ export default {
   user_center:{
     receive:'Receive',
     send:'Send',
-    tab_title: "Me"
+    tab_title: "Me",
+    my_assets: 'My Assets',
+    my_orders: 'My Orders'
   },
   kline_chart:{
     kline_chart:'Kline Chart',
@@ -577,8 +581,10 @@ export default {
   },
   todo_list:{
     todo_list_title:'Tasks',
-    allowance_not_enough_title:"{symbol} is disabled to trade",
-    balance_not_enough_title:"{symbol} balance is insufficient",
+    title_allowance_not_enough:"{symbol} is disabled to trade",
+    title_balance_not_enough:"{symbol} balance is insufficient",
+    title_converting_eth_to_weth:'Converting ETH To WETH',
+    title_converting_weth_to_weth:'Converting WETH To ETH',
     balance:"Balance",
     selling:"Selling",
     lack:"Lack",

@@ -24,6 +24,8 @@ const words = {
   nonce: '随机数',
   sell: '卖出',
   buy: '买入',
+  sell_short: '卖',
+  buy_short: '买',
   buying: "您正在购买",
   selling: "您正在出售",
   actions: '操作',
@@ -175,7 +177,7 @@ export default {
     total: words.total,
     LRCFee: words.lrc_fee,
     marginSplit: words.margin_split,
-    filled: '成交量',
+    filled: '成交/总量',
     validSince: '订单生效时间',
     validUntil: '订单失效时间',
     status: words.status,
@@ -565,7 +567,9 @@ export default {
   user_center:{
     receive:'收款',
     send:'转账',
-    tab_title: "我"
+    tab_title: "我",
+    my_assets: '我的资产',
+    my_orders: '我的订单'
   },
   kline_chart:{
     kline_chart:'K线图',
@@ -582,8 +586,10 @@ export default {
   },
   todo_list:{
     todo_list_title:'任务',
-    allowance_not_enough_title:"{symbol} 还未授权交易",
-    balance_not_enough_title:"{symbol} 余额不足",
+    title_allowance_not_enough:"{symbol} 还未授权交易",
+    title_balance_not_enough:"{symbol} 余额不足",
+    title_converting_eth_to_weth:'转换 ETH 为 WETH',
+    title_converting_weth_to_weth:'转换 WETH 为 ETH',
     balance:"当前余额",
     selling:"出售数量",
     lack:"缺少数量",

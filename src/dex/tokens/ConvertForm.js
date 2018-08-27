@@ -196,9 +196,9 @@ class Convert extends React.Component {
             </div>
             <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary" loading={loading} disabled={loading}>
               <div className="row ml0 mr0 no-gutters fs16 align-items-center">
-                <div className="col">{tf.toPricisionFixed(toBig(amount))} <span className="fs14">{fromToken}</span></div>
+                <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{fromToken}</span></div>
                 <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
-                <div className="col">{tf.toPricisionFixed(toBig(amount))} <span className="fs14">{toToken}</span></div>
+                <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{toToken}</span></div>
               </div>
             </Button>
           </div>
