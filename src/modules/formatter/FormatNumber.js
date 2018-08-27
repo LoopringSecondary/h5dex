@@ -17,6 +17,10 @@ export const formatter = (value, precision) => {
     const shortNumber = toFixed(x.div(1000000), 0)
     return {d:`${getFormatNum(shortNumber)}M+`, o:x.toString(10), s:true};
   }
+  if(x.lt(1000000000)) {
+    const shortNumber = toFixed(x.div(1000000), 0)
+    return {d:`${getFormatNum(shortNumber)}M+`, o:x.toString(10), s:true};
+  }
   if(x.lt(1000000000000)) {
     const shortNumber = toFixed(x.div(1000000000), 0)
     return {d:`${getFormatNum(shortNumber)}B+`, o:x.toString(10), s:true};
