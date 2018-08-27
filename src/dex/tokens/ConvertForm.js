@@ -107,6 +107,7 @@ class Convert extends React.Component {
               })
               Toast.success(intl.get('notifications.title.convert_suc'), 3, null, false)
               hideLayer({id: 'convertToken'})
+              routeActions.gotoPath('/dex/todos');
             } else {
               Toast.fail(intl.get('notifications.title.convert_fail') + ':' + resp.error.message, 3, null, false)
             }
@@ -199,11 +200,6 @@ class Convert extends React.Component {
                   >
                   </InputItem>
                 </List>
-                {
-                  false &&
-                  <InputNumber prefix={token} className="text-right" type="text" onChange={amountChange}
-                               value={amount}/>
-                }
               </div>
               <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap}
                    style={{width: '44px'}}>
@@ -217,11 +213,6 @@ class Convert extends React.Component {
                     disabled={true}
                   />
                 </List>
-                {
-                  false &&
-                  <Input suffix={token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'} className="text-left" type="text"
-                         onChange={amountChange} value={amount}/>
-                }
               </div>
             </div>
             <div className="row ml0 mr0 pt20 pb20 no-gutters zb-b-b" onClick={setGas}>
