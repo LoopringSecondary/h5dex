@@ -1,5 +1,21 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile';
+import {
+  List,
+  InputItem,
+  Button,
+  WingBlank,
+  Slider,
+  Tabs,
+  WhiteSpace,
+  Badge,
+  SegmentedControl,
+  NavBar,
+  Icon,
+  Modal,
+  Switch,
+  Steps,
+  Toast
+} from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -10,6 +26,10 @@ import commonFm from 'modules/formatter/common'
 import intl from 'react-intl-universal'
 import {OrderFm} from 'modules/orders/OrderFm'
 import Worth from 'modules/settings/Worth'
+import TokenFm from "../../modules/tokens/TokenFm";
+import {signMessage} from "../../common/utils/signUtils";
+import moment from 'moment'
+import storage from 'modules/storage'
 
 export const OpenOrderList = ({orders={},dispatch})=>{
   const gotoDetail= (item)=>{
@@ -20,7 +40,46 @@ export const OpenOrderList = ({orders={},dispatch})=>{
           order:item,
         }
       })
+  }
+  const cancelOrder = (item) => {
+    const tokenb = item.originalOrder.tokenB
+    const tokens = item.originalOrder.tokenS
+    let description = ''
+    if(item.originalOrder.side.toLowerCase() ==='sell' ){
+      const tf = new TokenFm({symbol:tokens})
+      description = `${intl.get('common.sell')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountS))} ${tokens}`
+    }else{
+      const tf = new TokenFm({symbol:tokens})
+      description = `${intl.get('common.buy')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
     }
+
+    Modal.alert(intl.get('order_cancel.cancel_title'), description, [
+      {text: intl.get('order_cancel.confirm_no'), onPress: () => {}, style: 'default'},
+      {
+        text: intl.get('order_cancel.confirm_yes'), onPress: () => {
+          const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
+          signMessage(timestamp).then(res => {
+            if (res.result) {
+              const sig = res.result
+              window.RELAY.order.cancelOrder({
+                sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
+                orderHash:item.originalOrder.hash,
+                type:1
+              }).then(response => {
+                if (response.error) {
+                  Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`, 3, null, false)
+                } else {
+                  Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}), 3, null, false)
+                }
+              })
+            } else {
+              Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`, 3, null, false)
+            }
+          })
+        }
+      },
+    ])
+  }
   return (
     <table className="w-100 fs13" style={{overflow:'auto'}}>
       <thead>
@@ -77,7 +136,7 @@ export const OpenOrderList = ({orders={},dispatch})=>{
                 <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
                 <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
                 <td className="zb-b-b p10 text-center">
-                  {renders.status(orderFm,item.originalOrder)}
+                  {renders.status(orderFm,item.originalOrder,cancelOrder.bind(this, item))}
                 </td>
               </tr>
             )
@@ -173,7 +232,7 @@ export const renders = {
     const status = fm.getStatus();
     if (status === 'ORDER_OPENED') {
       if(cancelOrder) {
-        return <a className="fs12" onClick={cancelOrder}>{intl.get("common.cancel")}</a>
+        return <a className="fs12" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get("common.cancel")}</a>
       } else {
         return <span className="text-primary">{intl.get("order_status.opened")}</span>
       }
