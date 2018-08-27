@@ -9,6 +9,7 @@ import routeActions from 'common/utils/routeActions'
 import commonFm from 'modules/formatter/common'
 import intl from 'react-intl-universal'
 import {OrderFm} from 'modules/orders/OrderFm'
+import Worth from 'modules/settings/Worth'
 
 export const OpenOrderList = ({orders={},dispatch})=>{
   const gotoDetail= (item)=>{
@@ -67,10 +68,10 @@ export const OpenOrderList = ({orders={},dispatch})=>{
 
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
                  <div>{orderFm.getPrice()}</div>
-                 <div className="color-black-3 fs12">￥1.2</div>
+                 <div className="color-black-3 fs12"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></div>
                 </td>
                 <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
-                  <div>50.00</div>
+                  <div>{orderFm.getFilledAmount()}</div>
                   <div className="color-black-3 fs12">{orderFm.getAmount()}</div>
                 </td>
                 <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>

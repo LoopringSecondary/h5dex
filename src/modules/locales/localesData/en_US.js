@@ -175,7 +175,7 @@ export default {
     total: words.total,
     LRCFee: words.lrc_fee,
     marginSplit: words.margin_split,
-    filled: 'Filled',
+    filled: 'Filled/Total',
     validSince: 'Valid Since',
     validUntil: 'Valid Until',
     status: words.status,
@@ -562,7 +562,9 @@ export default {
   user_center:{
     receive:'Receive',
     send:'Send',
-    tab_title: "Me"
+    tab_title: "Me",
+    my_assets: 'My Assets',
+    my_orders: 'My Orders'
   },
   kline_chart:{
     kline_chart:'Kline Chart',
