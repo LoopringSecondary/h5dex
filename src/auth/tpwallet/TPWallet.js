@@ -2,18 +2,17 @@ import Wallet from 'common/wallets/wallet'
 import config from './config'
 import {toNumber,addHexPrefix} from 'LoopringJS/common/formatter'
 import {keccakHash} from 'LoopringJS/common/utils'
-
+import {callApi} from './bridge'
 
 export default class TPWallet extends Wallet{
 
-  constructor(wallet) {
+  constructor() {
     super();
-    this.wallet = wallet;
     this.walletType = 'tpwallet'
   }
   getLanguage() {
     return new Promise((resolve) => {
-      this.wallet.callAPI('device.getCurrentLanguage', (error,result) => {
+      callApi('device.getCurrentLanguage', (error,result) => {
         let language = 'en-US'
         if(error){
           resolve({result:language})
@@ -29,7 +28,7 @@ export default class TPWallet extends Wallet{
 
   getCurrency() {
     return new Promise((resolve) => {
-      this.wallet.callAPI('device.getCurrentCurrency', (error,result) => {
+      callApi('device.getCurrentCurrency', (error,result) => {
         let currency = 'USD'
         if(error){
           resolve({result:currency})
@@ -52,7 +51,7 @@ export default class TPWallet extends Wallet{
 
   getCurrentAccount() {
     return new Promise((resolve) => {
-      this.wallet.callAPI('user.getCurrentAccount', function(err, address) {
+      callApi('user.getCurrentAccount', function(err, address) {
         if(err) {
           resolve({err})
         } else {
@@ -64,7 +63,7 @@ export default class TPWallet extends Wallet{
 
   signMessage(message) {
     return new Promise((resolve) => {
-      this.wallet.callAPI('message.sign', {message:keccakHash(message),address:window.web3.eth.defaultAccount}, (error,result) => {
+      callApi('message.sign', {message:keccakHash(message),address:window.web3.eth.defaultAccount}, (error,result) => {
         if(error){
           resolve({error})
         }else{
@@ -79,7 +78,7 @@ export default class TPWallet extends Wallet{
 
   signTx(tx,feeCustomizable) {
     return new Promise((resolve) => {
-      this.wallet.callAPI('transaction.sign', tx, (error,result) => {
+      callApi('transaction.sign', tx, (error,result) => {
         if(error){
           resolve({error})
         }else{
@@ -88,7 +87,4 @@ export default class TPWallet extends Wallet{
       })
     })
   }
-
-
-
 }

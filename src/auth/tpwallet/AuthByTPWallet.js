@@ -6,6 +6,7 @@ import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
 import intl from 'react-intl-universal'
+import {isTPWalletReady} from './bridge'
 
 class AuthByTPWallet extends React.Component {
 
@@ -17,9 +18,9 @@ class AuthByTPWallet extends React.Component {
         Toast.success('Load complete !!!')
       }, false)
       const load = setInterval(async () => {
-        if (window.TPWallet) {
+        if (isTPWalletReady()) {
           clearInterval(load)
-          window.Wallet = new TPWallet(window.wallet)
+          window.Wallet = new TPWallet()
           await window.Wallet.setConfigs()
           if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
             storage.wallet.storeUnlockedAddress('tpwallet', window.Wallet.address)
@@ -48,9 +49,9 @@ class AuthByTPWallet extends React.Component {
     }, false)
     const _props = this.props
     const load = setInterval(() => {
-      if (window.TPWallet) {
+      if (isTPWalletReady()) {
         clearInterval(load)
-        window.Wallet = new TPWallet(window.TPWallet)
+        window.Wallet = new TPWallet()
         window.Wallet.setConfigs().then(res => {
           if (!window.Wallet.currency) { window.Wallet.currency = 'CNY'}
           if (!window.Wallet.language) { window.Wallet.language = 'zh-CN'}
@@ -66,9 +67,7 @@ class AuthByTPWallet extends React.Component {
           routeActions.gotoPath('/dex')
         })
       }
-
     },1000)
-
   }
   goToFace2Face = () => {
     routeActions.gotoPath('/face2face')
