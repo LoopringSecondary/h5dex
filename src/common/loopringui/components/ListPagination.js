@@ -31,6 +31,7 @@ function ListPagination({list,className,pageChanged}){
      pageSizeOptions:['10','20','30','40','50'], // must be string not number
      // showTotal:true,
      // simple:true,
+     size:'small'
   }
   if((items.length>0 && page.total/page.size >= 1) || page.size > 10){
     return (
