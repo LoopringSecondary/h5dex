@@ -162,3 +162,14 @@ export function isApproving(pendingTxs, symbol) {
     }
   }
 }
+
+export function lastApprovingTx (pendingTxs, symbol) {
+  if (symbol && pendingTxs) {
+    const approveTxs = pendingTxs.filter(tx => tx.type === 'approve' && tx.symbol.toLowerCase() === symbol.toLowerCase());
+    approveTxs.sort((a, b) => b.nonce - a.nonce);
+    if (approveTxs.length > 0) {
+      return approveTxs[0];
+    }
+    return null
+  }
+}
