@@ -584,7 +584,7 @@ export default {
     title_allowance_not_enough:"{symbol} is disabled to trade",
     title_balance_not_enough:"{symbol} balance is insufficient",
     title_converting_eth_to_weth:'Converting ETH To WETH',
-    title_converting_weth_to_weth:'Converting WETH To ETH',
+    title_converting_weth_to_eth:'Converting WETH To ETH',
     status_converting_eth: 'Conveting ETH',
     status_converting_weth: 'Converting WETH',
     balance:"Balance",

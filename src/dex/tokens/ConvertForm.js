@@ -165,7 +165,7 @@ class Convert extends React.Component {
                   <InputItem
                     type="money"
                     disabled
-                    extra={<div onClick={gotoConfirm} className="fs14 color-black-3">
+                    extra={<div onClick={setGas} className="fs14 color-black-3">
                       <Worth amount={gasFee} symbol='ETh'/> ≈ {tf.toPricisionFixed(toNumber(gasFee))} ETH
                       <WebIcon hidden className="ml5 text-primary" type="right"/>
                     </div>}
@@ -183,9 +183,6 @@ class Convert extends React.Component {
                 <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{toToken}</span></div>
               </div>
             </Button>
-          </div>
-          <div hidden className='mt20'>w
-            <a onClick={setMax}>{intl.get('convert.actions_max')}</a>
           </div>
           <div className="bg-grey-100 mt15">
             <div className="divider zb-b-b 1px"></div>

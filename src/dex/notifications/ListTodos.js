@@ -134,7 +134,7 @@ const TodoItem = (props) => {
   }
   if (item.type === 'convert') {
     return (
-      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" onClick={() => {}}>
+      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" >
         <div className="col-auo pr10 color-black text-center">
           <WebIcon className="text-primary fs16" type="clock-circle"/>
         </div>
@@ -231,38 +231,39 @@ function ListTodos (props) {
   let data = []
   const lrcFee = allocates['frozenLrcFee'] || 0
   const symbols = Object.keys(allocates)
-  each(symbols, (symbol, callback) => {
-    if (symbol.toLowerCase() !== 'frozenlrcfee') {
-      const value = allocates[symbol]
-      const tf = new TokenFormatter({symbol})
-      const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
-      const unitBalance = assets.balance
-      let selling = tf.getUnitAmount(value)
-      if (symbol.toUpperCase() === 'LRC') {
-        selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+  if(balance.items.length !== 0){
+    each(symbols, (symbol, callback) => {
+      if (symbol.toLowerCase() !== 'frozenlrcfee') {
+        const value = allocates[symbol]
+        const tf = new TokenFormatter({symbol})
+        const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
+        const unitBalance = assets.balance
+        let selling = tf.getUnitAmount(value)
+        if (symbol.toUpperCase() === 'LRC') {
+          selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+        }
+        if (toNumber(unitBalance) < toNumber(selling)) {
+          data.push({
+            symbol: symbol,
+            type: 'balance',
+            balance: tf.toPricisionFixed(unitBalance),
+            selling: tf.toPricisionFixed(selling),
+            lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
+            title: `${symbol} balance is insufficient for orders`
+          })
+        }
+        let allowance = assets.allowance
+        if (allowance.lt(toBig(selling))) {
+          data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
+        }
+        callback()
+      } else {
+        callback()
       }
-      if (toNumber(unitBalance) < toNumber(selling)) {
-        data.push({
-          symbol: symbol,
-          type: 'balance',
-          balance: tf.toPricisionFixed(unitBalance),
-          selling: tf.toPricisionFixed(selling),
-          lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
-          title: `${symbol} balance is insufficient for orders`
-        })
-      }
-      let allowance = assets.allowance
-      if (allowance.lt(toBig(selling))) {
-        data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
-      }
-      callback()
-    } else {
-      callback()
-    }
-  }, (error) => {
-    data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
-  })
-
+    }, (error) => {
+      data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
+    })
+  }
   const enableAll = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
     const approveJobs = data.filter(item => item.type === 'allowance')
