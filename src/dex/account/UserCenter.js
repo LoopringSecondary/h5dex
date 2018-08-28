@@ -61,7 +61,7 @@ class UserCenter extends React.Component {
                 [
                   { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_assets')}</div> },
                   { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_orders')}</div> },
-                  { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_fills')}</div> },
+                  // { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_fills')}</div> },
                 ]
               }
               initialPage={0}
@@ -89,16 +89,19 @@ class UserCenter extends React.Component {
                   </div>
                 )
               }} />
-              <Route path={`${url}/fills`} exact render={()=>{
-                return (
-                  <div>
-                    <div className="divider 1px zb-b-b"></div>
-                    <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
-                      <ListMyFills />
-                    </Containers.Fills>
-                  </div>
-                )
-              }} />
+              {
+                false &&
+                <Route path={`${url}/fills`} exact render={()=>{
+                  return (
+                    <div>
+                      <div className="divider 1px zb-b-b"></div>
+                      <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
+                        <ListMyFills />
+                      </Containers.Fills>
+                    </div>
+                  )
+                }} />
+              }
               <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
             </Switch>
             <div className="pb50"></div>

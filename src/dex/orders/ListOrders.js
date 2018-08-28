@@ -171,7 +171,6 @@ export class PullRefreshOrders extends React.Component {
                       <span className="">{orderFm.getCreateTime()}</span>
                     </div>
                   </td>
-
                   <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
                     <div>{orderFm.getPrice()}</div>
                     <div className="color-black-3 fs12"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></div>
@@ -192,17 +191,19 @@ export class PullRefreshOrders extends React.Component {
               this.state.data && this.state.data.items && this.state.data.items.length === 0 &&
               <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
             }
-            
-
             </tbody>
           </table>
         </PullToRefresh>
-        <ListPagination list={this.state.data} pageChanged={(page) => {
-          this.setState({ refreshing: true });
-          fetchOrders(page).then(res=> {
-            this.setState({ data: res, refreshing: false })
-          })
-        }}/>
+        {
+          false &&
+          <ListPagination list={this.state.data} pageChanged={(page) => {
+            this.setState({ refreshing: true });
+            fetchOrders(page).then(res=> {
+              this.setState({ data: res, refreshing: false })
+            })
+          }}/>
+        }
+        
     </div>);
   }
 }
