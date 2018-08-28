@@ -73,10 +73,6 @@ export class PullRefreshOrders extends React.Component {
         }
       })
     }
-    const pageChanged = (page) => {
-      console.log(1, page)
-      fetchOrders(page)
-    }
     const cancelOrder = (item) => {
       const tokenb = item.originalOrder.tokenB
       const tokens = item.originalOrder.tokenS
