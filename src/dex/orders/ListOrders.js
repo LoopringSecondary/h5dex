@@ -215,7 +215,8 @@ export const renders = {
     const status = fm.getStatus();
     if (status === 'ORDER_OPENED') {
       if(cancelOrder) {
-        return <a className="fs12" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get("common.cancel")}</a>
+        return <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get('common.cancel')}</Button>
+        // return <a className="fs12" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get("common.cancel")}</a>
       } else {
         return <span className="text-primary">{intl.get("order_status.opened")}</span>
       }
