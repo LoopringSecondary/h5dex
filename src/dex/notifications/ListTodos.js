@@ -19,7 +19,7 @@ import { getShortAddress } from '../../modules/formatter/common'
 const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
 
-// mock 
+// mock
 const txHash = "0x1c6104be1c29070a1f00945d9eb192da16bbcd931580e4ba7ac6ef6ea1a52066"
 
 const TodoItem = (props) => {
@@ -207,7 +207,6 @@ const TodoItem = (props) => {
               <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
                       onClick={showActions}>
                 {intl.get('common.actions')} <WebIcon type="down"/></Button>
-              <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           </div>
         </div>
@@ -346,7 +345,7 @@ function ListTodos (props) {
                           gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
               )
             }
-            
+
           </div>
           {!data || data.length === 0 &&
           <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
