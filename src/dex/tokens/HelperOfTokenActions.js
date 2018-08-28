@@ -29,6 +29,10 @@ function HelperOfTokenActions(props) {
     showLayer({id:'receiveToken',symbol})
   }
 
+  const showConvert = (token) => {
+    hideLayer({id:'helperOfTokenActions'})
+    routeActions.gotoPath(`/dex/convert/${token}`)
+  }
 
   const isSupportedTrading = () => {
     const market = config.getTokenSupportedMarket(symbol)
@@ -64,20 +68,15 @@ function HelperOfTokenActions(props) {
           }
 
           {
-            symbol !== 'ETH' &&
+            (false && symbol.toUpperCase() !== 'WETH' && symbol.toUpperCase() !== 'ETH') &&
             <Button onClick={()=>window.toast('ComingSoon')} disabled className="mt10" type="">Enable {symbol}</Button>
           }
-          {false &&
-            symbol === 'WETH' &&
-            <List.Item arrow="horizontal" extra={``}>
-                <Button className="m10" type="primary">{intl.get('convert.convert_eth_title')}</Button>
-            </List.Item>
+          {symbol === 'WETH' &&
+                <Button className="mt10" type="primary" onClick={() => {showConvert("ETH")}}>{intl.get('convert.convert_eth_title')}</Button>
           }
-          {false &&
+          {
             symbol === 'ETH' &&
-            <List.Item arrow="horizontal" extra={``}>
-              {intl.get('convert.convert_weth_title')}
-            </List.Item>
+            <Button onClick={gotoTrading} className="mt10" type="primary"> {intl.get('convert.convert_weth_title')}</Button>
           }
           {
             false && symbol !== 'ETH' &&

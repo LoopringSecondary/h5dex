@@ -585,6 +585,8 @@ export default {
     title_balance_not_enough:"{symbol} balance is insufficient",
     title_converting_eth_to_weth:'Converting ETH To WETH',
     title_converting_weth_to_weth:'Converting WETH To ETH',
+    status_converting_eth: 'Conveting ETH',
+    status_converting_weth: 'Converting WETH',
     balance:"Balance",
     selling:"Selling",
     lack:"Lack",
@@ -592,6 +594,7 @@ export default {
     status_enabling:'Enabling',
     actions_buy:words.buy,
     actions_receive:words.receive,
+    no_detail:'No detail...'
   },
   usercenter:{
     page_title:'My Account',

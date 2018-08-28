@@ -95,7 +95,6 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              badge={todos}
               icon={<i className="icon-user fs22 color-primary-light-bak"/>}
               selectedIcon={<i className="icon-user fs22 text-primary"/>}
               title={

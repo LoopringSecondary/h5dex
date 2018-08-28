@@ -11,7 +11,7 @@ import config from '../../common/config'
 import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
 import each from 'async/each'
-import { isApproving } from '../../modules/transactions/formatters'
+import { isApproving,lastApprovingTx } from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
 import { signTx } from '../../common/utils/signUtils'
 import { getShortAddress } from '../../modules/formatter/common'
@@ -19,13 +19,10 @@ import { getShortAddress } from '../../modules/formatter/common'
 const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
 
-// mock 
-const txHash = "0x1c6104be1c29070a1f00945d9eb192da16bbcd931580e4ba7ac6ef6ea1a52066"
-
 const TodoItem = (props) => {
   const {item = {}, balance, dispatch, pendingTxs, gasPrice} = props
   const showActions = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol,hideBuy:false}})
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol, hideBuy: false}})
   }
   const enable = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
@@ -81,7 +78,7 @@ const TodoItem = (props) => {
       })
     }, function (error) {
       if (error) {
-        Toast.fail(intl.get('notifications.title.enable_failed') + ":"+error.message, 3, null, false)
+        Toast.fail(intl.get('notifications.title.enable_failed') + ':' + error.message, 3, null, false)
       } else {
         Toast.success(intl.get('notifications.title.enable_suc'), 3, null, false)
       }
@@ -96,7 +93,15 @@ const TodoItem = (props) => {
       return tf.getUnitAmount(allowance).gte(item.selling)
     }
     return false
+  }
 
+  const gotoDetail = () => {
+    const approvingtx = lastApprovingTx(pendingTxs, item.symbol)
+    if(approvingtx){
+      routeActions.gotoHref.bind(this, `https://etherscan.io/tx/${approvingtx.txHash}`)
+    }else{
+      Toast.info(intl.get('todo_list.no_detail'))
+    }
   }
 
   if (item.type === 'allowance') {
@@ -114,10 +119,14 @@ const TodoItem = (props) => {
         </div>
         <div className="col-auto">
           <div>
-            <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
-                    onClick={enable}>
-              {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}
-            </Button>
+            {!loading && <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+                                 onClick={enable}>
+              {intl.get('todo_list.actions_enable')}
+            </Button>}
+            {loading && <Button inline={true}  style={{width: '80px'}} type="primary" size="small" className=""
+                                onClick={gotoDetail}>
+              {intl.get('todo_list.status_enabling')}
+            </Button>}
           </div>
         </div>
       </div>
@@ -132,15 +141,15 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-             {intl.get('todo_list.title_converting_eth_to_weth')}
-             {false && intl.get('todo_list.title_converting_weth_to_eth')}
+              {item.symbol.toUpperCase() === 'ETH' ? intl.get('todo_list.title_converting_eth_to_weth') : intl.get('todo_list.title_converting_weth_to_eth')}
             </div>
           </div>
         </div>
         <div className="col-auto">
           <div>
-            <Button disabled={false} inline={true} type="primary" size="small" className="" onClick={routeActions.gotoHref.bind(this,`https://etherscan.io/tx/${txHash}`)}>
-              {getShortAddress(txHash,4)}
+            <Button disabled={false} inline={true} type="primary" size="small" className=""
+                    onClick={routeActions.gotoHref.bind(this, `https://etherscan.io/tx/${item.txHash}`)}>
+              {item.symbol.toUpperCase() === 'ETH' ? intl.get('todo_list.status_converting_eth') : intl.get('todo_list.status_converting_weth')}
             </Button>
           </div>
         </div>
@@ -207,7 +216,6 @@ const TodoItem = (props) => {
               <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
                       onClick={showActions}>
                 {intl.get('common.actions')} <WebIcon type="down"/></Button>
-              <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           </div>
         </div>
@@ -224,7 +232,7 @@ function ListTodos (props) {
   const lrcFee = allocates['frozenLrcFee'] || 0
   const symbols = Object.keys(allocates)
   each(symbols, (symbol, callback) => {
-    if(symbol.toLowerCase()  !== "frozenlrcfee"){
+    if (symbol.toLowerCase() !== 'frozenlrcfee') {
       const value = allocates[symbol]
       const tf = new TokenFormatter({symbol})
       const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
@@ -238,7 +246,7 @@ function ListTodos (props) {
           symbol: symbol,
           type: 'balance',
           balance: tf.toPricisionFixed(unitBalance),
-          selling:tf.toPricisionFixed(selling),
+          selling: tf.toPricisionFixed(selling),
           lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
           title: `${symbol} balance is insufficient for orders`
         })
@@ -248,7 +256,7 @@ function ListTodos (props) {
         data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
       }
       callback()
-    }else{
+    } else {
       callback()
     }
   }, (error) => {
@@ -321,39 +329,46 @@ function ListTodos (props) {
       }
     })
   }
-  const segmentChange = (e)=>{
-     const side = e.nativeEvent.selectedSegmentIndex === 0 ? 'buy' : 'sell'
-     dispatch({
-       type:'placeOrder/sideChangeEffects',
-       payload:{
-         side
-       }
-     })
+  const segmentChange = (e) => {
+    const side = e.nativeEvent.selectedSegmentIndex === 0 ? 'buy' : 'sell'
+    dispatch({
+      type: 'placeOrder/sideChangeEffects',
+      payload: {
+        side
+      }
+    })
   }
   return (
+    <div className="">
+      {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
+      <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
+                 icon={<WebIcon type="exclamation-circle-o"/>}
+                 mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
+        One click to enable all tokens ?
+      </NoticeBar>}
       <div className="">
-        {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
-        <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
-                   icon={<WebIcon type="exclamation-circle-o"/>}
-                   mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
-          One click to enable all tokens ?
-        </NoticeBar>}
-        <div className="">
-          <div className="bg-white">
-            {
-              data.map((item, index) =>
-                <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
-                          gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
-              )
-            }
-            
-          </div>
-          {!data || data.length === 0 &&
-          <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
-            {intl.get('common.list.no_data')}
-          </div>}
+        <div className="bg-white">
+          {
+            txs.filter(tx => tx.type === 'convert_income').map((tx, index) =>
+              <TodoItem key={index} item={{...tx, type: 'convert',}} balance={balance} dispatch={dispatch}
+                        pendingTxs={txs}
+                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+            )
+          }
+          {
+            data.map((item, index) =>
+              <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
+                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+            )
+          }
+
         </div>
+        {!data || data.length === 0 &&
+        <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
+          {intl.get('common.list.no_data')}
+        </div>}
       </div>
+    </div>
   )
 }
 
