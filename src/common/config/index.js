@@ -206,5 +206,5 @@ export default {
   getDelegateAddress,
   getWallets,
   getCustomTokens,
-  getRemoteConfig
+  getRemoteConfig,
 }
