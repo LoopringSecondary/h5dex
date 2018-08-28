@@ -5,7 +5,7 @@ import { Link, Redirect, Route, Switch } from 'dva/router'
 import Containers from 'modules/containers'
 import routeActions from 'common/utils/routeActions'
 import LayoutDexHome from '../../layout/LayoutDexHome'
-import { OpenOrderList } from '../orders/ListOrders'
+import { OpenOrderList, PullRefreshOrders } from '../orders/ListOrders'
 import ListBalance from '../tokens/ListBalance'
 import ListMyFills from '../fills/ListMyFills'
 import { getShortAddress } from '../../modules/formatter/common'
@@ -81,9 +81,14 @@ class UserCenter extends React.Component {
               <Route path={`${url}/orders`} exact render={()=>{
                 return (
                   <div>
+                    {false &&
+                      <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
+                        <div className="divider 1px zb-b-b"></div>
+                        <OpenOrderList />
+                      </Containers.Orders>
+                    }
                     <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
-                      <div className="divider 1px zb-b-b"></div>
-                      <OpenOrderList />
+                      <PullRefreshOrders />
                     </Containers.Orders>
                   </div>
                 )

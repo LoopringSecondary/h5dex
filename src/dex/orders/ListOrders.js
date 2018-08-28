@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps, Toast } from 'antd-mobile';
+import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps, Toast, PullToRefresh } from 'antd-mobile';
 import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -14,6 +14,200 @@ import moment from 'moment'
 import storage from 'modules/storage'
 import TokenFm from "../../modules/tokens/TokenFm";
 import {signMessage} from "../../common/utils/signUtils";
+import ReactDOM from 'react-dom'
+import config from 'common/config'
+import ListPagination from 'LoopringUI/components/ListPagination'
+
+async function fetchOrders(page) {
+  let filter = {}
+  filter.pageIndex = 1
+  filter.pageSize = 10
+  if(page){
+    filter.pageIndex = page.current
+    filter.pageSize = page.size
+  }
+  filter.delegateAddress = config.getDelegateAddress();
+  filter.owner = storage.wallet.getUnlockedAddress();
+  return window.RELAY.order.getOrders(filter).then(res=> {
+    if (!res.error && res.result.data) {
+      return {
+        items: res.result.data,
+        page: {
+          current: res.result.pageIndex,
+          size: res.result.pageSize,
+          total: res.result.total,
+        }
+      }
+    }
+  })
+}
+
+export class PullRefreshOrders extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+      height: document.documentElement.clientHeight,
+      data: {}, // {items:[], page:{}}
+    };
+  }
+  componentDidMount() {
+    const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+    // setTimeout(() => this.setState({
+    //   height: hei,
+    //   data: genData(),
+    // }), 0);
+    fetchOrders().then(res=> {
+      this.setState({ data: res , height: hei })
+    })
+  }
+
+  render() {
+    const {dispatch} = this.props
+    const gotoDetail= (item)=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          id:'orderDetail',
+          order:item,
+        }
+      })
+    }
+    const pageChanged = (page) => {
+      console.log(1, page)
+      fetchOrders(page)
+    }
+    const cancelOrder = (item) => {
+      const tokenb = item.originalOrder.tokenB
+      const tokens = item.originalOrder.tokenS
+      let description = ''
+      if(item.originalOrder.side.toLowerCase() ==='sell' ){
+        const tf = new TokenFm({symbol:tokens})
+        description = `${intl.get('common.sell')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountS))} ${tokens}`
+      }else{
+        const tf = new TokenFm({symbol:tokens})
+        description = `${intl.get('common.buy')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
+      }
+      Modal.alert(intl.get('order_cancel.cancel_title'), description, [
+        {text: intl.get('order_cancel.confirm_no'), onPress: () => {}, style: 'default'},
+        {
+          text: intl.get('order_cancel.confirm_yes'), onPress: () => {
+            const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
+            signMessage(timestamp).then(res => {
+              if (res.result) {
+                const sig = res.result
+                window.RELAY.order.cancelOrder({
+                  sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
+                  orderHash:item.originalOrder.hash,
+                  type:1
+                }).then(response => {
+                  if (response.error) {
+                    Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${response.error.message}`, 3, null, false)
+                  } else {
+                    Toast.success(intl.get('notifications.title.cancel_suc',{type:intl.get('common.order')}), 3, null, false)
+                  }
+                })
+              } else {
+                Toast.fail(`${intl.get('notifications.title.cancel_fail',{type:intl.get('common.order')})}:${res.error.message}`, 3, null, false)
+              }
+            })
+          }
+        },
+      ])
+    }
+    return (
+      <div>
+        <PullToRefresh
+          damping={60}
+          ref={el => this.ptr = el}
+          style={{
+            height: this.state.height,
+            overflow: 'auto',
+          }}
+          indicator={{}}
+          direction={'down'}
+          refreshing={this.state.refreshing}
+          onRefresh={() => {
+            this.setState({ refreshing: true });
+            fetchOrders().then(res=> {
+              this.setState({ data: res, refreshing: false })
+            })
+          }}
+        >
+          <table className="w-100 fs13" style={{overflow:'auto'}}>
+            <thead>
+            <tr>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+              </th>
+              <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+                {intl.get('common.market')}
+                <WebIcon className="text-primary" type="filter" />
+              </th>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
+              <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
+              <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" onClick={()=>{}}>
+                {intl.get('common.status')}
+                <WebIcon className="text-primary" type="filter" />
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            {this.state.data && this.state.data.items && this.state.data.items.map((item, index) => {
+              const orderFm = new OrderFm(item)
+              const tokens = orderFm.getTokens()
+              const market = orderFm.getMarketPair()
+              return (
+                <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                    {orderFm.getSide() === 'buy' &&
+                    <span className="bg-success color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}>{intl.get(`common.buy_short`)}</span>
+                    }
+                    {orderFm.getSide() === 'sell' &&
+                    <span className="bg-error color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}> {intl.get(`common.sell_short`)}</span>
+                    }
+                  </td>
+                  <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">
+                    <div className="">
+                      <span className="font-weight-bold">{tokens.left}</span>-{tokens.right}
+                    </div>
+                    <div className="color-black-3 fs12">
+                      <span className="">{orderFm.getCreateTime()}</span>
+                    </div>
+                  </td>
+
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                    <div>{orderFm.getPrice()}</div>
+                    <div className="color-black-3 fs12"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></div>
+                  </td>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                    <div>{orderFm.getFilledAmount()}</div>
+                    <div className="color-black-3 fs12">{orderFm.getAmount()}</div>
+                  </td>
+                  <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+                  <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
+                  <td className="zb-b-b p10 text-center">
+                    {renders.status(orderFm,item.originalOrder,cancelOrder.bind(this, item))}
+                  </td>
+                </tr>
+              )
+            })}
+            {
+              this.state.data && this.state.data.items && this.state.data.items.length === 0 &&
+              <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
+            }
+            </tbody>
+          </table>
+        </PullToRefresh>
+        <ListPagination list={this.state.data} pageChanged={(page) => {
+          this.setState({ refreshing: true });
+          fetchOrders(page).then(res=> {
+            this.setState({ data: res, refreshing: false })
+          })
+        }}/>
+    </div>);
+  }
+}
 
 export const OpenOrderList = ({orders={},dispatch})=>{
   const gotoDetail= (item)=>{
