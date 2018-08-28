@@ -17,7 +17,8 @@ const WETH = Contracts.WETH
 
 class Convert extends React.Component {
   state = {
-    token: 'ETH'
+    token: 'ETH',
+    loading:false
   }
 
   componentDidMount () {
@@ -29,7 +30,7 @@ class Convert extends React.Component {
 
   render () {
     const {dispatch, balance, amount, gas} = this.props
-    const {token} = this.state
+    const {token,loading} = this.state
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
     const gasPrice = gas.tabSelected === 'estimate' ? gas.gasPrice.estimate : gas.gasPrice.current
@@ -141,91 +142,45 @@ class Convert extends React.Component {
             <span key='1' className=""><Icon type="left"/></span>,
           ]}
           rightContent={[
-            null && <Popover mask
-                     overlayClassName="fortest"
-                     overlayStyle={{ color: 'currentColor' }}
-                     visible={this.state.visible}
-                     overlay={[
-                       (<Popover.Item key="4" value="scan" data-seed="logId">Scan</Popover.Item>),
-                       (<Popover.Item key="5" value="special" style={{ whiteSpace: 'nowrap' }}>My Qrcode</Popover.Item>),
-                       (<Popover.Item key="6" value="button ct">
-                         <span style={{ marginRight: 5 }}>Help</span>
-                       </Popover.Item>),
-                     ]}
-                     align={{
-                       overflow: { adjustY: 0, adjustX: 0 },
-                       offset: [-10, 0],
-                     }}
-                     onVisibleChange={this.handleVisibleChange}
-                     onSelect={this.onSelect}
-            >
-              <WebIcon key="1" type="question-circle-o"/>
-            </Popover>,
+            <Button size="small" onClick={swap} key='1' className="text-primary"><WebIcon type="swap"/></Button>,
           ]}
         >
-          {fromToken} → {toToken}
+          {fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
         </NavBar>
         <div className="zb-b-b">
-          <div hidden={true} className="">
-            <List>
-              <InputItem
-                type="text"
-                onFocus={() => {alert('focused')}}
-                ref={el => _this.inputRef = el}
-              >
-              </InputItem>
-            </List>
-            <div className="mt15">
-              <Input className="d-block w-100"/>
-            </div>
-          </div>
           <div className="p15">
-            <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center">
-              <div className="col text-left">
-                <div className="color-black-2 fs14">{fromToken}</div>
-              </div>
-              <div className="col-auto text-center" onClick={swap} style={{width: '44px'}}>
-              </div>
-              <div className="col text-right">
-                <div className="color-black-2 fs14">{toToken}</div>
-              </div>
-            </div>
-            <div className="zb-b row ml0 mr0 no-gutters align-items-stretch justify-content-center">
-              <div className="col text-right no-border am-list-bg-none bg-grey-100">
-                <List>
+            <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center" style={{}}>
+              <div className="col text-right no-border am-list-bg-none">
+                <List  className="selectable">
                   <InputItem
                     type="money"
                     onChange={amountChange}
+                    moneyKeyboardAlign="left"
                     value={amount}
+                    extra={<div className="fs14 color-black-3">{fromToken}</div>}
+                    className="circle h-default"
                   >
+                  </InputItem>
+                  <InputItem
+                    type="money"
+                    disabled
+                    extra={<div onClick={gotoConfirm} className="fs14 color-black-3">
+                      <Worth amount={gasFee} symbol='ETh'/> ≈ {tf.toPricisionFixed(toNumber(gasFee))} ETH
+                      <WebIcon hidden className="ml5 text-primary" type="right"/>
+                    </div>}
+                    className="circle h-default mt15"
+                  >
+                    <div className="fs13 color-black-3">{intl.get('common.gas')}</div>
                   </InputItem>
                 </List>
               </div>
-              <div className="col-auto text-center zb-b d-flex align-items-center justify-content-center" onClick={swap}
-                   style={{width: '44px'}}>
-                <WebIcon type="swap" className="fs20 text-primary"/>
-              </div>
-              <div className="col text-left no-border am-list-bg-none bg-grey-100">
-                <List>
-                  <InputItem
-                    type="money"
-                    value={amount}
-                    disabled={true}
-                  />
-                </List>
-              </div>
             </div>
-            <div className="row ml0 mr0 pt20 pb20 no-gutters zb-b-b" onClick={setGas}>
-              <div className="col">
-                <div className="color-black-2 fs14 text-left">{intl.get('common.gas')}</div>
+            <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary" loading={loading} disabled={loading}>
+              <div className="row ml0 mr0 no-gutters fs16 align-items-center">
+                <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{fromToken}</span></div>
+                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
+                <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{toToken}</span></div>
               </div>
-              <div className="col-auto fs14 color-black-2">
-                <Worth amount={gasFee} symbol='ETh'/> ≈ {toNumber(gasFee)} ETH
-                <WebIcon className="ml5 text-primary" type="right"/>
-              </div>
-            </div>
-            <Button className="mt20 b-block w-100" size="large" onClick={gotoConfirm} type="primary">
-              {token.toLowerCase() === 'eth' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
             </Button>
           </div>
           <div hidden className='mt20'>w
