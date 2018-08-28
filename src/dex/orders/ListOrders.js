@@ -114,10 +114,10 @@ export class PullRefreshOrders extends React.Component {
     return (
       <div>
         <PullToRefresh
-          damping={60}
+          damping={200}
           ref={el => this.ptr = el}
           style={{
-            height: this.state.height,
+            height: 'auto',
             overflow: 'auto',
           }}
           indicator={{}}
@@ -140,7 +140,7 @@ export class PullRefreshOrders extends React.Component {
                 <WebIcon className="text-primary" type="filter" />
               </th>
               <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
-              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled_total')}</th>
               <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
               <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" onClick={()=>{}}>
                 {intl.get('common.status')}
@@ -192,6 +192,8 @@ export class PullRefreshOrders extends React.Component {
               this.state.data && this.state.data.items && this.state.data.items.length === 0 &&
               <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
             }
+            
+
             </tbody>
           </table>
         </PullToRefresh>
