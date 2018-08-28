@@ -455,7 +455,7 @@ export default {
     convert_weth_title:'Convert WETH to ETH',
     convert_eth_tip: '0.1 ETH is reserved as gas so that you can send additional transactions.',
     actions_confirm_convert: 'Convert Now',
-    actions_max: "Convert Max",
+    actions_max: "Convert All",
     notification_suc_title:'Succeed to Convert {value} {token}',
     notification_fail_title:'Failed to Convert {value} {token}',
     not_enough_tip:'{token} not enough'

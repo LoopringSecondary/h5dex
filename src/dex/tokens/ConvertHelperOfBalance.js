@@ -44,6 +44,12 @@ const HelperOfBalance = (props) => {
                 </Button>
               </td>
             </tr>
+            <tr>
+              <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
+                {token.symbol.toUpperCase() === 'ETH' ? 'WETH' : 'ETH'}
+              </td>
+              <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance2, 8)}</td>
+            </tr>
         </tbody>
       </table>
     </div>

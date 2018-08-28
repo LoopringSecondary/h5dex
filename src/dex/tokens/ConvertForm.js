@@ -33,6 +33,7 @@ class Convert extends React.Component {
     const {token,loading} = this.state
     const address = storage.wallet.getUnlockedAddress()
     const assets = getBalanceBySymbol({balances: balance.items, symbol: token, toUnit: true})
+    const other_assets = getBalanceBySymbol({balances: balance.items, symbol: token.toUpperCase() === 'ETH' ? 'WETH' : 'ETH', toUnit: true})
     const gasPrice = gas.tabSelected === 'estimate' ? gas.gasPrice.estimate : gas.gasPrice.current
     const gasLimit = token.toLowerCase() === 'eth' ? config.getGasLimitByType('deposit').gasLimit : config.getGasLimitByType('withdraw').gasLimit
     const tf = new TokenFormatter({symbol: token})
@@ -188,8 +189,8 @@ class Convert extends React.Component {
           </div>
           <div className="bg-grey-100 mt15">
             <div className="divider zb-b-b 1px"></div>
-            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance}} gasFee={gasFee}/>
-          </div>
+            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance,balance2:other_assets.balance}} gasFee={gasFee}/>
+        </div>
         </div>
       </div>
     )
