@@ -73,7 +73,7 @@ class Convert extends React.Component {
         return
       }
 
-      if (toBig(amount).plus(gasFee).gt(assets.balance)) {
+      if ((token.toUpperCase() === 'ETH'&& toBig(amount).plus(gasFee).gt(assets.balance)) || (token.toUpperCase() === 'WETH' && toBig(amount).gt(assets.balance))) {
         Toast.info(intl.get('convert.not_enough_tip', {token}), 1, null, false)
         return
       }
