@@ -27,32 +27,26 @@ class UserCenter extends React.Component {
     }
     return (
       <LayoutDexHome {...this.props}>
-        <div className="bg-grey-100">
+        <div className="0">
           <NavBar
-            className=""
-            mode="light"
-            leftContent={null && [
-              <span className="" key="1"><WebIcon type="home" /></span>,
-            ]}
-            rightContent={null && [
-              <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
-            ]}
+              className=""
+              mode="light"
+              leftContent={null && [
+                <span className="" key="1"><WebIcon type="home" /></span>,
+              ]}
+              rightContent={null && [
+                <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
+              ]}
           >
-          <div className="text-center">
-            {intl.get('usercenter.page_title')}
-          </div>
+            <div className="text-center">
+              {false && intl.get('usercenter.page_title')}
+              {getShortAddress(storage.wallet.getUnlockedAddress())}
+            </div>
           </NavBar>
-          <div className="divider 1px"></div>
-          <div className="pt25 pb25 text-left bg-white">
-              <div className="row align-items-center ml0 mr0 no-gutters">
-                <div className="col">
-                  <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
-                    {getShortAddress(storage.wallet.getUnlockedAddress())}
-                  </div>
-                </div>
-                <div className="col-auto">
-                </div>
-              </div>  
+          <div hidden className="pt25 pb25 text-left bg-white">
+              <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
+                {getShortAddress(storage.wallet.getUnlockedAddress())}
+              </div>
           </div>
           <div className="divider 1px"></div>
           <div className="height-auto tabs-no-border">
