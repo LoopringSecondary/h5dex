@@ -15,6 +15,7 @@ export default class TPWallet extends Wallet {
   getLanguage () {
     return new Promise((resolve) => {
       callApi('device.getCurrentLanguage', null, ({error, result}) => {
+        console.log("get Language: " + result )
         let language = 'en-US'
         if (error) {
           resolve({result: language})
@@ -31,6 +32,7 @@ export default class TPWallet extends Wallet {
   getCurrency () {
     return new Promise((resolve) => {
       callApi('device.getCurrentCurrency', null, ({error, result}) => {
+        console.log("get Currency: " + result )
         let currency = 'USD'
         if (error) {
           resolve({result: currency})
@@ -53,6 +55,7 @@ export default class TPWallet extends Wallet {
   getCurrentAccount () {
     return new Promise((resolve) => {
       callApi('user.getCurrentAccount', null, function ({error, result}) {
+        console.log("get Address: " + result )
         if (error) {
           resolve({error})
         } else {
@@ -66,7 +69,7 @@ export default class TPWallet extends Wallet {
     return new Promise((resolve) => {
       callApi('message.sign', {
         message: keccakHash(message),
-        address: window.web3.eth.defaultAccount
+        address: this.address
       }, ({error, result}) => {
         if (error) {
           resolve({error})
