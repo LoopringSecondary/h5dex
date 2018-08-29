@@ -28,7 +28,6 @@ async function fetchOrders(page) {
   }
   filter.delegateAddress = config.getDelegateAddress();
   filter.owner = storage.wallet.getUnlockedAddress();
-  console.log(1, filter)
   return window.RELAY.order.getOrders(filter).then(res=> {
     if (!res.error && res.result.data) {
       return {
