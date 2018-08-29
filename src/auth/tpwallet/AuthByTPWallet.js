@@ -1,7 +1,6 @@
 import React from 'react'
 import TPWallet from './TPWallet'
-import { Icon as WebIcon } from 'antd'
-import { Toast, Button, NavBar } from 'antd-mobile'
+import { Toast, Button, Modal } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 import { connect } from 'dva'
 import storage from 'modules/storage'
@@ -11,35 +10,32 @@ import {isTPWalletReady} from './bridge'
 class AuthByTPWallet extends React.Component {
 
   componentDidMount () {
-    const _props = this.props
     const address = storage.wallet.getUnlockedAddress()
     if (address) {
       Toast.loading('Loading configs...', 0, () => {
         Toast.success('Load complete !!!')
       }, false)
-      const load = setInterval(async () => {
-        if (isTPWalletReady()) {
-          clearInterval(load)
-          window.Wallet = new TPWallet()
-          await window.Wallet.setConfigs()
-          if (address.toLowerCase() !== window.Wallet.address.toLowerCase()) {
-            storage.wallet.storeUnlockedAddress('tpwallet', window.Wallet.address)
-            window.RELAY.account.register(window.Wallet.address)
+      const _this = this
+        const load = setInterval(() => {
+          if (isTPWalletReady()) {
+            clearInterval(load)
+            window.Wallet = new TPWallet()
+            window.Wallet.setConfigs().then(res => {
+              if(address.toLowerCase() !== window.Wallet.address.toLowerCase()){
+                storage.wallet.storeUnlockedAddress('loopr', window.Wallet.address)
+                window.RELAY.account.register(window.Wallet.address)
+              }
+              _this.props.dispatch({
+                type: 'settings/preferenceChange',
+                payload: {language: window.Wallet.language, currency: window.Wallet.currency}
+              })
+              _this.props.dispatch({type: 'sockets/unlocked'})
+              _this.props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
+              Toast.hide()
+            })
           }
-          _props.dispatch({type: 'sockets/unlocked'})
-          _props.dispatch({
-            type: 'settings/preferenceChange',
-            payload: {language: window.Wallet.language, currency: window.Wallet.currency}
-          })
-          _props.dispatch({type: 'locales/setLocale', payload: {locale: window.Wallet.language}})
-          Toast.hide()
-          routeActions.gotoPath('/dex')
-        }
-      }, 1000)
-    } else {
-      const location = _props.location
-      const language = location.search.replace(`?locale=`, '')
-      _props.dispatch({type: 'locales/setLocale', payload: {locale: language}})
+        },1000)
+        routeActions.gotoPath('/dex')
     }
   }
 

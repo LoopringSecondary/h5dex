@@ -21,7 +21,7 @@ function ios_request (method, data, callback) {
   }
 }
 
- function isIosReady () {
+function isIosReady () {
   return window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.callApi
 }
 
@@ -46,16 +46,23 @@ function and_request (method, data, callback) {
   }
 }
 
- function isAndReady () {
+function isAndReady () {
   return window.android && window.android.callApi
 }
 
-
-export function isTPWalletReady(){
-  return isIosReady() || isAndReady()
+export function isTPWalletReady () {
+  const userAgentInfo = navigator.userAgent
+  const isAndroid = userAgentInfo.indexOf('Android') > -1 || userAgentInfo.indexOf('Adr') > -1 //android终端
+  const isiOS = !!userAgentInfo.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) //ios终端
+  if (isiOS) {
+    return isIosReady()
+  } else if (isAndroid) {
+    return isAndReady()
+  }
+  return false
 }
 
-export  function callApi (method, data, callback) {
+export function callApi (method, data, callback) {
   const userAgentInfo = navigator.userAgent
   const isAndroid = userAgentInfo.indexOf('Android') > -1 || userAgentInfo.indexOf('Adr') > -1 //android终端
   const isiOS = !!userAgentInfo.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) //ios终端
@@ -63,7 +70,7 @@ export  function callApi (method, data, callback) {
     ios_request(method, data, callback)
   } else if (isAndroid) {
     and_request(method, data, callback)
-  }else {
-    window[callback]({error:{message:'not such platform'}})
+  } else {
+    window[callback]({error: {message: 'not such platform'}})
   }
 }
