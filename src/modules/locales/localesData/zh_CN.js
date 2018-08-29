@@ -591,7 +591,7 @@ export default {
     title_allowance_not_enough: '{symbol} 还未授权交易',
     title_balance_not_enough: '{symbol} 余额不足',
     title_converting_eth_to_weth: '转换 ETH 为 WETH',
-    title_converting_weth_to_weth: '转换 WETH 为 ETH',
+    title_converting_weth_to_eth: '转换 WETH 为 ETH',
     status_converting_eth: '正在转换ETH',
     status_converting_weth: '正在转换WETH',
     balance: '当前余额',
