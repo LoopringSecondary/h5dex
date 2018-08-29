@@ -203,18 +203,18 @@ export class PullRefreshOrders extends React.Component {
               </tbody>
             </table>
           </Spin>
+          <div className="p5">
+            <Pagination className="fs14 s-small" total={Math.ceil(this.state.data.page.total/this.state.data.page.size)} current={this.state.data.page.current} onChange={(page)=>{
+              this.setState({ refreshing: true });
+              fetchOrders({
+                current:page,
+                size:10
+              }).then(res=> {
+                this.setState({ data: res, refreshing: false })
+              })
+            }} />
+          </div>
         </PullToRefresh>
-        <div className="p5">
-          <Pagination className="fs14 s-small" total={this.state.data.items.length} current={this.state.data.page.current} onChange={(page)=>{
-            this.setState({ refreshing: true });
-            fetchOrders({
-              current:page
-            }).then(res=> {
-              this.setState({ data: res, refreshing: false })
-            })
-          }} />
-        </div>
-        
         
     </div>);
   }
