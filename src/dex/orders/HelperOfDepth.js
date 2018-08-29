@@ -104,9 +104,12 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
       </Spin>
       {
         ( depth.item.sell.length > 0 || depth.item.buy.length > 0 ) &&
-        <NoticeBar  className="text-left t-primary shape-rounded m10" icon={<WebIcon type="info-circle-o"/>} mode="closable" marqueeProps={{ loop: true}}>
-            点击价格和数量可以快速下单哦
-        </NoticeBar>
+        <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 ">
+          <div className="col text-left">
+            <WebIcon className="mr5" type="exclamation-circle-o"/>
+            <span>快速下单技巧：点击深度的价格或数量</span>
+          </div>
+        </div>
       }
       
     </div>
