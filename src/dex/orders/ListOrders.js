@@ -28,6 +28,7 @@ async function fetchOrders(page) {
   }
   filter.delegateAddress = config.getDelegateAddress();
   filter.owner = storage.wallet.getUnlockedAddress();
+  console.log(1, filter)
   return window.RELAY.order.getOrders(filter).then(res=> {
     if (!res.error && res.result.data) {
       return {
@@ -205,10 +206,11 @@ export class PullRefreshOrders extends React.Component {
           </Spin>
         </PullToRefresh>
         <div className="p5">
-          <Pagination className="fs14 s-small" total={this.state.data.items.length} current={this.state.data.page.current} onChange={(page)=>{
+          <Pagination className="fs14 s-small" total={Math.ceil(this.state.data.page.total/this.state.data.page.size)} current={this.state.data.page.current} onChange={(page)=>{
             this.setState({ refreshing: true });
             fetchOrders({
-              current:page
+              current:page,
+              size:10
             }).then(res=> {
               this.setState({ data: res, refreshing: false })
             })
