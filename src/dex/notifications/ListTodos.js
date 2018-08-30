@@ -98,7 +98,7 @@ const TodoItem = (props) => {
   const gotoDetail = () => {
     const approvingtx = lastApprovingTx(pendingTxs, item.symbol)
     if(approvingtx){
-      routeActions.gotoHref.bind(this, `https://etherscan.io/tx/${approvingtx.txHash}`)
+      routeActions.gotoHref(`https://etherscan.io/tx/${approvingtx.txHash}`)
     }else{
       Toast.info(intl.get('todo_list.no_detail'))
     }
