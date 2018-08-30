@@ -597,7 +597,7 @@ export default {
     selling: '出售数量',
     lack: '缺少数量',
     actions_enable: '授权',
-    status_enabling: '授权中...',
+    status_enabling: '授权中',
     actions_buy: words.buy,
     actions_receive: words.receive,
     no_detail:'暂时没有详情...'
