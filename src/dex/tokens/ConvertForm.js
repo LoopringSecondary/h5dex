@@ -134,22 +134,22 @@ class Convert extends React.Component {
     const fromToken = token
     const toToken = token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
     return (
-      <div className="bg-white">
-        <NavBar
-          className="zb-b-b"
-          mode="light"
-          onLeftClick={() => routeActions.goBack()}
-          leftContent={[
-            <span key='1' className=""><Icon type="left"/></span>,
-          ]}
-          rightContent={[
-            <Button size="small" onClick={swap} key='1' className="text-primary"><WebIcon type="swap"/></Button>,
-          ]}
-        >
-          {fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
-        </NavBar>
-        <div className="zb-b-b">
-          <div className="p15">
+      <div className="">
+        <div className="bg-white">
+          <NavBar
+            className="zb-b-b"
+            mode="light"
+            onLeftClick={() => routeActions.goBack()}
+            leftContent={[
+              <Icon type="left" key='1'/>,
+            ]}
+            rightContent={[
+              <Button size="small" onClick={swap} key='1' className="text-primary"><WebIcon type="swap"/></Button>,
+            ]}
+          >
+            {fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
+          </NavBar>
+          <div className="p15 ">
             <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center" style={{}}>
               <div className="col text-right no-border am-list-bg-none">
                 <List  className="selectable">
@@ -162,17 +162,17 @@ class Convert extends React.Component {
                     className="circle h-default"
                   >
                   </InputItem>
-                  <InputItem
-                    type="money"
-                    disabled
-                    extra={<div onClick={setGas} className="fs14 color-black-3">
+                  <List.Item  
+                    className="circle h-default mt15"
+                    arrow={false}
+                    onClick={setGas}
+                    extra={<div className="fs14 color-black-3">
                       <Worth amount={gasFee} symbol='ETh'/> ≈ {tf.toPricisionFixed(toNumber(gasFee))} ETH
                       <WebIcon hidden className="ml5 text-primary" type="right"/>
                     </div>}
-                    className="circle h-default mt15"
                   >
                     <div className="fs13 color-black-3">{intl.get('common.gas')}</div>
-                  </InputItem>
+                  </List.Item>
                 </List>
               </div>
             </div>
@@ -184,11 +184,9 @@ class Convert extends React.Component {
               </div>
             </Button>
           </div>
-          <div className="bg-grey-100 mt15">
-            <div className="divider zb-b-b 1px"></div>
-            <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance,balance2:other_assets.balance}} gasFee={gasFee}/>
         </div>
-        </div>
+        <div className="divider zb-b-b 1px"></div>
+        <ConvertHelperOfBalance dispatch={dispatch} token={{symbol:token,balance:assets.balance,balance2:other_assets.balance}} gasFee={gasFee}/>
       </div>
     )
   }

@@ -177,7 +177,8 @@ export default {
     total: words.total,
     LRCFee: words.lrc_fee,
     marginSplit: words.margin_split,
-    filled: '成交/总量',
+    filled: '成交',
+    filled_total: '成交/总量',
     validSince: '订单生效时间',
     validUntil: '订单失效时间',
     status: words.status,
@@ -569,7 +570,8 @@ export default {
     send: '转账',
     tab_title: '我',
     my_assets: '我的资产',
-    my_orders: '我的订单'
+    my_orders: '我的订单',
+    my_fills: '我的成交',
   },
   kline_chart: {
     kline_chart: 'K线图',
