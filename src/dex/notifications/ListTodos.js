@@ -119,11 +119,11 @@ const TodoItem = (props) => {
         </div>
         <div className="col-auto">
           <div>
-            {!loading && <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+            {!loading() && <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
                                  onClick={enable}>
               {intl.get('todo_list.actions_enable')}
             </Button>}
-            {loading && <Button inline={true}  style={{width: '80px'}} type="primary" size="small" className=""
+            {loading() && <Button inline={true}  style={{width: '80px'}} type="primary" size="small" className=""
                                 onClick={gotoDetail}>
               {intl.get('todo_list.status_enabling')}
             </Button>}
@@ -149,7 +149,7 @@ const TodoItem = (props) => {
           <div>
             <Button disabled={false} inline={true} type="primary" size="small" className=""
                     onClick={routeActions.gotoHref.bind(this, `https://etherscan.io/tx/${item.txHash}`)}>
-              {item.symbol.toUpperCase() === 'ETH' ? intl.get('todo_list.status_converting_eth') : intl.get('todo_list.status_converting_weth')}
+              {intl.get('todo_list.status_converting')}
             </Button>
           </div>
         </div>
