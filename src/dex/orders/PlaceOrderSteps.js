@@ -181,7 +181,7 @@ function PlaceOrderSteps(props) {
     }
   }
   return (
-    <div className="">
+    <div className="bg-white">
         <Pages active="order">
           <Page id="order" render={({page})=>
             <div>
@@ -229,17 +229,13 @@ function PlaceOrderSteps(props) {
                 <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
                 <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1, null, false)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
                 <OrderMetaItem showArrow={true} onClick={()=>showTTL()} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
-              </div>
-              <div>
-                <div className="pt10 pb10 clor-black-3 fs12 zb-b-t">
+                <div className="divider 1px zb-b-t"></div>
+                <div className="pt15 pb15 clor-black-3 fs12">
                   <Icon className="mr5" type="exclamation-circle-o" />{intl.get('place_order_confirm.no_cost_gas')}
                 </div>
-                {
-                  false &&
-                  <Button type="primary" className="" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
-                }
-                <div className="bg-primary color-white fs16" style={{lineHeight:'44px',height:'44px'}} onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</div>
+                <Button type="primary" className="fs18" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
               </div>
+              
             </div>
           }/>
           <Page id="wallet" render={({page})=>
