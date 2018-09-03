@@ -1,6 +1,5 @@
-@fill-body: #33333d;
 .bg-white{
-  background:#27282f !important;
+  background:@bg-white !important;
 }
 .bg-grey-500{
   background:rgba(0,0,0,0.18) !important;
@@ -37,7 +36,6 @@
 .am-tabs-default-bar-tab-active{
 	color: @brand-primary !important;
 }
-
 .am-tabs-default-bar-nextpage{
 	display: none !important;
 	background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0,0,0,0.6)) !important;
@@ -65,6 +63,7 @@
 	&.circle{
 		border-color:transparent !important;
 		background: rgba(0,0,0,0.12) !important;
+		background: @fill-body !important;
 	}
 }
 .am-list-item.circle:last-child{
