@@ -56,9 +56,9 @@ function HelperOfGas(props) {
     })
   }
   return (
-    <div className="">
+    <div className="bg-white">
       <NavBar
-        className="zb-b-b"
+        className="zb-b-b bg-white"
         mode="light"
         onLeftClick={()=>hideLayer({id:'helperOfGas'})}
         leftContent={[
@@ -68,8 +68,9 @@ function HelperOfGas(props) {
           <WebIcon key="1" type="question-circle-o"/>,
         ]}
       >
-        {intl.get('gas_setting.title')}
+        <div className="color-black">{intl.get('gas_setting.title')}</div>
       </NavBar>
+      <div className="divider 1px zb-b-t"></div>
       <div className="bg-white">
         <div className="row p15 ml0 mr0 zb-b-b">
           <div className="col color-black-1 text-left pl25" onClick={tabChanged.bind(this, 'estimate')}>

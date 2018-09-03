@@ -147,7 +147,7 @@ class Convert extends React.Component {
               <Button size="small" onClick={swap} key='1' className="text-primary"><WebIcon type="swap"/></Button>,
             ]}
           >
-            {fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
+            <div className="color-black">{fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}</div>
           </NavBar>
           <div className="p15 ">
             <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center" style={{}}>

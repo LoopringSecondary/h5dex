@@ -16,7 +16,7 @@ import DetailFills from './DetailFills'
 const OrderMetaItem = (props) => {
   const {label, value} = props
   return (
-    <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters align-items-center bg-grey-100" style={{padding:'7px 0px'}}>
+    <div className="row ml0 mr0 pt10 pb10 pl15 pr15 zb-b-b no-gutters align-items-center" style={{padding:'7px 0px'}}>
       <div className="col">
         <div className="fs14 color-black-1 text-left">{label}</div>
       </div>
@@ -82,6 +82,7 @@ function OrderDetail(props) {
             initialPage={0}
       >
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
+          <div className="divider 1px zb-b-t"></div>
           <div className="">
             { false &&
             <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
@@ -121,6 +122,7 @@ function OrderDetail(props) {
           </div>
         </div>
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
+          <div className="divider 1px zb-b-t"></div>
           <DetailFills order={order}/>
         </div>
       </Tabs>

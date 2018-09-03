@@ -44,7 +44,7 @@ export default class Fills extends React.Component {
   render(){
     const {fills,loading,pageSize,pageIndex,total} = this.state;
     return(
-      <div className="bg-grey-100" style={{minHeight:'50vh'}}>
+      <div className="" style={{minHeight:'50vh'}}>
         <Spin spinning={loading} >
           <table className="w-100 fs13">
             <thead hidden>
