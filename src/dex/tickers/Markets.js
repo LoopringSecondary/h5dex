@@ -30,7 +30,9 @@ class Markets extends React.Component {
           >
             <div className="color-black">{intl.get('common.markets')}</div>
           </NavBar>
-          <div className="divider 1px zb-b-t"></div>
+          <div className="bg-white">
+            <div className="divider 1px zb-b-t "></div>
+          </div>
           <ListMarketTickers />
           <div className="pb50"></div>
           <div className="pb15"></div>

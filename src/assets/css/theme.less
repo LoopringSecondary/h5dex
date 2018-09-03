@@ -2,6 +2,9 @@
 .bg-white{
   background:#27282f !important;
 }
+.bg-grey-500{
+  background:rgba(0,0,0,0.18) !important;
+}
 .am-tabs-default-bar{
   &:extend(.bg-white);
 }
@@ -22,9 +25,8 @@
 }
 .zb-b-t,.zb-b-b,.zb-b-tb,.zb-b-l,.zb-b-r{
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)));
+  // border:1px solid rgba(255,255,255,0.05) !important;
 }
-
-
 
 .am-tabs-default-bar-tab::after{
 	background: transparent !important;
@@ -61,7 +63,8 @@
 .am-list-item{
 	background: transparent !important;
 	&.circle{
-		border-color:rgba(255,255,255,0.05);
+		border-color:transparent !important;
+		background: rgba(0,0,0,0.12) !important;
 	}
 }
 .am-list-item .am-input-control .fake-input-container .fake-input {

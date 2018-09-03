@@ -81,7 +81,7 @@ class PlaceOrderPage extends React.Component {
               {pair}<i className="ml5 icon-chevron-down"></i>
             </div>
           </NavBar>
-          <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'0px'}}>
+          <div className="no-underline tabs-no-border h-50 place-order-form bg-white" style={{marginTop:'0px'}}>
             <div className="divider 1px zb-b-t"></div>
             <PlaceOrderForm showLayer={showLayer} />
           </div>

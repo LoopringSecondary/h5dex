@@ -43,12 +43,9 @@ class UserCenter extends React.Component {
               {getShortAddress(storage.wallet.getUnlockedAddress())}
             </div>
           </NavBar>
-          <div hidden className="pt25 pb25 text-left bg-white">
-              <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
-                {getShortAddress(storage.wallet.getUnlockedAddress())}
-              </div>
+          <div className="bg-white">
+            <div className="divider 1px zb-b-t "></div>
           </div>
-          <div className="divider 1px"></div>
           <div className="height-auto tabs-no-border">
             <Tabs
               tabs={

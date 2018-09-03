@@ -127,7 +127,7 @@ class MarketDetail extends React.Component {
         >
           <div className="color-black">{market}</div>
         </NavBar>
-        <div className="divider 1px zb-b-t"></div>
+        <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
         <TickerItem />
         <div className="no-underline">
           <Tabs

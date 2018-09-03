@@ -32,7 +32,7 @@ function HelperOfMarket(props) {
       >
         <div className="color-black">Market</div>
       </NavBar>
-      <div className="divider 1px zb-b-t"></div>
+      <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
       <ListPlaceOrderTickers />
     </div>
   )
