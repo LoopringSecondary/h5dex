@@ -28,7 +28,7 @@ export const TickerHeader = ({sort,dispatch})=>{
   }
   return (
     <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-      <div className="col-4 fs13 color-black-4 text-left" onClick={sortByType.bind(this, 'market')}>
+      <div className="col-5 fs13 color-black-4 text-left" onClick={sortByType.bind(this, 'market')}>
         {intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
       </div>
       <div className="col text-left pr10">
@@ -69,22 +69,22 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
     }
     return (
       <div className="row ml0 mr0 p10 align-items-center no-gutters hover-default zb-b-b" onClick={gotoDetail}>
-        <div className="col-auto pr10 fs16" onClick={toggleTickerFavored.bind(this, item.market)}>
-          {
-            favored[item.market] &&
-            <Icon type="star" className="text-primary"/>
-          }
-          {
-            !favored[item.market] &&
-            <Icon type="star-o" className="color-black-4"/>
-          }
-        </div>
-        <div className="col-4 text-left">
-          <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
-          <span className="fs14 color-black-4"> / {tokens.right}</span>
+        <div className="col-5 text-left">
+          <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
+          <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs14 color-black-4"> / {tokens.right}</span>
           <br/>
-          <span className="fs14 color-black-4">
-            <span className="">Vol {tickerFm.getVol()}</span>
+          <span onClick={toggleTickerFavored.bind(this, item.market)} className="fs14 color-black-4">
+            <span className="fs14" >
+              {
+                favored[item.market] &&
+                <Icon type="star" className="text-primary"/>
+              }
+              {
+                !favored[item.market] &&
+                <Icon type="star-o" className=""/>
+              }
+              <span className="ml5">Vol {tickerFm.getVol()}</span>
+            </span>
           </span>
         </div>
         <div className="col text-left pr10">
