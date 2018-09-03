@@ -1,7 +1,6 @@
 # About
 
-## Development 
-
+[![Build Status](https://travis-ci.com/Loopring/h5dex.svg?branch=master)](https://travis-ci.com/Loopring/h5dex)
 ### Stack
 
 - React
