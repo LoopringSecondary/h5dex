@@ -3,7 +3,7 @@
   background:#27282f !important;
 }
 .am-tabs-default-bar{
-  background: #27282f !important;
+  &:extend(.bg-white);
 }
 .color-black{
   color:#fff !important;
@@ -24,11 +24,13 @@
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)));
 }
 
+
+
 .am-tabs-default-bar-tab::after{
 	background: transparent !important;
 }
 .am-tabs-default-bar-tab{
-	color:rgba(255,255,255,0.7) !important;
+	&:extend(.color-black-3);
 }
 .am-tabs-default-bar-tab-active{
 	color: @brand-primary !important;
@@ -52,5 +54,15 @@
 }
 .am-tab-bar-bar::before{
 	display: none !important;
+}
+
+.am-list-item{
+	background: transparent !important;
+	&.circle{
+		border-color:rgba(255,255,255,0.05);
+	}
+}
+.am-list-item .am-input-control .fake-input-container .fake-input {
+	&:extend(.color-black-1);
 }
 

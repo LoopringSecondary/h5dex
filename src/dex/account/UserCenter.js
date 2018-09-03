@@ -29,7 +29,7 @@ class UserCenter extends React.Component {
       <LayoutDexHome {...this.props}>
         <div className="0">
           <NavBar
-              className=""
+              className="bg-white"
               mode="light"
               leftContent={null && [
                 <span className="" key="1"><WebIcon type="home" /></span>,
@@ -38,7 +38,7 @@ class UserCenter extends React.Component {
                 <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
               ]}
           >
-            <div className="text-center">
+            <div className="text-center color-black">
               {false && intl.get('usercenter.page_title')}
               {getShortAddress(storage.wallet.getUnlockedAddress())}
             </div>
@@ -53,8 +53,8 @@ class UserCenter extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_assets')}</div> },
-                  { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_orders')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : ''}`}>{intl.get('user_center.my_assets')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : ''}`}>{intl.get('user_center.my_orders')}</div> },
                   // { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_fills')}</div> },
                 ]
               }
