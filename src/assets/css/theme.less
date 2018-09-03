@@ -5,8 +5,11 @@
 .am-tabs-default-bar{
   background: #27282f !important;
 }
-.color-black-1{
+.color-black{
   color:#fff !important;
+}
+.color-black-1{
+  color:rgba(255,255,255,0.9) !important;
 }
 .color-black-2{
   color:rgba(255,255,255,0.7) !important;
@@ -24,10 +27,30 @@
 .am-tabs-default-bar-tab::after{
 	background: transparent !important;
 }
-
 .am-tabs-default-bar-tab{
 	color:rgba(255,255,255,0.7) !important;
-}.am-tabs-default-bar-tab-active{
+}
+.am-tabs-default-bar-tab-active{
 	color: @brand-primary !important;
+}
+
+.am-tabs-default-bar-nextpage{
+	background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0,0,0,0.6)) !important;
+}
+.am-tabs-default-bar-prevpage{
+	background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0,0,0,0)) !important;
+}
+
+.am-tab-bar-bar {
+	&:extend(.bg-white);
+	.am-tab-bar-tab-title{
+		&:extend(.color-black-3);
+	}
+	.am-tab-bar-tab-icon{
+		&:extend(.color-black-3);
+	}
+}
+.am-tab-bar-bar::before{
+	display: none !important;
 }
 

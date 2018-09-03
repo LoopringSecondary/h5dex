@@ -114,7 +114,7 @@ class MarketDetail extends React.Component {
     return (
       <div className="">
         <NavBar
-          className=""
+          className="bg-white"
           mode="light"
           icon={null && <Icon type="left" />}
           onLeftClick={() => console.log('onLeftClick')}
@@ -125,7 +125,7 @@ class MarketDetail extends React.Component {
             <WebIcon className="fs18" key="1" type={favored[market] ? "star" : "star-o"} onClick={toggleTickerFavored.bind(this, market)}/>
           ]}
         >
-          {market}
+          <div className="color-black">{market}</div>
         </NavBar>
         <div className="divider 1px zb-b-t"></div>
         <TickerItem />
