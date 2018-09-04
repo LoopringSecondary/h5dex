@@ -25,23 +25,14 @@ const UnLogged = ()=>{
   }
 }
 const Logged = ()=>{
-  const isLogged =  !!storage.wallet.getUnlockedAddress()
+  // const isLogged =  !!storage.wallet.getUnlockedAddress()
+  const isLogged =  true
   if(isLogged){
     return (
       <div>
         <Switch>
-          <Route path={`/dex/markets`} exact component={Markets} />
-          <Route path={`/dex/markets/search/:type`} exact component={MarketsSearch} />
-          <Route path={`/dex/markets/:market`} component={MarketDetail} />
-          <Route path={`/dex/placeOrder`} exact component={PlaceOrder} />
-          <Route path={`/dex/placeOrder/:market`} exact component={PlaceOrder} />
-          <Route path={`/dex/usercenter`} component={UserCenter} />
-          <Route path={`/dex/convert/:token`} component={Convert} />
-          <Route path={`/dex/notifications`} component={Notifications} />
-          <Route path={`/dex/todos`} exact component={ListTodos} />
-          <Route path={`/dex/messages`} exact component={Pages.Todo} />
-          <Route path={`/dex/settings`} exact component={Pages.Todo} />
-          <Redirect from="/dex" to="/dex/markets" />
+          <Route path={`/pc/trade/:market`} component={Pages.Home} />
+          <Redirect from="/pc" to="/pc/trade" />
         </Switch>
         <CommonModals />
         <Orders.Modals />
@@ -60,7 +51,7 @@ export default class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path={`/dex`}  component={Logged} />
+        <Route path={`/pc`}  component={Logged} />
       </Switch>
     );
   }

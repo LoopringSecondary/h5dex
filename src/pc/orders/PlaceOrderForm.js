@@ -188,7 +188,7 @@ const PlaceOrderForm = (props)=>{
   const menu2 = `${intl.get("common.sell")} ${tokens.left}`
   return (
     <div>
-      <div className="bg-white p10">
+      <div className="bg-white p15">
         <div className="segmented-fs16 mb10">
           <SegmentedControl
             values={[menu1, menu2]}
@@ -227,11 +227,26 @@ const PlaceOrderForm = (props)=>{
             className="circle h-default mt10"
             extra={
               <div style={{width:'auto',textAlign:'right'}}>
+                <WebIcon className="text-primary mr10" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
                 <span className="mr5 color-black-3">{tokens.left}</span>
-                <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
               </div>
             }
           ><div className="fs14 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
+          <InputItem
+            type="money"
+            placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
+            value={amount ? amount : null}
+            clear={false}
+            onChange={amountChange}
+            moneyKeyboardAlign="left"
+            moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+            className="circle h-default mt10"
+            extra={
+              <div style={{width:'auto',textAlign:'right'}}>
+                <span className="mr5 color-black-3">{tokens.right}</span>
+              </div>
+            }
+          ><div className="fs14 color-black-3 pr5">{intl.get("common.total")}</div></InputItem>
           <Affix>
             {
               side === 'sell' &&

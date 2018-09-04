@@ -110,17 +110,24 @@ class ListPlaceOrderTickers extends React.Component {
         <div className="selectable">
             <NavBar
               mode="light"
+              className="bg-white"
               leftContent={[
                 <WebIcon style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'left'}} onClick={()=>routeActions.goBack()} key="1" type="left" />,
               ]}
             >
-              搜索
+              <div className="color-black">搜索</div>
             </NavBar>
+            <div className="bt-white">
+              <div className="divider 1px zb-b-t"></div>
+            </div>
             <SearchBar
               placeholder="Search"
               onChange={search}
+              className="bg-white"
             />
-            <div className="divider 1px zb-b-t"></div>
+            <div className="bt-white">
+              <div className="divider 1px zb-b-t"></div>
+            </div>
             {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} from={from}/>}
         </div>
       )

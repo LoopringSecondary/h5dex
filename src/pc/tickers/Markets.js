@@ -5,7 +5,7 @@ import ListMarketTickers from './ListMarketTickers';
 import { NavBar,Icon } from 'antd-mobile';
 import { Icon as WebIcon } from 'antd';
 import routeActions from 'common/utils/routeActions'
-import LayoutDexHome from '../../layout/LayoutDexHome'
+import LayoutPCDEX from '../../layout/LayoutPCDEX'
 import {connect} from 'dva'
 
 class Markets extends React.Component {
@@ -14,7 +14,7 @@ class Markets extends React.Component {
       routeActions.gotoPath('/dex/markets/search/fromMarkets')
     }
     return (
-      <LayoutDexHome {...this.props}>
+      <LayoutPCDEX {...this.props}>
         <div className=""  style={{height:'100%'}}>
           <div style={{height:'45px'}}></div>
           <NavBar
@@ -37,7 +37,7 @@ class Markets extends React.Component {
           <div className="pb50"></div>
           <div className="pb15"></div>
         </div>
-      </LayoutDexHome>
+      </LayoutPCDEX>
     )
   }
 }

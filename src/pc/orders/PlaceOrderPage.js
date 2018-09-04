@@ -3,7 +3,7 @@ import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,Segmen
 import { Icon as WebIcon,Switch as WebSwitch} from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import LayoutDexHome from '../../layout/LayoutDexHome'
+import LayoutPCDEX from '../../layout/LayoutPCDEX'
 import {getTokensByMarket} from 'modules/formatter/common'
 import HelperOfMyMarketOrders from './HelperOfMyMarketOrders'
 import HelperOfMyMarketFills from './HelperOfMyMarketFills'
@@ -65,7 +65,7 @@ class PlaceOrderPage extends React.Component {
     }
 
     return (
-      <LayoutDexHome {...this.props}>
+      <LayoutPCDEX {...this.props}>
         <div className="">
           <NavBar
             className="bg-white"
@@ -89,7 +89,6 @@ class PlaceOrderPage extends React.Component {
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.depth')}</div></div>, tab:'depth' },
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.orders')}</div></div>, tab:'orders' },
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.assets')}</div></div>, tab:'assets' },
                   { title: <div className="am-tabs-item-bak-wrapper"><div className="fs16 am-tabs-item-bak">{intl.get('place_order.help')}</div></div>, tab:'help' },
@@ -100,9 +99,6 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => tabChange(tab.tab)}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div className="">
-                <HelperOfDepth />
-              </div>
               <div className="">
                 <HelperOfMyMarketOrders />
               </div>
@@ -117,7 +113,7 @@ class PlaceOrderPage extends React.Component {
         </div>
         <div className="pb50"></div>
         <div className="pb20"></div>
-      </LayoutDexHome>
+      </LayoutPCDEX>
     );
   }
 }
