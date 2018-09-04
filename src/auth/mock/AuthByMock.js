@@ -46,7 +46,7 @@ class AuthByImtoken extends React.Component {
     return (
       <div>
         <NavBar
-          className=""
+          className="bg-white"
           mode="light"
           leftContent={null &&[
             <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
@@ -55,7 +55,7 @@ class AuthByImtoken extends React.Component {
             <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
           ]}
         >
-          <div>
+          <div className="color-black">
             Auth By Mock
           </div>
         </NavBar>
