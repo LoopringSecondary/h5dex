@@ -111,6 +111,7 @@ export function formatAmountByMarket(amount, tokenConfig, marketConfig) {
 
 export function calculateWorthInLegalCurrency(marketcapItems, symbol, amount) {
   const price = getPriceBySymbol({prices:marketcapItems, symbol})
+  console.log('amount:' + amount)
   return fm.toBig(amount).times(price.price)
 }
 
@@ -393,4 +394,15 @@ async function generateSignData({tradeInfo, order, completeOrder, address}) {
     console.log('    unsigned:', unsigned)
   }
   return unsigned
+}
+
+export function getMarketPrice(items, token, mToken) {
+
+  const tPrice = items.find(item => item.symbol.toUpperCase() === token.toUpperCase());
+  const mtPrice = items.find(item => item.symbol.toUpperCase() === mToken.toUpperCase());
+  const market = config.getMarketBySymbol(token, mToken)
+  if (tPrice && mtPrice) {
+    return fm.toNumber(fm.toFixed(tPrice.price / mtPrice.price,market && market.pricePrecision && 6))
+  }
+  return 0
 }

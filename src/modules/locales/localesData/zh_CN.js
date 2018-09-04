@@ -46,6 +46,7 @@ const words = {
   format_amount: '{amount,number}',
   back: '返回',
   cancel: '取消',
+  ok:" 确定",
   previous_page: '前一页',
   next_page: '后一页',
   import: '导入',
@@ -66,7 +67,6 @@ const words = {
   set: '设置',
   helper: '助手',
   depth: '深度',
-  Help: '帮助',
   list: {
     no_data: '暂无数据',
     no_data_custom: '暂无{title}',
@@ -110,9 +110,12 @@ const notifications = {
     convert_suc: '转换成功',
     convert_fail: '转换失败',
     enable_suc: '授权成功',
-    enable_fail: '授权失败'
+    enable_fail: '授权失败',
+    place_order_price_confirm:'您确定要继续下单吗?',
   },
   message: {
+    place_order_price_high:"您当前的价格高于市场价20%",
+    place_order_price_low:"您当前的价格低于市场价20%",
     wallet_locked: '您的钱包还未解锁，请先解锁后再继续操作',
     failed_fetch_data_from_server: '从服务器获取数据失败, 请稍后在尝试',
     eth_is_required_when_place_order: '由于需要支付ETH油费, 根据您当前订单需要发送的以太坊交易计算，还需要 {required} ETH',
