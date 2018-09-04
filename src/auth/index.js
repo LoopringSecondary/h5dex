@@ -10,7 +10,7 @@ class Auth extends React.Component {
     return (
       <div>
         <NavBar
-          className=""
+          className="bg-white"
           mode="light"
         >
           <div>

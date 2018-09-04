@@ -31,6 +31,9 @@ export const TickerHeader = ({sort,dispatch})=>{
       <div className="col-4 fs13 color-black-4 text-left" onClick={sortByType.bind(this, 'market')}>
         {intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
       </div>
+      <div className="col-auto pr10 fs16">
+        <Icon type="star" className="color-black-4" style={{opacity:0}}/>
+      </div>
       <div className="col text-left pr10">
         <div className="fs13 color-black-4 " onClick={sortByType.bind(this, 'price')}>
           {intl.get('common.price')}{sort.sortBy === 'price' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
