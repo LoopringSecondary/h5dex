@@ -248,7 +248,7 @@ class PlaceOrderForm extends React.Component {
               className="circle h-default"
               extra={
                 <div style={{width:'auto',textAlign:'right'}}>
-                  <span className="mr10 color-black-3"><Worth amount={price} symbol={tokens.right}/></span>
+                  <span className="mr10 color-black-4"><Worth amount={price} symbol={tokens.right}/></span>
                   <span className="color-black-3">{tokens.right}</span>
                   <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
                 </div>
@@ -266,8 +266,9 @@ class PlaceOrderForm extends React.Component {
               className="circle h-default mt10"
               extra={
                 <div style={{width:'auto',textAlign:'right'}}>
-                  <span className="mr5 color-black-3">{tokens.left}</span>
-                  <WebIcon className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+                  <WebIcon className="text-primary mr10" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
+                  <span className="color-black-3">{tokens.left}</span>
+                  
                 </div>
               }
             ><div className="fs14 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>

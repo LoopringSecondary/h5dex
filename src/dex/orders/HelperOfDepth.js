@@ -56,19 +56,17 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
                         </tr>
                       )
                     }
-                    {
-                      depth.item && depth.item.buy && depth.item.buy.length === 0 &&
-                        <tr>
-                          <td colSpan="10" className="p10 zb-b-b text-center align-top color-black-4 fs12">
-                            {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
-                          </td>
-                        </tr>
-                    }
                 </tbody>
               </table>
+              {
+                depth.item && depth.item.buy && depth.item.buy.length === 0 &&
+                  <div className="p10 zb-b-b text-center align-top color-black-4 fs12">
+                    {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
+                  </div>
+              }
           </div>
           <div className="col-6">
-              <table className="w-100 fs13 zb-b-l">
+              <table className="w-100 fs13 zb-b-r">
                 <thead>
                   <tr className="">
                     <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.sell")}</th>
@@ -89,16 +87,14 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
                           </tr>
                         )
                       }
-                      {
-                        depth.item && depth.item.sell && depth.item.sell.length === 0 &&
-                          <tr className="">
-                            <td colSpan="10" className="p10 zb-b-b text-center align-top color-black-4 fs12">
-                              {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
-                            </td>
-                          </tr>
-                      }
                   </tbody>
               </table>
+              {
+                depth.item && depth.item.sell && depth.item.sell.length === 0 &&
+                <div colSpan="10" className="p10 zb-b-b text-center align-top color-black-4 fs12">
+                  {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
+                </div>
+              }
           </div>
         </div>
       </Spin>
