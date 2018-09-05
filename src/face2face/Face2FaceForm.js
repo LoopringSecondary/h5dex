@@ -64,39 +64,39 @@ class Face2FaceForm extends React.Component {
     const price = p2pOrder.amountB && p2pOrder.amountB.gt(0) && p2pOrder.amountS && p2pOrder.amountS.gt(0) ? toFixed(p2pOrder.amountB.div(p2pOrder.amountS), 8) : toBig(0)
     return (
       <div className="">
-        <div className="zb-b-b pt25 pb25 pl15 pr15">
+        <div className="pt25 pb15 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-EOS fs24`}/>
+              <div className="d-inline-block color-black-1 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
+                <i className={`icon-token-EOS fs24`}/>
               </div>
             </div>
-            <div className="col-auto text-center" style={{width:'30px'}}>
-              <WebIcon type="arrow-right" className={`color-black-1 fs20`} />
+            <div className="col-auto text-center" style={{width:'15px'}}>
+              <WebIcon type="arrow-right" className={`color-black-3 fs16`} />
             </div>
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center" style={{width:"40px",height:'40px',lineHeight:'38px',borderRadius:'50em',border:"1px solid #000"}}>
-                <i className={`icon-LRC fs24`}/>
+              <div className="d-inline-block color-black-1 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
+                <i className={`icon-token-LRC fs24`}/>
               </div>
             </div>
           </div>
-          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Button onClick={showLayer.bind(this,{id:'helperOfTokens', side:'sell'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+              <Button onClick={showLayer.bind(this,{id:'helperOfTokens', side:'sell'})} type="" className="bg-fill border-none fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
                 <span>Sell {p2pOrder.tokenS}</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
-            <div className="col-auto text-center" style={{width:'30px'}}>
+            <div className="col-auto text-center" style={{width:'15px'}}>
             </div>
             <div className="col text-center">
-              <Button onClick={showLayer.bind(this,{id:'helperOfTokens', side:'buy'})} type="ghost" className="fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
+              <Button onClick={showLayer.bind(this,{id:'helperOfTokens', side:'buy'})} type="" className="bg-fill border-none fs16 color-black-2 d-flex justify-content-between align-items-center pl15 pr15" style={{height:'40px',lineHeight:'40px'}}>
                 <span>Buy {p2pOrder.tokenB}</span> <WebIcon className="color-black-3" type="down"/>
               </Button>
             </div>
           </div>
-          <div className="row ml0 mr0 mt20 no-gutters align-items-center justify-content-center">
+          <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Input type="text" onChange={amountChange.bind(this, 'sell')}/>
+              <Input className="bg-fill circle border-none" style={{lineHeight:'40px',height:'40px'}} type="text" onChange={amountChange.bind(this, 'sell')}/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -105,10 +105,10 @@ class Face2FaceForm extends React.Component {
                 </div>
               }
             </div>
-            <div className="col-auto text-center" style={{width:'30px'}}>
+            <div className="col-auto text-center" style={{width:'15px'}}>
             </div>
             <div className="col text-center">
-              <Input type="text" onChange={amountChange.bind(this, 'buy')}/>
+              <Input className="bg-fill circle border-none" style={{lineHeight:'40px',height:'40px'}} type="text" onChange={amountChange.bind(this, 'buy')}/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -118,7 +118,7 @@ class Face2FaceForm extends React.Component {
               }
             </div>
           </div>
-          <div className="row ml0 mr0 pt15 pb15 no-gutters">
+          <div hidden className="row ml0 mr0 pt15 pb15 no-gutters">
             <div className="col">
               <div className="color-black-2 fs14">Exchage Price</div>
             </div>
@@ -126,7 +126,7 @@ class Face2FaceForm extends React.Component {
               {`${price.toString(10)} ${p2pOrder.tokenS}/${p2pOrder.tokenB}`}
             </div>
           </div>
-          <Button className="" onClick={submitOrder} type="primary">{`Exchange ${p2pOrder.tokenS} To ${p2pOrder.tokenB}`}</Button>
+          <Button className="mt15" onClick={submitOrder} type="primary">{`Exchange ${p2pOrder.tokenS} To ${p2pOrder.tokenB}`}</Button>
         </div>
       </div>
     );

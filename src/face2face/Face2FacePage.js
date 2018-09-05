@@ -52,26 +52,26 @@ class Face2FacePage extends React.Component {
       routeActions.gotoPath(`/dex/markets/${pair}`)
     }
     return (
-        <div className="bg-grey-100">
+        <div className="">
           <NavBar
-            className=""
+            className="bg-white"
             mode="light"
-            leftContent={[
+            leftContent={null && [
               <span onClick={routeActions.goBack} className="color-black-1" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
-              <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
+              <span className="text-primary" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
             ]}
           >
-            <div>
+            <div className="color-black">
               Face To Face
             </div>
           </NavBar>
-          <div className="divider 1px zb-b-t"></div>
+          <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
           <div className="bg-white">
             <Face2FaceForm side="sell" showLayer={showLayer} />
           </div>
-          <div className="divider 1px zb-b-t"></div>
+          <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
           <div className="no-underline tabs-no-border">
             <Tabs
               tabs={
