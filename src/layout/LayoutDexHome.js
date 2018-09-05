@@ -63,10 +63,10 @@ class DexHomeLayout extends React.Component {
               }
               key="markets"
               icon={
-                <i className="icon-market fs22 color-primary-light-bak"></i>
+                <i className="icon-market color-primary-light-bak"></i>
               }
               selectedIcon={
-                <i className="icon-market fs22 text-primary"></i>
+                <i className="icon-market text-primary"></i>
               }
               selected={isActive('/dex/markets')}
               onPress={() => {
@@ -74,8 +74,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<i className="icon-trade-m fs22 color-primary-light-bak"/>}
-              selectedIcon={<i className="icon-trade-m fs22 text-primary"/>}
+              icon={<i className="icon-trade-m color-primary-light-bak"/>}
+              selectedIcon={<i className="icon-trade-m text-primary"/>}
               title={<span
                 className={isActive('/dex/placeOrder') ? 'text-primary' : ''}>{intl.get('common.trade')}</span>}
               key="placeOrder"
@@ -86,8 +86,8 @@ class DexHomeLayout extends React.Component {
             />
             <TabBar.Item
               badge={todos}
-              icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position: 'relative', top: '2px'}}/>}
-              selectedIcon={<i className="icon-bell fs22 text-primary" style={{position: 'relative', top: '2px'}}/>}
+              icon={<i className="icon-bell color-primary-light-bak" style={{position: 'relative', top: '2px'}}/>}
+              selectedIcon={<i className="icon-bell text-primary" style={{position: 'relative', top: '2px'}}/>}
               title={<span className={isActive('/dex/notifications') ? 'text-primary' : ''}
                            style={{position: 'relative', top: '0px'}}>
                             {false && intl.get('todos.tab_title')}
@@ -100,8 +100,8 @@ class DexHomeLayout extends React.Component {
               }}
             />
             <TabBar.Item
-              icon={<i className="icon-user fs22 color-primary-light-bak"/>}
-              selectedIcon={<i className="icon-user fs22 text-primary"/>}
+              icon={<i className="icon-user color-primary-light-bak"/>}
+              selectedIcon={<i className="icon-user text-primary"/>}
               title={
                 <span
                   className={isActive('/dex/usercenter') ? 'text-primary' : ''}>{intl.get('user_center.tab_title')}</span>
