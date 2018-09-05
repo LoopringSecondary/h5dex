@@ -1,7 +1,9 @@
 #Loopring H5dex 集成方法
 
 Loopring H5dex是一款基于react实现的h5版的去中心化交易所，深度集成了loopring协议，拥有完整的交易功能，同时支持查看资产，WETH与ETH互转。Loopring h5dex 针对IOS和Android的APP集成做了封装，方便第三方钱包方便的集成，同时我们提供IOS集成和Andorid集成的demo项目代码。
-loopring h5dex 第三方集成链接:https://h5dex.loopr.io/#/auth/tpwallet
+
+h5dex 第三方集成链接：<https://h5dex.loopr.io/#/auth/tpwallet>
+
 
 ## H5dex与App交互Api 接口
 1. device.getCurrentLanguage
@@ -38,4 +40,19 @@ loopring h5dex 第三方集成链接:https://h5dex.loopr.io/#/auth/tpwallet
   MainActivity
   TPWallet
   ```
+
+## h5dex 与App交互规范
+
+```js
+{
+	"method": "user.getCurrentAccount",
+	"data": null,
+	"callback":"callback_1535945947888_74da5fe44b03f5a"
+}
+```
+
+- method: H5Dex需要App注册的方法
+- data:H5Dex传给APP的对应方法需要的参数，无需参数则data为null
+- callback:APP回传结果给H5Dex需要回调的函数名称，回调结果的参数结构为json string
+  {error:{message:"",errorCode:001}} 或者{result：""}
 
