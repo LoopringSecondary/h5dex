@@ -14,7 +14,7 @@ const Clear = ()=>{
         Clear LocalStorage
       </Button>
       <div className="p15 color-black-3">
-        {JSON.stringify(localStorage)}
+        
       </div>
     </div>
   )
