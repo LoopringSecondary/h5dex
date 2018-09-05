@@ -67,7 +67,7 @@ class Face2FaceForm extends React.Component {
         <div className="pt25 pb15 pl15 pr15">
           <div className="row ml0 mr0 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
+              <div className="d-inline-block color-black-3 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
                 <i className={`icon-token-EOS fs24`}/>
               </div>
             </div>
@@ -75,7 +75,7 @@ class Face2FaceForm extends React.Component {
               <WebIcon type="arrow-right" className={`color-black-3 fs16`} />
             </div>
             <div className="col text-center">
-              <div className="d-inline-block color-black-1 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
+              <div className="d-inline-block color-black-3 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
                 <i className={`icon-token-LRC fs24`}/>
               </div>
             </div>
