@@ -1,12 +1,6 @@
 import React from 'react'
-import { connect } from 'dva'
-import { Button, NoticeBar } from 'antd-mobile'
-import { Switch, Icon as WebIcon } from 'antd'
-import routeActions from 'common/utils/routeActions'
-import { getTokensByMarket } from 'modules/formatter/common'
-import * as tokenFormatter from 'modules/tokens/TokenFm'
-import { FormatAmount } from 'modules/formatter/FormatNumber'
-import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
+import { Button } from 'antd-mobile'
+import { toBig, toFixed } from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal'
 
 const HelperOfBalance = (props) => {
