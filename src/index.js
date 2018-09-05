@@ -35,10 +35,7 @@ const app = dva({
   onError:(err, dispatch) => {message.error(err.message,3)}
 })
 window.onError= (msg,url,line)=>{message.error(`window.onError ${msg} ${url} ${line}`,null)}
-window.config = {}
-window.config.address = "0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00";
-window.config.host = host
-window.config.rpc_host = `${host}/rpc/v2`
+
 // 2. Plugins
 // app.use({})
 

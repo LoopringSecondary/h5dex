@@ -1,37 +1,35 @@
 import React from 'react'
-import { Switch, Redirect } from 'dva/router'
-import { message } from 'antd'
-import MockWallet from './MockWallet'
+import { Switch, Redirect,Route } from 'dva/router'
 import { Toast, Button } from 'antd-mobile'
 import routeActions from 'common/utils/routeActions'
 
+
+const Clear = ()=>{
+  const clear = () => {
+    localStorage.clear() 
+  }
+  return (
+    <div>
+      <Button className="m15" type="primary" onClick={clear}>
+        Clear LocalStorage
+      </Button>
+      <div className="p15 color-black-3">
+        {JSON.stringify(localStorage)}
+      </div>
+    </div>
+  )
+}
 export default class Routes extends React.Component {
-
-  componentDidMount () {
-    Toast.loading('Loading configs...', 0, () => {
-      Toast.success('Load complete !!!')
-    })
-    const {params} = this.props.match
-    if (params && params.pk) {
-      window.Wallet = new MockWallet(params.pk)
-      window.Wallet.setConfigs().then(res => {
-        Toast.hide()
-      })
-    } else {
-      message.warn('please provide with your private key')
-    }
+  constructor(props) {
+    super(props)
   }
-
-  goToDex = () => {
-    routeActions.gotoPath('/dex')
-  }
-
-  render () {
+  render() {
     return (
       <div>
-        <Button type="primary" onClick={this.goToDex}>进去DEX</Button>
+        <Switch>
+          <Route path={`/test/clear`} exact component={Clear} />
+        </Switch>
       </div>
     )
   }
-
 }
