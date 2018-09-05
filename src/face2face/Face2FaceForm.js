@@ -72,7 +72,7 @@ class Face2FaceForm extends React.Component {
               </div>
             </div>
             <div className="col-auto text-center" style={{width:'15px'}}>
-              <WebIcon type="arrow-right" className={`color-black-3 fs16`} />
+              <WebIcon hidden type="arrow-right" className={`color-black-3 fs16`} />
             </div>
             <div className="col text-center">
               <div className="d-inline-block color-black-3 text-center bg-fill" style={{width:"40px",height:'40px',lineHeight:'50px',borderRadius:'50em'}}>
@@ -96,7 +96,7 @@ class Face2FaceForm extends React.Component {
           </div>
           <div className="row ml0 mr0 mt15 no-gutters align-items-center justify-content-center">
             <div className="col text-center">
-              <Input className="bg-fill circle border-none" style={{lineHeight:'40px',height:'40px'}} type="text" onChange={amountChange.bind(this, 'sell')}/>
+              <Input className="bg-fill circle border-none color-black-1 pl15 fs16" defaultValue={"0.00"} style={{lineHeight:'40px',height:'40px'}} type="text" onChange={amountChange.bind(this, 'sell')}/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
@@ -108,7 +108,7 @@ class Face2FaceForm extends React.Component {
             <div className="col-auto text-center" style={{width:'15px'}}>
             </div>
             <div className="col text-center">
-              <Input className="bg-fill circle border-none" style={{lineHeight:'40px',height:'40px'}} type="text" onChange={amountChange.bind(this, 'buy')}/>
+              <Input className="bg-fill circle border-none color-black-1 pl15 fs16" defaultValue={"0.00"} style={{lineHeight:'40px',height:'40px'}} type="text" onChange={amountChange.bind(this, 'buy')}/>
               {
                 false &&
                 <div className="d-none fs14 color-black-3 mt5 text-left d-flex justify-content-between">
