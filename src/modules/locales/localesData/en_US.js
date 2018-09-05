@@ -409,7 +409,7 @@ export default {
     last: 'Last Price',
     high: '24H High',
     low: '24H Low',
-    vol: '24H Vol',
+    vol: '24H Volume',
   },
   ticker_list: {
     title_loopring_tickers: 'Loopring DEX Markets',

@@ -24,12 +24,12 @@ class AuthByImtoken extends React.Component {
     window.Wallet.setConfigs().then(res => {
       let language = 'en-US'
       let currency = 'USD'
-      if(window.Wallet.language.indexOf('zh') !== -1){
-        language = 'zh-CN'
-      }
-      if(window.Wallet.currency === 'CNY'){
-        currency = 'CNY'
-      }
+      // if(window.Wallet.language.indexOf('zh') !== -1){
+      //   language = 'zh-CN'
+      // }
+      // if(window.Wallet.currency === 'CNY'){
+      //   currency = 'CNY'
+      // }
       storage.wallet.storeUnlockedAddress("mock", window.Wallet.address)
       window.RELAY.account.register(window.Wallet.address)
       _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
