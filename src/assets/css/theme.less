@@ -1,3 +1,4 @@
+@color-text-placeholder:rgba(255,255,255,0.25) ;
 .bg-white{
   background:@bg-white !important;
 }
@@ -73,15 +74,55 @@
 .am-list-item.circle:last-child{
 	border-color:transparent !important;
 }
+.am-list .am-list-item.am-textarea-item::after{
+	display: none !important;
+}
 
 .am-list-item .am-input-control .fake-input-container .fake-input {
 	&:extend(.color-black-1);
 }
-.am-list-item .am-input-control input {
-	&:extend(.color-black-1);
+
+.am-list-item  {
+	input,textarea{
+		&:extend(.color-black-1);
+	}
+	input{
+	}
+	::-webkit-input-placeholder {  
+			font-size:1.6rem;
+			position: relative;
+			top:4px;
+	}
+	&.color-black-2{
+		input,textarea{
+			&:extend(.color-black-2);
+		}
+	}
+	&.color-black-3{
+		input,textarea{
+			&:extend(.color-black-3);
+		}
+	}
+
+	&.fs16{
+		input,textarea{
+			&:extend(.fs16);
+		}
+	}
+	&.fs14{
+		input,textarea{
+			&:extend(.fs14);
+			
+		}
+	}
+	&.fs13{
+		input,textarea{
+			&:extend(.fs13);
+		}
+	}
+
 }
+
 a:hover,a:active{
 	&:extend(.color-black-1);
 }
-
-
