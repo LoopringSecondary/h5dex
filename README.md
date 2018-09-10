@@ -19,7 +19,7 @@
 ## install  dependencies
 
 1. npm install
-2. cd common/loopringjs & npm install 
+
 
 ## run for develop with a https dev server
 
