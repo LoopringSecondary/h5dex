@@ -1,9 +1,9 @@
-import React from 'react';
-import {Button, Form, Icon, Input, Popover, Radio, Slider, Tabs} from 'antd'
+import React from 'react'
+import { Button, Form, Input, Popover, Radio, Slider, Tabs } from 'antd'
 import intl from 'react-intl-universal'
-import {calculateGas} from 'LoopringJS/common/utils'
-import {configs} from 'common/config/data'
-import {isValidInteger} from 'modules/orders/formatters'
+import { calculateGas } from 'LoopringJS/common/utils'
+import { configs } from 'common/config/data'
+import { isValidInteger } from 'modules/orders/formatters'
 import * as fm from 'LoopringJS/common/formatter'
 
 const GasFeeForm = (props) => {

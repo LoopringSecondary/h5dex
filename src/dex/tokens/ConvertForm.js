@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button, Icon, InputItem, List, NavBar, Toast, Popover } from 'antd-mobile'
-import { Icon as WebIcon, Input, InputNumber } from 'antd'
+import { Button, Icon, InputItem, List, NavBar, Toast } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import { toBig, toHex, toNumber } from '../../common/loopringjs/src/common/formatter'
-import Contracts from '../../common/loopringjs/src/ethereum/contracts/Contracts'
+import { toBig, toHex, toNumber } from 'LoopringJS/common/formatter'
+import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
 import TokenFormatter, { getBalanceBySymbol, isValidNumber } from '../../modules/tokens/TokenFm'
 import config from '../../common/config'
 import intl from 'react-intl-universal'
@@ -162,7 +162,7 @@ class Convert extends React.Component {
                     className="circle h-default"
                   >
                   </InputItem>
-                  <List.Item  
+                  <List.Item
                     className="circle h-default mt15"
                     arrow={false}
                     onClick={setGas}

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import { Modal,List,Button,NavBar,Icon} from 'antd-mobile';
+import {List,Button,NavBar,Icon} from 'antd-mobile';
 import intl from 'react-intl-universal';
 import config from '../../common/config'
 import routeActions from 'common/utils/routeActions'

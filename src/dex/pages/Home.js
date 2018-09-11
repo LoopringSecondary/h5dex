@@ -1,12 +1,12 @@
-import React from 'react';
-import {Link, Redirect, Route, Switch} from 'dva/router'
+import React from 'react'
+import {Redirect, Route, Switch } from 'dva/router'
 import routeActions from 'common/utils/routeActions'
-import intl from 'react-intl-universal';
-import { TabBar,NavBar,Icon } from 'antd-mobile';
-import { Icon as WebIcon } from 'antd';
-import UserCenter from '../account/UserCenter';
-import Markets from '../tickers/Markets';
-import PlaceOrder from '../orders/PlaceOrderForm';
+import intl from 'react-intl-universal'
+import { TabBar } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
+import UserCenter from '../account/UserCenter'
+import Markets from '../tickers/Markets'
+import PlaceOrder from '../orders/PlaceOrderForm'
 
 class Home extends React.Component {
   constructor(props) {
