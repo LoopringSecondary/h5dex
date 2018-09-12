@@ -27,11 +27,26 @@
 .color-black-4{
   color:rgba(255,255,255,0.25) !important;
 }
-.zb-b-t,.zb-b-b,.zb-b-tb,.zb-b-l,.zb-b-r{
-  background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)));
-  // border:1px solid rgba(255,255,255,0.05) !important;
+.zb-b-t {
+    background-position: left top;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.04)), to(rgba(255,255,255,0.04)));
 }
-
+.zb-b-b {
+    background-position: left bottom;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.04)), to(rgba(255,255,255,0.04)));
+}
+.zb-b-tb {
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.04)), to(rgba(255,255,255,0.04))), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.04)), to(rgba(255,255,255,0.04)));
+    background-position: top, bottom
+}
+.zb-b-l {
+    background-position: left top;
+    background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.04)), to(rgba(255,255,255,0.04)))
+}
+.zb-b-r {
+    background-position: right top;
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.04)), to(rgba(255,255,255,0.04)))
+}
 .am-tabs-default-bar-tab::after{
 	background: transparent !important;
 }
@@ -126,3 +141,13 @@
 a:hover,a:active{
 	&:extend(.color-black-1);
 }
+
+.am-list-item .am-input-clear{
+	opacity: 0.5;
+	background-color: transparent !important;
+	position: relative;
+	right: -8px;
+	left: 3px;
+}
+
+
