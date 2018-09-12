@@ -227,8 +227,8 @@ class PlaceOrderForm extends React.Component {
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
     return (
       <div>
-        <div className="bg-white p10">
-          <div className="segmented-fs16 mb10">
+        <div className="bg-white p15">
+          <div className="segmented-fs16 mb15">
             <SegmentedControl
               values={[menu1, menu2]}
               style={{height:'40px'}}
@@ -263,7 +263,7 @@ class PlaceOrderForm extends React.Component {
               onChange={amountChange}
               moneyKeyboardAlign="left"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              className="circle h-default mt10"
+              className="circle h-default mt15"
               extra={
                 <div style={{width:'auto',textAlign:'right'}}>
                   <WebIcon className="text-primary mr10" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
@@ -275,7 +275,7 @@ class PlaceOrderForm extends React.Component {
             <Affix>
               {
                 side === 'sell' &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+                <Button onClick={toConfirm} className={`w-100 d-block mt15 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
                   <div className="row ml0 mr0 no-gutters">
                     <div className="col">{amount ? amount : 0} {tokens.left}</div>
                     <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
@@ -285,7 +285,7 @@ class PlaceOrderForm extends React.Component {
               }
               {
                 side === 'buy' &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+                <Button onClick={toConfirm} className={`w-100 d-block mt15 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
                   <div className="row ml0 mr0 no-gutters">
                     <div className="col">{total} {tokens.right}</div>
                     <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
