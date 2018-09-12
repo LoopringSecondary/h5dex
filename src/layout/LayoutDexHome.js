@@ -5,7 +5,7 @@ import intl from 'react-intl-universal'
 import { TabBar, NavBar, Icon } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
-import {toBig,toNumber} from '../common/loopringjs/src/common/formatter'
+import {toBig,toNumber} from 'LoopringJS/common/formatter'
 import TokenFormatter, { getBalanceBySymbol } from '../modules/tokens/TokenFm'
 
 class DexHomeLayout extends React.Component {

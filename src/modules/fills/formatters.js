@@ -4,7 +4,7 @@ import {toNumber,toBig} from "LoopringJS/common/formatter";
 import config from "common/config";
 import commonFm from "../formatter/common";
 import TokenFm from "../tokens/TokenFm";
-import {toFixed} from "../../common/loopringjs/src/common/formatter";
+import {toFixed} from "LoopringJS/common/formatter";
 import {formatter} from 'modules/formatter/FormatNumber'
 import intl from "react-intl-universal";
 
