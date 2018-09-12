@@ -14,11 +14,11 @@ const ListMarketFills = ({trades={},maxRows=5})=>{
       <table className="w-100 fs13" style={{overflow:'auto'}}>
         <thead>
           <tr className="">
-            <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.side")}</th>
-            <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.price")}</th>
-            <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.amount")}</th>
-            <th hidden className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">Fee</th>
-            <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get("common.time")}</th>
+            <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-4 ">{intl.get("common.side")}</th>
+            <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-4 ">{intl.get("common.price")}</th>
+            <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-4 ">{intl.get("common.amount")}</th>
+            <th hidden className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-4 ">Fee</th>
+            <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-4 ">{intl.get("common.time")}</th>
           </tr>
         </thead>
         <tbody>

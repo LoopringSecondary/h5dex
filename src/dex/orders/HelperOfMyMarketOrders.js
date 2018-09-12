@@ -187,19 +187,19 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       <table className="w-100 fs13" style={{overflow: 'auto'}}>
         <thead>
         <tr className="">
-          <th className="text-left pt10 pb10 pl10 pr5 font-weight-normal color-black-3 zb-b-b">
+          <th className="text-left pt10 pb10 pl10 pr5 font-weight-normal color-black-4 zb-b-b">
             {intl.get("common.side")}
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
           </th>
-          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">
             {intl.get("common.price")}<span className="fs10">/{tokens.right}</span>
           </th>
-          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
+          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">
             {intl.get("common.amount")}<span className="fs10">/{tokens.left}</span>
           </th>
-          <th hidden className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
-          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
+          <th hidden className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">Fee</th>
+          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled')}</th>
+          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b text-nowrap">
             {
               orders.items && orders.items.length > 0 &&
               <Button onClick={cancelOrderByTokenPair.bind(this)} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">
@@ -238,7 +238,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
         {
           orders.items && orders.items.length === 0 &&
           <tr>
-            <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs13" colSpan='100'>
+            <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-4 fs13" colSpan='100'>
               {intl.get("common.list.no_data")}
             </td>
           </tr>

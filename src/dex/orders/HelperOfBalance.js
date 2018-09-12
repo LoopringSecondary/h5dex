@@ -62,11 +62,11 @@ const HelperOfBalance = (props)=>{
       <table className="w-100 fs13">
         <thead>
           <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">{intl.get('common.token')}</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">{intl.get('common.balance')}</th>
-            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">交易授权</th>
-            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('helper_of_market_order.selling')}</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.actions')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">{intl.get('common.token')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">{intl.get('common.balance')}</th>
+            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">交易授权</th>
+            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get('helper_of_market_order.selling')}</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get('common.actions')}</th>
           </tr>
         </thead>
         <tbody>

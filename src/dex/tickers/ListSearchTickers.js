@@ -72,7 +72,7 @@ export const TickerList = ({items,loading,dispatch,market,from})=>{
         <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} from={from}/>)}
         {items.length === 0 &&
-          <div className="p10 text-center color-black-3">
+          <div className="p10 text-center color-black-4">
             {intl.get('common.list.no_data')}
           </div>
         }

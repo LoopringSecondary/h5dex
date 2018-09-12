@@ -86,7 +86,7 @@ export default class Fills extends React.Component {
                 {
                   !loading && fills.length == 0 &&
                   <tr>
-                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs13" colSpan='100'>
+                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-4 fs13" colSpan='100'>
                       {intl.get("common.list.no_data")}
                     </td>
                   </tr>

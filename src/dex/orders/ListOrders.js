@@ -142,16 +142,16 @@ export class PullRefreshOrders extends React.Component {
             <table className="w-100 fs13" style={{overflow:'auto'}}>
               <thead>
               <tr>
-                <th hidden className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+                <th hidden className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
                 </th>
-                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="2" onClick={()=>{}}>
+                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="2" onClick={()=>{}}>
                   {intl.get('common.market')}
                   <WebIcon hidden className="text-primary" type="filter" />
                 </th>
-                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
-                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled_total')}</th>
-                <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
-                <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" onClick={()=>{}}>
+                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.price')}</th>
+                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled_total')}</th>
+                <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.lrc_fee')}</th>
+                <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" onClick={()=>{}}>
                   {intl.get('common.status')}
                   <WebIcon hidden className="text-primary" type="filter" />
                 </th>
@@ -272,17 +272,17 @@ export const OpenOrderList = ({orders={},dispatch})=>{
     <table className="w-100 fs13" style={{overflow:'auto'}}>
       <thead>
         <tr>
-          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
             
           </th>
-          <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+          <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
             {intl.get('common.market')}
             <WebIcon className="text-primary" type="filter" />
           </th>
-          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.price')}</th>
-          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('order.filled')}</th>
-          <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b">{intl.get('common.lrc_fee')}</th>
-          <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" onClick={()=>{}}>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.price')}</th>
+          <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled')}</th>
+          <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.lrc_fee')}</th>
+          <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" onClick={()=>{}}>
             {intl.get('common.status')}
             <WebIcon className="text-primary" type="filter" />
           </th>
@@ -352,12 +352,12 @@ export const HistoryOrderList = ()=>{
     <table className="w-100 fs16">
       <thead>
         <tr>
-          <th hidden className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Side</th>
-          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Price</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Amount</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Filled</th>
-          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b">Status</th>
+          <th hidden className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b">Side</th>
+          <th className="text-left pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b">Price</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b">Amount</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b">Filled</th>
+          <th className="text-right pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b">Fee</th>
+          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-4 zb-b-b">Status</th>
         </tr>
       </thead>
       <tbody>

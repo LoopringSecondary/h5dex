@@ -83,16 +83,17 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
           }
         </div>
         <div className="col-4 text-left">
-          <span className="fs16 color-black-1 font-weight-bold-bak lh15">{tokens.left}</span>
-          <span className="fs14 color-black-4"> / {tokens.right}</span>
-          <br/>
-          <span className="fs14 color-black-4">
-            <span className="">Vol {tickerFm.getVol()}</span>
-          </span>
+          <div className="fs16 lh15">
+            <span className="fs16 color-black-1">{tokens.left}</span>
+            <span className="fs14 color-black-4"> / {tokens.right}</span>
+          </div>
+          <div className="fs12" style={{marginTop:'2px'}}>
+              <span className="fs12 color-black-4">Vol {tickerFm.getVol()}</span>
+          </div>
         </div>
         <div className="col text-left pr10">
-          <div className="fs16 color-black-1 font-weight-bold-bak lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
-          <div className="fs14 color-black-4"><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
+          <div className="fs16 color-black-1 lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
+          <div className="fs12 color-black-4" style={{marginTop:'2px'}}><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
         </div>
         <div className="col-3 text-right">
           {
@@ -154,7 +155,7 @@ export const TickerList = ({items,loading,dispatch, tickersList})=>{
           </div>
         }
         {!loading && items.length === 0 &&
-          <div className="p10 text-center color-black-3">
+          <div className="p10 text-center color-black-4">
             {intl.get('common.list.no_data')}
           </div>
         }
