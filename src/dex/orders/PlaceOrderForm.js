@@ -156,13 +156,13 @@ class PlaceOrderForm extends React.Component {
         }
       }
 
-      if(side === 'buy' && toNumber(price) > 1.2 * toNumber(mPrice)){
+      if(side === 'buy' && toNumber(price) > 1.05 * toNumber(mPrice)){
         Modal.alert(intl.get('notifications.title.place_order_price_confirm'),
           intl.get('notifications.message.place_order_price_high'),[
           { text: intl.get('common.cancel'), onPress: () => {} },
           { text: intl.get('common.ok'), onPress: () => submitOrder() },
         ])
-      }else if(side === 'sell' && toNumber(price) < 0.8 * toNumber(mPrice)){
+      }else if(side === 'sell' && toNumber(price) < 0.95 * toNumber(mPrice)){
         Modal.alert(intl.get('notifications.title.place_order_price_confirm'),
           intl.get('notifications.message.place_order_price_low'),[
             { text: intl.get('common.cancel'), onPress: () => {} },
@@ -268,7 +268,7 @@ class PlaceOrderForm extends React.Component {
                 <div style={{width:'auto',textAlign:'right'}}>
                   <WebIcon className="text-primary mr10" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
                   <span className="color-black-3">{tokens.left}</span>
-                  
+
                 </div>
               }
             ><div className="fs14 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
