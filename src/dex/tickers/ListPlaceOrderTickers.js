@@ -58,7 +58,7 @@ const TickerItem = ({item,actions,key,dispatch})=>{
 
 export const TickerList = ({items,loading,dispatch,market})=>{
   return (
-    <div className="bg-white">
+    <div className="">
       <Spin spinning={loading}>
         <div className="divider 1px zb-b-t"></div>
         <div className="p10 text-left color-black-1">

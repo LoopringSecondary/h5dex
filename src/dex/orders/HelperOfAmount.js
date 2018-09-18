@@ -12,7 +12,7 @@ import * as orderFormatter from 'modules/orders/formatters'
 
 const FaqOfAmount = ()=>{
   return (
-    <div className="text-left bg-white">
+    <div className="text-left bg-white-light">
       <div className="zb-b-b p15">
         <div className="fs14 color-black-1 mb5">钱包余额不足也可以下下单</div>
         <div className="fs12 color-black-2 lh20">
@@ -75,7 +75,7 @@ function HelperOfAmount(props) {
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
         >
-          <div className="bg-white pb15">
+          <div className="bg-white-light pb15">
             <div className="divider 1px zb-b-b mb15"></div>
             <div className="row pt10 pb10 ml0 mr0 zb-b-b">
               <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 100)}>
@@ -133,7 +133,7 @@ function HelperOfAmount(props) {
       )
     } else {
       return (
-        <div className="bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
+        <div className="bg-white-light" style={{maxHeight:'45vh',overflow:'auto'}}>
           <FaqOfAmount />
         </div>
       )
@@ -141,7 +141,7 @@ function HelperOfAmount(props) {
   }
 
   return (
-    <div className="tabs-no-border bg-white">
+    <div className="tabs-no-border bg-white-light">
       <NavBar
         className="bg-white"
         mode="light"

@@ -18,7 +18,7 @@ function HelperOfMarket(props) {
     })
   }
   return (
-    <div className="tabs-no-border" style={{height:'80vh'}}>
+    <div className="tabs-no-border bg-white-light" style={{height:'80vh'}}>
       <NavBar
         className="bg-white"
         mode="light"
