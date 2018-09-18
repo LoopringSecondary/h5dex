@@ -12,6 +12,7 @@ import {connect} from 'dva'
 import routeActions from 'common/utils/routeActions'
 import {OrderFm} from 'modules/orders/OrderFm';
 import DetailFills from './DetailFills'
+import Worth from 'modules/settings/Worth'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -73,6 +74,7 @@ function OrderDetail(props) {
       return intl.get("order_status.canceling")
     }
   }
+  const tokens = orderFm.getTokens()
   return (
     <div className="bg-white no-underline">
       <Tabs tabs={[
@@ -82,7 +84,6 @@ function OrderDetail(props) {
             initialPage={0}
       >
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
-          <div className="divider 1px zb-b-t"></div>
           <div className="">
             { false &&
             <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
@@ -114,7 +115,11 @@ function OrderDetail(props) {
             }
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
             <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
-            <OrderMetaItem label={intl.get('order.price')} value={`${orderFm.getPrice()} ${orderFm.getMarketPair()}`}/>
+            <OrderMetaItem label={intl.get('order.price')} value={
+              <div>
+                <span className="color-black-4 pr5"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></span> {orderFm.getPrice()} { tokens.right }
+              </div>
+            }/>
             <OrderMetaItem label={intl.get('common.sell')} value={orderFm.getSell()}/>
             <OrderMetaItem label={intl.get('common.buy')} value={orderFm.getBuy()}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
@@ -122,7 +127,6 @@ function OrderDetail(props) {
           </div>
         </div>
         <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
-          <div className="divider 1px zb-b-t"></div>
           <DetailFills order={order}/>
         </div>
       </Tabs>
