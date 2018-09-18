@@ -15,7 +15,7 @@ const HelperOfFAQ = (props)=>{
             <div className="zb-b-b p10">
         <div className="fs14 color-black-2 mb5">交易手续费</div>
         <div className="fs12 color-black-3 lh20">
-          1. 手续费比例多少？0.1% <br />
+          1. 手续费比例多少？0.1% （LRC作为手续费） <br />
           2. 什么时候扣除手续费？成交时才会扣除 <br />
           3. 如何扣除手续费？智能合约从交易者地址转到矿工地址 <br />
         </div>

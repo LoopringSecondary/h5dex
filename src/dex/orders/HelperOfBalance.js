@@ -105,18 +105,8 @@ const HelperOfBalance = (props)=>{
             }
         </tbody>
       </table>
-
-      <div className="">
-        <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/assets')}>
-          <div className="row color-black-4 fs12 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
-            <div className="col text-left">
-              <WebIcon className="mr5" type="exclamation-circle-o"/>
-              <span>{intl.get("helper_of_balance.description", {pair})}</span>
-              <span className="text-primary ml5">{intl.get('common.all')}</span>
-            </div>
-          </div>
-        </div>
-        <div className="divider 1px zb-b-t"></div>
+      <div className="zb-b-b color-black-4 text-center pt10 pb10 fs13" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/assets')}>
+        <span className="">{intl.get('common.all')} {intl.get('common.assets')}</span>
       </div>
     </div>
   )
