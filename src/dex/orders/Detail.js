@@ -83,7 +83,7 @@ function OrderDetail(props) {
       ]}
             initialPage={0}
       >
-        <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
+        <div className="bg-white-light" style={{maxHeight:'75vh',overflow:'auto'}}>
           <div className="">
             { false &&
             <NoticeBar onClick={routeActions.gotoPath.bind(this,'/dex/todos')} className="text-left t-error s-lg" icon={<Icon type="close-circle"/>} mode="link" marqueeProps={{ loop: true}} action={<span>Enable Order<Icon type="right" /></span>}>
@@ -126,7 +126,7 @@ function OrderDetail(props) {
             <OrderMetaItem label={intl.get('common.ttl')} value={orderFm.getValidTime()}/>
           </div>
         </div>
-        <div className="bg-white" style={{maxHeight:'75vh',overflow:'auto'}}>
+        <div className="bg-white-light" style={{maxHeight:'75vh',overflow:'auto'}}>
           <DetailFills order={order}/>
         </div>
       </Tabs>
