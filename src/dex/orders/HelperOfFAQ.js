@@ -8,7 +8,8 @@ const HelperOfFAQ = (props)=>{
       <div className="zb-b-b p10">
         <div className="fs14 color-black-2 mb5">技巧提示</div>
         <div className="fs12 color-black-3 lh20">
-          1. 余额不足也可以下单：支持先下单后转入资产<br />
+          1. 余额不足也可以先下单：支持先下单后转入资产<br />
+          1. 交易没有授权也可以先下单：支持先下单后进行交易授权<br />
           2. 点击深度里的 价格 和数量 可以快速完成下单<br />
         </div>
       </div>
