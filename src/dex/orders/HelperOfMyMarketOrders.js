@@ -184,7 +184,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
           为什么订单没有撮合成交？
         </NoticeBar>
       }
-      <table className="w-100 fs13" style={{overflow: 'auto'}}>
+      <table className="w-100 fs12" style={{overflow: 'auto'}}>
         <thead>
         <tr className="">
           <th className="text-left pt10 pb10 pl10 pr5 font-weight-normal color-black-4 zb-b-b">
@@ -192,10 +192,10 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
             <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
           </th>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">
-            {intl.get("common.price")}<span className="fs10">/{tokens.right}</span>
+            {intl.get("common.price")}<span className="fs10"> / {tokens.right}</span>
           </th>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">
-            {intl.get("common.amount")}<span className="fs10">/{tokens.left}</span>
+            {intl.get("common.amount")}<span className="fs10"> / {tokens.left}</span>
           </th>
           <th hidden className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">Fee</th>
           <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled')}</th>
@@ -247,7 +247,7 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       </table>
       <div className="">
         <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/orders')}>
-          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 align-items-center">
+          <div className="row color-black-4 fs12 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 align-items-center">
             <div className="col text-center">
               <WebIcon className="mr5" type="exclamation-circle-o"/>
               <span>当前仅显示您的{market}订单</span>

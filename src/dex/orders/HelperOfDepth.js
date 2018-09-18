@@ -35,23 +35,23 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
       <Spin spinning={depth.loading}>
         <div className="row no-gutters ml0 mr0">
           <div className="col-6">
-              <table className="w-100 fs13">
+              <table className="w-100 fs12">
                 <thead>
-                  <tr className="">
-                    <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.amount")}</th>
-                    <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.buy")}</th>
+                  <tr className="zb-b-b">
+                    <th className="text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.amount")}</th>
+                    <th className="text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.buy")}</th>
                   </tr>
                 </thead>
                 <tbody>
                     {
                       depth.item && depth.item.buy && depth.item.buy.slice(0,15).map((item,index)=>
-                        <tr key={index}>
-                          <td className="hover-default pl10 pr5 pt5 pb5 zb-b-b color-black-2 text-left align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
+                        <tr key={index} className="zb-b-b">
+                          <td className="hover-default pt5 pb5 pl10 pr5 color-black-2 text-left align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                             {Number(item[1]).toFixed(4)}
                           </td>
-                          <td className="hover-default pl5 pr5 pt5 pb5 zb-b-b text-right color-success align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
-                            {Number(item[0]).toFixed(8)}
-                            <div className="fs12 color-black-4"><Worth amount={Number(item[0]).toFixed(8)} symbol={tokens.right}/></div>
+                          <td className="hover-default pt5 pb5 pl5 pr5 text-right color-success align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
+                            <div  className="lh15">{Number(item[0]).toFixed(8)}</div>
+                            <div className="color-black-4 mt0 lh15"><Worth amount={Number(item[0]).toFixed(8)} symbol={tokens.right}/></div>
                           </td>
                         </tr>
                       )
@@ -61,27 +61,27 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
               {
                 depth.item && depth.item.buy && depth.item.buy.length === 0 &&
                   <div className="p10 zb-b-b text-center align-top color-black-4 fs12">
-                    {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
+                    <div className="lh20">{intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}</div>
                   </div>
               }
           </div>
-          <div className="col-6">
-              <table className="w-100 fs13 zb-b-r">
+          <div className="col-6 zb-b-l">
+              <table className="w-100 fs12">
                 <thead>
-                  <tr className="">
-                    <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.sell")}</th>
-                    <th className="zb-b-b text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.amount")}</th>
+                  <tr className="zb-b-b">
+                    <th className="text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.sell")}</th>
+                    <th className="text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.amount")}</th>
                   </tr>
                 </thead>
                   <tbody>
                       {
                         sell && sell.slice(0,15).map((item,index)=>
-                          <tr key={index} className="">
-                            <td className="hover-default pl5 pr5 pt5 pb5 zb-b-b text-left color-error align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
-                              {Number(item[0]).toFixed(8)}
-                              <div className="fs12 color-black-4"><Worth amount={Number(item[0]).toFixed(8)} symbol={tokens.right}/></div>
+                          <tr key={index} className="zb-b-b">
+                            <td className="hover-default pt5 pb5 pl5 pr5 text-left color-error align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
+                              <div className="lh15">{Number(item[0]).toFixed(8)}</div>
+                              <div className="color-black-4 mt0 lh15"><Worth amount={Number(item[0]).toFixed(8)} symbol={tokens.right}/></div>
                             </td>
-                            <td className="hover-default pl5 pr10 pt5 pb5 zb-b-b color-black-2 text-right align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
+                            <td className="hover-default pt5 pb5 pl5 pr10 color-black-2 text-right align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                               {Number(item[1]).toFixed(4)}
                             </td>
                           </tr>
@@ -92,22 +92,12 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
               {
                 depth.item && depth.item.sell && depth.item.sell.length === 0 &&
                 <div colSpan="10" className="p10 zb-b-b text-center align-top color-black-4 fs12">
-                  {intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}
+                  <div className="lh20">{intl.get('common.list.no_data_custom',{title:intl.get('common.depth')})}</div>
                 </div>
               }
           </div>
         </div>
       </Spin>
-      {
-        ( depth.item.sell.length > 0 || depth.item.buy.length > 0 ) &&
-        <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb10 ">
-          <div className="col text-left">
-            <WebIcon className="mr5" type="exclamation-circle-o"/>
-            <span>快速下单技巧：点击深度的价格或数量</span>
-          </div>
-        </div>
-      }
-      
     </div>
   )
 }

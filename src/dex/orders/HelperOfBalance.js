@@ -59,7 +59,7 @@ const HelperOfBalance = (props)=>{
 
   return (
     <div className="fs20">
-      <table className="w-100 fs13">
+      <table className="w-100 fs12">
         <thead>
           <tr className="">
             <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">{intl.get('common.token')}</th>
@@ -108,17 +108,11 @@ const HelperOfBalance = (props)=>{
 
       <div className="">
         <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/assets')}>
-          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
+          <div className="row color-black-4 fs12 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
             <div className="col text-left">
               <WebIcon className="mr5" type="exclamation-circle-o"/>
               <span>{intl.get("helper_of_balance.description", {pair})}</span>
               <span className="text-primary ml5">{intl.get('common.all')}</span>
-            </div>
-          </div>
-          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
-            <div className="col text-left">
-              <WebIcon className="mr5" type="exclamation-circle-o"/>
-              <span>余额不足也可以下单</span>
             </div>
           </div>
         </div>
