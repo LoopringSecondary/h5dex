@@ -21,6 +21,8 @@ class UserCenter extends React.Component {
       routeActions.gotoPath(`${url}/${path}`);
     }
     const isActive = (path) => {
+      console.log("url  ",url,"    path  ",path)
+      console.log("pathname  ",pathname)
       if(pathname === `${url}/${path}`){
         return true
       }
@@ -85,19 +87,6 @@ class UserCenter extends React.Component {
                   </div>
                 )
               }} />
-              {
-                false &&
-                <Route path={`${url}/fills`} exact render={()=>{
-                  return (
-                    <div>
-                      <div className="divider 1px zb-b-b"></div>
-                      <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
-                        <ListMyFills />
-                      </Containers.Fills>
-                    </div>
-                  )
-                }} />
-              }
               <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
             </Switch>
             <div className="pb50"></div>

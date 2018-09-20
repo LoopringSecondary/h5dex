@@ -197,14 +197,14 @@ export class PullRefreshOrders extends React.Component {
                 )
               })}
               {
-                !this.state.refreshing && this.state.data.items.length === 0 &&
+                !this.state.refreshing &&  this.state.data.items && this.state.data.items.length === 0 &&
                 <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
               }
               </tbody>
             </table>
           </Spin>
           {
-            this.state.data.items.length > 0 &&
+            this.state.data.items && this.state.data.items.length > 0 &&
             <div className="p5">
               <Pagination className="fs14 s-small custom-pagination" total={Math.ceil(this.state.data.page.total/this.state.data.page.size)} current={this.state.data.page.current} onChange={(page)=>{
                 this.setState({ refreshing: true });

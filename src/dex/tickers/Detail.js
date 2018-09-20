@@ -39,7 +39,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
 
   return (
     <div className="bg-white">
-      <div className={`p10 zb-b-b ${color}`}>
+      <div className={`p10 ${color} pb0`}>
         <span className="fs24">
           {price}
         </span>
@@ -50,7 +50,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
           <Worth amount={price} symbol={tokens.right}/>
         </span>
       </div>
-      <div className="pl10 pr10 pt15 pb15 zb-b-b">
+      <div className="p10 zb-b-b">
         <div className="row ml0 mr0 no-gutters align-items-center fs13">
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             {intl.get('ticker.change')}
@@ -65,7 +65,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
             {tickerFm.getHigh()}
           </div>
         </div>
-        <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
+        <div className="row ml0 mr0 pt5 no-gutters align-items-center fs13">
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             {intl.get('ticker.vol')}
           </div>

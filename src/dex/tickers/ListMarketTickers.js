@@ -11,6 +11,22 @@ import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
 import markets from 'modules/storage/markets'
 
+export const Sorter = ({className,style={},isActive,direction})=>{
+  return (
+    <div className={`${className}`} style={{paddingLeft:'1px',...style}}>
+      <div style={{position:'absolute',top:'0.3rem'}} className={`lh10 fs7 ${isActive && direction=== 'up' ? 'text-primary' : ''}`} >▲</div>
+      <div style={{position:'absolute',top:'1.0rem'}} className={`lh10 fs7 ${isActive && direction=== 'down' ? 'text-primary': ''}`}>▼</div>
+    </div>
+  )
+  // return (
+  //   <div className={`${className} ${active}`}>
+  //     <Icon hidden type="up" style={{position:'absolute',top:'2px'}} className="lh10" ></Icon>
+  //     <Icon hidden type="down" style={{position:'absolute',top:'12px'}} className="lh10"></Icon>
+  //     <Icon type={`arrow-${direction}`} className=""></Icon>
+  //   </div>
+  // )
+
+}
 export const TickerHeader = ({sort,dispatch})=>{
   const sortByType = (type) => {
     dispatch({
@@ -26,24 +42,31 @@ export const TickerHeader = ({sort,dispatch})=>{
       }
     })
   }
+  let direction
+  if(sort.orderBy === 'ASC'){direction = 'up'}
+  if(sort.orderBy === 'DESC'){direction = 'down'}
   return (
     <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
       <div className="col-4 fs13 color-black-4 text-left">
-        <span onClick={sortByType.bind(this, 'market')}>{intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}</span>
-         /
-        <span onClick={sortByType.bind(this, 'volume')}>{intl.get('common.volume')}{sort.sortBy === 'volume' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}</span>
+        {
+          false &&
+          <span onClick={sortByType.bind(this, 'market')}>
+            {intl.get('common.market')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'market'} direction={direction}></Sorter>
+          </span>
+        }
+        <span className="" onClick={sortByType.bind(this, 'volume')}>
+        {intl.get('common.volume')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'volume'} direction={direction}></Sorter>
+        </span>
       </div>
-      <div className="col-auto pr10 fs16">
-        <Icon type="star" className="color-black-4" style={{opacity:0}}/>
-      </div>
-      <div className="col text-left pr10">
-        <div className="fs13 color-black-4 " onClick={sortByType.bind(this, 'price')}>
-          {intl.get('common.price')}{sort.sortBy === 'price' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
+      <div className="col text-right pr15">
+        <div className="fs13 color-black-4" onClick={sortByType.bind(this, 'price')}>
+          {intl.get('common.price')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'price'} direction={direction}></Sorter>
         </div>
       </div>
       <div className="col-3 text-right">
-        <div className="fs13 color-black-4" onClick={sortByType.bind(this, 'change')}>
-          {intl.get('ticker.change')}{sort.sortBy === 'change' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
+        <div className="fs13 color-black-4 mr5" onClick={sortByType.bind(this, 'change')}>
+          {intl.get('ticker.change')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'change'} direction={direction}></Sorter>
+
         </div>
       </div>
     </div>
@@ -87,13 +110,13 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
         <div className="col-4 text-left">
           <div className="fs16 lh15">
             <span className="fs16 color-black-1">{tokens.left}</span>
-            <span className="fs14 color-black-4"> / {tokens.right}</span>
+            <span className="fs16 color-black-4"> / {tokens.right}</span>
           </div>
           <div className="fs12" style={{marginTop:'2px'}}>
-              <span className="fs12 color-black-4">Vol {tickerFm.getVol()}</span>
+              <span className="fs12 color-black-4">{tickerFm.getVol()} {tokens.right}</span>
           </div>
         </div>
-        <div className="col text-left pr10">
+        <div className="col text-right pr10">
           <div className="fs16 color-black-1 lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
           <div className="fs12 color-black-4" style={{marginTop:'2px'}}><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
         </div>
