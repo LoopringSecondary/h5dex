@@ -75,7 +75,7 @@ getSupportedToken().then(res=>{
     storage.settings.setTokensConfig(tokens)
     store.dispatch({type:'tokens/itemsChange', payload:{items:tokens}})
   }
-}).catch(error=> {	}).catch(error=> {
+}).catch(error=> {
   console.log(error)
   Notification.open({
     message:intl.get('notifications.title.init_failed'),
