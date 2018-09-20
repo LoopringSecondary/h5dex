@@ -49,6 +49,16 @@ export const sorterByMarket = (tokenA, tokenB) => {
   }
 };
 
+export const sorterByVolume = (tokenA, tokenB) => {
+  if(tokenA.volume > tokenB.volume){
+    return 1;
+  } else if (tokenA.volume < tokenB.volume){
+    return -1;
+  } else {
+    return 0;
+  }
+};
+
 export const sorterByPirce = (tokenA, tokenB) => {
   if(tokenA.last > tokenB.last){
     return 1;
