@@ -52,12 +52,6 @@ export const TickerHeader = ({sort,dispatch})=>{
   return (
     <div className="row ml0 mr0 pl10 pr10 align-items-center no-gutters">
       <div className="col-4 fs13 color-black-4 text-left hover-default pt5 pb5" onClick={sortByType.bind(this, 'volume')}>
-        {
-          false &&
-          <span onClick={sortByType.bind(this, 'market')} className="position-relative">
-            {intl.get('common.market')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'market'} direction={direction}></Sorter>
-          </span>
-        }
         <span className="position-relative">
         {intl.get('common.volume')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'volume'} direction={direction}></Sorter>
         </span>

@@ -113,14 +113,14 @@ class MarketDetail extends React.Component {
     }
     const menu1 = `${intl.get("common.buy")} ${tokens.left}`
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
-    const left = storage.wallet && storage.wallet.getUnlockedType() === 'imtoken' ? '' : <Icon key="1" type="left" onClick={routeActions.goBack} className="" />
+    const left = storage.wallet && storage.wallet.getUnlockedType() === 'imtoken' ? '' : <Icon key="1" type="left" className="" />
     return (
       <div className="">
         <NavBar
           className="bg-white"
           mode="light"
           icon={null && <Icon type="left" />}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={routeActions.goBack}
           leftContent={[
             left,
           ]}
