@@ -62,7 +62,7 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
       dispatch({
         type:'sockets/extraChange',
         payload:{
-          id:'loopringTickers',
+          id:'tickersOfSource',
           extra:{
             favored:{...favored,[item]:!favored[item]},
           }
@@ -172,8 +172,9 @@ class ListMarketTickers extends React.Component {
       const {tickersOfSource:list,dispatch} = this.props
       const tickersFm = new TickersFm(list)
       const allTickers = tickersFm.getAllTickers().filter(item=>item.label === 'whitelist')
-      const favoredTickers = tickersFm.getFavoredTickers().filter(item=> item)
-    console.log(1111, favoredTickers, allTickers)
+      const favoredTickers = tickersFm.getFavoredTickers().filter(item=> {
+        return allTickers.find((n)=>n.market === item.market)
+      })
       const recentTickers = tickersFm.getRecentTickers()
       const sorter = (a,b)=>{
         if(a.vol === b.vol ){
