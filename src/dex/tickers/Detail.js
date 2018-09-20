@@ -19,7 +19,7 @@ const Item = List.Item;
 const Brief = Item.Brief;
 
 const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatch})=>{
-  const tickerFm = new TickerFm(tickers.item.loopr || {})
+  const tickerFm = new TickerFm(tickers.item.coinmarketcap || {})
   const tokens = tickerFm.getTokens()
   const direction = tickerFm.getChangeDirection()
   const price = tickerFm.getLast() && formatPrice(tokens.left, tokens.right, tickerFm.getLast())
@@ -86,7 +86,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
 
 class MarketDetail extends React.Component {
   render() {
-    const {loopringTickers:list,dispatch} = this.props
+    const {tickersOfSource:list,dispatch} = this.props
     const {extra:{favored={},keywords}} = list
     const params = routeActions.match.getParams(this.props)
     if(!params.market) return null
@@ -103,7 +103,7 @@ class MarketDetail extends React.Component {
       dispatch({
         type:'sockets/extraChange',
         payload:{
-          id:'loopringTickers',
+          id:'tickersOfSource',
           extra:{
             favored:{...favored,[item]:!favored[item]},
           }
@@ -174,7 +174,7 @@ class MarketDetail extends React.Component {
   }
 }
 export default connect(
-  ({sockets:{loopringTickers}})=>({loopringTickers})
+  ({sockets:{tickersOfSource}})=>({tickersOfSource})
 )(MarketDetail)
 
 

@@ -16,7 +16,7 @@ export const TickerHeader = ({sort,dispatch})=>{
     dispatch({
       type:'sockets/extraChange',
       payload:{
-        id:'loopringTickers',
+        id:'tickersOfSource',
         extra:{
           sort: {
             sortBy:type ,
