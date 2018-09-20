@@ -41,11 +41,7 @@ function getCustomTokens(){
 
 function getTokens(){
   // return config.tokens || []
-  const cacheConfigs = STORAGE.settings.getConfigs()
-  if(cacheConfigs && cacheConfigs.tokens) {
-    return cacheConfigs.tokens
-  }
-  return []
+  return STORAGE.settings.getTokensConfig()
 }
 
 function getMarketByPair(pair) {
@@ -72,27 +68,20 @@ function getProjectByLrx(lrx) {
 }
 
 function getSupportedMarketsTokenR() {
-  // return config.supportedTokenRInMarkets
-  const cacheConfigs = STORAGE.settings.getConfigs()
-  if(cacheConfigs && cacheConfigs.supportedTokenRInMarkets) {
-    return cacheConfigs.supportedTokenRInMarkets
-  }
-  return []
+  return STORAGE.settings.getMarketR()
 }
 
 function isSupportedMarket(market) {
   if(!market) return false
   const pair = market.split('-')
   if(pair.length !== 2) return false
-  return getMarkets().find(m=> {
-    return (m.tokenx === pair[0].toUpperCase() && m.tokeny === pair[1].toUpperCase()) || (m.tokenx === pair[1].toUpperCase() && m.tokeny === pair[0].toUpperCase())
-  })
+  return getMarkets().find(m=>m.market.toUpperCase() === market.toUpperCase())
 }
 
 function getMarketBySymbol(tokenx, tokeny) {
   if (tokenx && tokeny) {
     return getMarkets().find(market=> {
-        return (market.tokenx === tokenx && market.tokeny === tokeny) || (market.tokenx === tokeny && market.tokeny === tokenx)
+        return (market.tokenx.toUpperCase() === tokenx.toUpperCase() && market.tokeny.toUpperCase() === tokeny.toUpperCase()) || (market.tokenx.toUpperCase() === tokeny.toUpperCase() && market.tokeny.toUpperCase() === tokenx.toUpperCase())
       }
     ) || {
       "pricePrecision": 8
@@ -105,11 +94,11 @@ function getMarketBySymbol(tokenx, tokeny) {
 }
 
 function getMarketsByTokenR(token) {
-  return getMarkets().filter(item=>item.tokeny === token)
+  return getMarkets().filter(item=>item.tokeny.toUpperCase() === token.toUpperCase())
 }
 
 function getMarketsByTokenL(token) {
-  return getMarkets().filter(item=>item.tokenx === token)
+  return getMarkets().filter(item=>item.tokenx.toUpperCase() === token.toUpperCase())
 }
 
 function getTokenSupportedMarket(token) {
@@ -141,12 +130,7 @@ function getTokenSupportedMarkets(token) {
 }
 
 function getMarkets() {
-  // return config.markets.concat(config.newMarkets)
-  const cacheConfigs = STORAGE.settings.getConfigs()
-  if(cacheConfigs && cacheConfigs.markets && cacheConfigs.newMarkets) {
-    return cacheConfigs.markets.concat(cacheConfigs.newMarkets)
-  }
-  return []
+  return STORAGE.settings.getMarketPairs()
 }
 
 function getGasLimitByType(type) {
