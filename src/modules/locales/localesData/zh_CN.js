@@ -7,6 +7,7 @@ const words = {
   sides: '方向',
   market: '市场',
   markets: '市场',
+  volume: '成交量',
   amount: '数量',
   type: '类型',
   types: '类型',
