@@ -341,19 +341,24 @@
 .article .header small{ opacity: 0.6 }
 .article p{}
 
-
-
-.am-pagination.fs14{
-  .am-pagination-wrap{
-    font-size:1.4rem !important;
-  }
-  .am-button{
-    font-size:1.4rem !important;
-  }
-}
-.am-pagination.s-small{
+.am-pagination.custom-pagination{
   .am-button{
     height:32px !important;
     line-height:32px !important;
+    background: @brand-primary-light !important;
+    border:none !important;
+    color:@brand-primary;
+    &::before{
+      border:none !important;
+    }
+    font-size:1.4rem !important;
+    margin-top: 5px;
+  }
+  .am-pagination-wrap{
+    font-size:1.4rem !important;
+    &:extend(.color-black-3);
+    .active{
+      &:extend(.color-black-2);
+    }
   }
 }

@@ -25,6 +25,7 @@ class UserCenter extends React.Component {
         return true
       }
     }
+    const address = storage.wallet.getUnlockedAddress()
     return (
       <LayoutDexHome {...this.props}>
         <div className="0">
@@ -43,10 +44,10 @@ class UserCenter extends React.Component {
             </div>
           </NavBar>
           <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
-          <div className="bg-white pt40 pb40 text-center">
-            <div className="color-black-2 text-center fs16">{getShortAddress(storage.wallet.getUnlockedAddress())}</div>
-            <div className="text-center mt10">
-              <span className="d-inline-block fs12 lh25 pl10 pr10 bg-white-light color-black-4 radius-circle">etherscan.io</span>
+          <div className="bg-white pt30 pb30 text-center">
+            <div className="color-black-2 text-center fs16">{getShortAddress(address)}</div>
+            <div className="text-center mt5">
+              <span target="_blank" onClick={routeActions.gotoHref.bind(this,`https://etherscan.io/address/${address}`)} className="d-inline-block cursor-pointer fs12 lh25 pl10 pr10 bg-white-light color-black-4 radius-circle">etherscan.io</span>
             </div>
           </div>
           <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
