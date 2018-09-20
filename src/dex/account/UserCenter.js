@@ -34,18 +34,22 @@ class UserCenter extends React.Component {
               leftContent={null && [
                 <span className="" key="1"><WebIcon type="home" /></span>,
               ]}
-              rightContent={null && [
+              rightContent={[
                 <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
               ]}
           >
             <div className="text-center color-black">
-              {false && intl.get('usercenter.page_title')}
-              {getShortAddress(storage.wallet.getUnlockedAddress())}
+              {intl.get('usercenter.page_title')}
             </div>
           </NavBar>
-          <div className="bg-white">
-            <div className="divider 1px zb-b-t "></div>
+          <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
+          <div className="bg-white pt40 pb40 text-center">
+            <div className="color-black-2 text-center fs16">{getShortAddress(storage.wallet.getUnlockedAddress())}</div>
+            <div className="text-center mt10">
+              <span className="d-inline-block fs12 lh25 pl10 pr10 bg-white-light color-black-4 radius-circle">etherscan.io</span>
+            </div>
           </div>
+          <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
           <div className="height-auto tabs-no-border">
             <Tabs
               tabs={

@@ -61,7 +61,7 @@ const TokenListComp = (props)=>{
                         token.symbol === 'WETH' &&
                         <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={() => showConvert('WETH')}>{intl.get('common.convert')}</Button>
                       }
-                      <Button type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small" onClick={() => showActions(token.symbol)}>
+                      <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10 bg-primary-light border-none text-primary" size="small" onClick={() => showActions(token.symbol)}>
                         <WebIcon type="ellipsis" />
                       </Button>
                     </td>
