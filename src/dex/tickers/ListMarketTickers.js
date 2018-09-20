@@ -45,28 +45,34 @@ export const TickerHeader = ({sort,dispatch})=>{
   let direction
   if(sort.orderBy === 'ASC'){direction = 'up'}
   if(sort.orderBy === 'DESC'){direction = 'down'}
+  if(!sort.sortBy){
+    sort.sortBy = 'volume'
+    direction = 'down'
+  }
   return (
-    <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-      <div className="col-4 fs13 color-black-4 text-left">
+    <div className="row ml0 mr0 pl10 pr10 align-items-center no-gutters">
+      <div className="col-4 fs13 color-black-4 text-left hover-default pt5 pb5" onClick={sortByType.bind(this, 'volume')}>
         {
           false &&
-          <span onClick={sortByType.bind(this, 'market')}>
+          <span onClick={sortByType.bind(this, 'market')} className="position-relative">
             {intl.get('common.market')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'market'} direction={direction}></Sorter>
           </span>
         }
-        <span className="" onClick={sortByType.bind(this, 'volume')}>
-        {intl.get('common.volume')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'volume'} direction={direction}></Sorter>
+        <span className="position-relative">
+        {intl.get('common.volume')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'volume'} direction={direction}></Sorter>
         </span>
       </div>
-      <div className="col text-right pr15">
-        <div className="fs13 color-black-4" onClick={sortByType.bind(this, 'price')}>
-          {intl.get('common.price')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'price'} direction={direction}></Sorter>
+      <div className="col-auto pr10 fs16 pt5 pb5">
+        <Icon type="star-o" className="color-black-4" style={{opacity:0}}/>
+      </div>
+      <div className="col text-left pl5 pr10 hover-default pt5 pb5" onClick={sortByType.bind(this, 'price')}>
+        <div className="fs13 color-black-4 position-relative">
+          {intl.get('common.price')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'price'} direction={direction}></Sorter>
         </div>
       </div>
-      <div className="col-3 text-right">
-        <div className="fs13 color-black-4 mr5" onClick={sortByType.bind(this, 'change')}>
-          {intl.get('ticker.change')}<Sorter className="d-inline-block" isActive={sort.sortBy === 'change'} direction={direction}></Sorter>
-
+      <div className="col-3 text-right hover-default pt5 pb5" onClick={sortByType.bind(this, 'change')}>
+        <div className="fs13 color-black-4 mr5 position-relative">
+          {intl.get('ticker.change')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'change'} direction={direction}></Sorter>
         </div>
       </div>
     </div>
@@ -116,7 +122,7 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
               <span className="fs12 color-black-4">{tickerFm.getVol()} {tokens.right}</span>
           </div>
         </div>
-        <div className="col text-right pr10">
+        <div className="col text-left pr10 pl5">
           <div className="fs16 color-black-1 lh15">{formatPrice(tokens.left, tokens.right, tickerFm.getLast())}</div>
           <div className="fs12 color-black-4" style={{marginTop:'2px'}}><Worth amount={formatPrice(tokens.left, tokens.right, tickerFm.getLast())} symbol={tokens.right}/></div>
         </div>
