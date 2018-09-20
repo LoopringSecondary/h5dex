@@ -7,6 +7,7 @@ const words = {
   sides: 'Sides',
   market: 'Market',
   markets: 'Markets',
+  volume: 'Volume',
   amount: 'Amount',
   type: 'Type',
   types: 'Types',

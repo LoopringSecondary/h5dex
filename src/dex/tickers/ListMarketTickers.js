@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'dva'
-import {TickersFm,TickerFm,sorterByMarket,sorterByPirce,sorterByChange} from 'modules/tickers/formatters'
+import {TickersFm,TickerFm,sorterByMarket,sorterByVolume,sorterByPirce,sorterByChange} from 'modules/tickers/formatters'
 import storage from '../../modules/storage'
 import intl from 'react-intl-universal'
 import routeActions from 'common/utils/routeActions'
@@ -28,8 +28,10 @@ export const TickerHeader = ({sort,dispatch})=>{
   }
   return (
     <div className="row ml0 mr0 pt5 pb5 pl10 pr10 align-items-center no-gutters">
-      <div className="col-4 fs13 color-black-4 text-left" onClick={sortByType.bind(this, 'market')}>
-        {intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}
+      <div className="col-4 fs13 color-black-4 text-left">
+        <span onClick={sortByType.bind(this, 'market')}>{intl.get('common.market')}{sort.sortBy === 'market' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}</span>
+         /
+        <span onClick={sortByType.bind(this, 'volume')}>{intl.get('common.volume')}{sort.sortBy === 'volume' && <Icon type={sort.orderBy === 'ASC' ? 'up' : 'down'} />}</span>
       </div>
       <div className="col-auto pr10 fs16">
         <Icon type="star" className="color-black-4" style={{opacity:0}}/>
@@ -125,6 +127,12 @@ export const TickerList = ({items,loading,dispatch, tickersList})=>{
     switch(sort.sortBy) {
       case 'market':
         sortedItems.sort(sorterByMarket)
+        if(sort.orderBy === 'DESC') {
+          sortedItems.reverse()
+        }
+        break;
+      case 'volume':
+        sortedItems.sort(sorterByVolume)
         if(sort.orderBy === 'DESC') {
           sortedItems.reverse()
         }
