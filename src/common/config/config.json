@@ -13,7 +13,7 @@
   "minimumLrcfeeInEth":0.00045,
   "demoAccount":"0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00",
   "localStorageVersion":201807241501,
-  "walletAddress":"0xb94065482ad64d4c2b9252358d746b39e820a582",
+  "walletAddress":"0x56447c02767ba621f103c0f3dbf564dbcacf284b",
   "contracts": [
     {
       "address": "0x8d8812b72d1e4ffCeC158D25f56748b7d67c1e78",
@@ -708,8 +708,47 @@
       "tokenx": "APPC",
       "tokeny": "WETH",
       "pricePrecision": 8
+    },
+    {
+      "tokenx": "MOOLYA",
+      "tokeny": "LRC",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "MOOLYA",
+      "tokeny": "WETH",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "MOTE",
+      "tokeny": "LRC",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "MOTE",
+      "tokeny": "WETH",
+      "pricePrecision": 8
+    },
+    {
+      "tokenx": "NCU",
+      "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "NCU",
+      "tokeny": "WETH",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "GUSD",
+      "tokeny": "LRC",
+      "pricePrecision": 3
+    },
+    {
+      "tokenx": "GUSD",
+      "tokeny": "WETH",
+      "pricePrecision": 3
     }
-
   ],
   "txs": [
     {
@@ -1732,6 +1771,30 @@
       "minTradeValue": 0.001
     },
     {
+      "symbol": "MOOLYA",
+      "name": "moolyacoin",
+      "digits": 18,
+      "address": "0x2a47f802064caf5a5e78ee193723dc2c7cfc06e9",
+      "unit": "MOOLYA",
+      "website": "http://www.moolya.global",
+      "allowance": "1000000000000000000000",
+      "allowanceWarn": "100000000000000000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "MOTE",
+      "name": "MonetChainToken",
+      "digits": 18,
+      "address": "0x6885Fc6a8166d6B875CC9884Ea9FCf76745F8B51",
+      "unit": "MOTE",
+      "website": "https://www.monetchain.io",
+      "allowance": "1000000000000000000000",
+      "allowanceWarn": "100000000000000000000",
+      "precision": 6,
+      "minTradeValue": 0.001
+    },
+    {
       "symbol": "ROL",
       "name": "DICE",
       "digits": 16,
@@ -2092,6 +2155,18 @@
       "minTradeValue": 0.001
     },
     {
+      "symbol": "NCU",
+      "name": "NECUN",
+      "digits": 5,
+      "address": "0x1F8517c10AFBa8dD20BB2A3673e57B6aa725F375",
+      "unit": "NCU",
+      "website": "https://etherneum.org",
+      "allowance": "1000000000",
+      "allowanceWarn": "5000000",
+      "precision": 5,
+      "minTradeValue": 0.001
+    },
+    {
       "symbol": "AST",
       "name": "AirSwap",
       "digits": 4,
@@ -2100,7 +2175,7 @@
       "website": "",
       "allowance": "10000000",
       "allowanceWarn": "50000",
-      "precision": 6,
+      "precision": 4,
       "minTradeValue": 0.001
     },
     {
@@ -2112,7 +2187,7 @@
       "website": "",
       "allowance": "1000000",
       "allowanceWarn": "5000",
-      "precision": 6,
+      "precision": 3,
       "minTradeValue": 0.001
     },
     {
@@ -2124,7 +2199,19 @@
       "website": "",
       "allowance": "100000",
       "allowanceWarn": "500",
-      "precision": 6,
+      "precision": 2,
+      "minTradeValue": 0.001
+    },
+    {
+      "symbol": "GUSD",
+      "name": "Gemini dollar",
+      "digits": 2,
+      "address": "0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd",
+      "unit": "GUSD",
+      "website": "https://gemini.com/dollar/",
+      "allowance": "100000",
+      "allowanceWarn": "500",
+      "precision": 2,
       "minTradeValue": 0.001
     },
     {
@@ -2136,7 +2223,7 @@
       "website": "",
       "allowance": "1000",
       "allowanceWarn": "5",
-      "precision": 6,
+      "precision":1,
       "minTradeValue": 0.001
     },
     {
@@ -2148,8 +2235,9 @@
       "website": "",
       "allowance": "1000",
       "allowanceWarn": "5",
-      "precision": 6,
+      "precision": 1,
       "minTradeValue": 0.001
     }
   ]
 }
+
