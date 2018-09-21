@@ -38,8 +38,7 @@ const HelperOfBalance = (props) => {
               </td>
               <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance, 8)}</td>
               <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right text-nowrap">
-                <Button onClick={setMax} type="ghost" style={{height: '24px', lineHeight: '24px'}}
-                        className="d-inline-block ml10" size="small">
+                <Button onClick={setMax}type="ghost" style={{height: '24px', lineHeight: '24px'}} className="bg-primary-light text-primary border-none ml10 d-inline-block" size="small">
                   {intl.get('convert.actions_max')}
                 </Button>
               </td>
@@ -49,6 +48,8 @@ const HelperOfBalance = (props) => {
                 {token.symbol.toUpperCase() === 'ETH' ? 'WETH' : 'ETH'}
               </td>
               <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance2, 8)}</td>
+              <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
+              </td>
             </tr>
         </tbody>
       </table>

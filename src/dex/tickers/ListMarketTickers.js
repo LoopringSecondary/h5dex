@@ -255,7 +255,7 @@ class ListMarketTickers extends React.Component {
         })
       }
       return (
-        <Spin spinning={list.loading}>
+        <Spin spinning={list.loading} className="pt50">
           <Tabs
             tabs={tabs}
             tabBarTextStyle={{}}

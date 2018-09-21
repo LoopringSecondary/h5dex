@@ -295,7 +295,7 @@ class PlaceOrderForm extends React.Component {
                  <div className="lh20">{intl.get(`common.${side}`)}  {amount>0 ? amount : null} {tokens.left} </div>
                  {
                   total>0 &&
-                   <div className="fs12 lh10" style={{opacity:'0.40',paddingTop:'0.3rem'}}>
+                   <div className="fs12 lh10" style={{opacity:'0.45',paddingTop:'0.3rem'}}>
                      {total} {tokens.right}
                    </div>
                  }
