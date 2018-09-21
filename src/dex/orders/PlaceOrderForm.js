@@ -248,8 +248,10 @@ class PlaceOrderForm extends React.Component {
               className="circle h-default mt12"
               extra={
                 <div style={{width:'auto',textAlign:'right'}}>
-                  <span className="color-black-4"><Worth amount={price} symbol={tokens.right}/></span>
-                  <span className="color-black-3 d-inline-block ml5" style={{width:'35px'}}>{tokens.right}</span>
+                  {
+                    price>0 && <span className="color-black-4 fs12">≈ <Worth amount={price} symbol={tokens.right}/></span>
+                  }
+                  <span className="color-black-3 d-inline-block" style={{width:'35px',marginLeft:'7px'}}>{tokens.right}</span>
                   <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
                 </div>
               }
@@ -265,34 +267,29 @@ class PlaceOrderForm extends React.Component {
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
               className="circle h-default mt12"
               extra={
-                <div style={{width:'auto',textAlign:'right'}}>
-                  <WebIcon className="color-black-4" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
-                  <span className="color-black-3 d-inline-block ml5" style={{width:'35px'}}>{tokens.left}</span>
+                <div onClick={showAmountHelper} style={{width:'auto',textAlign:'right'}}>
+                  <WebIcon className="color-black-4 fs12" type="question-circle-o" style={{padding:'2px 0px 5px'}} />
+                  <span className="color-black-3 d-inline-block" style={{width:'35px',marginLeft:'7px'}}>{tokens.left}</span>
                 </div>
               }
             ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.amount")}</div></InputItem>
-            <InputItem
-              type="money"
-              placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
-              value={total ? total : null}
-              clear={false}
-              onChange={amountChange}
-              moneyKeyboardAlign="left"
-              moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              className="circle h-default mt12"
+            <List.Item  
+              className="mt0 mb0"
+              arrow={false}
               extra={
-                <div style={{width:'auto',textAlign:'right'}}>
-                  <span className="color-black-4"><Worth amount={total} symbol={tokens.right}/></span>
-                  <span className="color-black-3 d-inline-block ml5" style={{width:'35px'}}>{tokens.right}</span>
+                <div className="fs12" style={{width:'auto',textAlign:'right'}}>
+                  <span className="color-black-4 ml5">{total ? total : '0.00'}</span>
+                  <span className="color-black-4 d-inline-block ml5" style={{width:'35px'}}>{tokens.right}</span>
                 </div>
               }
-            ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.total")}</div></InputItem>
-              {
-                true &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
-                  {intl.get("place_order.title")}
-                </Button>
-              }
+            >
+              <div className="">
+                <span className="d-inline-block mr5 fs12 color-black-4" style={{width:'50px'}}>{intl.get("common.total")}</span>
+              </div>
+            </List.Item>
+              <Button onClick={toConfirm} className={`w-100 d-block mt0 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
+                {intl.get("place_order.title")}
+              </Button>
               {
                 false && side === 'sell' &&
                 <Button onClick={toConfirm} className={`w-100 d-block mt12 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>

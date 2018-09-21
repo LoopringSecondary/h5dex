@@ -246,7 +246,7 @@ class ListMarketTickers extends React.Component {
             tabs={tabs}
             tabBarTextStyle={{}}
             initialPage={1}
-            swipeable={true}
+            swipeable={false}
             onChange={(tab, index) => {}}
             onTabClick={(tab, index) => { }}
           >
