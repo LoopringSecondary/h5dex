@@ -38,21 +38,23 @@ class UserCenter extends React.Component {
     return (
       <LayoutDexHome {...this.props}>
         <div className="0">
-          <NavBar
-              className="bg-white"
-              mode="light"
-              leftContent={null && [
-                <span className="" key="1"><WebIcon type="home" /></span>,
-              ]}
-              rightContent={[
-                <span className="" key="1" onClick={showSettings}><i className="icon-cog-o"></i></span>
-              ]}
-          >
-            <div className="text-center color-black">
-              {intl.get('usercenter.page_title')}
-            </div>
-          </NavBar>
-          <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
+          <div className="bg-white position-fixed w-100" style={{zIndex:'1000'}}>
+            <NavBar
+                className="zb-b-b" 
+                mode="light"
+                leftContent={null && [
+                  <span className="" key="1"><WebIcon type="home" /></span>,
+                ]}
+                rightContent={[
+                  <span className="" key="1" onClick={showSettings}><i className="icon-cog-o"></i></span>
+                ]}
+            >
+              <div className="text-center color-black">
+                {intl.get('usercenter.page_title')}
+              </div>
+            </NavBar>
+          </div>
+          <div className="pt40 bg-white"></div>
           <div className="bg-white pt30 pb30 text-center">
             <div className="color-black-2 text-center fs16">{getShortAddress(address)}</div>
             <div className="text-center mt5">
