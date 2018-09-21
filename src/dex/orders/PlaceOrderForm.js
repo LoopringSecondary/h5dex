@@ -273,22 +273,30 @@ class PlaceOrderForm extends React.Component {
                 </div>
               }
             ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.amount")}</div></InputItem>
-            <List.Item  
-              className="mt0 mb0"
-              arrow={false}
-              extra={
-                <div className="fs12" style={{width:'auto',textAlign:'right'}}>
-                  <span className="color-black-4 ml5">{total ? total : '0.00'}</span>
-                  <span className="color-black-4 d-inline-block ml5" style={{width:'35px'}}>{tokens.right}</span>
+            {
+              false &&
+              <List.Item  
+                className="mt0 mb0"
+                arrow={false}
+                extra={
+                  <div className="fs12" style={{width:'auto',textAlign:'right'}}>
+                    <span className="color-black-4 ml5">{total ? total : '0.00'}</span>
+                    <span className="color-black-4 d-inline-block ml5" style={{width:'35px'}}>{tokens.right}</span>
+                  </div>
+                }
+              >
+                <div className="">
+                  <span className="d-inline-block mr5 fs12 color-black-4" style={{width:'50px'}}>{intl.get("common.total")}</span>
                 </div>
-              }
-            >
-              <div className="">
-                <span className="d-inline-block mr5 fs12 color-black-4" style={{width:'50px'}}>{intl.get("common.total")}</span>
-              </div>
-            </List.Item>
-              <Button onClick={toConfirm} className={`w-100 d-block mt0 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
-                {intl.get("place_order.title")}
+              </List.Item>
+            }
+              <Button onClick={toConfirm} style={{height:'auto',padding:'10px'}} className={`d-flex align-items-center justify-content-center w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
+               <div>
+                 <div className="lh20">{intl.get(`common.${side}`)}  {amount ? amount : null} {tokens.left} </div>
+                 <div className="fs12 lh10" style={{opacity:'0.40',paddingTop:'0.3rem'}}>
+                   {total ? total : null} {total ? tokens.right : null}
+                 </div>
+               </div>
               </Button>
               {
                 false && side === 'sell' &&
