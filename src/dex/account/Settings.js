@@ -37,9 +37,9 @@ function Settings(props) {
 
   const languageChange = ()=>{}
   return (
-    <div className="bg-white" style={{height:'100%',overflow:'auto'}}>
+    <div className="bg-white position-relative" style={{height:'100vh',overflow:'auto',padding:'76px 0px 30px'}}>
       <NavBar
-        className="zb-b-b bg-white"
+        className="bg-white position-absolute w-100"
         mode="light"
         onLeftClick={()=>hideLayer({id:'settings'})}
         leftContent={[
@@ -51,8 +51,9 @@ function Settings(props) {
       >
         <div className="color-black">Settings</div>
       </NavBar>
-      <div className="divider 1px zb-b-t"></div>
+      <div className="pt45"></div>
       <div className="bg-white settings pb10">
+        <div className="divider 1px zb-b-t"></div>
           <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">Language</div>}>
             {languages.map(i => (
               <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
