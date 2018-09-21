@@ -14,17 +14,18 @@ const FaqOfAmount = ()=>{
   return (
     <div className="text-left">
       <div className="zb-b-b p10">
-        <div className="fs14 color-black-1 mb5">余额不足也可以下下单</div>
+        <div className="fs14 color-black-1 mb5">钱包余额不足也可以下下单</div>
         <div className="fs12 color-black-2 lh20">
-          1. 资产0托管：交易过程中资产一直在你的钱包里<br />
-          2. 资产0托管：交易过程中资产一直在你的钱包里<br />
+          1. 支持先下单，之后向钱包转入资产<br />
+          2. 钱包余额不足时，关联的订单会自动失效<br />
+          2. 钱包转入余额后，关联的订单会自动生效<br />
         </div>
       </div>
       <div className="zb-b-b p10">
-        <div className="fs14 color-black-1 mb5">转入余额后订单自动生效</div>
+        <div className="fs14 color-black-1 mb5">下单后不冻结钱包的余额</div>
         <div className="fs12 color-black-2 lh20">
-          1. 资产0托管：交易过程中资产一直在你的钱包里<br />
-          2. 资产0托管：交易过程中资产一直在你的钱包里<br />
+          1. 钱包的余额的在下单后也可以随时转出<br />
+          2. 钱包的余额转出后，关联的订单会自动失效<br />
         </div>
       </div>
 

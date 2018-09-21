@@ -1,12 +1,6 @@
 import React from 'react'
-import { connect } from 'dva'
-import { Button, NoticeBar } from 'antd-mobile'
-import { Switch, Icon as WebIcon } from 'antd'
-import routeActions from 'common/utils/routeActions'
-import { getTokensByMarket } from 'modules/formatter/common'
-import * as tokenFormatter from 'modules/tokens/TokenFm'
-import { FormatAmount } from 'modules/formatter/FormatNumber'
-import { toNumber, toBig, toFixed } from 'LoopringJS/common/formatter'
+import { Button } from 'antd-mobile'
+import { toBig, toFixed } from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal'
 
 const HelperOfBalance = (props) => {
@@ -43,6 +37,12 @@ const HelperOfBalance = (props) => {
                   {intl.get('convert.actions_max')}
                 </Button>
               </td>
+            </tr>
+            <tr>
+              <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
+                {token.symbol.toUpperCase() === 'ETH' ? 'WETH' : 'ETH'}
+              </td>
+              <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">{toFixed(token.balance2, 8)}</td>
             </tr>
         </tbody>
       </table>

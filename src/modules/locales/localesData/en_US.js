@@ -45,6 +45,7 @@ const words = {
   format_amount: "{amount,number}",
   back: 'Return',
   cancel: 'Cancel',
+  ok:"OK",
   previous_page: 'Previous Page',
   next_page: 'Next Page',
   import: "Import",
@@ -65,7 +66,6 @@ const words = {
   depth:'Depth',
   set:'Set',
   helper:'Helper',
-  help:'Help',
   list:{
     no_data:'No Data',
     no_data_custom:'No {title}',
@@ -108,9 +108,12 @@ const notifications = {
     convert_suc:'Convert Successfully',
     convert_fail:'Convert Failed',
     enable_suc:'Enable Successfully',
-    enable_fail:'Enable failed'
+    enable_fail:'Enable failed',
+    place_order_price_confirm:"Are you sure you want to continue ?",
   },
   message: {
+    place_order_price_high:"Your price is 5% higher than the market price.",
+    place_order_price_low:"Your price is 5% lower than the market price.",
     wallet_locked: 'Your wallet seems locked yet, please unlock first',
     failed_fetch_data_from_server: 'Failed fetch data from server, you could wait a moment and come back later',
     eth_is_required_when_place_order: 'ETH is required to pay Ethereum transaction fees, calculated with your current order cost that need to send Ethereum transactions, totally required {required} ETH.',
@@ -175,7 +178,8 @@ export default {
     total: words.total,
     LRCFee: words.lrc_fee,
     marginSplit: words.margin_split,
-    filled: 'Filled/Total',
+    filled: 'Filled',
+    filled_total: 'Filled/Total',
     validSince: 'Valid Since',
     validUntil: 'Valid Until',
     status: words.status,
@@ -455,7 +459,7 @@ export default {
     convert_weth_title:'Convert WETH to ETH',
     convert_eth_tip: '0.1 ETH is reserved as gas so that you can send additional transactions.',
     actions_confirm_convert: 'Convert Now',
-    actions_max: "Convert Max",
+    actions_max: "Convert All",
     notification_suc_title:'Succeed to Convert {value} {token}',
     notification_fail_title:'Failed to Convert {value} {token}',
     not_enough_tip:'{token} not enough'
@@ -564,7 +568,8 @@ export default {
     send:'Send',
     tab_title: "Me",
     my_assets: 'My Assets',
-    my_orders: 'My Orders'
+    my_orders: 'My Orders',
+    my_fills: 'My Fills',
   },
   kline_chart:{
     kline_chart:'Kline Chart',
@@ -584,7 +589,8 @@ export default {
     title_allowance_not_enough:"{symbol} is disabled to trade",
     title_balance_not_enough:"{symbol} balance is insufficient",
     title_converting_eth_to_weth:'Converting ETH To WETH',
-    title_converting_weth_to_weth:'Converting WETH To ETH',
+    title_converting_weth_to_eth:'Converting WETH To ETH',
+    status_converting: 'Conveting',
     balance:"Balance",
     selling:"Selling",
     lack:"Lack",
@@ -592,6 +598,7 @@ export default {
     status_enabling:'Enabling',
     actions_buy:words.buy,
     actions_receive:words.receive,
+    no_detail:'No detail...'
   },
   usercenter:{
     page_title:'My Account',
