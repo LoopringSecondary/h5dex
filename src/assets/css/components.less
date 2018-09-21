@@ -298,7 +298,20 @@
   .am-button-primary::before{
     border:none !important;
   }
-
+}
+.settings{
+  .am-list-body{
+    background: @fill-body !important;
+    border-radius:0.4rem !important;
+  }
+  .am-radio-item{
+    .am-list-content{
+      &:extend(.color-black-1);  
+    }
+  }
+  .am-list-item{
+    border-bottom:1px solid @bg-white !important;
+  }
 }
 
 .am-list-item.am-input-item{

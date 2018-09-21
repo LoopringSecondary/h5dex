@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'dva'
 import { NavBar, NoticeBar, Tabs } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import { Link, Redirect, Route, Switch } from 'dva/router'
@@ -14,18 +15,24 @@ import intl from 'react-intl-universal'
 
 class UserCenter extends React.Component {
   render() {
-    const {match,location} = this.props;
+    const {match,location,dispatch} = this.props;
     const {url} = match;
     const {pathname} = location;
     const changeTab = (path) => {
       routeActions.gotoPath(`${url}/${path}`);
     }
     const isActive = (path) => {
-      console.log("url  ",url,"    path  ",path)
-      console.log("pathname  ",pathname)
       if(pathname === `${url}/${path}`){
         return true
       }
+    }
+    const showSettings = ()=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          id:'settings',
+        }
+      })
     }
     const address = storage.wallet.getUnlockedAddress()
     return (
@@ -38,7 +45,7 @@ class UserCenter extends React.Component {
                 <span className="" key="1"><WebIcon type="home" /></span>,
               ]}
               rightContent={[
-                <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
+                <span className="" key="1" onClick={showSettings}><i className="icon-cog-o"></i></span>
               ]}
           >
             <div className="text-center color-black">
@@ -98,7 +105,7 @@ class UserCenter extends React.Component {
     );
   }
 }
-export default UserCenter
+export default connect()(UserCenter)
 
 
 

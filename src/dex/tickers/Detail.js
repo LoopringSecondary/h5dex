@@ -30,7 +30,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
   }
   if(direction === 'down'){
     color = "color-error"
-    prefix = '-'
+    // prefix = '-' // no need minus
   }
   if(direction === 'none'){
     color = "text-primary"
