@@ -10,6 +10,7 @@ import { getMarketTickersBySymbol } from './formatters'
 import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
 import markets from 'modules/storage/markets'
+import configs from 'common/config'
 
 export const TickerHeader = ({sort,dispatch})=>{
   const sortByType = (type) => {
@@ -197,17 +198,20 @@ class ListMarketTickers extends React.Component {
       allTickers.sort(sorter)
       newMarktsTickers.sort(sorter)
       favoredTickers.sort(sorter)
-      const tabs = [
-        { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
-        { title: <div className="fs16">WETH</div> },
-        { title: <div className="fs16">LRC</div> },
-        { title: <div className="fs16">USDT</div> },
-        { title: <div className="fs16">TUSD</div> },
-        // { title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> },
-      ]
+      const tabs = []
+      const tickerItems = []
+      tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> })
+      tickerItems.push(<TickerList key={'fav'} items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+      const markets = configs.getSupportedMarketsTokenR()
+      markets.forEach(market=> {
+        tabs.push({title: <div className="fs16">{market}</div>})
+        tickerItems.push(<TickerList key={market} items={getMarketTickersBySymbol(market,allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+      })
       if(newMarkets && newMarkets.length > 0){
         tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
+        tickerItems.push(<TickerList key={'new'} items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
       }
+
       return (
           <Tabs
             tabs={tabs}
@@ -217,13 +221,7 @@ class ListMarketTickers extends React.Component {
             onChange={(tab, index) => {}}
             onTabClick={(tab, index) => { }}
           >
-            <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={getMarketTickersBySymbol("USDT",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={getMarketTickersBySymbol("TUSD",allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>
-            <TickerList items={[]} loading={list.loading} dispatch={dispatch} />
+            {tickerItems}
           </Tabs>
       )
   }
