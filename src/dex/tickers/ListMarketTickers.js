@@ -97,14 +97,14 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
     }
     return (
       <div className="row ml0 mr0 p10 align-items-center no-gutters hover-default zb-b-b" onClick={gotoDetail}>
-        <div className="col-auto pr10 fs16" onClick={toggleTickerFavored.bind(this, item.market)}>
+        <div className="col-auto pr10 fs14" onClick={toggleTickerFavored.bind(this, item.market)}>
           {
             favored[item.market] &&
-            <Icon type="star" className="text-primary"/>
+            <i type="star" className="text-primary icon-star"/>
           }
           {
             !favored[item.market] &&
-            <Icon type="star-o" className="color-black-4"/>
+            <i className="color-black-4 icon-star-o"/>
           }
         </div>
         <div className="col-4 text-left">

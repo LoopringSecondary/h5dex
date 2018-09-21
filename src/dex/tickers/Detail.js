@@ -125,7 +125,7 @@ class MarketDetail extends React.Component {
             left,
           ]}
           rightContent={[
-            <WebIcon className="fs18" key="1" type={favored[market] ? "star" : "star-o"} onClick={toggleTickerFavored.bind(this, market)}/>
+            <i className={`icon-${favored[market] ? "star" : "star-o"}`} key="1"  onClick={toggleTickerFavored.bind(this, market)}/>
           ]}
         >
           <div className="color-black">{market}</div>
