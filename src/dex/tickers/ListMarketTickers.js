@@ -209,10 +209,10 @@ class ListMarketTickers extends React.Component {
       })
       if(newMarkets && newMarkets.length > 0){
         tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
-        tickerItems.push(<TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+        tickerItems.push(<TickerList key={'new'} items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
       }
 
-    return (
+      return (
           <Tabs
             tabs={tabs}
             tabBarTextStyle={{}}
