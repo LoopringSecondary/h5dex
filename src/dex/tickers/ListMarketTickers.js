@@ -233,15 +233,29 @@ class ListMarketTickers extends React.Component {
       favoredTickers.sort(sorter)
       const tabs = []
       const tickerItems = []
-      if(marketGroups && Object.keys(marketGroups)) {
+      if(marketGroups && Object.keys(marketGroups).length > 0) {
         tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> })
         tickerItems.push(<TickerList key={'fav'} items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
-        for (let key of Object.keys(marketGroups)) {
-          tabs.push({title: <div className="fs16">{key}</div>})
-          tickerItems.push(<TickerList key={key} items={getMarketTickersBySymbol(key,allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+        const keys = Object.keys(marketGroups)
+        const wethIndex = keys.findIndex(item=> item === 'WETH')
+        if(wethIndex > -1) {
+          keys.splice(wethIndex, 1);
+          tabs.push({title: <div className="fs16">{'WETH'}</div>})
+          tickerItems.push(<TickerList key={'WETH'} items={getMarketTickersBySymbol('WETH',allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
         }
+        const lrcIndex = keys.findIndex(item=> item === 'LRC')
+        if(lrcIndex > -1) {
+          keys.splice(lrcIndex, 1);
+          tabs.push({title: <div className="fs16">{'LRC'}</div>})
+          tickerItems.push(<TickerList key={'LRC'} items={getMarketTickersBySymbol('LRC',allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+        }
+        keys.forEach(item => {
+          tabs.push({title: <div className="fs16">{item}</div>})
+          tickerItems.push(<TickerList key={item} items={getMarketTickersBySymbol(item,allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+        })
       }
       return (
+        <Spin spinning={list.loading}>
           <Tabs
             tabs={tabs}
             tabBarTextStyle={{}}
@@ -252,6 +266,7 @@ class ListMarketTickers extends React.Component {
           >
             {tickerItems}
           </Tabs>
+        </Spin>
       )
   }
 }
