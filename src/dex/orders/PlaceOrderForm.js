@@ -290,12 +290,15 @@ class PlaceOrderForm extends React.Component {
                 </div>
               </List.Item>
             }
-              <Button onClick={toConfirm} style={{height:'auto',padding:'10px'}} className={`d-flex align-items-center justify-content-center w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
-               <div>
-                 <div className="lh20">{intl.get(`common.${side}`)}  {amount ? amount : null} {tokens.left} </div>
-                 <div className="fs12 lh10" style={{opacity:'0.40',paddingTop:'0.3rem'}}>
-                   {total ? total : null} {total ? tokens.right : null}
-                 </div>
+              <Button onClick={toConfirm} style={{height:'auto'}} className={`p10 border-none d-flex align-items-center justify-content-center w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
+               <div className="lh20">
+                 <div className="lh20">{intl.get(`common.${side}`)}  {amount>0 ? amount : null} {tokens.left} </div>
+                 {
+                  total>0 &&
+                   <div className="fs12 lh10" style={{opacity:'0.40',paddingTop:'0.3rem'}}>
+                     {total} {tokens.right}
+                   </div>
+                 }
                </div>
               </Button>
               {
