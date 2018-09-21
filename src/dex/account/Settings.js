@@ -19,25 +19,25 @@ function Settings(props) {
     })
   }
   const languages = [
-    { value: 0, label: 'English' },
-    { value: 1, label: 'Chinese' },
+    { value: 0, label: 'English',checked:true},
+    { value: 1, label: 'Chinese',checked:false},
   ];
   const currencys = [
-    { value: 0, label: 'USD' },
-    { value: 1, label: 'CNY' },
+    { value: 0, label: 'USD',checked:true},
+    { value: 1, label: 'CNY',checked:false },
   ];
   const ttls = [
-    { value: 0, label: '1 Month' },
-    { value: 1, label: '1 Week' },
-    { value: 2, label: '1 Day' },
-    { value: 3, label: '1 Hour' },
-    { value: 4, label: 'Custom' },
+    { value: 0, label: '1 Month',checked:true},
+    { value: 1, label: '1 Week',checked:false },
+    { value: 2, label: '1 Day',checked:false },
+    { value: 3, label: '1 Hour',checked:false },
+    { value: 4, label: 'Custom',checked:false },
   ];
 
 
   const languageChange = ()=>{}
   return (
-    <div className="bg-white" style={{maxHeight:'100vh',height:'auto'}}>
+    <div className="bg-white" style={{height:'100%',overflow:'auto'}}>
       <NavBar
         className="zb-b-b bg-white"
         mode="light"
@@ -53,22 +53,22 @@ function Settings(props) {
       </NavBar>
       <div className="divider 1px zb-b-t"></div>
       <div className="bg-white settings pb10">
-          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5">Language</div>}>
+          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">Language</div>}>
             {languages.map(i => (
-              <RadioItem className="zb-b-b" key={i.value} checked={0} onChange={() => languageChange(i.value)}>
+              <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
                 {i.label}
               </RadioItem>
             ))}
           </List>
-          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5">Currency</div>}>
+          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">Currency</div>}>
             {currencys.map(i => (
-              <RadioItem className="zb-b-b" key={i.value} checked={0} onChange={() => languageChange(i.value)}>
+              <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
                 {i.label}
               </RadioItem>
             ))}
           </List>
-          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5">Trading Fee</div>}>
-            <List.Item className="" style={{height:'auto'}}>
+          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">Trading Fee Ratio</div>}>
+            <List.Item className="">
               <div className="pt10 pb10">
                 <Slider
                   style={{ }}
@@ -80,10 +80,18 @@ function Settings(props) {
                 />
               </div>
             </List.Item>
+            <List.Item className="" style={{height:'auto'}}>
+              <div className="row no-gutters ml0 mr0 fs13 color-black-2">
+               <div className="col-auto">Slow</div>
+               <div className="col text-center">0.1%</div>
+               <div className="col-auto">Fast</div>
+              </div>
+            </List.Item>
+
           </List>
           <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5">Currency</div>}>
             {ttls.map(i => (
-              <RadioItem className="zb-b-b" key={i.value} checked={0} onChange={() => languageChange(i.value)}>
+              <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
                 {i.label}
               </RadioItem>
             ))}
