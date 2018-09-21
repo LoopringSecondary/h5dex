@@ -90,13 +90,17 @@ function Settings(props) {
             </List.Item>
 
           </List>
-          <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5">Currency</div>}>
-            {ttls.map(i => (
-              <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
-                {i.label}
-              </RadioItem>
-            ))}
-          </List>
+          {
+            false &&
+            <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5">Currency</div>}>
+              {ttls.map(i => (
+                <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
+                  {i.label}
+                </RadioItem>
+              ))}
+            </List>
+          }
+          
           {
             false &&
             <List className="m10 no-border text-left settings" renderHeader={() => <div className="fs13 color-black-4 mb5">Order TTL</div>}>
