@@ -176,7 +176,7 @@ export const TickerList = ({items,loading,dispatch, tickersList})=>{
   }
 
   return (
-    <div className="">
+    <div className="" style={{minHeight:'50vh'}}>
       <Spin spinning={loading}>
         {!loading && items.length > 0 &&
           <div>
@@ -246,7 +246,7 @@ class ListMarketTickers extends React.Component {
             tabs={tabs}
             tabBarTextStyle={{}}
             initialPage={1}
-            swipeable={false}
+            swipeable={true}
             onChange={(tab, index) => {}}
             onTabClick={(tab, index) => { }}
           >

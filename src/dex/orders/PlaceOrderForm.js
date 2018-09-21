@@ -232,7 +232,7 @@ class PlaceOrderForm extends React.Component {
             <SegmentedControl
               values={[menu1, menu2]}
               style={{height:'40px'}}
-              className="m-auto"
+              className={`m-auto side-${side}`}
               selectedIndex={side === 'buy' ? 0 : 1}
               onChange={sideChange}
             />
@@ -289,8 +289,8 @@ class PlaceOrderForm extends React.Component {
             ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.total")}</div></InputItem>
               {
                 true &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
-                  Place Order
+                <Button onClick={toConfirm} className={`w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
+                  {intl.get("place_order.title")}
                 </Button>
               }
               {

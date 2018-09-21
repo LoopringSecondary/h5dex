@@ -98,6 +98,38 @@
     background: @brand-primary !important;
   }
 }
+.am-segment-item{
+  // border-color:@brand-primary-light !important;
+  border:none !important;
+  background: @brand-primary-light !important;
+  &.am-segment-item-selected{
+    background: @brand-primary !important;
+  }
+}
+.am-segment.side-buy{
+  .am-segment-item{
+    border:none !important;
+    background: @fill-body !important;
+    &:extend(.color-black-3);
+    &.am-segment-item-selected{
+      background: @brand-success !important;
+      &:extend(.color-black-1);
+    }
+  }
+}
+.am-segment.side-sell{
+  .am-segment-item{
+    border:none !important;
+    background: @fill-body !important;
+    &:extend(.color-black-3);
+    &.am-segment-item-selected{
+      background: @brand-error !important;
+      &:extend(.color-black-1);
+    }
+  }
+}
+
+
 .am-segment-item-selected{
     // background: #000 !important;
     // color:#fff !important;
@@ -270,9 +302,9 @@
 }
 
 .am-list-item.am-input-item{
-  height: 50px !important;
+  height: 5.0rem !important;
   &.h-default{
-    height:44px !important;
+    height:4.4rem !important;
   }
 }
 .am-list-item.circle{
