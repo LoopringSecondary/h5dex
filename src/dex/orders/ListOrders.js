@@ -59,14 +59,15 @@ export class PullRefreshOrders extends React.Component {
     };
   }
   componentDidMount() {
-    const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+    // const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
     // setTimeout(() => this.setState({
     //   height: hei,
     //   data: genData(),
     // }), 0);
     this.setState({ refreshing:true})
     fetchOrders().then(res=> {
-      this.setState({ data: res , height: hei,refreshing:false })
+      this.setState({ data: res ,refreshing:false })
+      // this.setState({ data: res , height: hei,refreshing:false })
     })
   }
 
@@ -121,103 +122,107 @@ export class PullRefreshOrders extends React.Component {
     }
     return (
       <div>
-        <PullToRefresh
-          damping={200}
-          ref={el => this.ptr = el}
-          style={{
-            height: this.state.height,
-            overflow: 'auto',
-          }}
-          indicator={{}}
-          direction={'down'}
-          refreshing={this.state.refreshing}
-          onRefresh={() => {
-            this.setState({ refreshing: true });
-            fetchOrders().then(res=> {
-              this.setState({ data: res, refreshing: false })
-            })
-          }}
-        >
-          <Spin  spinning={this.state.refreshing}>
-            <table className="w-100 fs13" style={{overflow:'auto'}}>
-              <thead>
-              <tr>
-                <th hidden className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
-                </th>
-                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="2" onClick={()=>{}}>
-                  {intl.get('common.market')}
-                  <WebIcon hidden className="text-primary" type="filter" />
-                </th>
-                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.price')}</th>
-                <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled_total')}</th>
-                <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.lrc_fee')}</th>
-                <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" onClick={()=>{}}>
-                  {intl.get('common.status')}
-                  <WebIcon hidden className="text-primary" type="filter" />
-                </th>
-              </tr>
-              </thead>
-              <tbody>
-              {this.state.data && this.state.data.items && this.state.data.items.map((item, index) => {
-                const orderFm = new OrderFm(item)
-                const tokens = orderFm.getTokens()
-                const market = orderFm.getMarketPair()
-                return (
-                  <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
-                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
-                      {orderFm.getSide() === 'buy' &&
-                      <span className="bg-success color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}>{intl.get(`common.buy_short`)}</span>
-                      }
-                      {orderFm.getSide() === 'sell' &&
-                      <span className="bg-error color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}> {intl.get(`common.sell_short`)}</span>
-                      }
-                    </td>
-                    <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">
-                      <div className="">
-                        <span className="font-weight-bold">{tokens.left}</span>-{tokens.right}
-                      </div>
-                      <div className="color-black-3 fs12">
-                        <span className="">{orderFm.getCreateTime()}</span>
-                      </div>
-                    </td>
-                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
-                      <div>{orderFm.getPrice()}</div>
-                      <div className="color-black-3 fs12"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></div>
-                    </td>
-                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
-                      <div>{orderFm.getFilledAmount()}</div>
-                      <div className="color-black-3 fs12">{orderFm.getAmount()}</div>
-                    </td>
-                    <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
-                    <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
-                    <td className="zb-b-b p10 text-center">
-                      {renders.status(orderFm,item.originalOrder,cancelOrder.bind(this, item))}
-                    </td>
-                  </tr>
-                )
-              })}
-              {
-                !this.state.refreshing &&  this.state.data.items && this.state.data.items.length === 0 &&
-                <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
-              }
-              </tbody>
-            </table>
-          </Spin>
-          {
-            this.state.data.items && this.state.data.items.length > 0 &&
-            <div className="p5">
-              <Pagination className="fs14 s-small custom-pagination" total={Math.ceil(this.state.data.page.total/this.state.data.page.size)} current={this.state.data.page.current} onChange={(page)=>{
-                this.setState({ refreshing: true });
-                fetchOrders({
-                  current:page,
-                  size:10
-                }).then(res=> {
-                  this.setState({ data: res, refreshing: false })
-                })
-              }} />
-            </div>
-          }
-        </PullToRefresh>
+        <Spin  spinning={this.state.refreshing}>
+          <table className="w-100 fs13" style={{overflow:'auto'}}>
+            <thead>
+            <tr>
+              <th hidden className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
+              </th>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" colSpan="2" onClick={()=>{}}>
+                {intl.get('common.market')}
+                <WebIcon hidden className="text-primary" type="filter" />
+              </th>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.price')}</th>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled_total')}</th>
+              <th hidden className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.lrc_fee')}</th>
+              <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default" onClick={()=>{}}>
+                {intl.get('common.status')}
+                <WebIcon hidden className="text-primary" type="filter" />
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            {this.state.data && this.state.data.items && this.state.data.items.map((item, index) => {
+              const orderFm = new OrderFm(item)
+              const tokens = orderFm.getTokens()
+              const market = orderFm.getMarketPair()
+              return (
+                <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this,item)}>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                    {orderFm.getSide() === 'buy' &&
+                    <span className="bg-success color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}>{intl.get(`common.buy_short`)}</span>
+                    }
+                    {orderFm.getSide() === 'sell' &&
+                    <span className="bg-error color-white d-inline-block text-center" style={{width:'18px',height:'18px',lineHeight:'18px',borderRadius:'50em',fontSize:'10px'}}> {intl.get(`common.sell_short`)}</span>
+                    }
+                  </td>
+                  <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">
+                    <div className="">
+                      <span className="font-weight-bold">{tokens.left}</span>-{tokens.right}
+                    </div>
+                    <div className="color-black-3 fs12">
+                      <span className="">{orderFm.getCreateTime()}</span>
+                    </div>
+                  </td>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                    <div>{orderFm.getPrice()}</div>
+                    <div className="color-black-3 fs12"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></div>
+                  </td>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                    <div>{orderFm.getFilledAmount()}</div>
+                    <div className="color-black-3 fs12">{orderFm.getAmount()}</div>
+                  </td>
+                  <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+                  <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
+                  <td className="zb-b-b p10 text-center">
+                    {renders.status(orderFm,item.originalOrder,cancelOrder.bind(this, item))}
+                  </td>
+                </tr>
+              )
+            })}
+            {
+              !this.state.refreshing &&  this.state.data.items && this.state.data.items.length === 0 &&
+              <tr><td colSpan='100'><div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div></td></tr>
+            }
+            </tbody>
+          </table>
+        </Spin>
+        {
+          this.state.data.items && this.state.data.items.length > 0 &&
+          <div className="p5">
+            <Pagination className="fs14 s-small custom-pagination" total={Math.ceil(this.state.data.page.total/this.state.data.page.size)} current={this.state.data.page.current} onChange={(page)=>{
+              this.setState({ refreshing: true });
+              fetchOrders({
+                current:page,
+                size:10
+              }).then(res=> {
+                this.setState({ data: res, refreshing: false })
+              })
+            }} />
+          </div>
+        }
+        {
+          false &&
+          <PullToRefresh
+            damping={200}
+            ref={el => this.ptr = el}
+            style={{
+              height: this.state.height,
+              overflow: 'auto',
+            }}
+            indicator={{}}
+            direction={'down'}
+            refreshing={this.state.refreshing}
+            onRefresh={() => {
+              this.setState({ refreshing: true });
+              fetchOrders().then(res=> {
+                this.setState({ data: res, refreshing: false })
+              })
+            }}
+          >
+          </PullToRefresh>
+        }
+        
         
     </div>);
   }
