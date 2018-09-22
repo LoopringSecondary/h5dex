@@ -14,8 +14,8 @@ import markets from 'modules/storage/markets'
 export const Sorter = ({className,style={},isActive,direction})=>{
   return (
     <div className={`${className}`} style={{paddingLeft:'1px',...style}}>
-      <div style={{position:'absolute',top:'0.3rem'}} className={`lh10 fs7 ${isActive && direction=== 'up' ? 'text-primary' : ''}`} >▲</div>
-      <div style={{position:'absolute',top:'1.0rem'}} className={`lh10 fs7 ${isActive && direction=== 'down' ? 'text-primary': ''}`}>▼</div>
+      <div style={{position:'absolute',top:'0.1rem'}} className={`lh10 fs6 ${isActive && direction=== 'up' ? 'text-primary' : ''}`} >▲</div>
+      <div style={{position:'absolute',top:'0.8rem'}} className={`lh10 fs6 ${isActive && direction=== 'down' ? 'text-primary': ''}`}>▼</div>
     </div>
   )
   // return (
@@ -51,22 +51,22 @@ export const TickerHeader = ({sort,dispatch})=>{
   }
   return (
     <div className="row ml0 mr0 pl10 pr10 align-items-center no-gutters">
-      <div className="col-4 fs13 color-black-4 text-left hover-default pt5 pb5" onClick={sortByType.bind(this, 'volume')}>
+      <div className="col-4 fs12 color-black-4 text-left hover-default pt5 pb5" onClick={sortByType.bind(this, 'volume')}>
         <span className="position-relative">
-        {intl.get('common.volume')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'volume'} direction={direction}></Sorter>
+        {intl.get('common.volume')} <Sorter className="d-inline-block " isActive={sort.sortBy === 'volume'} direction={direction}></Sorter>
         </span>
       </div>
       <div className="col-auto pr10 fs16 pt5 pb5">
         <Icon type="star-o" className="color-black-4" style={{opacity:0}}/>
       </div>
       <div className="col text-left pl5 pr10 hover-default pt5 pb5" onClick={sortByType.bind(this, 'price')}>
-        <div className="fs13 color-black-4 position-relative">
-          {intl.get('common.price')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'price'} direction={direction}></Sorter>
+        <div className="fs12 color-black-4 position-relative">
+          {intl.get('common.price')} <Sorter className="d-inline-block " isActive={sort.sortBy === 'price'} direction={direction}></Sorter>
         </div>
       </div>
       <div className="col-3 text-right hover-default pt5 pb5" onClick={sortByType.bind(this, 'change')}>
-        <div className="fs13 color-black-4 mr5 position-relative">
-          {intl.get('ticker.change')} <Sorter className="d-inline-block" isActive={sort.sortBy === 'change'} direction={direction}></Sorter>
+        <div className="fs12 color-black-4 mr5 position-relative">
+          {intl.get('ticker.change')} <Sorter className="d-inline-block " isActive={sort.sortBy === 'change'} direction={direction}></Sorter>
         </div>
       </div>
     </div>
@@ -110,10 +110,10 @@ export const TickerItem = ({item,actions,key,tickersList,dispatch})=>{
         <div className="col-4 text-left">
           <div className="fs16 lh15">
             <span className="fs16 color-black-1">{tokens.left}</span>
-            <span className="fs16 color-black-4"> / {tokens.right}</span>
+            <span className="fs12 color-black-4"> / {tokens.right}</span>
           </div>
           <div className="fs12" style={{marginTop:'2px'}}>
-              <span className="fs12 color-black-4">{tickerFm.getVol()} {tokens.right}</span>
+              <span className="fs12 color-black-4">{intl.get('common.volume')} {tickerFm.getVol()} {false && tokens.right}</span>
           </div>
         </div>
         <div className="col text-left pr10 pl5">
