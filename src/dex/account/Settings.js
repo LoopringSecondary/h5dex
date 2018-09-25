@@ -110,9 +110,9 @@ function Settings(props) {
             </List.Item>
             <List.Item className="" style={{height:'auto'}}>
               <div className="row no-gutters ml0 mr0 fs13 color-black-2">
-               <div className="col-auto">Slow</div>
+               <div className="col-auto">{intl.get('setting_lrcfee.low')}</div>
                <div className="col text-center">{settings.trading.lrcFee/10}%</div>
-               <div className="col-auto">Fast</div>
+               <div className="col-auto">{intl.get('setting_lrcfee.high')}</div>
               </div>
             </List.Item>
 
