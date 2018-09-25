@@ -3,7 +3,7 @@ import {fromPrivateKey} from 'LoopringJS/ethereum/account'
 import util,{keccakHash} from 'LoopringJS/common/utils'
 import {toBuffer} from "LoopringJS/common/formatter";
 import {Toast} from 'antd-mobile'
-
+import settings from 'modules/storage/settings'
 
 export default class MockWallet extends Wallet {
   constructor(key) {
@@ -16,23 +16,43 @@ export default class MockWallet extends Wallet {
   }
 
   getLanguage() {
-    return new Promise((resolve) => {
-      resolve({result: 'zh-CN'})
-     // resolve({result: 'en-US'})
-    })
+    const userSettings = settings.getLanguage()
+    if(userSettings) {
+      return new Promise((resolve, reject) => {
+        resolve({result: userSettings});
+      })
+    } else {
+      return new Promise((resolve) => {
+        resolve({result: 'zh-CN'})
+        // resolve({result: 'en-US'})
+      })
+    }
   }
 
-
   getCurrency() {
-    return new Promise((resolve) => {
-      resolve({result: 'CNY'})
-    })
+    const userSettings = settings.getCurrency()
+    if(userSettings) {
+      return new Promise((resolve, reject) => {
+        resolve({result: userSettings});
+      })
+    } else {
+      return new Promise((resolve) => {
+        resolve({result: 'CNY'})
+      })
+    }
   }
 
   getLrcFee() {
-    return new Promise((resolve) => {
-      resolve({result: 0.002})
-    })
+    const userSettings = settings.getLRCFee()
+    if(userSettings) {
+      return new Promise((resolve, reject) => {
+        resolve({result: userSettings});
+      })
+    } else {
+      return new Promise((resolve) => {
+        resolve({result: 0.002})
+      })
+    }
   }
 
   getCurrentAccount() {

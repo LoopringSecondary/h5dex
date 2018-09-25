@@ -282,6 +282,8 @@ export default {
     title: 'Set LRC Fee Of Order',
     tabs_basic: 'Basic',
     tabs_advanced: 'Advanced',
+    low: 'Low',
+    high: 'High'
   },
   place_order_confirm: {
     qrcode_security: '*For your order\'s security, your QR code will only generated once and not be stored locally. Make sure to save it properly, any one who received your QR code could take your order',
