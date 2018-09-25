@@ -65,6 +65,9 @@
   background:darken(@brand-primary,8%) !important;
 }
 
+.bg-fill-light{
+  background:fade(@fill-body,40%) !important;
+}
 
 .radius-4{
   border-radius:4px !important;
@@ -109,7 +112,7 @@
 .am-segment.side-buy{
   .am-segment-item{
     border:none !important;
-    background: fade(@fill-body,50%)!important;
+    background: fade(@fill-body,40%)!important;
     &:extend(.color-black-3);
     &.am-segment-item-selected{
       background: @brand-success !important;
@@ -120,7 +123,7 @@
 .am-segment.side-sell{
   .am-segment-item{
     border:none !important;
-    background: fade(@fill-body,50%) !important;
+    background: fade(@fill-body,40%) !important;
     &:extend(.color-black-3);
     &.am-segment-item-selected{
       background: @brand-error !important;
@@ -304,7 +307,7 @@
 }
 .settings{
   .am-list-body{
-    background: @fill-body !important;
+    background: @bg-white !important;
     border-radius:0.4rem !important;
   }
   .am-radio-item{
@@ -313,7 +316,7 @@
     }
   }
   .am-list-item{
-    border-bottom:1px solid @bg-white !important;
+    border-bottom:1px solid @fill-body !important;
   }
 }
 
@@ -323,6 +326,11 @@
     height:4.4rem !important;
   }
 }
+.am-list-item .am-input-control input:disabled{
+  background: transparent;
+  cursor:not-allowed;
+}
+
 .am-list-item.circle{
   border-radius: 50em;
   border:1px solid #eeeeee;
@@ -416,4 +424,24 @@
     background:@brand-primary !important;
   }
 
+}
+.modal-wrapper{
+  .ant-modal-content{
+    .ant-modal-body{
+      padding:0px !important;  
+    }
+  }
+}
+.am-modal-popup {
+  width:100%;
+  max-width:640px;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:0 auto;
+  .am-modal-content{
+    background: transparent;
+    background: @fill-body !important;
+  }
 }

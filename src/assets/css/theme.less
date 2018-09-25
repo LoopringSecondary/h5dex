@@ -32,23 +32,23 @@
 }
 .zb-b-t {
     background-position: left top;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, @border-color), to(@border-color));
 }
 .zb-b-b {
     background-position: left bottom;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)));
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, @border-color), to(@border-color));
 }
 .zb-b-tb {
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05))), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, @border-color), to(@border-color)), -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, @border-color), to(@border-color));
     background-position: top, bottom
 }
 .zb-b-l {
     background-position: left top;
-    background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)))
+    background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, @border-color), to(@border-color))
 }
 .zb-b-r {
     background-position: right top;
-    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, rgba(255,255,255,0.05)), to(rgba(255,255,255,0.05)))
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, @border-color), to(@border-color))
 }
 .am-tabs-default-bar-tab::after{
 	background: transparent !important;
@@ -89,7 +89,7 @@
 		background: fade(@fill-body,50%) !important;
 		// background: @fill-body !important;
 		// background: transparent !important;
-		// border:1px solid rgba(255,255,255,0.05) !important;
+		// border:1px solid @border-color !important;
 	}
 }
 .am-list-item.circle:last-child{

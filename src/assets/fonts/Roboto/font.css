@@ -1,28 +1,42 @@
 
 @font-face {
   font-family: "Roboto";
-  src: url('Roboto-Regular.ttf'); /* IE9*/
-  src: url('Roboto-Regular.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-       url('Roboto-Regular.ttf') format('svg'); /* iOS 4.1- */
+  src: url('Roboto-Thin.ttf'); /* IE9*/
+  src: url('Roboto-Thin.ttf') format('truetype'), url('Roboto-Thin.ttf') format('svg');
+  font-weight:200;
 }
 @font-face {
-  font-family: "Roboto-Light";
+  font-family: "Roboto";
   src: url('Roboto-Light.ttf'); /* IE9*/
-  src: url('Roboto-Light.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-       url('Roboto-Light.ttf') format('svg'); /* iOS 4.1- */
+  src: url('Roboto-Light.ttf') format('truetype'), url('Roboto-Light.ttf') format('svg');
+  font-weight:300;
 }
 @font-face {
-  font-family: "RobotoCondensed";
-  src: url('RobotoCondensed-Regular.ttf'); /* IE9*/
-  src: url('RobotoCondensed-Regular.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-       url('RobotoCondensed-Regular.ttf') format('svg'); /* iOS 4.1- */
+  font-family: "Roboto";
+  src: url('Roboto-Regular.ttf'); /* IE9*/
+  src: url('Roboto-Regular.ttf') format('truetype'), url('Roboto-Regular.ttf') format('svg');
+  font-weight:400;
 }
 @font-face {
-  font-family: "RobotoCondensed-Light";
-  src: url('RobotoCondensed-Light.ttf'); /* IE9*/
-  src: url('RobotoCondensed-Light.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-       url('RobotoCondensed-Light.ttf') format('svg'); /* iOS 4.1- */
+  font-family: "Roboto";
+  src: url('Roboto-Medium.ttf'); /* IE9*/
+  src: url('Roboto-Medium.ttf') format('truetype'), url('Roboto-Medium.ttf') format('svg');
+  font-weight:500;
 }
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Bold.ttf'); /* IE9*/
+  src: url('Roboto-Bold.ttf') format('truetype'), url('Roboto-Bold.ttf') format('svg');
+  font-weight:600;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Black.ttf'); /* IE9*/
+  src: url('Roboto-Black.ttf') format('truetype'), url('Roboto-Black.ttf') format('svg');
+  font-weight:700;
+}
+
+
 
 
 
