@@ -11,9 +11,10 @@ import config from '../../common/config'
 import Contracts from 'LoopringJS/ethereum/contracts/Contracts'
 import eachLimit from 'async/eachLimit'
 import each from 'async/each'
-import { isApproving } from '../../modules/transactions/formatters'
+import { isApproving,lastApprovingTx } from '../../modules/transactions/formatters'
 import storage from 'modules/storage'
 import { signTx } from '../../common/utils/signUtils'
+import { getShortAddress } from '../../modules/formatter/common'
 
 const ERC20 = Contracts.ERC20Token
 const gasLimit = config.getGasLimitByType('approve').gasLimit
@@ -21,7 +22,7 @@ const gasLimit = config.getGasLimitByType('approve').gasLimit
 const TodoItem = (props) => {
   const {item = {}, balance, dispatch, pendingTxs, gasPrice} = props
   const showActions = () => {
-    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol,hideBuy:false}})
+    dispatch({type: 'layers/showLayer', payload: {id: 'helperOfTokenActions', symbol: item.symbol, hideBuy: false}})
   }
   const enable = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
@@ -77,7 +78,7 @@ const TodoItem = (props) => {
       })
     }, function (error) {
       if (error) {
-        Toast.fail(intl.get('notifications.title.enable_failed') + ":"+error.message, 3, null, false)
+        Toast.fail(intl.get('notifications.title.enable_failed') + ':' + error.message, 3, null, false)
       } else {
         Toast.success(intl.get('notifications.title.enable_suc'), 3, null, false)
       }
@@ -92,7 +93,15 @@ const TodoItem = (props) => {
       return tf.getUnitAmount(allowance).gte(item.selling)
     }
     return false
+  }
 
+  const gotoDetail = () => {
+    const approvingtx = lastApprovingTx(pendingTxs, item.symbol)
+    if(approvingtx){
+      routeActions.gotoHref(`https://etherscan.io/tx/${approvingtx.txHash}`)
+    }else{
+      Toast.info(intl.get('todo_list.no_detail'))
+    }
   }
 
   if (item.type === 'allowance') {
@@ -104,21 +113,50 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-              {intl.get('todo_list.allowance_not_enough_title', {symbol: item.symbol})}
+              {intl.get('todo_list.title_allowance_not_enough', {symbol: item.symbol})}
             </div>
           </div>
         </div>
         <div className="col-auto">
           <div>
-            <Button disabled={loading()} inline={true} style={{width: '80px'}} type="primary" size="small" className=""
-                    onClick={enable}>
-              {loading() ? intl.get('todo_list.status_enabling') : intl.get('todo_list.actions_enable')}
+            {!loading() && <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
+                                 onClick={enable}>
+              {intl.get('todo_list.actions_enable')}
+            </Button>}
+            {loading() && <Button inline={true}  style={{width: '80px'}} type="primary" size="small" className=""
+                                onClick={gotoDetail}>
+              {intl.get('todo_list.status_enabling')}
+            </Button>}
+          </div>
+        </div>
+      </div>
+    )
+  }
+  if (item.type === 'convert') {
+    return (
+      <div className="row ml0 mr0 pl10 pr10 pt15 pb15 align-items-center zb-b-b no-gutters" >
+        <div className="col-auo pr10 color-black text-center">
+          <WebIcon className="text-primary fs16" type="clock-circle"/>
+        </div>
+        <div className="col text-left">
+          <div>
+            <div className="fs16 color-black-1">
+              {item.symbol.toUpperCase() === 'ETH' ? intl.get('todo_list.title_converting_weth_to_eth') : intl.get('todo_list.title_converting_eth_to_weth')}
+            </div>
+          </div>
+        </div>
+        <div className="col-auto">
+          <div>
+            <Button disabled={false} inline={true} type="primary" size="small" className=""
+                    onClick={routeActions.gotoHref.bind(this, `https://etherscan.io/tx/${item.txHash}`)}>
+              {intl.get('todo_list.status_converting')}
             </Button>
           </div>
         </div>
       </div>
     )
   }
+
   if (item.type === 'balance') {
     return (
       <div className="">
@@ -129,7 +167,7 @@ const TodoItem = (props) => {
           <div className="col text-left">
             <div>
               <div className="fs16 color-black-1">
-                {intl.get('todo_list.balance_not_enough_title', {symbol: item.symbol})}
+                {intl.get('todo_list.title_balance_not_enough', {symbol: item.symbol})}
               </div>
             </div>
           </div>
@@ -178,7 +216,6 @@ const TodoItem = (props) => {
               <Button inline={true} style={{width: '80px'}} type="primary" size="small" className=""
                       onClick={showActions}>
                 {intl.get('common.actions')} <WebIcon type="down"/></Button>
-              <Button hidden inline={true} type="ghost" size="small" className="mr5 mt5" href="">View Orders</Button>
             </div>
           </div>
         </div>
@@ -194,38 +231,39 @@ function ListTodos (props) {
   let data = []
   const lrcFee = allocates['frozenLrcFee'] || 0
   const symbols = Object.keys(allocates)
-  each(symbols, (symbol, callback) => {
-    if(symbol.toLowerCase()  !== "frozenlrcfee"){
-      const value = allocates[symbol]
-      const tf = new TokenFormatter({symbol})
-      const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
-      const unitBalance = assets.balance
-      let selling = tf.getUnitAmount(value)
-      if (symbol.toUpperCase() === 'LRC') {
-        selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+  if(balance.items.length !== 0){
+    each(symbols, (symbol, callback) => {
+      if (symbol.toLowerCase() !== 'frozenlrcfee') {
+        const value = allocates[symbol]
+        const tf = new TokenFormatter({symbol})
+        const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol, toUnit: true})
+        const unitBalance = assets.balance
+        let selling = tf.getUnitAmount(value)
+        if (symbol.toUpperCase() === 'LRC') {
+          selling = toNumber(selling) + toNumber(tf.getUnitAmount(lrcFee))
+        }
+        if (toNumber(unitBalance) < toNumber(selling)) {
+          data.push({
+            symbol: symbol,
+            type: 'balance',
+            balance: tf.toPricisionFixed(unitBalance),
+            selling: tf.toPricisionFixed(selling),
+            lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
+            title: `${symbol} balance is insufficient for orders`
+          })
+        }
+        let allowance = assets.allowance
+        if (allowance.lt(toBig(selling))) {
+          data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
+        }
+        callback()
+      } else {
+        callback()
       }
-      if (toNumber(unitBalance) < toNumber(selling)) {
-        data.push({
-          symbol: symbol,
-          type: 'balance',
-          balance: tf.toPricisionFixed(unitBalance),
-          selling:tf.toPricisionFixed(selling),
-          lack: tf.toPricisionFixed(toNumber(selling) - toNumber(unitBalance)),
-          title: `${symbol} balance is insufficient for orders`
-        })
-      }
-      let allowance = assets.allowance
-      if (allowance.lt(toBig(selling))) {
-        data.push({symbol: symbol, type: 'allowance', selling, title: `${symbol} allowance is insufficient for orders`})
-      }
-      callback()
-    }else{
-      callback()
-    }
-  }, (error) => {
-    data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
-  })
-
+    }, (error) => {
+      data = data.sort((a, b) => {return a.type < b.type ? -1 : 1})
+    })
+  }
   const enableAll = async () => {
     let nonce = (await window.RELAY.account.getNonce(storage.wallet.getUnlockedAddress())).result
     const approveJobs = data.filter(item => item.type === 'allowance')
@@ -292,55 +330,46 @@ function ListTodos (props) {
       }
     })
   }
-  const segmentChange = ()=>{
-
+  const segmentChange = (e) => {
+    const side = e.nativeEvent.selectedSegmentIndex === 0 ? 'buy' : 'sell'
+    dispatch({
+      type: 'placeOrder/sideChangeEffects',
+      payload: {
+        side
+      }
+    })
   }
   return (
-    <LayoutDexHome {...props}>
+    <div className="">
+      {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
+      <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
+                 icon={<WebIcon type="exclamation-circle-o"/>}
+                 mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
+        One click to enable all tokens ?
+      </NoticeBar>}
       <div className="">
-        <NavBar
-          className="w-100 zb-b-b bg-white"
-          mode="light"
-          icon={null && <Icon type="left"/>}
-          onLeftClick={() => routeActions.goBack()}
-          leftContent={null && [
-            <WebIcon key="1" type="left" className="color-black-1" onClick={goBack}/>,
-          ]}
-          rightContent={null && [
-            <WebIcon onClick={() => window.Toast.info('Coming Soon', 1, null, false)} key="1" type="question-circle-o"
-                     className=""/>,
-          ]}
-        >
-          {
-            false &&
-            <SegmentedControl
-              values={[intl.get('todo_list.todo_list_title'), intl.get('message_list.message_list_title')]}
-              style={{width: '180px', height: '32px'}}/>
-          }
-          {intl.get('todo_list.todo_list_title')}
-        </NavBar>
-        {data.length > 0 && (storage.wallet.getUnlockedType === 'loopr' || storage.wallet.getUnlockedType === 'mock') &&
-        <NoticeBar onClick={enableAll} className="text-left t-error s-lg"
-                   icon={<WebIcon type="exclamation-circle-o"/>}
-                   mode="link" marqueeProps={{loop: true}} action={<span>Enable All<WebIcon type="right"/></span>}>
-          One click to enable all tokens ?
-        </NoticeBar>}
         <div className="bg-white">
+          {
+            txs.filter(tx => tx.type === 'convert_income').map((tx, index) =>
+              <TodoItem key={index} item={{...tx, type: 'convert',}} balance={balance} dispatch={dispatch}
+                        pendingTxs={txs}
+                        gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
+            )
+          }
           {
             data.map((item, index) =>
               <TodoItem key={index} item={item} balance={balance} dispatch={dispatch} pendingTxs={txs}
                         gasPrice={toHex(toBig(gasPrice).times(1e9))}/>
             )
           }
-          {!data || data.length === 0 &&
-          <div className="pl10 pt10 pb10 color-black-4 fs12">
-            {false && intl.getHTML('todos.instruction')}
-            {intl.get('common.list.no_data')}
-          </div>}
+
         </div>
-        <div className="pt50"></div>
+        {!data || data.length === 0 &&
+        <div className="pl10 pt10 pb10 color-black-4 fs12 text-center">
+          {intl.get('common.list.no_data')}
+        </div>}
       </div>
-    </LayoutDexHome>
+    </div>
   )
 }
 

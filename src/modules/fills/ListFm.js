@@ -1,8 +1,7 @@
-import React from 'react';
-import {Icon} from 'antd';
-import {toNumber,toBig} from "LoopringJS/common/formatter";
-import config from "common/config";
-import commonFm from "../formatter/common";
+import React from 'react'
+import { toBig, toNumber } from 'LoopringJS/common/formatter'
+import config from 'common/config'
+import commonFm from '../formatter/common'
 
 export class OrderFm {
   constructor(order){

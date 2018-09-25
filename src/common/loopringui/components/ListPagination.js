@@ -1,15 +1,19 @@
 import React from 'react';
 import { Pagination} from 'antd';
 
-function ListPagination({list,className}){
+function ListPagination({list,className,pageChanged}){
   let {page={},items=[]} = list;
   let handlePageChange = (current,size) => {
-    list.pageChange({
-      page:{
-        current,
-        size,
-      }
-    })
+    if(pageChanged) {
+      pageChanged({current, size})
+    } else {
+      list.pageChange({
+        page:{
+          current,
+          size,
+        }
+      })
+    }
   }
   let showTotal = (total, range) => {
     // range = [start,end];
@@ -27,6 +31,7 @@ function ListPagination({list,className}){
      pageSizeOptions:['10','20','30','40','50'], // must be string not number
      // showTotal:true,
      // simple:true,
+     size:'small'
   }
   if((items.length>0 && page.total/page.size >= 1) || page.size > 10){
     return (

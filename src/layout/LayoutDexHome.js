@@ -2,11 +2,10 @@ import React from 'react'
 import { Link, Redirect, Route, Switch } from 'dva/router'
 import routeActions from 'common/utils/routeActions'
 import intl from 'react-intl-universal'
-import { TabBar, NavBar, Icon } from 'antd-mobile'
-import { Icon as WebIcon } from 'antd'
+import { TabBar } from 'antd-mobile'
 import { connect } from 'dva'
-import {toBig,toNumber} from '../common/loopringjs/src/common/formatter'
-import TokenFormatter, { getBalanceBySymbol } from '../modules/tokens/TokenFm'
+import { toBig } from 'LoopringJS/common/formatter'
+import { getBalanceBySymbol } from '../modules/tokens/TokenFm'
 
 class DexHomeLayout extends React.Component {
   constructor (props) {
@@ -26,23 +25,28 @@ class DexHomeLayout extends React.Component {
     let todos = 0
     const lrcFee  = allocates['frozenLrcFee'] || 0 ;
     const symbols = Object.keys(allocates)
-    symbols.forEach((symbol, index) => {
-      if(symbol.toLocaleLowerCase() !== "frozenlrcfee"){
-        const value = allocates[symbol]
-        const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
-        let selling = toBig(value)
-        if (symbol.toUpperCase() === 'LRC') {
-          selling = selling.plus(toBig(lrcFee))
+    if(balance.items.length !== 0){
+      symbols.forEach((symbol, index) => {
+        if(symbol.toLocaleLowerCase() !== "frozenlrcfee"){
+          const value = allocates[symbol]
+          console.log(allocates)
+          const assets = getBalanceBySymbol({balances: balance.items, symbol: symbol})
+          let selling = toBig(value)
+          if (symbol.toUpperCase() === 'LRC') {
+            selling = selling.plus(toBig(lrcFee))
+          }
+          if (selling.gt(assets.balance)) {
+            todos = todos + 1
+          }
+          let allowance = assets.allowance
+          if (selling.gt(allowance)) {
+            todos = todos + 1
+          }
         }
-        if (selling.gt(assets.balance)) {
-          todos = todos + 1
-        }
-        let allowance = assets.allowance
-        if (selling.gt(allowance)) {
-          todos = todos + 1
-        }
-      }
-    })
+      })
+    }
+
+    todos = todos + txs.filter(tx => tx.type.toLowerCase() === 'convert_income').length
 
     return (
       <div style={{}}>
@@ -83,15 +87,15 @@ class DexHomeLayout extends React.Component {
               badge={todos}
               icon={<i className="icon-bell fs22 color-primary-light-bak" style={{position: 'relative', top: '2px'}}/>}
               selectedIcon={<i className="icon-bell fs22 text-primary" style={{position: 'relative', top: '2px'}}/>}
-              title={<span className={isActive('/dex/todos') ? 'text-primary' : ''}
-                           style={{position: 'relative', top: '-2px'}}>
+              title={<span className={isActive('/dex/notifications') ? 'text-primary' : ''}
+                           style={{position: 'relative', top: '0px'}}>
                             {false && intl.get('todos.tab_title')}
                             {intl.get('todo_list.todo_list_title')}
                            </span>}
               key="Notifications"
-              selected={isActive('/dex/todos')}
+              selected={isActive('/dex/notifications')}
               onPress={() => {
-                changeTab('todos')
+                changeTab('notifications')
               }}
             />
             <TabBar.Item
@@ -123,3 +127,5 @@ function mapStateToProps (state) {
 }
 
 export default connect(mapStateToProps)(DexHomeLayout)
+
+

@@ -2,7 +2,7 @@ import storage from 'modules/storage'
 import Imtoken from '../../auth/imtoken/Imtoken'
 import Loopr from '../../auth/loopr/loopr'
 import Mock from '../../auth/mock/mock'
-
+import TPWallet from '../../auth/tpwallet/TPWallet'
 
 export function signMessage (message) {
   if (window.Wallet) {
@@ -17,6 +17,9 @@ export function signMessage (message) {
       break
     case 'loopr':
       window.Wallet = new Loopr()
+      break
+    case 'tpwallet':
+      window.Wallet = new TPWallet()
       break
     default :
       window.Wallet = new Mock()
@@ -38,6 +41,9 @@ export async function signTx (tx, feeCustomizable) {
     case 'loopr':
       window.Wallet = new Loopr()
       break
+    case 'tpwallet':
+      window.Wallet = new TPWallet()
+      break
     default :
       window.Wallet = new Mock()
   }
@@ -58,6 +64,9 @@ export function signOrder (order) {
       break
     case 'loopr':
       window.Wallet = new Loopr()
+      break
+    case 'tpwallet':
+      window.Wallet = new TPWallet()
       break
     default :
       window.Wallet = new Mock()

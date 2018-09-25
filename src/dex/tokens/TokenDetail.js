@@ -1,11 +1,9 @@
 import React from 'react'
-import {connect} from 'dva'
-import {TickersFm,TickerFm} from 'modules/tickers/formatters'
-import storage from '../../modules/storage'
-import intl from 'react-intl-universal'
+import { connect } from 'dva'
+import { TickerFm, TickersFm } from 'modules/tickers/formatters'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl  } from 'antd-mobile'
-import { Switch,Icon as WebIcon} from 'antd'
+import { Button, ListView, NavBar, SegmentedControl, Tabs } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
 
 const data = [
   {

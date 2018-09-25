@@ -1,11 +1,9 @@
-import React from 'react';
-import {Icon} from 'antd';
-import {toNumber,toBig} from "LoopringJS/common/formatter";
-import config from "common/config";
-import commonFm from "../formatter/common";
-import TokenFm from "../tokens/TokenFm";
-import {toFixed} from "../../common/loopringjs/src/common/formatter";
-import {formatter} from 'modules/formatter/FormatNumber'
+import React from 'react'
+import { toBig, toFixed, toNumber } from 'LoopringJS/common/formatter'
+import config from 'common/config'
+import commonFm from '../formatter/common'
+import TokenFm from '../tokens/TokenFm'
+import { formatter } from 'modules/formatter/FormatNumber'
 
 export class FillFm{
   constructor(fill={}){
@@ -38,13 +36,20 @@ export class FillFm{
     const split =  this.fill.splitS ? this.fill.splitS : this.fill.splitB;
     return commonFm.getFormatNum(tokenFm.toPricisionFixed(tokenFm.getUnitAmount(split))) + ' '
   }
-
   getAmount(){
     const fmS = this.fill.side.toLowerCase() === 'buy' ? new TokenFm({symbol: this.fill.tokenB}) : new TokenFm({symbol: this.fill.tokenS});
     const amount = this.fill.side.toLowerCase() === 'buy' ? fmS.getUnitAmount(this.fill.amountB) : fmS.getUnitAmount(this.fill.amountS);
     const symbol = this.fill.side === 'buy' ? this.fill.tokenB : this.fill.tokenS
     // return commonFm.getFormatNum(fmS.toPricisionFixed(amount)) + '' + symbol
     return formatter(toBig(amount), 4).d
+  }
+  getBuy() {
+    const tf = new TokenFm({symbol:this.fill.tokenB})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.fill.amountB))} ${this.fill.tokenB}`
+  }
+  getSell() {
+    const tf = new TokenFm({symbol:this.fill.tokenS})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.fill.amountS))} ${this.fill.tokenS}`
   }
   getSide(){
     return this.fill.side

@@ -1,11 +1,11 @@
-import React from 'react';
-import {Button, Form, Icon, Input, Popover, Radio, Slider, Tabs,Card} from 'antd'
+import React from 'react'
+import { Card, Form, Input, Radio, Slider, Tabs } from 'antd'
 import intl from 'react-intl-universal'
-import {calculateGas} from 'LoopringJS/common/utils'
-import {configs} from 'common/config/data'
-import {isValidInteger} from 'modules/orders/formatters'
+import { calculateGas } from 'LoopringJS/common/utils'
+import { configs } from 'common/config/data'
+import { isValidInteger } from 'modules/orders/formatters'
 import * as fm from 'LoopringJS/common/formatter'
-import {connect} from 'dva'
+import { connect } from 'dva'
 
 const GasFeeForm = (props) => {
   const {gas, gasFee, form, dispatch} = props

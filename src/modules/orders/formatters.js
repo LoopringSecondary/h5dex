@@ -394,3 +394,14 @@ async function generateSignData({tradeInfo, order, completeOrder, address}) {
   }
   return unsigned
 }
+
+export function getMarketPrice(items, token, mToken) {
+
+  const tPrice = items.find(item => item.symbol.toUpperCase() === token.toUpperCase());
+  const mtPrice = items.find(item => item.symbol.toUpperCase() === mToken.toUpperCase());
+  const market = config.getMarketBySymbol(token, mToken)
+  if (tPrice && mtPrice) {
+    return fm.toNumber(fm.toFixed(tPrice.price / mtPrice.price,market && market.pricePrecision && 6))
+  }
+  return 0
+}

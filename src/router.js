@@ -16,6 +16,7 @@ function RouterConfig({ history }) {
           <div>
             <AuthRoutes />
             <DexRoutes />
+            <Face2FaceRoutes/>
           </div>
         </Router>
       </Locales>

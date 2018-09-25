@@ -1,8 +1,6 @@
-import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Grid,NoticeBar } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { createForm } from 'rc-form';
-import { connect } from 'dva';
+import React from 'react'
+import { NavBar } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
 import routeActions from 'common/utils/routeActions'
 
 class Todo extends React.Component {

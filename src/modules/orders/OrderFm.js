@@ -4,6 +4,8 @@ import {toNumber,toBig,toFixed} from "LoopringJS/common/formatter";
 import config from "common/config";
 import commonFm from "../formatter/common";
 import {formatter} from 'modules/formatter/FormatNumber'
+import moment from 'moment'
+import TokenFm from "../tokens/TokenFm";
 
 const status = {
   ORDER_NEW: {},
@@ -34,6 +36,23 @@ export class OrderFm {
       let token =  side === 'buy' ? config.getTokenBySymbol(this.order.originalOrder.tokenB) : config.getTokenBySymbol(this.order.originalOrder.tokenS);
       token = token || {digits: 18, precision: 6};
       const amount = side === 'buy' ? this.order.originalOrder.amountB : this.order.originalOrder.amountS;
+      if(ifFormatted){
+        return formatter(toBig(amount).div('1e' + token.digits), 4).d
+      }else{
+        return toFixed(toBig(amount).div('1e' + token.digits), 4)
+      }
+
+      // return commonFm.getFormatNum(toNumber((toNumber(amount) / Number('1e' + token.digits)).toFixed(token.precision))) + ' ' + symbol
+    }else{
+      return null
+    }
+  }
+  getFilledAmount(ifFormatted){
+    if(this.order.originalOrder){
+      const side = this.order.originalOrder.side.toLowerCase();
+      let token =  side === 'buy' ? config.getTokenBySymbol(this.order.originalOrder.tokenB) : config.getTokenBySymbol(this.order.originalOrder.tokenS);
+      token = token || {digits: 18, precision: 6};
+      const amount = side === 'buy' ? this.order.dealtAmountB : this.order.dealtAmountS;
       if(ifFormatted){
         return formatter(toBig(amount).div('1e' + token.digits), 4).d
       }else{
@@ -81,6 +100,14 @@ export class OrderFm {
       return null
     }
   }
+  getBuy() {
+    const tf = new TokenFm({symbol:this.order.originalOrder.tokenB})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.order.originalOrder.amountB))} ${this.order.originalOrder.tokenB}`
+  }
+  getSell() {
+    const tf = new TokenFm({symbol:this.order.originalOrder.tokenS})
+    return `${tf.toPricisionFixed(tf.getUnitAmount(this.order.originalOrder.amountS))} ${this.order.originalOrder.tokenS}`
+  }
   getLRCFee(){
     if(this.order.originalOrder){
       let token = config.getTokenBySymbol('LRC');
@@ -105,6 +132,15 @@ export class OrderFm {
       return null
     }
   }
+  getValidTime(){
+    if(this.order.originalOrder){
+      const validSince = moment.unix(toNumber(this.order.originalOrder.validSince))
+      const validUntil = moment.unix(toNumber(this.order.originalOrder.validUntil))
+      return `${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`
+    }else{
+      return null
+    }
+  }
   getFilledPercent(){
     if(this.order.originalOrder){
       let percent = 0;
@@ -117,7 +153,6 @@ export class OrderFm {
     }else{
       return null
     }
-
   }
   getStatus(){return this.order.status}
 

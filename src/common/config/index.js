@@ -1,6 +1,7 @@
 //const config = require('./config.json');
 import fetch from 'dva/fetch';
 import STORAGE from 'modules/storage';
+import moment from 'moment';
 
 const data = require('./data')
 const config = data.configs
@@ -168,7 +169,8 @@ function getWallets() {
 }
 
 function getRemoteConfig() {
-  return fetch("https://config.loopring.io/h5dex/config.json", {
+  const random = moment().format('YYMMDDhhmm')
+  return fetch(`https://config.loopring.io/h5dex/config.json?${random}`, {
     method:'get',
     mode: 'cors',
     headers: {
@@ -206,5 +208,5 @@ export default {
   getDelegateAddress,
   getWallets,
   getCustomTokens,
-  getRemoteConfig
+  getRemoteConfig,
 }

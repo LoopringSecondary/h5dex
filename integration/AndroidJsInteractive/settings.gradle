@@ -1,0 +1,2 @@
+include ':app', ':agentweb_library2'
+project(':agentweb_library2').projectDir = new File('agentweb_library')
