@@ -141,7 +141,7 @@ const TodoItem = (props) => {
         <div className="col text-left">
           <div>
             <div className="fs16 color-black-1">
-              {item.symbol.toUpperCase() === 'ETH' ? intl.get('todo_list.title_converting_eth_to_weth') : intl.get('todo_list.title_converting_weth_to_eth')}
+              {item.symbol.toUpperCase() === 'ETH' ? intl.get('todo_list.title_converting_weth_to_eth') : intl.get('todo_list.title_converting_eth_to_weth')}
             </div>
           </div>
         </div>
