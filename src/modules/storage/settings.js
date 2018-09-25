@@ -124,6 +124,36 @@ const getConfigs = ()=>{
   }
 }
 
+const setLanguage = (language) => {
+  const settings = get()
+  settings.preference.language = language
+  set(settings)
+}
+
+const getLanguage = () => {
+  return get().preference.language
+}
+
+const setCurrency = (currency) => {
+  const settings = get()
+  settings.preference.currency = currency
+  set(settings)
+}
+
+const getCurrency = () => {
+  return get().preference.currency
+}
+
+const setLRCFee = (fee) => {
+  const settings = get()
+  settings.trading.lrcFee = fee
+  set(settings)
+}
+
+const getLRCFee = () => {
+  return get().trading.lrcFee
+}
+
 export default {
   set,
   get,
@@ -138,6 +168,12 @@ export default {
   setConfigs,
   getConfigs,
   setMarketR,
-  getMarketR
+  getMarketR,
+  setLanguage,
+  getLanguage,
+  setCurrency,
+  getCurrency,
+  setLRCFee,
+  getLRCFee
 }
 

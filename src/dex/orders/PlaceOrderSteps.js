@@ -107,7 +107,7 @@ function PlaceOrderSteps(props) {
   const {side, pair, priceInput, amountInput, validSince, validUntil} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
-  const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
+  const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, settings.trading.lrcFee, tokens.right)
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -227,7 +227,7 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
-                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1, null, false)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
+                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1, null, false)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC(${settings.trading.lrcFee/10}%)`} />
                 <OrderMetaItem showArrow={true} onClick={()=>showTTL()} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
                 <div className="divider 1px zb-b-t"></div>
                 <div className="pt15 pb15 clor-black-3 fs12">
