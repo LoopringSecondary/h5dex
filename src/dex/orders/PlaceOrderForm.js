@@ -71,7 +71,6 @@ class PlaceOrderForm extends React.Component {
     const amountPrecision = Math.max(0, right.precision - marketConfig.pricePrecision)
     let amount = placeOrder.amountInput
     let price = placeOrder.priceInput
-    console.log(price)
     const submitEnable = orderFormatter.isValidAmount(price) && orderFormatter.isValidAmount(amount)
     const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
     let sell = {}, buy = {}

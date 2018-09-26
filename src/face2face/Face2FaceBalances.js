@@ -17,7 +17,7 @@ const HelperOfBalance = (props)=>{
       }
     })
   }
-  const relatedTokens = new Array()
+  const relatedTokens = []
   const balanceS = {
     symbol:tokenS,
     name:tokenS,
@@ -37,15 +37,13 @@ const HelperOfBalance = (props)=>{
       ...tokenFormatter.getBalanceBySymbol({balances:balance, symbol:'ETH', toUnit:true})
     })
   }
-  const gotoReceive = (payload)=>{
-    showLayer({id:'receiveToken'})
+  const gotoReceive = ({symbol})=>{
+    showLayer({id:'receiveToken',symbol})
   }
-  const gotoConvert = (payload)=>{
-    routeActions.gotoPath('/dex/convert')
+  const gotoConvert = ({type})=>{
+    routeActions.gotoPath(`/dex/convert/${type}`)
   }
   const gotoAll = (payload)=>{
-    // TODO
-    // routeActions.gotoPath('/dex/convert')
   }
 
   return (
@@ -61,7 +59,7 @@ const HelperOfBalance = (props)=>{
         <tbody>
             {
               relatedTokens.map((token,index)=>
-                <tr key={index} onClick={()=>{}}>
+                <tr key={index}>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
@@ -74,11 +72,11 @@ const HelperOfBalance = (props)=>{
                     }
                     {
                       token.symbol === 'WETH' &&
-                      <a onClick={gotoConvert.bind(this,{type:"weth2eth"})}>Convert</a>
+                      <a onClick={gotoConvert.bind(this,{type:"ETH"})}>Convert</a>
                     }
                     {
                       token.symbol !== 'WETH' &&
-                      <a onClick={gotoReceive.bind(this,{symbol:token.symbol})}>Receive</a>
+                      <a onClick={(e) => {e.stopPropagation();gotoReceive({symbol:token.symbol})}}>Receive</a>
                     }
                   </td>
                 </tr>
