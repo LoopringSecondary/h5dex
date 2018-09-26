@@ -251,7 +251,7 @@ class PlaceOrderForm extends React.Component {
                   {
                     price>0 && <span className="color-black-4 fs12">≈ <Worth amount={price} symbol={tokens.right}/></span>
                   }
-                  <span className="color-black-3 d-inline-block" style={{width:'35px',marginLeft:'7px'}}>{tokens.right}</span>
+                  <span className="color-black-3 d-inline-block" style={{width:'40px',marginLeft:'7px'}}>{tokens.right}</span>
                   <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
                 </div>
               }
@@ -269,7 +269,7 @@ class PlaceOrderForm extends React.Component {
               extra={
                 <div onClick={showAmountHelper} style={{width:'auto',textAlign:'right'}}>
                   <WebIcon className="color-black-4 fs12" type="question-circle-o" style={{padding:'2px 0px 5px'}} />
-                  <span className="color-black-3 d-inline-block" style={{width:'35px',marginLeft:'7px'}}>{tokens.left}</span>
+                  <span className="color-black-3 d-inline-block" style={{width:'40px',marginLeft:'7px'}}>{tokens.left}</span>
                 </div>
               }
             ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.amount")}</div></InputItem>

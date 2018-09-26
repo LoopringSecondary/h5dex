@@ -81,7 +81,6 @@ class UserCenter extends React.Component {
               <Route path={`${url}/assets`} exact render={()=>{
                 return (
                   <div>
-                    <div className="divider 1px zb-b-b"></div>
                     <ListBalance />
                   </div>
                 )
@@ -89,7 +88,6 @@ class UserCenter extends React.Component {
               <Route path={`${url}/orders`} exact render={()=>{
                 return (
                   <div>
-                    <div className="divider 1px zb-b-b"></div>
                     <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
                       <PullRefreshOrders />
                     </Containers.Orders>
