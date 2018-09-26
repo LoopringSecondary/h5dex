@@ -1,5 +1,6 @@
 import React from 'react'
 import {Modal} from 'antd-mobile'
+import './Popups.less'
 
 const PopupsWrapper = (props)=>{
   const {

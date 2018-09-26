@@ -7,7 +7,7 @@ function Modals(props) {
   return (
     <div>
       <Containers.Layers id="settings">
-        <UiContainers.Popups id="settings">
+        <UiContainers.Popups id="settings" className="h100">
           <Settings />
         </UiContainers.Popups>
       </Containers.Layers>
