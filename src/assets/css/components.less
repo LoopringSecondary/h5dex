@@ -24,12 +24,22 @@
   }
 }
 
+.hover-default{
+  cursor:pointer;
+}
 .hover-default:active {
   // color:#fff !important;
   // background: fade(@brand-primary,15%)  !important;
   // color:@brand-primary !important;
   background: rgba(0,0,0,0.06)  !important;
 }
+.hover-default:hover {
+  // color:#fff !important;
+  // background: fade(@brand-primary,15%)  !important;
+  // color:@brand-primary !important;
+  background: rgba(0,0,0,0.06)  !important;
+}
+
 
 // ========
 // segment
@@ -37,6 +47,10 @@
 .text-primary{
   color:@brand-primary !important;
 }
+.border-primary{
+  border:1px solid @brand-primary !important;
+}
+
 .color-success{
   color:@brand-success !important;
 }
@@ -67,6 +81,18 @@
 
 .bg-fill-light{
   background:fade(@fill-body,40%) !important;
+}
+.hover-bg-primary:hover{
+  background:@brand-primary !important;
+  .text-primary{
+    &:extend(.color-black-1);
+  }
+}
+.bg-primary:hover{
+  background:@brand-primary !important;
+  .text-primary{
+    &:extend(.color-black-1);
+  }
 }
 
 .radius-4{
