@@ -6,6 +6,7 @@ const PopupsWrapper = (props)=>{
   const {
     children,id,
     width,mask,closable=true,maskClosable=true,apisOnly=false,wrapClassName="",className="",
+    style,
     ...rest
   } = props
   const {[id]:module={}} = props
@@ -21,11 +22,13 @@ const PopupsWrapper = (props)=>{
   const childProps = {...rest}
   return (
     <Modal {...modalProps}>
-      {
-        React.Children.map(children, child => {
-            return React.cloneElement(child, {...childProps})
-        })
-      }
+      <div style={{...style}}>
+        {
+          React.Children.map(children, child => {
+              return React.cloneElement(child, {...childProps})
+          })
+        }
+      </div>
     </Modal>
   )
 }

@@ -32,6 +32,8 @@ export default {
       })
       yield put({type:'resetLayer',payload})
     },
+    
+
     *resetLayer({payload},{call, select,put}){
       yield put({
         type:'layerChange',
@@ -42,6 +44,19 @@ export default {
     }
   },
   reducers: {
+    toggleLayer(state, { payload }) {
+      const { id:layerId } = payload
+      const thisLayer = state[layerId] || {}
+      delete payload.id
+      return {
+       ...state,
+       [layerId]:{
+        ...thisLayer,
+        ...payload,
+        visible: !thisLayer.visible,
+       }
+      }
+    },
     layerChange(state, { payload }) {
       const { id:layerId } = payload
       const thisLayer = state[layerId]
