@@ -58,7 +58,7 @@ class UserCenter extends React.Component {
           <div className="bg-white pt30 pb30 text-center">
             <div className="color-black-2 text-center fs16">{getShortAddress(address)}</div>
             <div className="text-center mt5">
-              <span target="_blank" onClick={routeActions.gotoHref.bind(this,`https://etherscan.io/address/${address}`)} className="d-inline-block cursor-pointer fs12 lh25 pl10 pr10 bg-white-light color-black-4 radius-circle">etherscan.io</span>
+              <span target="_blank" onClick={routeActions.gotoHref.bind(this,`https://etherscan.io/address/${address}`)} className="d-inline-block cursor-pointer fs12 lh25 pl10 pr10 bg-primary-light text-primary radius-circle">etherscan.io</span>
             </div>
           </div>
           <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
@@ -80,14 +80,14 @@ class UserCenter extends React.Component {
             <Switch>
               <Route path={`${url}/assets`} exact render={()=>{
                 return (
-                  <div>
+                  <div className="zb-b-t">
                     <ListBalance />
                   </div>
                 )
               }} />
               <Route path={`${url}/orders`} exact render={()=>{
                 return (
-                  <div>
+                  <div className="zb-b-t">
                     <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
                       <PullRefreshOrders />
                     </Containers.Orders>

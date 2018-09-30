@@ -147,13 +147,13 @@ class MarketDetail extends React.Component {
             onChange={(tab, index) => { }}
             onTabClick={(tab, index) => { }}
           >
-            <div className="" style={{minHeight: '150px'}}>
+            <div className="zb-b-t" style={{minHeight: '150px'}}>
               <div className="p15 color-black-3 fs14">{intl.get('common.comingsoon')} !</div>
             </div>
-            <div className="">
+            <div className="zb-b-t">
               <ListDepth />
             </div>
-            <div className="" style={{minHeight: '150px'}}>
+            <div className="zb-b-t" style={{minHeight: '150px'}}>
               <ListFills />
             </div>
           </Tabs>
