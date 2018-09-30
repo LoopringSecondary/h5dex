@@ -111,7 +111,7 @@ function OrderDetail(props) {
     <div className="bg-fill position-relative" style={{height:"100%"}}>
       <div className="position-absolute w-100" style={{zIndex:'1000'}}>
         <NavBar
-          className="bg-fill"
+          className="bg-white"
           mode="light"
           onLeftClick={()=>hideLayer({id:'orderDetail'})}
           leftContent={[
@@ -127,8 +127,8 @@ function OrderDetail(props) {
       </div>
       <div style={{overflow:'auto',paddingTop:'4.5rem',paddingBottom:'3rem',height:'100%'}}>
         <div className="ml10 mr10 mb15 mt15">
-          <div className="fs14 color-black-3 text-left mb5">{intl.get('order_detail.tabs_basic')}</div>
-          <div className="bg-white" style={{borderRadius:'0.4rem'}}>
+          <div className="fs14 text-primary text-left mb5">{intl.get('order_detail.tabs_basic')}</div>
+          <div className="bg-white " style={{borderRadius:'0.4rem'}}>
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
             <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
             <OrderMetaItem label={intl.get('order.price')} value={`${orderFm.getPrice()} ${orderFm.getMarketPair()}`}/>
@@ -139,7 +139,7 @@ function OrderDetail(props) {
           </div>
         </div>
         <div className="ml10 mr10 mb15">
-          <div className="fs14 color-black-3 text-left mb5">{intl.get('order_detail.tabs_fills')}</div>
+          <div className="fs14 text-primary text-left mb5">{intl.get('order_detail.tabs_fills')}</div>
           <div className="bg-white" style={{borderRadius:'0.4rem'}}>
             <DetailFills order={order}/>  
           </div>

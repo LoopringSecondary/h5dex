@@ -68,7 +68,7 @@ class UserCenter extends React.Component {
                 [
                   { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : ''}`}>{intl.get('user_center.my_assets')}</div> },
                   { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : ''}`}>{intl.get('user_center.my_orders')}</div> },
-                  { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_fills')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : ''}`}>{intl.get('user_center.my_fills')}</div> },
                 ]
               }
               initialPage={0}
