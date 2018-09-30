@@ -6,7 +6,7 @@ let initState = {
   loading: false,
   page:{
     total:0,
-    size:10,
+    size:100,
     current:0,
   },
   sort:{},
