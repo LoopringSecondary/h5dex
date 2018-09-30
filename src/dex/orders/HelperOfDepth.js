@@ -30,6 +30,10 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
   }
   // const maxHeight = 'auto'
   const maxHeight = (32*maxRows+28) + 'px'
+  // const sell1Price = sell[0]  && sell[0][0]
+  // {sell1Price && Number(sell1Price) <= Number(item[0]).toFixed(8) && 
+  //   <span className="color-black-4"><WebIcon type="info" /></span>
+  // }
   return (
     <div style={{}}>
       <Spin spinning={depth.loading}>
@@ -44,13 +48,17 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
                 </thead>
                 <tbody>
                     {
-                      depth.item && depth.item.buy && depth.item.buy.slice(0,15).map((item,index)=>
+                      depth.item && depth.item.buy && depth.item.buy.slice(0,25).map((item,index)=>
                         <tr key={index} className="zb-b-b">
                           <td className="hover-default pt5 pb5 pl10 pr5 color-black-2 text-left align-top" onClick={changeAmount.bind(this, Number(item[1]).toFixed(4))}>
                             {Number(item[1]).toFixed(4)}
                           </td>
+
                           <td className="hover-default pt5 pb5 pl5 pr5 text-right color-success align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
-                            <div  className="lh15">{Number(item[0]).toFixed(8)}</div>
+                            <div  className="lh15 ">
+                            {Number(item[0]).toFixed(8)}
+                            </div>
+                            
                             <div className="color-black-4 mt0 lh15"><Worth amount={Number(item[0]).toFixed(8)} symbol={tokens.right}/></div>
                           </td>
                         </tr>
@@ -75,7 +83,7 @@ const HelperOfDepth = ({depth={},pair,maxRows=15,dispatch})=>{
                 </thead>
                   <tbody>
                       {
-                        sell && sell.slice(0,15).map((item,index)=>
+                        sell && sell.slice(0,25).map((item,index)=>
                           <tr key={index} className="zb-b-b">
                             <td className="hover-default pt5 pb5 pl5 pr5 text-left color-error align-top" onClick={changePrice.bind(this, Number(item[0]).toFixed(8))}>
                               <div className="lh15">{Number(item[0]).toFixed(8)}</div>

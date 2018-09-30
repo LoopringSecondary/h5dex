@@ -100,16 +100,16 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => tabChange(tab.tab)}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfDepth />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfMyMarketOrders />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfBalance />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfFAQ />
               </div>
             </Tabs>

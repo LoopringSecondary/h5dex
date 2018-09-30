@@ -64,10 +64,10 @@ function Settings(props) {
   }
 
   return (
-    <div className="bg-fill position-relative" style={{height:'100%'}}>
+    <div className="bg-white position-relative" style={{height:'100%'}}>
       <div className="position-absolute w-100" style={{zIndex:'1000'}}>
         <NavBar
-          className="bg-fill"
+          className="bg-white"
           mode="light"
           onLeftClick={()=>hideLayer({id:'settings'})}
           leftContent={[
@@ -82,22 +82,22 @@ function Settings(props) {
         <div className="divider 1px zb-b-t"></div>
       </div>
       <div style={{overflow:'auto',paddingTop:'4.5rem',paddingBottom:'3rem',height:'100%'}}>
-        <div className="bg-fill settings pb10">
-            <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">{intl.get('settings.language')}</div>}>
+        <div className="bg-white settings pb10">
+            <List className="m10 no-border text-left" renderHeader={() => <div className="fs14 color-black-4 mb5 mt15 pl5">{intl.get('settings.language')}</div>}>
               {languages.map(i => (
                 <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => languageChange(i.value)}>
                   {i.label}
                 </RadioItem>
               ))}
             </List>
-            <List className="m10 no-border text-left" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">{intl.get('settings.currency')}</div>}>
+            <List className="m10 no-border text-left" renderHeader={() => <div className="fs14 color-black-4 mb5 mt15 pl5">{intl.get('settings.currency')}</div>}>
               {currencys.map(i => (
                 <RadioItem className="zb-b-b" key={i.value} checked={i.checked} onChange={() => currencyChange(i.value)}>
                   {i.label}
                 </RadioItem>
               ))}
             </List>
-            <List className="m10 no-border text-left position-relative" renderHeader={() => <div className="fs13 color-black-4 mb5 mt15 pl5">{intl.get('settings.trading_fee')}</div>}>
+            <List className="m10 no-border text-left position-relative" renderHeader={() => <div className="fs14 color-black-4 mb5 mt15 pl5">{intl.get('settings.trading_fee')}</div>}>
               <List.Item className="pt10 pb10 overflow-visible" >
                 <div className="pt10 pb10 pl10">
                   <Slider

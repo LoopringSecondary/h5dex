@@ -341,8 +341,9 @@
 }
 .settings{
   .am-list-body{
-    background: @bg-white !important;
-    border-radius:0.4rem !important;
+    background: @fill-body !important;
+    border-radius:0.5rem !important;
+    border: 1px solid rgba(0,0,0,0.04) !important;
   }
   .am-radio-item{
     .am-list-content{
@@ -350,7 +351,10 @@
     }
   }
   .am-list-item{
-    border-bottom:1px solid @fill-body !important;
+    border-bottom:1px solid rgba(0,0,0,0.04) !important;
+  }
+  .am-list-body .am-list-item:last-child{
+    border-bottom:none !important;
   }
 }
 
