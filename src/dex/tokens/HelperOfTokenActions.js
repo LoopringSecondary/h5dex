@@ -49,7 +49,7 @@ function HelperOfTokenActions(props) {
   }
 
   return (
-    <div className="">
+    <div className="bg-white h100">
         <NavBar
           className="zb-b-b"
           mode="light"
@@ -58,7 +58,7 @@ function HelperOfTokenActions(props) {
             <span key='1' className=""><Icon type="cross"/></span>,
           ]}
         >
-          {symbol} {intl.get('common.actions')}
+          <div className="color-black">{symbol} {intl.get('common.actions')}</div>
         </NavBar>
         <div className="p10">
           <Button onClick={showReceive} className="" type="primary">{intl.get('common.receive')} {symbol}</Button>
