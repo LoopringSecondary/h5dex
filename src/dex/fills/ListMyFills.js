@@ -9,18 +9,23 @@ const ListMyFills = ({fills={},maxRows=5})=>{
       <table className="w-100 fs13" style={{overflow:'auto'}}>
         <thead>
           <tr className="">
-            <th className="zb-b-b bg-grey-100 text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.price')}</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.amount')}</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.lrc_fee')}</th>
-            <th className="zb-b-b bg-grey-100 text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.time')}</th>
+            <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.time')}</th>
+            <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.price')}</th>
+            <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.sell')}</th>
+            <th className="zb-b-b text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.buy')}</th>
+            <th hidden className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.lrc_fee')}</th>
           </tr>
         </thead>
         <tbody>
             {
               fills.items && fills.items.map((item,index)=>{
                 const fillFm = new FillFm(item)
+                // const tokens = fillFm.getTokensByMarket()
                 return (
                   <tr key={index}>
+                    <td className="pl10 pr5 pt10 pb10 zb-b-b color-black-2 text-left align-middle text-nowrap">
+                      {fillFm.getCreateTime()}
+                    </td>
                     {
                       item.side === 'buy' &&
                       <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-success">
@@ -30,18 +35,20 @@ const ListMyFills = ({fills={},maxRows=5})=>{
                     {
                       item.side === 'sell' &&
                       <td className="pl5 pr5 pt10 pb10 zb-b-b text-left align-middle color-error">
-                        {fillFm.getPrice()}
+                        {fillFm.getPrice()} 
                       </td>
                     }
                     <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">
-                      {fillFm.getAmount()}
+                      {fillFm.getSell()}
                     </td>
-                    <td className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
+                    <td className="pl5 pr10 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
+                      {fillFm.getBuy()}
+                    </td>
+                    <td hidden className="pl5 pr5 pt10 pb10 zb-b-b text-right color-black-2 align-middle text-nowrap">
                       {fillFm.getLRCFee()}
                     </td>
-                    <td className="pl5 pr5 pt10 pb10 zb-b-b color-black-2 text-right align-middle text-nowrap">
-                      {fillFm.getCreateTime()}
-                    </td>
+
+                    
                   </tr>
                 )
               })
