@@ -7,7 +7,7 @@ function Modals(props) {
   return (
     <div>
       <Containers.Layers id="settings">
-        <UiContainers.Popups id="settings" className="h100">
+        <UiContainers.Popups id="settings" className="h100" style={{height:'100%'}}>
           <Settings />
         </UiContainers.Popups>
       </Containers.Layers>

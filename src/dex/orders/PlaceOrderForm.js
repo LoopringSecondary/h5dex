@@ -128,15 +128,6 @@ class PlaceOrderForm extends React.Component {
         priceChange(price)
       }
 
-
-      if(!storage.wallet.getUnlockedAddress()) {
-        Notification.open({
-          message: intl.get('notifications.title.place_order_failed'),
-          type: "error",
-          description: intl.get('notifications.message.wallet_locked')
-        });
-        return
-      }
       if(!balance || !marketcap) {
         Notification.open({
           message:intl.get('notifications.title.place_order_failed'),
@@ -227,7 +218,7 @@ class PlaceOrderForm extends React.Component {
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
     return (
       <div>
-        <div className="bg-white p10">
+        <div className="bg-white p15">
           <div className="segmented-fs16">
             <SegmentedControl
               values={[menu1, menu2]}
@@ -245,7 +236,7 @@ class PlaceOrderForm extends React.Component {
               clear={false}
               moneyKeyboardAlign="left"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              className="circle h-default mt12"
+              className="circle h-default mt15"
               extra={
                 <div style={{width:'auto',textAlign:'right'}}>
                   {
@@ -265,7 +256,7 @@ class PlaceOrderForm extends React.Component {
               onChange={amountChange}
               moneyKeyboardAlign="left"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              className="circle h-default mt12"
+              className="circle h-default mt15"
               extra={
                 <div onClick={showAmountHelper} style={{width:'auto',textAlign:'right'}}>
                   <WebIcon className="color-black-4 fs12" type="question-circle-o" style={{padding:'2px 0px 5px'}} />
@@ -290,7 +281,7 @@ class PlaceOrderForm extends React.Component {
                 </div>
               </List.Item>
             }
-              <Button onClick={toConfirm} style={{height:'auto'}} className={`p10 border-none d-flex align-items-center justify-content-center w-100 d-block mt12 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
+              <Button onClick={toConfirm} style={{height:'auto'}} className={`p10 border-none d-flex align-items-center justify-content-center w-100 d-block mt15 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
                <div className="lh20">
                  <div className="lh20">{intl.get(`common.${side}`)}  {amount>0 ? amount : null} {tokens.left} </div>
                  {
@@ -303,7 +294,7 @@ class PlaceOrderForm extends React.Component {
               </Button>
               {
                 false && side === 'sell' &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt12 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+                <Button onClick={toConfirm} className={`w-100 d-block mt15 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
                   <div className="row ml0 mr0 no-gutters">
                     <div className="col">{amount ? amount : 0} {tokens.left}</div>
                     <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
@@ -313,7 +304,7 @@ class PlaceOrderForm extends React.Component {
               }
               {
                 false && side === 'buy' &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt12 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+                <Button onClick={toConfirm} className={`w-100 d-block mt15 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
                   <div className="row ml0 mr0 no-gutters">
                     <div className="col">{total} {tokens.right}</div>
                     <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>

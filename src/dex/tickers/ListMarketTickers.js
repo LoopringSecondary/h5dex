@@ -176,7 +176,7 @@ export const TickerList = ({items,loading,dispatch, tickersList})=>{
   }
 
   return (
-    <div className="bg-white" style={{minHeight:'50vh'}}>
+    <div className="" style={{minHeight:'50vh'}}>
       <div className="divider 1px zb-b-t"></div>
       <Spin spinning={loading}>
         {!loading && items.length > 0 &&
