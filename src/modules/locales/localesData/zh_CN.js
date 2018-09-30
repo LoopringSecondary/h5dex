@@ -47,7 +47,7 @@ const words = {
   format_amount: '{amount,number}',
   back: '返回',
   cancel: '取消',
-  ok:" 确定",
+  ok:"确定",
   previous_page: '前一页',
   next_page: '后一页',
   import: '导入',

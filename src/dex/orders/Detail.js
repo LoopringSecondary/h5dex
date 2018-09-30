@@ -12,6 +12,7 @@ import {connect} from 'dva'
 import routeActions from 'common/utils/routeActions'
 import {OrderFm} from 'modules/orders/OrderFm';
 import DetailFills from './DetailFills'
+import Worth from 'modules/settings/Worth'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -107,6 +108,7 @@ function OrderDetail(props) {
       return intl.get("order_status.canceling")
     }
   }
+  const tokens = orderFm.getTokens()
   return (
     <div className="bg-fill position-relative" style={{height:"100%"}}>
       <div className="position-absolute w-100" style={{zIndex:'1000'}}>
@@ -131,7 +133,11 @@ function OrderDetail(props) {
           <div className="bg-white" style={{borderRadius:'0.4rem'}}>
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
             <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
-            <OrderMetaItem label={intl.get('order.price')} value={`${orderFm.getPrice()} ${orderFm.getMarketPair()}`}/>
+            <OrderMetaItem label={intl.get('order.price')} value={
+              <div>
+                <span className="color-black-4 pr5"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></span> {orderFm.getPrice()} { tokens.right }
+              </div>
+            }/>
             <OrderMetaItem label={intl.get('common.sell')} value={orderFm.getSell()}/>
             <OrderMetaItem label={intl.get('common.buy')} value={orderFm.getBuy()}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>

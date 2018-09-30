@@ -10,6 +10,7 @@ import { getMarketTickersBySymbol } from './formatters'
 import Worth from 'modules/settings/Worth'
 import {formatPrice} from 'modules/orders/formatters'
 import markets from 'modules/storage/markets'
+import configs from 'common/config'
 
 export const Sorter = ({className,style={},isActive,direction})=>{
   return (
@@ -255,6 +256,19 @@ class ListMarketTickers extends React.Component {
           tickerItems.push(<TickerList key={item} items={getMarketTickersBySymbol(item,allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
         })
       }
+      
+      // tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> })
+      // tickerItems.push(<TickerList key={'fav'} items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+      // const markets = configs.getSupportedMarketsTokenR()
+      // markets.forEach(market=> {
+      //   tabs.push({title: <div className="fs16">{market}</div>})
+      //   tickerItems.push(<TickerList key={market} items={getMarketTickersBySymbol(market,allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+      // })
+      // if(newMarkets && newMarkets.length > 0){
+      //   tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
+      //   tickerItems.push(<TickerList key={'new'} items={newMarktsTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+      // }
+
       return (
         <Spin spinning={list.loading} className="pt50">
           <Tabs

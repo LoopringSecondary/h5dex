@@ -61,7 +61,7 @@ class Face2FaceForm extends React.Component {
       }
       showLayer({id:'face2FaceConfirm'})
     }
-    const price = p2pOrder.amountB && p2pOrder.amountB.gt(0) && p2pOrder.amountS && p2pOrder.amountS.gt(0) ? toFixed(p2pOrder.amountB.div(p2pOrder.amountS), 8) : toBig(0)
+    const price = p2pOrder.amountB && p2pOrder.amountB.gt(0) && p2pOrder.amountS && p2pOrder.amountS.gt(0) ? toFixed(p2pOrder.amountB.div(p2pOrder.amountS), 8) : toFixed(toBig(0),8)
     return (
       <div className="">
         <div className="pt25 pb15 pl15 pr15">
@@ -123,7 +123,7 @@ class Face2FaceForm extends React.Component {
               <div className="color-black-2 fs14">Exchage Price</div>
             </div>
             <div className="col-auto fs14 color-black-3">
-              {`${price.toString(10)} ${p2pOrder.tokenS}/${p2pOrder.tokenB}`}
+              {`${price} ${p2pOrder.tokenS}/${p2pOrder.tokenB}`}
             </div>
           </div>
           <Button className="mt15" onClick={submitOrder} type="primary">{`Exchange ${p2pOrder.tokenS} To ${p2pOrder.tokenB}`}</Button>

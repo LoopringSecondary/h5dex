@@ -1,8 +1,7 @@
 import React from 'react';
-import {FillFm} from 'modules/fills/formatters'
 import {getFormatTime} from "modules/formatter/common";
 import {connect} from 'dva'
-import {toBig, toNumber} from 'LoopringJS/common/formatter'
+import { toNumber} from 'LoopringJS/common/formatter'
 import intl from 'react-intl-universal'
 
 const ListMarketFills = ({trades={},maxRows=5})=>{

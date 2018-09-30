@@ -1,6 +1,4 @@
-import React from 'react';
-import { Modal,List,Button } from 'antd-mobile';
-import intl from 'react-intl-universal';
+import React from 'react'
 
 function HelperOfEnable(props) {
   return (
