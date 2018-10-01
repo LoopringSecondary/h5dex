@@ -215,7 +215,7 @@ export class PullRefreshOrders extends React.Component {
             }} />
           </div>
         </PullToRefresh>
-        
+
     </div>);
   }
 }
@@ -273,7 +273,7 @@ export const OpenOrderList = ({orders={},dispatch})=>{
       <thead>
         <tr>
           <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
-            
+
           </th>
           <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-3 zb-b-b hover-default" colSpan="1" onClick={()=>{}}>
             {intl.get('common.market')}
@@ -443,6 +443,9 @@ export const renders = {
     }
     if (status === 'ORDER_CANCELLING') {
       return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
+    }
+    if (status === 'ORDER_WAIT_SUBMIT_RING') {
+      return <span className="color-black-1">{intl.get("order_status.waiting")}</span>
     }
   },
 }
