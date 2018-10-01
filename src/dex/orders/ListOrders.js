@@ -434,6 +434,16 @@ export const renders = {
         return <span className="text-primary">{intl.get("order_status.opened")}</span>
       }
     }
+
+    if (status === 'ORDER_WAIT_SUBMIT_RING') {
+      if(cancelOrder) {
+        return <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get('common.cancel')}</Button>
+        // return <a className="fs12" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get("common.cancel")}</a>
+      } else {
+        return <span className="text-primary">{intl.get("order_status.waiting")}</span>
+      }
+    }
+
     if (status === 'ORDER_FINISHED') {
       return <span className="color-success"><WebIcon type="check-circle" /></span>
     }
@@ -451,9 +461,6 @@ export const renders = {
     }
     if (status === 'ORDER_CANCELLING') {
       return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
-    }
-    if (status === 'ORDER_WAIT_SUBMIT_RING') {
-      return <span className="color-black-2">{intl.get("order_status.waiting")}</span>
     }
   },
 }
