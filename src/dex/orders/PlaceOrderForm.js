@@ -47,6 +47,7 @@ class PlaceOrderForm extends React.Component {
     const {marketcap,dispatch, placeOrder,lastPrice} = newProps;
     // const {pair,priceChanged} = placeOrder;
     const {pair,priceChanged,priceInput} = placeOrder;
+    console.log('receive new props')
     if (this.props.marketcap !== newProps.marketcap && newProps.marketcap.length > 0 && !priceChanged) {
     // if (newProps.marketcap.length > 0 && !priceChanged) {
       const tokens = getTokensByMarket(pair)
@@ -285,7 +286,7 @@ class PlaceOrderForm extends React.Component {
             ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.amount")}</div></InputItem>
             {
               false &&
-              <List.Item  
+              <List.Item
                 className="mt0 mb0"
                 arrow={false}
                 extra={

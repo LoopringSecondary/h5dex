@@ -1,16 +1,10 @@
-import React from 'react';
-import { Input,Icon,Button as WebButton,Steps as WebSteps,Badge} from 'antd';
-import { Modal,List,Button,Accordion,Steps,Tabs,NoticeBar,NavBar} from 'antd-mobile';
-import config from 'common/config'
-import intl from 'react-intl-universal';
-import * as orderFormatter from 'modules/orders/formatters'
-import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
-import * as fm from 'LoopringJS/common/formatter'
-import {Pages,Page} from 'LoopringUI/components/Pages'
-import {connect} from 'dva'
+import React from 'react'
+import { Icon } from 'antd'
+import { NavBar, NoticeBar } from 'antd-mobile'
+import intl from 'react-intl-universal'
+import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import {OrderFm} from 'modules/orders/OrderFm';
+import { OrderFm } from 'modules/orders/OrderFm'
 import DetailFills from './DetailFills'
 import Worth from 'modules/settings/Worth'
 
@@ -107,6 +101,9 @@ function OrderDetail(props) {
     if (item.status === 'ORDER_CANCELLING') {
       return intl.get("order_status.canceling")
     }
+    if (item.status === 'ORDER_WAIT_SUBMIT_RING') {
+      return intl.get("order_status.waiting")
+    }
   }
   const tokens = orderFm.getTokens()
   return (
@@ -147,7 +144,7 @@ function OrderDetail(props) {
         <div className="ml10 mr10 mb15">
           <div className="fs14 text-primary text-left mb5">{intl.get('order_detail.tabs_fills')}</div>
           <div className="bg-white" style={{borderRadius:'0.4rem'}}>
-            <DetailFills order={order}/>  
+            <DetailFills order={order}/>
           </div>
         </div>
       </div>

@@ -447,13 +447,13 @@ export const renders = {
       return <span className="color-black-4">{intl.get("order_status.expired")}</span>
     }
     if (status === 'ORDER_PENDING') {
-      return <span className="color-black-1">{intl.get("order_status.pending")}</span>
+      return <span className="color-black-2">{intl.get("order_status.pending")}</span>
     }
     if (status === 'ORDER_CANCELLING') {
       return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
     }
     if (status === 'ORDER_WAIT_SUBMIT_RING') {
-      return <span className="color-black-1">{intl.get("order_status.waiting")}</span>
+      return <span className="color-black-2">{intl.get("order_status.waiting")}</span>
     }
   },
 }
