@@ -1,6 +1,6 @@
 import { packOrder } from 'LoopringJS/relay/rpc/order'
-import {toHex} from 'LoopringJS/common/formatter'
-import {Modal} from 'antd-mobile'
+import { toHex } from 'LoopringJS/common/formatter'
+
 export default class Wallet {
 
   /**

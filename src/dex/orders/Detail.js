@@ -1,17 +1,12 @@
-import React from 'react';
-import { Input,Icon,Button as WebButton,Steps as WebSteps,Badge} from 'antd';
-import { Modal,List,Button,Accordion,Steps,Tabs,NoticeBar,NavBar} from 'antd-mobile';
-import config from 'common/config'
-import intl from 'react-intl-universal';
-import * as orderFormatter from 'modules/orders/formatters'
-import {createWallet} from 'LoopringJS/ethereum/account';
-import * as uiFormatter from 'modules/formatter/common'
-import * as fm from 'LoopringJS/common/formatter'
-import {Pages,Page} from 'LoopringUI/components/Pages'
-import {connect} from 'dva'
+import React from 'react'
+import { Icon } from 'antd'
+import { NavBar, NoticeBar } from 'antd-mobile'
+import intl from 'react-intl-universal'
+import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import {OrderFm} from 'modules/orders/OrderFm';
+import { OrderFm } from 'modules/orders/OrderFm'
 import DetailFills from './DetailFills'
+import Worth from 'modules/settings/Worth'
 
 const OrderMetaItem = (props) => {
   const {label, value} = props
@@ -106,7 +101,11 @@ function OrderDetail(props) {
     if (item.status === 'ORDER_CANCELLING') {
       return intl.get("order_status.canceling")
     }
+    if (item.status === 'ORDER_WAIT_SUBMIT_RING') {
+      return intl.get("order_status.waiting")
+    }
   }
+  const tokens = orderFm.getTokens()
   return (
     <div className="bg-fill position-relative" style={{height:"100%"}}>
       <div className="position-absolute w-100" style={{zIndex:'1000'}}>
@@ -131,7 +130,11 @@ function OrderDetail(props) {
           <div className="bg-white " style={{borderRadius:'0.4rem'}}>
             <OrderMetaItem label={intl.get('order.status')} value={orderStatus(order)}/>
             <OrderMetaItem label={intl.get('order.filled')} value={`${orderFm.getFilledPercent()}%`}/>
-            <OrderMetaItem label={intl.get('order.price')} value={`${orderFm.getPrice()} ${orderFm.getMarketPair()}`}/>
+            <OrderMetaItem label={intl.get('order.price')} value={
+              <div>
+                <span className="color-black-4 pr5"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/></span> {orderFm.getPrice()} { tokens.right }
+              </div>
+            }/>
             <OrderMetaItem label={intl.get('common.sell')} value={orderFm.getSell()}/>
             <OrderMetaItem label={intl.get('common.buy')} value={orderFm.getBuy()}/>
             <OrderMetaItem label={intl.get('order.LRCFee')} value={orderFm.getLRCFee()}/>
@@ -141,7 +144,7 @@ function OrderDetail(props) {
         <div className="ml10 mr10 mb15">
           <div className="fs14 text-primary text-left mb5">{intl.get('order_detail.tabs_fills')}</div>
           <div className="bg-white" style={{borderRadius:'0.4rem'}}>
-            <DetailFills order={order}/>  
+            <DetailFills order={order}/>
           </div>
         </div>
       </div>

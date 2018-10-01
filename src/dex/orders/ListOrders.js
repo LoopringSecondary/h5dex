@@ -428,7 +428,12 @@ export const renders = {
     const status = fm.getStatus();
     if (status === 'ORDER_OPENED') {
       if(cancelOrder) {
-        return <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get('common.cancel')}</Button>
+        return (
+          <div>
+            <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block bg-primary-light text-primary" size="small" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get('common.cancel')}</Button>
+            <div className="text-primary mt5">{intl.get("order_status.opened")}</div>
+          </div>
+        )
         // return <a className="fs12" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get("common.cancel")}</a>
       } else {
         return <span className="text-primary">{intl.get("order_status.opened")}</span>
@@ -447,13 +452,13 @@ export const renders = {
       return <span className="color-black-4">{intl.get("order_status.expired")}</span>
     }
     if (status === 'ORDER_PENDING') {
-      return <span className="color-black-1">{intl.get("order_status.pending")}</span>
+      return <span className="color-black-2">{intl.get("order_status.pending")}</span>
     }
     if (status === 'ORDER_CANCELLING') {
-      return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
+      return <span className="color-black-2">{intl.get("order_status.canceling")}</span>
     }
     if (status === 'ORDER_WAIT_SUBMIT_RING') {
-      return <span className="color-black-1">{intl.get("order_status.waiting")}</span>
+      return <span className="color-black-2">{intl.get("order_status.waiting")}</span>
     }
   },
 }

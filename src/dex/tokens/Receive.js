@@ -8,7 +8,6 @@ import TokenFormatter, { getBalanceBySymbol } from '../../modules/tokens/TokenFm
 import config from '../../common/config'
 import { connect } from 'dva'
 import storage from 'modules/storage'
-import { toNumber } from 'LoopringJS/common/formatter'
 
  class Receive extends React.Component {
   state = {

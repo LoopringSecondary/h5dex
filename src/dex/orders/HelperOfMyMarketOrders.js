@@ -147,13 +147,13 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
       return <span className="color-black-4">{intl.get("order_status.expired")}</span>
     }
     if (item.status === 'ORDER_PENDING') {
-      return <span className="color-black-1">{intl.get("order_status.pending")}</span>
+      return <span className="color-black-2">{intl.get("order_status.pending")}</span>
     }
     if (item.status === 'ORDER_CANCELLING') {
-      return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
+      return <span className="color-black-2">{intl.get("order_status.canceling")}</span>
     }
     if (item.status === 'ORDER_WAIT_SUBMIT_RING') {
-      return <span className="color-black-1">{intl.get("order_status.waiting")}</span>
+      return <span className="color-black-2">{intl.get("order_status.waiting")}</span>
     }
   }
   const gotoAll = () => {}

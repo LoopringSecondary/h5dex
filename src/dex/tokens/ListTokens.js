@@ -1,11 +1,8 @@
 import React from 'react'
-import {connect} from 'dva'
-import {TickersFm,TickerFm} from 'modules/tickers/formatters'
-import storage from '../../modules/storage'
-import intl from 'react-intl-universal'
+import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import { ListView,Button,Tabs,NavBar,Icon,SegmentedControl,Grid } from 'antd-mobile'
-import { Switch,Icon as WebIcon,Badge} from 'antd'
+import { Grid, Icon, ListView, NavBar, Tabs } from 'antd-mobile'
+import { Badge, Icon as WebIcon } from 'antd'
 import { TxList } from './TokenDetail'
 
 const TokenItem = ({item={},actions,key,index})=>{

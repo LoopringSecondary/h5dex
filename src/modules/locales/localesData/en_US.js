@@ -46,7 +46,7 @@ const words = {
   format_amount: "{amount,number}",
   back: 'Return',
   cancel: 'Cancel',
-  ok:" OK",
+  ok:"OK",
   previous_page: 'Previous Page',
   next_page: 'Next Page',
   import: "Import",
@@ -196,7 +196,7 @@ export default {
     expired: 'Expired',
     pending: "Pending",
     canceling: "Canceling",
-    waiting:'Matching'
+    waiting:"Matching"
   },
   order_side: {
     sell: words.sell,
