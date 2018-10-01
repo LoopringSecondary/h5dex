@@ -195,7 +195,8 @@ export default {
     canceled: 'Canceled',
     expired: 'Expired',
     pending: "Pending",
-    canceling: "Canceling"
+    canceling: "Canceling",
+    waiting:"Matching"
   },
   order_side: {
     sell: words.sell,
