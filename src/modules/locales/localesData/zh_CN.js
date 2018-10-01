@@ -192,12 +192,13 @@ export default {
     p2p_order: '私密点对点订单'
   },
   order_status: {
-    opened: '撮合中',
+    opened: '挂单中',
     completed: '已完成',
     canceled: '已取消',
     expired: '已过期',
     pending: '打包中',
-    canceling: '取消中'
+    canceling: '取消中',
+    waiting:'撮合中'
   },
   order_side: {
     sell: words.sell,
