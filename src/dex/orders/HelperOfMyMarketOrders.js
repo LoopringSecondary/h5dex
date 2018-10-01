@@ -152,6 +152,9 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     if (item.status === 'ORDER_CANCELLING') {
       return <span className="color-black-1">{intl.get("order_status.canceling")}</span>
     }
+    if (item.status === 'ORDER_WAIT_SUBMIT_RING') {
+      return <span className="color-black-1">{intl.get("order_status.waiting")}</span>
+    }
   }
   const gotoAll = () => {}
   return (
