@@ -209,7 +209,7 @@ export default {
     my_open_orders: '最近订单',
     my_all_orders: '全部订单',
     order_book: '最新挂单',
-    no_open_orders: '{market}暂无有效订单',
+no_open_orders: '{market}暂无有效订单',
     view_all_orders: '查看全部订单'
   },
   order_detail: {
