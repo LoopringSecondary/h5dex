@@ -284,7 +284,8 @@ export default {
     tabs_basic: 'Basic',
     tabs_advanced: 'Advanced',
     low: 'Low',
-    high: 'High'
+    high: 'High',
+    tips:"The fee must be larger than a gas of an eth transaction for matching miner."
   },
   place_order_confirm: {
     qrcode_security: '*For your order\'s security, your QR code will only generated once and not be stored locally. Make sure to save it properly, any one who received your QR code could take your order',

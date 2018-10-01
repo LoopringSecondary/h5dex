@@ -286,7 +286,8 @@ no_open_orders: '{market}暂无有效订单',
     tabs_basic: '快速设置',
     tabs_advanced: '高级设置',
     low: '低',
-    high: '高'
+    high: '高',
+    tips:"撮合费 必须大于 矿工发送一个以太坊交易所需的油费。"
   },
   place_order_confirm: {
     qrcode_security: '*为了您订单的安全，二维码只会生成一次并且不会保存在任何地方。请确认妥善保存二维码，任何收到您二维码的人都有可能吃掉您的订单。',
