@@ -206,7 +206,7 @@ export const renders = {
     }
     return (
       <div className="d-flex text-nowrap">
-        {statusNode} {status === 'ORDER_OPENED' && cancleBtn}
+        {statusNode} {(status === 'ORDER_OPENED' || status=== "ORDER_WAIT_SUBMIT_RING") && cancleBtn}
       </div>
     )
   },
