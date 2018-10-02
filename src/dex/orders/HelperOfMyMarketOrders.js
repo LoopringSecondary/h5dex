@@ -131,9 +131,10 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     }
   }
   const orderStatus = (item) => {
-    if (item.status === 'ORDER_OPENED') {
+    if (item.status === 'ORDER_OPENED' || item.status === 'ORDER_WAIT_SUBMIT_RING') {
       return <Button onClick={cancelOrder.bind(this, item)} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml5" size="small">{intl.get('common.cancel')}</Button>
     }
+
     if (item.status === 'ORDER_FINISHED') {
       return <span className="color-success"><WebIcon type="check-circle" /></span>
     }
@@ -151,9 +152,6 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
     }
     if (item.status === 'ORDER_CANCELLING') {
       return <span className="color-black-2">{intl.get("order_status.canceling")}</span>
-    }
-    if (item.status === 'ORDER_WAIT_SUBMIT_RING') {
-      return <span className="color-black-2">{intl.get("order_status.waiting")}</span>
     }
   }
   const gotoAll = () => {}
