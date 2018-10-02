@@ -120,14 +120,14 @@ export class OrderFm {
   }
   getCreateTime(){
     if(this.order.originalOrder){
-      return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validSince),'MM-DD HH:MM')
+      return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validSince),'MM-DD HH:mm')
     }else{
       return null
     }
   }
   getExpiredTime(){
     if(this.order.originalOrder){
-      return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validUntil),'MM-DD HH:MM')
+      return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validUntil),'MM-DD HH:mm')
     }else{
       return null
     }
