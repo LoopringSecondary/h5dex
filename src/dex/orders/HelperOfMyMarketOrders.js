@@ -94,8 +94,8 @@ const HelperOfMyOrders = ({orders = {}, dispatch}) => {
   }
   const cancelOrderByTokenPair = (e) => {
     e.stopPropagation()
-    if (orders.items && orders.items.find(item => item.status === "ORDER_OPENED")) {
-      const openOrders = orders.items.filter(item => item.status === 'ORDER_OPENED')
+    if (orders.items && orders.items.find(item => item.status === "ORDER_OPENED" || item.status === 'ORDER_WAIT_SUBMIT_RING')) {
+      const openOrders = orders.items.filter(item => item.status === 'ORDER_OPENED' || item.status === 'ORDER_WAIT_SUBMIT_RING')
       Modal.alert(intl.get('order_cancel.cancel_all_title',{market}), intl.get('order_cancel.cancel_all_mes',{amount:openOrders.length,market}), [
         {text: intl.get('order_cancel.confirm_no'), onPress: () => {}, style: 'default'},
         {
