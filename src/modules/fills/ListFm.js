@@ -46,8 +46,8 @@ export class OrderFm {
       const total = (toNumber(this.order.originalOrder.lrcFee) / Number('1e' + token.digits)).toFixed(token.precision);
       return commonFm.getFormatNum(toNumber(total))  + ' LRC'
   }
-  getCreateTime(){return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validSince),'MM-DD HH:MM')}
-  getExpiredTime(){return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validUntil),'MM-DD HH:MM')}
+  getCreateTime(){return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validSince),'MM-DD HH:mm')}
+  getExpiredTime(){return commonFm.getFormattedTime(toNumber(this.order.originalOrder.validUntil),'MM-DD HH:mm')}
   getFilledPercent(){
     let percent = 0;
     if (!this.order.originalOrder.buyNoMoreThanAmountB) {
