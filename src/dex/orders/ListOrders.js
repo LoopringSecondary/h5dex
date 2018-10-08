@@ -431,7 +431,7 @@ export const renders = {
         return (
           <div>
             <Button type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block bg-primary-light text-primary" size="small" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get('common.cancel')}</Button>
-            <div className="text-primary mt5">{intl.get("order_status.opened")}</div>
+            {/*<div className="text-primary mt5">{intl.get("order_status.opened")}</div>*/}
           </div>
         )
         // return <a className="fs12" onClick={(e) =>{e.stopPropagation();cancelOrder()}}>{intl.get("common.cancel")}</a>

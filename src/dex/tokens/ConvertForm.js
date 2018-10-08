@@ -130,7 +130,6 @@ class Convert extends React.Component {
         this.setState({token: 'ETH'})
       }
     }
-    const _this = this
     const fromToken = token
     const toToken = token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
     return (
@@ -157,7 +156,7 @@ class Convert extends React.Component {
                     type="money"
                     onChange={amountChange}
                     moneyKeyboardAlign="left"
-                    value={amount>0 ? amount : null}
+                    value={amount>=0 ? amount : null}
                     extra={<div className="fs14 color-black-3">{fromToken}</div>}
                     className="circle h-default"
                     placeholder={intl.get('common.amount')}
