@@ -38,19 +38,21 @@ class Face2FaceForm extends React.Component {
     function amountChange(side, e) {
       const  value = Number(e.target.value).toString()
       if(side === 'buy') {
-        dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
         if(!isValidNumber(value)) {
           Toast.info(intl.get('notifications.title.invalid_number'), 3, null, false);
+          return;
         }
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountB':toBig(e.target.value)}})
       } else {
-        dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
         if(!isValidNumber(value)) {
           Toast.info(intl.get('notifications.title.invalid_number'), 3, null, false);
           return
         }
         if(!validateAmountS(value)){
           Toast.info(intl.get('todo_list.title_balance_not_enough',{symbol:p2pOrder.tokenS}), 3, null, false);
+          return
         }
+        dispatch({type:'p2pOrder/amountChange', payload:{'amountS':toBig(e.target.value)}})
       }
     }
     const submitOrder = ()=>{
@@ -62,6 +64,7 @@ class Face2FaceForm extends React.Component {
         Toast.info(intl.get('todo_list.title_balance_not_enough',{symbol:p2pOrder.tokenS}), 3, null, false);
         return
       }
+      dispatch({type:'p2pOrder/isMakerChange', payload:{ismaker:true}})
       showLayer({id:'face2FaceConfirm'})
     }
     const price = p2pOrder.amountB && p2pOrder.amountB.gt(0) && p2pOrder.amountS && p2pOrder.amountS.gt(0) ? toFixed(p2pOrder.amountB.div(p2pOrder.amountS), 8) : toFixed(toBig(0),8)

@@ -375,7 +375,7 @@ async function generateSignData({tradeInfo, order, completeOrder, address}) {
   if (approveWarn && approveWarn.length > 0) {
     const gasLimit = tradeInfo.gasLimit;
     const gasPrice = tradeInfo.gasPrice;
-    let nonce = await window.RELAY.account.getNonce(address)
+    let nonce = (await window.RELAY.account.getNonce(address)).result
     if(nonce.error) {
       throw new Error(nonce.error.message)
     }
@@ -390,7 +390,6 @@ async function generateSignData({tradeInfo, order, completeOrder, address}) {
       unsigned.push({type: 'tx', data:approve, description: `Approve ${item.value.symbol} allowance`, address})
       nonce = nonce + 1;
     });
-    console.log('    unsigned:', unsigned)
   }
   return unsigned
 }
