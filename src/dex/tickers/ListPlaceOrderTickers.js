@@ -58,16 +58,16 @@ const TickerItem = ({item,actions,key,dispatch})=>{
 
 export const TickerList = ({items,loading,dispatch,market})=>{
   return (
-    <div className="bg-white">
+    <div className="">
       <Spin spinning={loading}>
         <div className="divider 1px zb-b-t"></div>
-        <div className="p10 text-left color-black-1">
+        <div className="p10 text-left color-black-3">
           Current: {market}
         </div>
         <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch}/>)}
         {items.length === 0 &&
-          <div className="p10 text-center color-black-3">
+          <div className="p10 text-center color-black-4">
             {intl.get('common.list.no_data')}
           </div>
         }
@@ -81,22 +81,9 @@ class ListPlaceOrderTickers extends React.Component {
     super(props);
   }
   render(){
-      const {loopringTickers:list,dispatch,market} = this.props
+      const {tickersOfSource:list,dispatch,market} = this.props
       const tickersFm = new TickersFm(list)
-      const {extra:{favored={},keywords}} = list
-      let newMarkets = []
-      const confs = storage.settings.getConfigs()
-      if(confs && confs.newMarkets) {
-        newMarkets = confs.newMarkets
-      }
-      const isInNewMarket = (market) => {
-        const m = market.toLowerCase().split('-')
-        return newMarkets.find((i)=> {
-          return (i.tokenx.toLowerCase() === m[0] && i.tokeny.toLowerCase() === m[1]) || (i.tokeny.toLowerCase() === m[0] && i.tokenx.toLowerCase() === m[1])
-        })
-      }
-      const allTickers = tickersFm.getAllTickers().filter(item=>!isInNewMarket(item.market))
-      const newMarktsTickers = tickersFm.getAllTickers().filter(item=>isInNewMarket(item.market))
+      const allTickers = tickersFm.getAllTickers().filter(item=>item.label === 'whitelist')
       const favoredTickers = tickersFm.getFavoredTickers()
       const recentTickers = tickersFm.getRecentTickers()
       const sorter = (a,b)=>{
@@ -111,18 +98,29 @@ class ListPlaceOrderTickers extends React.Component {
         }
       }
       allTickers.sort(sorter)
-      newMarktsTickers.sort(sorter)
+      const marketGroups = {}
+      allTickers.forEach(item=>{
+        const market = item.market.split('-')
+        let group = marketGroups[market[1]]
+        if(group){
+          group.push(item)
+        } else {
+          group = [item]
+        }
+        marketGroups[market[1]] = group
+      })
       favoredTickers.sort(sorter)
-      const tabs = [
-        { title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> },
-        { title: <div className="fs16">WETH</div> },
-        { title: <div className="fs16">LRC</div> },
-        { title: <div className="fs16">USDT</div> },
-        { title: <div className="fs16">TUSD</div> },
-      ]
-      if(newMarkets && newMarkets.length > 0){
-        tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_innovation')}</div> })
+      const tabs = []
+      const tickerItems = []
+      if(marketGroups && Object.keys(marketGroups)) {
+        tabs.push({ title: <div className="fs16">{intl.get('ticker_list.title_favorites')}</div> })
+        tickerItems.push(<TickerList key={'fav'} items={favoredTickers} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+        for (let key of Object.keys(marketGroups)) {
+          tabs.push({title: <div className="fs16">{key}</div>})
+          tickerItems.push(<TickerList key={key} items={getMarketTickersBySymbol(key,allTickers)} loading={list.loading} dispatch={dispatch} tickersList={list}/>)
+        }
       }
+      favoredTickers.sort(sorter)
       return (
           <Tabs
             tabs={tabs}
@@ -135,19 +133,14 @@ class ListPlaceOrderTickers extends React.Component {
             onChange={(tab, index) => {}}
             onTabClick={(tab, index) => { }}
           >
-            <TickerList items={favoredTickers} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={getMarketTickersBySymbol("WETH",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={getMarketTickersBySymbol("LRC",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={getMarketTickersBySymbol("USDT",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={getMarketTickersBySymbol("TUSD",allTickers)} loading={list.loading} dispatch={dispatch} market={market} />
-            <TickerList items={newMarktsTickers} loading={list.loading} dispatch={dispatch} market={market} />
+            {tickerItems}
           </Tabs>
       )
   }
 }
 export default connect(
-  ({sockets:{loopringTickers,tickers}})=>({
-    loopringTickers,
+  ({sockets:{tickersOfSource,tickers}})=>({
+    tickersOfSource,
     market:tickers.filters && tickers.filters.market
   })
 )(ListPlaceOrderTickers)

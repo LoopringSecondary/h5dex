@@ -107,7 +107,7 @@ function PlaceOrderSteps(props) {
   const {side, pair, priceInput, amountInput, validSince, validUntil} = placeOrder
   const total = toBig(amountInput).times(toBig(priceInput)).toString(10)
   const tokens = getTokensByMarket(pair)
-  const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, 2, tokens.right)
+  const lrcFeeValue = orderFormatter.calculateLrcFee(marketcap, total, settings.trading.lrcFee, tokens.right)
   const showLayer = (payload={})=>{
     dispatch({
       type:'layers/showLayer',
@@ -128,6 +128,11 @@ function PlaceOrderSteps(props) {
     // hideLayer({id:'placeOrderSteps'})
     showLayer({id:'helperOfTTL'})
   }
+  const showLRCFee = () => {
+    // hideLayer({id:'placeOrderSteps'})
+    showLayer({id:'settings'})
+  }
+
   const next = async (page) => {
     hideLayer({id:'placeOrderSteps'})
     let order = {};
@@ -181,7 +186,7 @@ function PlaceOrderSteps(props) {
     }
   }
   return (
-    <div className="">
+    <div className="bg-white">
         <Pages active="order">
           <Page id="order" render={({page})=>
             <div>
@@ -227,19 +232,15 @@ function PlaceOrderSteps(props) {
                   </div>
                 }
                 <OrderMetaItem label={intl.get("common.price")} value={`${priceInput} ${pair}`} />
-                <OrderMetaItem showArrow={false} onClick={()=>window.Toast.info('Coming Soon', 1, null, false)} label={intl.get('common.lrc_fee')} value={`${lrcFeeValue} LRC`} />
-                <OrderMetaItem showArrow={true} onClick={()=>showTTL()} label={intl.get('common.ttl')} value={`${validSince.format('MM-DD HH:mm')} ~ ${validUntil.format('MM-DD HH:mm')}`}  />
-              </div>
-              <div>
-                <div className="pt10 pb10 clor-black-3 fs12 zb-b-t">
+                <OrderMetaItem showArrow={true} onClick={()=>showLRCFee()} label={intl.get('common.lrc_fee')} value={<div className="text-primary">{lrcFeeValue} LRC({settings.trading.lrcFee/10}%)</div>} />
+                <OrderMetaItem showArrow={true} onClick={()=>showTTL()} label={intl.get('common.ttl')} value={<div className="text-primary">{validSince.format('MM-DD HH:mm')} ~ {validUntil.format('MM-DD HH:mm')}</div>}  />
+                <div className="divider 1px zb-b-t"></div>
+                <div className="pt15 pb15 clor-black-3 fs12">
                   <Icon className="mr5" type="exclamation-circle-o" />{intl.get('place_order_confirm.no_cost_gas')}
                 </div>
-                {
-                  false &&
-                  <Button type="primary" className="" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
-                }
-                <div className="bg-primary color-white fs16" style={{lineHeight:'44px',height:'44px'}} onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</div>
+                <Button type="primary" className="fs18" onClick={next.bind(this, page)}>{intl.get('place_order_confirm.sign_and_submit')}</Button>
               </div>
+              
             </div>
           }/>
           <Page id="wallet" render={({page})=>

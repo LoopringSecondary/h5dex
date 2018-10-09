@@ -17,11 +17,11 @@ const ListDepth = ({depth={},maxRows=5})=>{
       <div className="row no-gutters ml0 mr0">
         <div className="col-6">
           <Spin spinning={depth.loading}>
-            <table className="w-100 fs13">
+            <table className="w-100 fs12">
               <thead>
                 <tr className="">
-                  <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.amount")}</th>
-                  <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.buy")}</th>
+                  <th className="zb-b-b text-left pl10 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.amount")}</th>
+                  <th className="zb-b-b text-right pl5 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.buy")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,11 +52,11 @@ const ListDepth = ({depth={},maxRows=5})=>{
         </div>
         <div className="col-6">
           <Spin spinning={depth.loading}>
-            <table className="w-100 fs13 zb-b-l">
+            <table className="w-100 fs12 zb-b-l">
               <thead>
                 <tr className="">
-                  <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.sell")}</th>
-                  <th className="zb-b-b text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get("common.amount")}</th>
+                  <th className="zb-b-b text-left pl5 pr5 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.sell")}</th>
+                  <th className="zb-b-b text-right pl5 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get("common.amount")}</th>
                 </tr>
               </thead>
                 <tbody>

@@ -7,6 +7,7 @@ const words = {
   sides: 'Sides',
   market: 'Market',
   markets: 'Markets',
+  volume: 'Volume',
   amount: 'Amount',
   type: 'Type',
   types: 'Types',
@@ -194,7 +195,8 @@ export default {
     canceled: 'Canceled',
     expired: 'Expired',
     pending: "Pending",
-    canceling: "Canceling"
+    canceling: "Canceling",
+    waiting:"Matching"
   },
   order_side: {
     sell: words.sell,
@@ -281,6 +283,9 @@ export default {
     title: 'Set LRC Fee Of Order',
     tabs_basic: 'Basic',
     tabs_advanced: 'Advanced',
+    low: 'Low',
+    high: 'High',
+    tips:"The fee must be larger than a gas of an eth transaction for matching miner."
   },
   place_order_confirm: {
     qrcode_security: '*For your order\'s security, your QR code will only generated once and not be stored locally. Make sure to save it properly, any one who received your QR code could take your order',
@@ -409,7 +414,7 @@ export default {
     last: 'Last Price',
     high: '24H High',
     low: '24H Low',
-    vol: '24H Vol',
+    vol: '24H Volume',
   },
   ticker_list: {
     title_loopring_tickers: 'Loopring DEX Markets',
@@ -590,12 +595,12 @@ export default {
     title_balance_not_enough:"{symbol} balance is insufficient",
     title_converting_eth_to_weth:'Converting ETH To WETH',
     title_converting_weth_to_eth:'Converting WETH To ETH',
-    status_converting: 'Conveting',
+    status_converting: 'Check Status →',
     balance:"Balance",
     selling:"Selling",
     lack:"Lack",
     actions_enable:"Enable",
-    status_enabling:'Enabling',
+    status_enabling:'Check Status →',
     actions_buy:words.buy,
     actions_receive:words.receive,
     no_detail:'No detail...'

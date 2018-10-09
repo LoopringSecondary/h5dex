@@ -201,9 +201,12 @@ export const renders = {
     if (status === 'ORDER_EXPIRE') {
       statusNode = <Badge className="text-color-dark-1" status="default" text={<span className="color-white-1">{intl.get('order_status.expired')}</span>}/>
     }
+    if (status === 'ORDER_WAIT_SUBMIT_RING') {
+      statusNode = <Badge className="text-color-dark-2" status="default" text={<span className="color-white-1">{intl.get('order_status.waiting')}</span>}/>
+    }
     return (
       <div className="d-flex text-nowrap">
-        {statusNode} {status === 'ORDER_OPENED' && cancleBtn}
+        {statusNode} {(status === 'ORDER_OPENED' || status=== "ORDER_WAIT_SUBMIT_RING") && cancleBtn}
       </div>
     )
   },

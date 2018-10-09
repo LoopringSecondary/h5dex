@@ -14,7 +14,26 @@
     user-select:auto;
   }
 }
+.unselectable{
+  * {
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+  }
+}
+
+.hover-default{
+  cursor:pointer;
+}
 .hover-default:active {
+  // color:#fff !important;
+  // background: fade(@brand-primary,15%)  !important;
+  // color:@brand-primary !important;
+  background: rgba(0,0,0,0.06)  !important;
+}
+.hover-default:hover {
   // color:#fff !important;
   // background: fade(@brand-primary,15%)  !important;
   // color:@brand-primary !important;
@@ -28,6 +47,10 @@
 .text-primary{
   color:@brand-primary !important;
 }
+.border-primary{
+  border:1px solid @brand-primary !important;
+}
+
 .color-success{
   color:@brand-success !important;
 }
@@ -56,6 +79,21 @@
   background:darken(@brand-primary,8%) !important;
 }
 
+.bg-fill-light{
+  background:fade(@fill-body,40%) !important;
+}
+.hover-bg-primary:hover{
+  background:@brand-primary !important;
+  .text-primary{
+    &:extend(.color-black-1);
+  }
+}
+.bg-primary:hover{
+  background:@brand-primary !important;
+  .text-primary{
+    &:extend(.color-black-1);
+  }
+}
 
 .radius-4{
   border-radius:4px !important;
@@ -89,6 +127,38 @@
     background: @brand-primary !important;
   }
 }
+.am-segment-item{
+  // border-color:@brand-primary-light !important;
+  border:none !important;
+  background: @brand-primary-light !important;
+  &.am-segment-item-selected{
+    background: @brand-primary !important;
+  }
+}
+.am-segment.side-buy{
+  .am-segment-item{
+    border:none !important;
+    background: @bg-white-light !important;
+    &:extend(.color-black-3);
+    &.am-segment-item-selected{
+      background: @brand-success !important;
+      color:rgba(255,255,255,1) !important;
+    }
+  }
+}
+.am-segment.side-sell{
+  .am-segment-item{
+    border:none !important;
+    background: @bg-white-light !important;
+    &:extend(.color-black-3);
+    &.am-segment-item-selected{
+      background: @brand-error !important;
+      color:rgba(255,255,255,1) !important;
+    }
+  }
+}
+
+
 .am-segment-item-selected{
     // background: #000 !important;
     // color:#fff !important;
@@ -148,6 +218,9 @@
 .am-slider-track{
   background-color:@brand-primary !important;
 }
+.am-slider-rail{
+  background: @brand-primary-light !important;
+}
 
 // ========
 // tabs
@@ -174,6 +247,15 @@
     display: none !important;
   }
 }
+.am-tab-bar-bar .am-tab-bar-tab-icon{
+  margin-top: 3px;
+  font-size:1.6rem;
+}
+.am-tab-bar-bar .am-tab-bar-tab-title{
+  font-size:1.3rem;
+  margin-top: 1px;
+}
+
 
 // ========
 // tabbar
@@ -248,15 +330,45 @@
   .am-button-primary::before{
     border:none !important;
   }
-
+}
+.am-list-item.overflow-visible{
+  .am-list-content{
+    overflow:visible !important;
+  }
+  .am-list-line{
+    overflow:visible !important;
+  }
+}
+.settings{
+  .am-list-body{
+    background: @fill-body !important;
+    border-radius:0.5rem !important;
+    border: 1px solid rgba(0,0,0,0.04) !important;
+  }
+  .am-radio-item{
+    .am-list-content{
+      &:extend(.color-black-1);  
+    }
+  }
+  .am-list-item{
+    border-bottom:1px solid rgba(0,0,0,0.04) !important;
+  }
+  .am-list-body .am-list-item:last-child{
+    border-bottom:none !important;
+  }
 }
 
 .am-list-item.am-input-item{
-  height: 50px !important;
+  height: 5.0rem !important;
   &.h-default{
-    height:44px !important;
+    height:4.4rem !important;
   }
 }
+.am-list-item .am-input-control input:disabled{
+  background: transparent;
+  cursor:not-allowed;
+}
+
 .am-list-item.circle{
   border-radius: 50em;
   border:1px solid #eeeeee;
@@ -323,13 +435,31 @@
 .article .header small{ opacity: 0.6 }
 .article p{}
 
-
-
-.am-pagination.fs14{
+.am-pagination.custom-pagination{
+  .am-button{
+    height:32px !important;
+    line-height:32px !important;
+    background: @brand-primary-light !important;
+    border:none !important;
+    color:@brand-primary;
+    &::before{
+      border:none !important;
+    }
+    font-size:1.4rem !important;
+    margin-top: 5px;
+  }
   .am-pagination-wrap{
     font-size:1.4rem !important;
+    &:extend(.color-black-3);
+    .active{
+      &:extend(.color-black-2);
+    }
   }
-  .am-button{
-    font-size:1.4rem !important;
+}
+.ant-spin{
+  color:@brand-primary !important;
+  i{
+    background:@brand-primary !important;
   }
+
 }

@@ -7,6 +7,7 @@ const words = {
   sides: '方向',
   market: '市场',
   markets: '市场',
+  volume: '成交量',
   amount: '数量',
   type: '类型',
   types: '类型',
@@ -191,12 +192,13 @@ export default {
     p2p_order: '私密点对点订单'
   },
   order_status: {
-    opened: '撮合中',
+    opened: '挂单中',
     completed: '已完成',
     canceled: '已取消',
     expired: '已过期',
     pending: '打包中',
-    canceling: '取消中'
+    canceling: '取消中',
+    waiting:"撮合中"
   },
   order_side: {
     sell: words.sell,
@@ -207,7 +209,7 @@ export default {
     my_open_orders: '最近订单',
     my_all_orders: '全部订单',
     order_book: '最新挂单',
-    no_open_orders: '{market}暂无有效订单',
+no_open_orders: '{market}暂无有效订单',
     view_all_orders: '查看全部订单'
   },
   order_detail: {
@@ -283,6 +285,9 @@ export default {
     title: '设置订单的矿工撮合费',
     tabs_basic: '快速设置',
     tabs_advanced: '高级设置',
+    low: '低',
+    high: '高',
+    tips:"撮合费 必须大于 矿工发送一个以太坊交易所需的油费。"
   },
   place_order_confirm: {
     qrcode_security: '*为了您订单的安全，二维码只会生成一次并且不会保存在任何地方。请确认妥善保存二维码，任何收到您二维码的人都有可能吃掉您的订单。',
@@ -595,12 +600,12 @@ export default {
     title_balance_not_enough: '{symbol} 余额不足',
     title_converting_eth_to_weth: '转换 ETH 为 WETH',
     title_converting_weth_to_eth: '转换 WETH 为 ETH',
-    status_converting: '转换中',
+    status_converting: '查看进度',
     balance: '当前余额',
     selling: '出售数量',
     lack: '缺少数量',
     actions_enable: '授权',
-    status_enabling: '授权中',
+    status_enabling: '查看进度',
     actions_buy: words.buy,
     actions_receive: words.receive,
     no_detail:'暂时没有详情...'

@@ -24,12 +24,12 @@ class AuthByImtoken extends React.Component {
     window.Wallet.setConfigs().then(res => {
       let language = 'en-US'
       let currency = 'USD'
-      if(window.Wallet.language.indexOf('zh') !== -1){
-        language = 'zh-CN'
-      }
-      if(window.Wallet.currency === 'CNY'){
-        currency = 'CNY'
-      }
+      // if(window.Wallet.language.indexOf('zh') !== -1){
+      //   language = 'zh-CN'
+      // }
+      // if(window.Wallet.currency === 'CNY'){
+      //   currency = 'CNY'
+      // }
       storage.wallet.storeUnlockedAddress("mock", window.Wallet.address)
       window.RELAY.account.register(window.Wallet.address)
       _props.dispatch({type:'settings/preferenceChange',payload:{language,currency}})
@@ -46,7 +46,7 @@ class AuthByImtoken extends React.Component {
     return (
       <div>
         <NavBar
-          className=""
+          className="bg-white"
           mode="light"
           leftContent={null &&[
             <span onClick={()=>{}} className="color-black-1" key="1"><WebIcon type="left" /></span>,
@@ -55,7 +55,7 @@ class AuthByImtoken extends React.Component {
             <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
           ]}
         >
-          <div>
+          <div className="color-black">
             Auth By Mock
           </div>
         </NavBar>

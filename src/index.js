@@ -12,6 +12,7 @@ import Notification from 'LoopringUI/components/Notification'
 import intl from 'react-intl-universal'
 import {configs} from './common/config/data'
 import config from "./common/config";
+import {getSupportedToken} from './init'
 
 const latestVersion = Number(configs.localStorageVersion)
 const oldVersion = Number(storage.getLocalStorageVersion())
@@ -35,10 +36,7 @@ const app = dva({
   onError:(err, dispatch) => {message.error(err.message,3)}
 })
 window.onError= (msg,url,line)=>{message.error(`window.onError ${msg} ${url} ${line}`,null)}
-window.config = {}
-window.config.address = "0xeba7136a36da0f5e16c6bdbc739c716bb5b65a00";
-window.config.host = host
-window.config.rpc_host = `${host}/rpc/v2`
+
 // 2. Plugins
 // app.use({})
 
@@ -54,15 +52,28 @@ app.router(require('./router').default)
 // 5. Start
 app.start('#root')
 
-const getLocalConfig = () => {
-  return Promise.resolve(configs)
-}
-
-config.getRemoteConfig().then(res=>{
-//getLocalConfig().then(res=>{
-  if(res) {
-    storage.settings.setConfigs(res)
-    app._store.dispatch({type:'tokens/itemsChange', payload:{items:res.tokens}})
+getSupportedToken().then(res=>{
+  if(res.result) {
+    const tokens = []
+    tokens.push({
+      "symbol": "ETH",
+      "digits": 18,
+      "address": "",
+      "precision": 6,
+    })
+    res.result.forEach(item=>{
+      if(!item.deny) {
+        const digit = Math.log10(item.decimals)
+        tokens.push({
+          "symbol": item.symbol,
+          "digits": digit,
+          "address": item.protocol,
+          "precision": Math.min(digit, 6),
+        })
+      }
+    })
+    storage.settings.setTokensConfig(tokens)
+    store.dispatch({type:'tokens/itemsChange', payload:{items:tokens}})
   }
 }).catch(error=> {
   console.log(error)

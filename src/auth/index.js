@@ -10,10 +10,10 @@ class Auth extends React.Component {
     return (
       <div>
         <NavBar
-          className=""
+          className="bg-white"
           mode="light"
         >
-          <div>
+          <div className="color-black">
             Auth By Wallets
           </div>
         </NavBar>
@@ -25,7 +25,7 @@ class Auth extends React.Component {
             }}>
               <img style={{borderRadius:"6px"}}  width="100%" src={require('../assets/images/imtoken.png')} alt=""/>
             </div>
-            <div className="pt10 fs16">Imtoken Wallet</div>
+            <div className="pt10 fs16 color-black">Imtoken Wallet</div>
         </div>
         <div className="divider 1px zb-b-t"></div>
         <div className="p30 text-center" onClick={()=>{routeActions.gotoPath('/auth/loopr')}}>
@@ -35,7 +35,7 @@ class Auth extends React.Component {
             }}>
               <img style={{borderRadius:"6px"}}  width="100%" src={require('../assets/images/loopr.png')} alt=""/>
             </div>
-            <div className="pt10 fs16">Loopr Wallet</div>
+            <div className="pt10 fs16 color-black">Loopr Wallet</div>
         </div>
         <div className="divider 1px zb-b-t"></div>
       </div>

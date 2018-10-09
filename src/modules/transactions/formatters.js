@@ -105,7 +105,7 @@ export class TxFm{
     return this.tx.updateTime && commonFm.getFormatTime(toNumber(this.tx.updateTime) * 1e3)
   }
   getCreateTime(){
-    return this.tx.createTime && commonFm.getFormattedTime(this.tx.createTime,'YY-MM-DD HH:SS')
+    return this.tx.createTime && commonFm.getFormattedTime(this.tx.createTime,'YY-MM-DD HH:mm')
   }
   fromNow(){
     console.log('fromNow')

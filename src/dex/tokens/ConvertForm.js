@@ -130,7 +130,6 @@ class Convert extends React.Component {
         this.setState({token: 'ETH'})
       }
     }
-    const _this = this
     const fromToken = token
     const toToken = token.toLowerCase() === 'eth' ? 'WETH' : 'ETH'
     return (
@@ -144,10 +143,10 @@ class Convert extends React.Component {
               <Icon type="left" key='1'/>,
             ]}
             rightContent={[
-              <Button size="small" onClick={swap} key='1' className="text-primary"><WebIcon type="swap"/></Button>,
+              <Button size="small" type="primary" onClick={swap} key='1' ><WebIcon type="swap"/></Button>,
             ]}
           >
-            {fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}
+            <div className="color-black">{fromToken === 'ETH' ? intl.get('convert.convert_eth_title') : intl.get('convert.convert_weth_title')}</div>
           </NavBar>
           <div className="p15 ">
             <div className="row ml0 mr0 no-gutters align-items-stretch justify-content-center" style={{}}>
@@ -157,9 +156,10 @@ class Convert extends React.Component {
                     type="money"
                     onChange={amountChange}
                     moneyKeyboardAlign="left"
-                    value={amount}
+                    value={amount>=0 ? amount : null}
                     extra={<div className="fs14 color-black-3">{fromToken}</div>}
                     className="circle h-default"
+                    placeholder={intl.get('common.amount')}
                   >
                   </InputItem>
                   <List.Item
@@ -178,9 +178,11 @@ class Convert extends React.Component {
             </div>
             <Button className="b-block w-100 mt15" size="large" onClick={gotoConfirm} type="primary" loading={loading} disabled={loading}>
               <div className="row ml0 mr0 no-gutters fs16 align-items-center">
-                <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{fromToken}</span></div>
-                <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
-                <div className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{toToken}</span></div>
+                <div hidden className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{fromToken}</span></div>
+                <div className="col fs18" style={{}}>
+                  {intl.get('common.convert')}
+                </div>
+                <div hidden className="col">{toNumber(tf.toPricisionFixed(toBig(amount)))} <span className="fs14">{toToken}</span></div>
               </div>
             </Button>
           </div>

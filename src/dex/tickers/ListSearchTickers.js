@@ -72,7 +72,7 @@ export const TickerList = ({items,loading,dispatch,market,from})=>{
         <div className="divider 1px zb-b-t"></div>
         {items.map((item,index)=><TickerItem key={index} item={item} dispatch={dispatch} from={from}/>)}
         {items.length === 0 &&
-          <div className="p10 text-center color-black-3">
+          <div className="p10 text-center color-black-4">
             {intl.get('common.list.no_data')}
           </div>
         }
@@ -93,11 +93,9 @@ class ListPlaceOrderTickers extends React.Component {
   }
   render(){
       const _this = this
-      const {loopringTickers:list,dispatch,market} = this.props
+      const {tickersOfSource:list,dispatch,market} = this.props
       const from = this.props.location.pathname.replace(`/dex/markets/search/`, '')
       const tickersFm = new TickersFm(list)
-
-      const {extra:{favored={},keywords}} = list
 
       const recentTickers = tickersFm.getRecentTickers()
       const filtedTickers = this.state.keyword ? tickersFm.getSearchTickers(this.state.keyword) : []
@@ -110,25 +108,32 @@ class ListPlaceOrderTickers extends React.Component {
         <div className="selectable">
             <NavBar
               mode="light"
+              className="bg-white"
               leftContent={[
                 <WebIcon style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'left'}} onClick={()=>routeActions.goBack()} key="1" type="left" />,
               ]}
             >
-              搜索
+              <div className="color-black">搜索</div>
             </NavBar>
+            <div className="bt-white">
+              <div className="divider 1px zb-b-t"></div>
+            </div>
             <SearchBar
               placeholder="Search"
               onChange={search}
+              className="bg-white"
             />
-            <div className="divider 1px zb-b-t"></div>
+            <div className="bt-white">
+              <div className="divider 1px zb-b-t"></div>
+            </div>
             {filtedTickers && filtedTickers.length > 0 && <TickerList items={filtedTickers} loading={list.loading} dispatch={dispatch} market={market} from={from}/>}
         </div>
       )
   }
 }
 export default connect(
-  ({sockets:{loopringTickers,tickers}})=>({
-    loopringTickers,
+  ({sockets:{tickersOfSource,tickers}})=>({
+    tickersOfSource,
     market:tickers.filters && tickers.filters.market
   })
 )(ListPlaceOrderTickers)

@@ -14,7 +14,7 @@ export default {
   "theme": {
     // "@font-family-no-number"  : "Roboto ,PingFang SC",
     // "@font-family"            : "@font-family-no-number",
-    "@primary-color": "#1c60ff",
+    "@primary-color": "#C59949",
     "@link-color": "#1c60ff",
     "@border-radius-base": "0px",
     "@line-height-base" : 1.6,
