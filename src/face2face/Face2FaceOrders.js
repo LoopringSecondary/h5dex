@@ -29,7 +29,8 @@ class Face2FaceOrders extends React.Component {
       owner,
       pageIndex,
       pageSize,
-      delegateAddress: config.getDelegateAddress()
+      delegateAddress: config.getDelegateAddress(),
+      orderType:"p2p_order"
     }).then(res => {
       if (res.result) {
         const total = res.result.total / pageSize + res.result.total % pageSize ? 1 : 0
@@ -49,7 +50,8 @@ class Face2FaceOrders extends React.Component {
       owner,
       pageIndex,
       pageSize,
-      delegateAddress: config.getDelegateAddress()
+      delegateAddress: config.getDelegateAddress(),
+      orderType:"p2p_order"
     }).then(res => {
       if (res.result) {
         const total = res.result.total / pageSize + res.result.total % pageSize ? 1 : 0
@@ -63,11 +65,13 @@ class Face2FaceOrders extends React.Component {
   render () {
     const {dispatch} = this.props
     const {orders, pageIndex, total} = this.state
+
     const gotoDetail = (item) => {
+      console.log('detail')
       dispatch({
         type: 'layers/showLayer',
         payload: {
-          id: 'orderDetail',
+          id: 'p2pOrderDetail',
           order: item,
         }
       })
@@ -145,7 +149,7 @@ class Face2FaceOrders extends React.Component {
                 const orderFm = new OrderFm(item)
                 const tokens = orderFm.getTokens()
                 return (
-                  <tr key={index} className="color-black-2" onClick={gotoDetail.bind(this, item)}>
+                  <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
                     <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
                     </td>
                     <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Switch,Redirect} from 'dva/router';
+import React from 'react'
+import { Redirect, Route, Switch } from 'dva/router'
 import Face2FacePage from './Face2FacePage'
 import Face2FaceModals from './Modals'
 import CommonModals from '../components/Modals'
