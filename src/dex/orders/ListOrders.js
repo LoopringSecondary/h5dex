@@ -1,22 +1,16 @@
-import React from 'react';
-import { Button,WingBlank, Tabs, NavBar, Icon,Modal, Toast, PullToRefresh,Pagination } from 'antd-mobile';
-import { Icon as WebIcon,Spin } from 'antd';
-import { createForm } from 'rc-form';
-import { connect } from 'dva';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
-import routeActions from 'common/utils/routeActions'
+import React from 'react'
+import { Button, Modal, Pagination, PullToRefresh, Toast } from 'antd-mobile'
+import { Icon as WebIcon, Spin } from 'antd'
+import { createForm } from 'rc-form'
 import commonFm from 'modules/formatter/common'
 import intl from 'react-intl-universal'
-import {OrderFm} from 'modules/orders/OrderFm'
+import { OrderFm } from 'modules/orders/OrderFm'
 import Worth from 'modules/settings/Worth'
 import moment from 'moment'
 import storage from 'modules/storage'
-import TokenFm from "../../modules/tokens/TokenFm";
-import {signMessage} from "../../common/utils/signUtils";
-import ReactDOM from 'react-dom'
+import TokenFm from '../../modules/tokens/TokenFm'
+import { signMessage } from '../../common/utils/signUtils'
 import config from 'common/config'
-import ListPagination from 'LoopringUI/components/ListPagination'
 
 async function fetchOrders(page) {
   let filter = {}
