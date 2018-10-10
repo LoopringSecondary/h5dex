@@ -54,8 +54,8 @@ const HelperOfBalance = (props)=>{
       <table className="w-100 fs13">
         <thead>
           <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.token')}</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.balance')}</th>
+            <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.token')}</th>
+            <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.balance')}</th>
             <th className="text-center zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.actions')}</th>
           </tr>
         </thead>
@@ -63,11 +63,11 @@ const HelperOfBalance = (props)=>{
             {
               relatedTokens.map((token,index)=>
                 <tr key={index}>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-left">
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {token.symbol}
                     <span hidden className="color-black-3 ml5">{token.name}</span>
                   </td>
-                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-right">{toFixed(token.balance, 8)}</td>
+                  <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">{toFixed(token.balance, 8)}</td>
                   <td className="pl10 pr10 pt10 pb10 zb-b-b color-black-2 text-center">
                     {
                       token.symbol === 'WETH' &&
