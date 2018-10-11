@@ -5,6 +5,7 @@ import HelperOfTokens from './HelperOfTokens'
 import Face2FaceConfirm from './Face2FaceConfirm'
 import OrderDetail from './Detail'
 import OrderQrcode from './Qrcode'
+import TakerConfirm from './TakerConfirm'
 
 function Modals(props) {
   return (
@@ -22,6 +23,11 @@ function Modals(props) {
       <Containers.Layers id="face2FaceConfirm">
         <UiContainers.Popups id="face2FaceConfirm">
           <Face2FaceConfirm />
+        </UiContainers.Popups>
+      </Containers.Layers>
+      <Containers.Layers id="takerConfirm">
+        <UiContainers.Popups id="takerConfirm">
+          <TakerConfirm />
         </UiContainers.Popups>
       </Containers.Layers>
       <Containers.Layers id="orderQrcode">

@@ -112,6 +112,8 @@ const notifications = {
     enable_suc:'Enable Successfully',
     enable_fail:'Enable failed',
     place_order_price_confirm:"Are you sure you want to continue ?",
+    submit_ring_suc:'Submit ring successfully',
+    submit_ring_fail:'Submit ring failed'
   },
   message: {
     place_order_price_high:"Your price is 5% higher than the market price.",

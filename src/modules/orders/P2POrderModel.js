@@ -12,8 +12,7 @@ export default {
     validSince: null,
     validUntil: null,
     loading: false,
-    qrcode: '',
-    ismaker:true
+    qrcode: ''
   },
   effects: {
     * init ({payload = {}}, {put}) {
@@ -30,14 +29,6 @@ export default {
         validUntil: null,
         loading: false,
         qrcode: '',
-        ismaker:true
-      }
-    },
-    isMakerChange(state,{payload}){
-      const {ismaker} = payload
-      return {
-        ...state,
-        ismaker
       }
     },
     tokenChange (state, action) {
