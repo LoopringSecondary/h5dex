@@ -3,6 +3,7 @@ import settings from './settings'
 import tokens from './tokens'
 import transactions from './transactions'
 import markets from './markets'
+import orders from './orders'
 
 const setLocalStorageVersion = (version) => {
   localStorage.dataVersion = version
@@ -22,6 +23,7 @@ export default {
   tokens,
   transactions,
   markets,
+  orders,
   setLocalStorageVersion,
   getLocalStorageVersion,
   clearLocalStorage

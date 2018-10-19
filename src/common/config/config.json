@@ -782,6 +782,10 @@
     {
       "type":"cancelOrderByTokenPair",
       "gasLimit":"0x187b1"
+    },
+    {
+      "type":"submitRing",
+      "gasLimit":"0x61a80"
     }
 
   ],

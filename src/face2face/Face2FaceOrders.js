@@ -1,189 +1,205 @@
 import React from 'react'
-import { Button, Modal, Toast } from 'antd-mobile'
+import { Modal, Toast, Pagination } from 'antd-mobile'
+import {Spin} from 'antd'
 import { connect } from 'dva'
 import { OrderFm } from 'modules/orders/OrderFm'
-import { getTokensByMarket } from 'modules/formatter/common'
 import config from 'common/config'
-import { toBig, toFixed } from 'LoopringJS/common/formatter'
 import moment from 'moment'
 import { signMessage } from '../common/utils/signUtils'
 import storage from 'modules/storage'
+import intl from 'react-intl-universal'
+import TokenFm from 'modules/tokens/TokenFm'
+import { renders } from '../dex/orders/ListOrders'
+import Worth from 'modules/settings/Worth'
 
-const Face2FaceOrders = ({orders = {}, dispatch}) => {
-  const market = orders.filters.market
-  const tokens = getTokensByMarket(market)
-  const changePrice = (item) => {
-    const tokenB = config.getTokenBySymbol(item.originalOrder.tokenB)
-    const tokenS = config.getTokenBySymbol(item.originalOrder.tokenS)
-    const market = config.getMarketBySymbol(item.originalOrder.tokenB, item.originalOrder.tokenS)
-    const price = item.originalOrder.side.toLowerCase() === 'buy' ? toBig(item.originalOrder.amountS).div('1e' + tokenS.digits).div(toBig(item.originalOrder.amountB).div('1e' + tokenB.digits)).toFixed(market.pricePrecision) : toBig(item.originalOrder.amountB).div('1e' + tokenB.digits).div(toBig(item.originalOrder.amountS).div('1e' + tokenS.digits)).toFixed(market.pricePrecision)
-    Toast.info('Price has changed', 1, null, false)
-    dispatch({
-      type: 'placeOrder/priceChangeEffects',
-      payload: {
-        price
+class Face2FaceOrders extends React.Component {
+
+  state = {
+    orders: [],
+    pageIndex: 1,
+    pageSize: 10,
+    total: 0,
+    loading: true
+  }
+
+  componentDidMount () {
+    const {pageIndex, pageSize} = this.state
+    const owner = (window.Wallet && window.Wallet.address) || storage.wallet.getUnlockedAddress()
+    window.RELAY.order.getOrders({
+      owner,
+      pageIndex,
+      pageSize,
+      delegateAddress: config.getDelegateAddress(),
+      orderType:"p2p_order"
+    }).then(res => {
+      if (res.result) {
+        const total = res.result.total / pageSize + res.result.total % pageSize ? 1 : 0
+        this.setState({orders: res.result.data, total, loading: false})
+      } else {
+        this.setState({loading: false})
       }
     })
   }
-  const changeAmount = (item) => {
-    const side = item.originalOrder.side.toLowerCase()
-    let token = side === 'buy' ? config.getTokenBySymbol(item.originalOrder.tokenB) : config.getTokenBySymbol(item.originalOrder.tokenS)
-    token = token || {digits: 18, precision: 6}
-    const amount = side === 'buy' ? item.originalOrder.amountB : item.originalOrder.amountS
-    const amountInput = toFixed(toBig(amount).div('1e' + token.digits), token.precision)
-    Toast.info('Amount has changed', 1, null, false)
-    dispatch({
-      type: 'placeOrder/amountChange',
-      payload: {
-        amountInput
+
+  pageChange = (page) => {
+    this.setState({loading:true})
+    const {pageSize} = this.state
+    const pageIndex = page.current
+    const owner = (window.Wallet && window.Wallet.address) || storage.wallet.getUnlockedAddress()
+    window.RELAY.order.getOrders({
+      owner,
+      pageIndex,
+      pageSize,
+      delegateAddress: config.getDelegateAddress(),
+      orderType:"p2p_order"
+    }).then(res => {
+      if (res.result) {
+        const total = res.result.total / pageSize + res.result.total % pageSize ? 1 : 0
+        this.setState({orders: res.result.data, total, pageIndex: pageIndex + 1,loading:false})
+      }else{
+        this.setState({loading:false})
       }
     })
   }
-  const gotoDetail = (item) => {
-    dispatch({
-      type: 'layers/showLayer',
-      payload: {
-        id: 'orderDetail',
-        order: item,
+
+  render () {
+    const {dispatch} = this.props
+    const {orders, pageIndex, total} = this.state
+
+    const gotoDetail = (item) => {
+      console.log('detail')
+      dispatch({
+        type: 'layers/showLayer',
+        payload: {
+          id: 'p2pOrderDetail',
+          order: item,
+        }
+      })
+    }
+    const cancelOrder = (item, e) => {
+      e.stopPropagation()
+      const tokenb = item.originalOrder.tokenB
+      const tokens = item.originalOrder.tokenS
+      let description = ''
+      if (item.originalOrder.side.toLowerCase() === 'sell') {
+        const tf = new TokenFm({symbol: tokens})
+        description = `${intl.get('common.sell')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountS))} ${tokens}`
+      } else {
+        const tf = new TokenFm({symbol: tokens})
+        description = `${intl.get('common.buy')} ${tf.toPricisionFixed(tf.getUnitAmount(item.originalOrder.amountB))} ${tokenb}`
       }
-    })
-  }
-  const cancelOrder = (item, e) => {
-    e.stopPropagation()
-    Modal.alert('确认取消当前订单？', 'Buy 100.00 LRC ', [
-      {text: 'No', onPress: () => {}, style: 'default'},
-      {
-        text: 'Yes', onPress: () => {
-        const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
-        signMessage(timestamp).then(res => {
-          if (res.result) {
-            const sig = res.result
-            window.RELAY.order.cancelOrder({
-              sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
-              orderHash: item.originalOrder.hash,
-              type: 1
-            }).then(response => {
-              if (response.error) {
-                Toast.fail(`relay cancel failed:${response.error.message}`, 3, null, false)
+
+      Modal.alert(intl.get('order_cancel.cancel_title'), description, [
+        {text: intl.get('order_cancel.confirm_no'), onPress: () => {}, style: 'default'},
+        {
+          text: intl.get('order_cancel.confirm_yes'), onPress: () => {
+            const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
+            signMessage(timestamp).then(res => {
+              if (res.result) {
+                const sig = res.result
+                window.RELAY.order.cancelOrder({
+                  sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
+                  orderHash: item.originalOrder.hash,
+                  type: 1
+                }).then(response => {
+                  if (response.error) {
+                    Toast.fail(`${intl.get('notifications.title.cancel_fail', {type: intl.get('common.order')})}:${response.error.message}`, 3, null, false)
+                  } else {
+                    Toast.success(intl.get('notifications.title.cancel_suc', {type: intl.get('common.order')}), 3, null, false)
+                  }
+                })
               } else {
-                Toast.success(`succeed to cancel order`, 3, null, false)
+                Toast.fail(`${intl.get('notifications.title.cancel_fail', {type: intl.get('common.order')})}:${res.error.message}`, 3, null, false)
               }
             })
-          } else {
-            Toast.fail(`sign cancel failed:${res.error.message}`, 3, null, false)
           }
-        })
-      }
-      },
-    ])
-  }
-  const cancelOrderByTokenPair = (e) => {
-    e.stopPropagation()
-    if (orders.items && orders.items.length > 0 && orders.items.find(item => item.status === 'open')) {
-      const openOrders = orders.items.filter(item => item.status === 'open')
-      Modal.alert(`取消全部${market}订单？`, `${openOrders.length} open orders of LRC-WETH will be canceled`, [
-        {text: 'No', onPress: () => {}, style: 'default'},
-        {
-          text: 'Yes', onPress: () => {
-          const timestamp = Math.floor(moment().valueOf() / 1e3).toString()
-          signMessage(timestamp).then(res => {
-            if (res.result) {
-              const sig = res.result
-              const tokens = market.split('-')
-              const tokenS = config.getTokenBySymbol(tokens[0]).address
-              const tokenB = config.getTokenBySymbol(tokens[1]).address
-              window.RELAY.order.cancelOrder({
-                sign: {...sig, timestamp, owner: storage.wallet.getUnlockedAddress()},
-                type: 4,
-                tokenS,
-                tokenB
-              }).then(response => {
-                if (response.error) {
-                  Toast.fail(`cancel failed:${response.error.message}`, 3, null, false)
-                } else {
-                  Toast.success(`succeed to cancel ${openOrders.length} ${market} orders`, 3, null, false)
-                }
-              })
-            } else {
-              Toast.fail(`cancel failed:${res.error.message}`, 3, null, false)
-            }
-          })
-        }
         },
       ])
-    } else {
-      Modal.alert('No open orders to cancel')
     }
-  }
-  const gotoAll = () => {}
-  return (
-    <div className="zb-b-t">
-      <table className="w-100 fs13" style={{overflow: 'auto'}}>
-        <thead>
-        <tr>
-          <th className="text-left pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            Price
-            <span hidden className="color-black-4 ml5 fs10">{tokens.right}</span>
-          </th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">
-            <span hidden className="color-black-4 mr5 fs10">{tokens.left}</span>
-            Amount
-          </th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Fee</th>
-          <th className="text-right pt10 pb10 pl5 pr5 font-weight-normal color-black-3 zb-b-b">Filled</th>
-          <th className="text-center pl10 pr10 pt5 pb5 font-weight-normal color-black-3 zb-b-b text-nowrap">
+
+    return (
+      <div>
+        <Spin spinning={this.state.loading}>
+          <table className="w-100 fs13" style={{overflow: 'auto'}}>
+            <thead>
+            <tr>
+              <th className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default"
+                  colSpan="1" onClick={() => {}}>
+
+              </th>
+              <th className="text-left pl0 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default"
+                  colSpan="1" onClick={() => {}}>
+                {intl.get('common.market')}
+              </th>
+              <th
+                className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.price')}</th>
+              <th
+                className="text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('order.filled')}</th>
+              <th hidden
+                  className="text-right pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b">{intl.get('common.lrc_fee')}</th>
+              <th className="text-center pl10 pr10 pt10 pb10 font-weight-normal color-black-4 zb-b-b hover-default"
+                  onClick={() => {}}>
+                {intl.get('common.status')}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
             {
-              orders.items && orders.items.length > 0 &&
-              <a className="fs12" onClick={cancelOrderByTokenPair.bind(this)}>Cancel All</a>
+              orders && orders.map((item, index) => {
+                const orderFm = new OrderFm(item)
+                const tokens = orderFm.getTokens()
+                return (
+                  <tr key={index} className="color-black-2" onClick={() => gotoDetail(item)}>
+                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
+                    </td>
+                    <td className="zb-b-b pt10 pb10 pl0 pr5 text-left align-top">
+                      <div className="">
+                        <span className="font-weight-bold">{tokens.left}</span>-{tokens.right}
+                      </div>
+                      <div className="color-black-3 fs12">
+                        <span className="">{orderFm.getCreateTime()}</span>
+                      </div>
+                    </td>
+
+                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                      <div>{orderFm.getPrice()}</div>
+                      <div className="color-black-3 fs12"><Worth amount={orderFm.getPrice()} symbol={tokens.right}/>
+                      </div>
+                    </td>
+                    <td className="zb-b-b pt10 pb10 pl5 pr5 text-left text-nowrap align-top">
+                      <div>{orderFm.getFilledAmount()}</div>
+                      <div className="color-black-3 fs12">{orderFm.getAmount()}</div>
+                    </td>
+                    <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
+                    <td hidden className="zb-b-b p10 text-right text-nowrap">{orderFm.getLRCFee()}</td>
+                    <td className="zb-b-b p10 text-center">
+                      {renders.status(orderFm, item.originalOrder, cancelOrder.bind(this, item))}
+                    </td>
+                  </tr>
+                )
+              })
             }
             {
-              orders.items && orders.items.length == 0 && 'Status'
-            }
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        {
-          orders.items && orders.items.map((item, index) => {
-            const orderFm = new OrderFm(item)
-            return (
-              <tr key={index} className="color-black-2" onClick={() => Modal.alert('Select Your Options', <div></div>, [
-                {text: 'Fill Price', onPress: () => changePrice(item)},
-                {text: 'Fill Amount', onPress: () => changeAmount(item)},
-                {text: 'Order Detail', onPress: () => gotoDetail(item)},
-              ])
-              }>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-left">
-                  {orderFm.getSide() === 'buy' && <span className="color-green-500">{orderFm.getPrice()}</span>}
-                  {orderFm.getSide() === 'sell' && <span className="color-red-500">{orderFm.getPrice()}</span>}
-                </td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getAmount()}</td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getLRCFee()}</td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-right text-nowrap">{orderFm.getFilledPercent()}%</td>
-                <td className="zb-b-b pt10 pb10 pl5 pr5 text-center">
-                  <a className="fs12" onClick={cancelOrder.bind(this, item)}>Cancel</a>
+              orders && orders.length === 0 &&
+              <tr>
+                <td colSpan='100'>
+                  <div className="text-center pt10 pb10 color-black-4 fs12">{intl.get('common.list.no_data')}</div>
                 </td>
               </tr>
-            )
-          })
-        }
-        {
-          orders.items && orders.items.length == 0 &&
-          <tr>
-            <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs12" colSpan='100'>
-              no open orders of {market}
-            </td>
-          </tr>
-        }
-        </tbody>
-      </table>
-      <div hidden className="p10 mb15">
-        <Button onClick={gotoAll} type="" size="small" style={{height: '36px', lineHeight: '36px'}}
-                className="d-block w-100 fs14 bg-none">View all orders</Button>
+            }
+            </tbody>
+          </table>
+          {
+          orders && orders.length > 0 &&
+          <div className="p5">
+          <Pagination className="fs14 s-small custom-pagination" total={total} current={pageIndex}
+          onChange={this.pageChange}/>
+          </div>
+          }
+        </Spin>
       </div>
-    </div>
-
-  )
+    )
+  }
 }
 
 export default connect(({

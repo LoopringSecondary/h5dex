@@ -1,14 +1,8 @@
-import React from 'react';
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Card } from 'antd-mobile';
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd';
-import { createForm } from 'rc-form';
-import { connect } from 'dva';
-import Containers from 'modules/containers';
-import UiContainers from 'LoopringUI/containers'
+import React from 'react'
+import { Icon, NavBar, SegmentedControl, Tabs } from 'antd-mobile'
+import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import {OpenOrderList,HistoryOrderList} from './ListOrders';
-const Item = List.Item;
-const Brief = Item.Brief;
+import { HistoryOrderList, OpenOrderList } from './ListOrders'
 
 class MarketDetail extends React.Component {
   state = {

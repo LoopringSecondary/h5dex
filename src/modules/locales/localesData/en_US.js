@@ -67,6 +67,7 @@ const words = {
   depth:'Depth',
   set:'Set',
   helper:'Helper',
+  next_step:"Next",
   list:{
     no_data:'No Data',
     no_data_custom:'No {title}',
@@ -111,6 +112,8 @@ const notifications = {
     enable_suc:'Enable Successfully',
     enable_fail:'Enable failed',
     place_order_price_confirm:"Are you sure you want to continue ?",
+    submit_ring_suc:'Submit ring successfully',
+    submit_ring_fail:'Submit ring failed'
   },
   message: {
     place_order_price_high:"Your price is 5% higher than the market price.",
@@ -299,6 +302,7 @@ export default {
     token_balance: 'Token Balance',
     order_detail: 'Order Detail',
     generate_order: 'Generate Order',
+    price:'Exchange Price',
     instruction: '1. 以您希望的兑换率生成一个订单，把不包含鉴权数据（没有这部分数据任何人都无法撮合您的订单）的订单信息提交给relay，同时将生成的订单hash和鉴权信息生成二维码。</br>2. 您可以把这个二维码发送给您的朋友，任何人拿到这个二维码都有可能吃掉您的订单，请注意以安全的方式传播。</br>3. 对方使用Circulr移动端扫描二维码，下一个与您买入卖出量完全匹配的对手单，发送以太坊交易吃掉这个订单，因此吃单方需要消耗油费。',
     notice: '* P2P订单不需要支付LRC手续费</br>',
     user_center_p2p:'P2P Trade'
