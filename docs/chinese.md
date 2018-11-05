@@ -29,9 +29,9 @@ h5dex 第三方集成链接：<https://h5dex.loopr.io/#/auth/tpwallet>
 
    ```json
    {
-   type:'',
-   content:{  }
-   extra:{  }
+   type:"",
+   content:{}
+   extra:{}
    }
    ```
 

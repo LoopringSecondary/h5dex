@@ -34,7 +34,7 @@ This method calculates an Ethereum specific signature with: `sign(keccak256("\x1
 
    ```json
    {
-   type:'',
+   type:"",
    content:{  }
    extra:{  }
    }
