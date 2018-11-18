@@ -23,9 +23,9 @@ class Notifications extends React.Component {
     }
     return (
       <LayoutDexHome {...this.props}>
-        <div className="bg-grey-100">
+        <div className="">
           <NavBar
-            className=""
+            className="bg-white"
             mode="light"
             leftContent={null && [
               <span className="" key="1"><WebIcon type="home" /></span>,
@@ -34,7 +34,7 @@ class Notifications extends React.Component {
               <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
             ]}
           >
-          {intl.get('todo_list.todo_list_title')}
+            <div className="color-black">{intl.get('todo_list.todo_list_title')}</div>
           </NavBar>
           <div className="divider 1px"></div>
           <ListTodos />

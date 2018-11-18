@@ -4,7 +4,8 @@ import './Panels.less'
 const PanelsWrapper = (props)=>{
   const {
     children,id,
-    docked,width='30vw',position='left',sidebarClassName='panel-default-theme',className='',
+    docked,position='left',sidebarClassName='',className='',
+    style,
     ...rest
   } = props
   const {[id]:layer={}} = props
@@ -25,7 +26,7 @@ const PanelsWrapper = (props)=>{
     if(layer.visible){
       if(!props.render){
         return (
-          <div className={sidebarClassName} style={{width}}>
+          <div className={sidebarClassName} style={{...style}}>
             {
               React.Children.map(props.children, child => {
                 return React.cloneElement(child, {...childProps})

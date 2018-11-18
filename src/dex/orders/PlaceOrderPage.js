@@ -68,7 +68,7 @@ class PlaceOrderPage extends React.Component {
       <LayoutDexHome {...this.props}>
         <div className="">
           <NavBar
-            className=""
+            className="bg-white"
             mode="light"
             leftContent={null && [
               <span onClick={()=>{}} className="" key="1"><WebIcon type="question-circle-o" /></span>,
@@ -77,11 +77,11 @@ class PlaceOrderPage extends React.Component {
               <span className="" key="1"  onClick={() => routeActions.gotoPath(`/dex/markets/${pair}`) }><i className="icon-chart"></i></span>
             ]}
           >
-            <div onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
+            <div className="color-black" onClick={showLayer.bind(this,{id:'helperOfMarket'})}>
               {pair}<i className="ml5 icon-chevron-down"></i>
             </div>
           </NavBar>
-          <div className="no-underline tabs-no-border h-50 place-order-form" style={{marginTop:'0px'}}>
+          <div className="no-underline tabs-no-border h-50 place-order-form bg-white" style={{marginTop:'0px'}}>
             <div className="divider 1px zb-b-t"></div>
             <PlaceOrderForm showLayer={showLayer} />
           </div>
@@ -100,16 +100,16 @@ class PlaceOrderPage extends React.Component {
               onChange={(tab, index) => tabChange(tab.tab)}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
             >
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfDepth />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfMyMarketOrders />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfBalance />
               </div>
-              <div className="">
+              <div className="zb-b-t">
                 <HelperOfFAQ />
               </div>
             </Tabs>

@@ -18,9 +18,9 @@ function HelperOfMarket(props) {
     })
   }
   return (
-    <div className="tabs-no-border" style={{height:'80vh'}}>
+    <div className="tabs-no-border bg-white-light" style={{height:'80vh'}}>
       <NavBar
-        className="zb-b-b"
+        className="bg-white"
         mode="light"
         onLeftClick={() => console.log('onLeftClick')}
         leftContent={[
@@ -30,8 +30,9 @@ function HelperOfMarket(props) {
           <i onClick={search} key="1" className="icon-search" />,
         ]}
       >
-        Market
+        <div className="color-black">Market</div>
       </NavBar>
+      <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
       <ListPlaceOrderTickers />
     </div>
   )

@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'dva'
 import { NavBar, NoticeBar, Tabs } from 'antd-mobile'
 import { Icon as WebIcon } from 'antd'
 import { Link, Redirect, Route, Switch } from 'dva/router'
@@ -14,7 +15,7 @@ import intl from 'react-intl-universal'
 
 class UserCenter extends React.Component {
   render() {
-    const {match,location} = this.props;
+    const {match,location,dispatch} = this.props;
     const {url} = match;
     const {pathname} = location;
     const changeTab = (path) => {
@@ -25,37 +26,49 @@ class UserCenter extends React.Component {
         return true
       }
     }
+    const showSettings = ()=>{
+      dispatch({
+        type:'layers/showLayer',
+        payload:{
+          id:'settings',
+        }
+      })
+    }
+    const address = storage.wallet.getUnlockedAddress()
     return (
       <LayoutDexHome {...this.props}>
         <div className="0">
-          <NavBar
-              className=""
-              mode="light"
-              leftContent={null && [
-                <span className="" key="1"><WebIcon type="home" /></span>,
-              ]}
-              rightContent={null && [
-                <span className="" key="1" onClick={()=>window.Toast.info('Coming Soon', 1, null, false)}><i className="icon-cog-o"></i></span>
-              ]}
-          >
-            <div className="text-center">
-              {false && intl.get('usercenter.page_title')}
-              {getShortAddress(storage.wallet.getUnlockedAddress())}
-            </div>
-          </NavBar>
-          <div hidden className="pt25 pb25 text-left bg-white">
-              <div className="text-center color-black fs16 pl15 pr15" style={{wordBreak:'break-all'}}>
-                {getShortAddress(storage.wallet.getUnlockedAddress())}
+          <div className="bg-white position-fixed w-100" style={{zIndex:'1000'}}>
+            <NavBar
+                className="zb-b-b" 
+                mode="light"
+                leftContent={null && [
+                  <span className="" key="1"><WebIcon type="home" /></span>,
+                ]}
+                rightContent={[
+                  <span className="" key="1" onClick={showSettings}><i className="icon-cog-o"></i></span>
+                ]}
+            >
+              <div className="text-center color-black">
+                {intl.get('usercenter.page_title')}
               </div>
+            </NavBar>
           </div>
-          <div className="divider 1px"></div>
+          <div className="pt40 bg-white"></div>
+          <div className="bg-white pt30 pb30 text-center">
+            <div className="color-black-2 text-center fs16">{getShortAddress(address)}</div>
+            <div className="text-center mt5">
+              <span target="_blank" onClick={routeActions.gotoHref.bind(this,`https://etherscan.io/address/${address}`)} className="d-inline-block cursor-pointer fs12 lh25 pl10 pr10 bg-primary-light text-primary radius-circle">etherscan.io</span>
+            </div>
+          </div>
+          <div className="bg-white"><div className="divider 1px zb-b-t "></div></div>
           <div className="height-auto tabs-no-border">
             <Tabs
               tabs={
                 [
-                  { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_assets')}</div> },
-                  { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_orders')}</div> },
-                  // { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : 'color-black'}`}>{intl.get('user_center.my_fills')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'assets')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('assets') ? 'text-primary' : ''}`}>{intl.get('user_center.my_assets')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'orders')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('orders') ? 'text-primary' : ''}`}>{intl.get('user_center.my_orders')}</div> },
+                  { title: <div onClick={changeTab.bind(this,'fills')} className={`pt5 pb5 fs16 d-block w-100 text-center ${isActive('fills') ? 'text-primary' : ''}`}>{intl.get('user_center.my_fills')}</div> },
                 ]
               }
               initialPage={0}
@@ -67,35 +80,30 @@ class UserCenter extends React.Component {
             <Switch>
               <Route path={`${url}/assets`} exact render={()=>{
                 return (
-                  <div>
-                    <div className="divider 1px zb-b-b"></div>
+                  <div className="zb-b-t">
                     <ListBalance />
                   </div>
                 )
               }} />
               <Route path={`${url}/orders`} exact render={()=>{
                 return (
-                  <div>
-                    <div className="divider 1px zb-b-b"></div>
+                  <div className="zb-b-t">
                     <Containers.Orders id="MyOpenOrders" alias="orders" initstate={{}}>
                       <PullRefreshOrders />
                     </Containers.Orders>
                   </div>
                 )
               }} />
-              {
-                false &&
-                <Route path={`${url}/fills`} exact render={()=>{
-                  return (
-                    <div>
-                      <div className="divider 1px zb-b-b"></div>
-                      <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
-                        <ListMyFills />
-                      </Containers.Fills>
-                    </div>
-                  )
-                }} />
-              }
+              <Route path={`${url}/fills`} exact render={()=>{
+                return (
+                  <div>
+                    <div className="divider 1px zb-b-b"></div>
+                    <Containers.Fills id="MyFills" alias="fills" initstate={{}}>
+                      <ListMyFills />
+                    </Containers.Fills>
+                  </div>
+                )
+              }} />
               <Redirect path={`${match.url}/`} to={`${match.url}/assets`}/>
             </Switch>
             <div className="pb50"></div>
@@ -107,7 +115,7 @@ class UserCenter extends React.Component {
     );
   }
 }
-export default UserCenter
+export default connect()(UserCenter)
 
 
 

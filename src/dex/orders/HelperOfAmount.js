@@ -12,8 +12,8 @@ import * as orderFormatter from 'modules/orders/formatters'
 
 const FaqOfAmount = ()=>{
   return (
-    <div className="text-left">
-      <div className="zb-b-b p10">
+    <div className="text-left bg-white-light">
+      <div className="zb-b-b p15">
         <div className="fs14 color-black-1 mb5">钱包余额不足也可以下下单</div>
         <div className="fs12 color-black-2 lh20">
           1. 支持先下单，之后向钱包转入资产<br />
@@ -21,7 +21,7 @@ const FaqOfAmount = ()=>{
           2. 钱包转入余额后，关联的订单会自动生效<br />
         </div>
       </div>
-      <div className="zb-b-b p10">
+      <div className="zb-b-b p15">
         <div className="fs14 color-black-1 mb5">下单后不冻结钱包的余额</div>
         <div className="fs12 color-black-2 lh20">
           1. 钱包的余额的在下单后也可以随时转出<br />
@@ -75,7 +75,8 @@ function HelperOfAmount(props) {
               onChange={(tab, index) => { console.log('onChange', index, tab); }}
               onTabClick={(tab, index) => { console.log('onTabClick', index, tab); }}
         >
-          <div className="bg-grey-100 pt15 pb15">
+          <div className="bg-white-light pb15">
+            <div className="divider 1px zb-b-b mb15"></div>
             <div className="row pt10 pb10 ml0 mr0 zb-b-b">
               <div className="col color-black-1 text-left pl20" onClick={amountPercentageSelect.bind(this, 100)}>
                 <span className="d-inline-block" style={{width:'50px'}}>100%</span>
@@ -124,14 +125,15 @@ function HelperOfAmount(props) {
               </div>
             </div>}
           </div>
-          <div className="zb-b-t bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
+          <div className="" style={{maxHeight:'45vh',overflow:'auto'}}>
+            <div className="divider 1px zb-b-b"></div>
             <FaqOfAmount />
           </div>
         </Tabs>
       )
     } else {
       return (
-        <div className="bg-grey-100" style={{maxHeight:'45vh',overflow:'auto'}}>
+        <div className="bg-white-light" style={{maxHeight:'45vh',overflow:'auto'}}>
           <FaqOfAmount />
         </div>
       )
@@ -139,9 +141,9 @@ function HelperOfAmount(props) {
   }
 
   return (
-    <div className="tabs-no-border">
+    <div className="tabs-no-border bg-white-light">
       <NavBar
-        className="zb-b-b"
+        className="bg-white"
         mode="light"
         onLeftClick={() => hideLayer({id:'helperOfAmount'})}
         leftContent={[
@@ -151,8 +153,9 @@ function HelperOfAmount(props) {
           <span key='1' onClick={()=>window.Toast.info('请点击价格或数量', 1, null, false)} className=""><WebIcon type="question-circle-o"/></span>,
         ]}
       >
-        {intl.get('common.amount')}{intl.get('common.helper')}
+        <div className="color-black">{intl.get('common.amount')}{intl.get('common.helper')}</div>
       </NavBar>
+      <div className="divider 1px zb-b-t"></div>
       <Content />
     </div>
   )

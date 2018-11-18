@@ -9,15 +9,35 @@ h5dex 第三方集成链接：<https://h5dex.loopr.io/#/auth/tpwallet>
 1. device.getCurrentLanguage
    获取当前用户设置的语言的api接口，⽬前h5dex⽀持中⽂和英⽂。如果APP无法正确返回，默认设为英文。 
    可⽤的 locale:zh-CN 、en-US
+
 2. device.getCurrentCurrency
    提供当前⽤户设置的货币单位的接口，h5dex 根据获取的货币类型，决定在h5dex中价格和资产以相应的单位进行显示。如果无法正确返回，默认设置美元。
     可用的 currency:CNY、USD
+
 3. user.getCurrentAccount
    需要提供⼀个获取当前⽤户地址的api接口。
+
 4. message.sign
    需要提供一个获取对message签名的接⼝，该接⼝的功能与web3.eth.sign 一样。
+
 5. transaction.sign
    提供⼀个获取对以太坊tx进行签名的接口。数量的设置应该支持16进制字符或者10进制字符。通常情况下，我们会传递16进制字符串。
+
+6. device.share
+
+   提供分享功能，将用户指定的内容分享到第三方APP。该方法无callback。data数据结构：
+
+   ```json
+   {
+   type:"",
+   content:{}
+   extra:{}
+   }
+   ```
+
+7. user.getRewardAddress
+
+   返回一个合法的以太坊地址，用于指定用户交易手续费收取地址。数据结构和user.getCurrentAccount一致
 
 ## h5dex 与App交互规范
 

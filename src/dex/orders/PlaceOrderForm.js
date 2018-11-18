@@ -26,6 +26,7 @@ if (isIPhone) {
 }
 class PlaceOrderForm extends React.Component {
 
+
   componentDidMount(){
     const {marketcap,dispatch, placeOrder,lastPrice} = this.props;
     const {pair} = placeOrder;
@@ -42,11 +43,13 @@ class PlaceOrderForm extends React.Component {
         dispatch({type: 'placeOrder/priceChange', payload: {priceInput: mPrice}})
     }
   }
-
   componentWillReceiveProps(newProps) {
     const {marketcap,dispatch, placeOrder,lastPrice} = newProps;
+    // const {pair,priceChanged} = placeOrder;
     const {pair,priceChanged,priceInput} = placeOrder;
-    if (newProps.marketcap.length > 0 && !priceChanged) {
+    console.log('receive new props')
+    if ((this.props.marketcap !== newProps.marketcap|| Number(priceInput) === 0) && newProps.marketcap.length > 0 && !priceChanged) {
+    // if (newProps.marketcap.length > 0 && !priceChanged) {
       const tokens = getTokensByMarket(pair)
       const currentPrice = orderFormatter.getMarketPrice(marketcap,tokens.left, tokens.right);
       let mPrice = currentPrice || lastPrice || 0
@@ -59,7 +62,9 @@ class PlaceOrderForm extends React.Component {
       if (!priceChanged && Number(priceInput) !== Number(mPrice) ) {
         dispatch({type: 'placeOrder/priceChange', payload: {priceInput: mPrice}})
       }
+
     }
+
   }
 
   render(){
@@ -71,7 +76,6 @@ class PlaceOrderForm extends React.Component {
     const amountPrecision = Math.max(0, right.precision - marketConfig.pricePrecision)
     let amount = placeOrder.amountInput
     let price = placeOrder.priceInput
-    console.log(price)
     const submitEnable = orderFormatter.isValidAmount(price) && orderFormatter.isValidAmount(amount)
     const total = (Number(amount) > 0) && (Number(price) > 0) ? toBig(amount).times(toBig(price)).toString(10) : 0
     let sell = {}, buy = {}
@@ -145,15 +149,6 @@ class PlaceOrderForm extends React.Component {
         priceChange(price)
       }
 
-
-      if(!storage.wallet.getUnlockedAddress()) {
-        Notification.open({
-          message: intl.get('notifications.title.place_order_failed'),
-          type: "error",
-          description: intl.get('notifications.message.wallet_locked')
-        });
-        return
-      }
       if(!balance || !marketcap) {
         Notification.open({
           message:intl.get('notifications.title.place_order_failed'),
@@ -176,9 +171,9 @@ class PlaceOrderForm extends React.Component {
       if(side === 'buy' && toNumber(price) > 1.05 * toNumber(mPrice)){
         Modal.alert(intl.get('notifications.title.place_order_price_confirm'),
           intl.get('notifications.message.place_order_price_high'),[
-            { text: intl.get('common.cancel'), onPress: () => {} },
-            { text: intl.get('common.ok'), onPress: () => submitOrder() },
-          ])
+          { text: intl.get('common.cancel'), onPress: () => {} },
+          { text: intl.get('common.ok'), onPress: () => submitOrder() },
+        ])
       }else if(side === 'sell' && toNumber(price) < 0.95 * toNumber(mPrice)){
         Modal.alert(intl.get('notifications.title.place_order_price_confirm'),
           intl.get('notifications.message.place_order_price_low'),[
@@ -244,12 +239,12 @@ class PlaceOrderForm extends React.Component {
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
     return (
       <div>
-        <div className="bg-white p10">
-          <div className="segmented-fs16 mb10">
+        <div className="bg-white p15">
+          <div className="segmented-fs16">
             <SegmentedControl
               values={[menu1, menu2]}
               style={{height:'40px'}}
-              className="m-auto"
+              className={`m-auto side-${side}`}
               selectedIndex={side === 'buy' ? 0 : 1}
               onChange={sideChange}
             />
@@ -262,16 +257,18 @@ class PlaceOrderForm extends React.Component {
               clear={false}
               moneyKeyboardAlign="left"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              className="circle h-default"
+              className="circle h-default mt15"
               extra={
                 <div style={{width:'auto',textAlign:'right'}}>
-                  <span className="mr10 color-black-4"><Worth amount={price} symbol={tokens.right}/></span>
-                  <span className="color-black-3">{tokens.right}</span>
+                  {
+                    price>0 && <span className="color-black-4 fs12">≈ <Worth amount={price} symbol={tokens.right}/></span>
+                  }
+                  <span className="color-black-3 d-inline-block" style={{width:'40px',marginLeft:'7px'}}>{tokens.right}</span>
                   <WebIcon hidden className="text-primary" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
                 </div>
               }
               onChange={priceChange}
-            ><div className="fs14 color-black-3 pr5">{intl.get("common.price")}</div></InputItem>
+            ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.price")}</div></InputItem>
             <InputItem
               type="money"
               placeholder={amountPrecision > 0 ? `0.${'0'.repeat(amountPrecision)}` : '0'}
@@ -280,19 +277,45 @@ class PlaceOrderForm extends React.Component {
               onChange={amountChange}
               moneyKeyboardAlign="left"
               moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-              className="circle h-default mt10"
+              className="circle h-default mt15"
               extra={
-                <div style={{width:'auto',textAlign:'right'}}>
-                  <WebIcon className="text-primary mr10" type="question-circle-o" style={{padding:'2px 0px 5px'}} onClick={showAmountHelper} />
-                  <span className="color-black-3">{tokens.left}</span>
-
+                <div onClick={showAmountHelper} style={{width:'auto',textAlign:'right'}}>
+                  <WebIcon className="color-black-4 fs12" type="question-circle-o" style={{padding:'2px 0px 5px'}} />
+                  <span className="color-black-3 d-inline-block" style={{width:'40px',marginLeft:'7px'}}>{tokens.left}</span>
                 </div>
               }
-            ><div className="fs14 color-black-3 pr5">{intl.get("common.amount")}</div></InputItem>
-            <Affix>
+            ><div className="fs14 color-black-3 pr5" style={{width:'50px'}}>{intl.get("common.amount")}</div></InputItem>
+            {
+              false &&
+              <List.Item
+                className="mt0 mb0"
+                arrow={false}
+                extra={
+                  <div className="fs12" style={{width:'auto',textAlign:'right'}}>
+                    <span className="color-black-4 ml5">{total ? total : '0.00'}</span>
+                    <span className="color-black-4 d-inline-block ml5" style={{width:'35px'}}>{tokens.right}</span>
+                  </div>
+                }
+              >
+                <div className="">
+                  <span className="d-inline-block mr5 fs12 color-black-4" style={{width:'50px'}}>{intl.get("common.total")}</span>
+                </div>
+              </List.Item>
+            }
+              <Button onClick={toConfirm} style={{height:'auto'}} className={`p10 border-none d-flex align-items-center justify-content-center w-100 d-block mt15 ${submitEnable ? " " : "t-light-bak"} ${side=='buy' ? 'bg-success' : 'bg-error'}`} type={"primary"} disabled={false && !submitEnable}>
+               <div className="lh20">
+                 <div className="lh20">{intl.get(`common.${side}`)}  {amount>0 ? amount : null} {tokens.left} </div>
+                 {
+                  total>0 &&
+                   <div className="fs12 lh10" style={{opacity:'0.45',paddingTop:'0.3rem'}}>
+                     {total} {tokens.right}
+                   </div>
+                 }
+               </div>
+              </Button>
               {
-                side === 'sell' &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+                false && side === 'sell' &&
+                <Button onClick={toConfirm} className={`w-100 d-block mt15 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
                   <div className="row ml0 mr0 no-gutters">
                     <div className="col">{amount ? amount : 0} {tokens.left}</div>
                     <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
@@ -301,8 +324,8 @@ class PlaceOrderForm extends React.Component {
                 </Button>
               }
               {
-                side === 'buy' &&
-                <Button onClick={toConfirm} className={`w-100 d-block mt10 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
+                false && side === 'buy' &&
+                <Button onClick={toConfirm} className={`w-100 d-block mt15 fs16 ${submitEnable ? " " : "t-light-bak"}`} type={"primary"} disabled={false}>
                   <div className="row ml0 mr0 no-gutters">
                     <div className="col">{total} {tokens.right}</div>
                     <div className="col-auto" style={{background:'rgba(0,0,0,0.05)',padding:'0 1.2rem'}}>→</div>
@@ -310,7 +333,6 @@ class PlaceOrderForm extends React.Component {
                   </div>
                 </Button>
               }
-            </Affix>
           </List>
         </div>
         <div className="divider 1px zb-b-t"></div>

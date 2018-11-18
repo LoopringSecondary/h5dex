@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from 'dva/router'
 import Pages from './pages'
 import Orders from './orders'
 import Tokens from './tokens'
+import Account from './account'
 import Markets from './tickers/Markets'
 import MarketsSearch from './tickers/ListSearchTickers'
 import MarketDetail from './tickers/Detail'
@@ -46,6 +47,7 @@ const Logged = ()=>{
         <CommonModals />
         <Orders.Modals />
         <Tokens.Modals />
+        <Account.Modals />
       </div>
     )
   }else{

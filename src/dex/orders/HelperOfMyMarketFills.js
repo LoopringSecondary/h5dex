@@ -55,18 +55,18 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
         <table className="w-100 fs13" style={{overflow:'auto'}}>
           <thead>
             <tr className="">
-              <th className="zb-b-b text-left pl10 pr5 pt10 pb10 font-weight-normal color-black-3 ">{intl.get('common.side')}</th>
-              <th className="zb-b-b text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 ">
+              <th className="zb-b-b text-left pl10 pr5 pt10 pb10 font-weight-normal color-black-4 ">{intl.get('common.side')}</th>
+              <th className="zb-b-b text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 ">
                 {intl.get('common.price')}<span className="fs10">/{tokens.right}</span>
               </th>
-              <th className="zb-b-b text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 ">
+              <th className="zb-b-b text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 ">
                 {intl.get('common.amount')}<span className="fs10">/{tokens.left}</span>
               </th>
-              <th hidden className="zb-b-b text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-3 ">
+              <th hidden className="zb-b-b text-left pl5 pr5 pt10 pb10 font-weight-normal color-black-4 ">
                 {intl.get('common.total')}<span hidden className="fs10">/{tokens.right}</span>
               </th>
-              <th hidden className="zb-b-b text-right pl5 pr5 pt10 pb10 font-weight-normal color-black-3 ">Fee</th>
-              <th className="zb-b-b text-center pl5 pr5 pt5 pb5 font-weight-normal color-black-3 ">{intl.get('common.time')}</th>
+              <th hidden className="zb-b-b text-right pl5 pr5 pt10 pb10 font-weight-normal color-black-4 ">Fee</th>
+              <th className="zb-b-b text-center pl5 pr5 pt5 pb5 font-weight-normal color-black-4 ">{intl.get('common.time')}</th>
             </tr>
           </thead>
           <tbody>
@@ -101,7 +101,7 @@ const HelperOfMyMarketFills = ({fills={},dispatch})=>{
               {
                 !fills.loading && fills.items && fills.items.length == 0 &&
                 <tr>
-                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-3 fs13" colSpan='100'>
+                  <td className="zb-b-b pt10 pb10 pl5 pr5 text-center color-black-4 fs13" colSpan='100'>
                     {intl.get("common.list.no_data")}
                   </td>
                 </tr>

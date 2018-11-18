@@ -59,14 +59,14 @@ const HelperOfBalance = (props)=>{
 
   return (
     <div className="fs20">
-      <table className="w-100 fs13">
+      <table className="w-100 fs12">
         <thead>
           <tr className="">
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">{intl.get('common.token')}</th>
-            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">{intl.get('common.balance')}</th>
-            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3 text-nowrap">交易授权</th>
-            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('helper_of_market_order.selling')}</th>
-            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-3">{intl.get('common.actions')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">{intl.get('common.token')}</th>
+            <th className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">{intl.get('common.balance')}</th>
+            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4 text-nowrap">交易授权</th>
+            <th hidden className="text-left zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get('helper_of_market_order.selling')}</th>
+            <th className="text-right zb-b-b pl10 pr10 pt5 pb5 font-weight-normal color-black-4">{intl.get('common.actions')}</th>
           </tr>
         </thead>
         <tbody>
@@ -96,7 +96,7 @@ const HelperOfBalance = (props)=>{
                       false && token.symbol === 'WETH' &&
                       <Button onClick={gotoConvert.bind(this,{token:'WETH'})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block" size="small">{intl.get('common.convert')}</Button>
                     }
-                    <Button onClick={showActions.bind(this,{symbol:token.symbol,hideBuy:true})} type="ghost" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10" size="small">
+                    <Button onClick={showActions.bind(this,{symbol:token.symbol,hideBuy:true})} type="primary" style={{height:'24px',lineHeight:'24px'}} className="d-inline-block ml10 bg-primary-light border-none text-primary" size="small">
                       <WebIcon type="ellipsis" />
                     </Button>
                   </td>
@@ -105,24 +105,8 @@ const HelperOfBalance = (props)=>{
             }
         </tbody>
       </table>
-
-      <div className="">
-        <div className="" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/assets')}>
-          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
-            <div className="col text-left">
-              <WebIcon className="mr5" type="exclamation-circle-o"/>
-              <span>{intl.get("helper_of_balance.description", {pair})}</span>
-              <span className="text-primary ml5">{intl.get('common.all')}</span>
-            </div>
-          </div>
-          <div className="row color-black-3 fs13 ml0 mr0 no-gutters pl10 pr10 pt10 pb5 align-items-center">
-            <div className="col text-left">
-              <WebIcon className="mr5" type="exclamation-circle-o"/>
-              <span>余额不足也可以下单</span>
-            </div>
-          </div>
-        </div>
-        <div className="divider 1px zb-b-t"></div>
+      <div className="zb-b-b color-black-4 text-center pt10 pb10 fs13" onClick={routeActions.gotoPath.bind(this,'/dex/usercenter/assets')}>
+        <span className="">{intl.get('common.all')} {intl.get('common.assets')}</span>
       </div>
     </div>
   )

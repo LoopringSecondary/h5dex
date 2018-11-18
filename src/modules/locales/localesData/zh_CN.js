@@ -7,6 +7,7 @@ const words = {
   sides: '方向',
   market: '市场',
   markets: '市场',
+  volume: '成交量',
   amount: '数量',
   type: '类型',
   types: '类型',
@@ -67,6 +68,7 @@ const words = {
   set: '设置',
   helper: '助手',
   depth: '深度',
+  next_step:'下一步',
   list: {
     no_data: '暂无数据',
     no_data_custom: '暂无{title}',
@@ -112,6 +114,8 @@ const notifications = {
     enable_suc: '授权成功',
     enable_fail: '授权失败',
     place_order_price_confirm:'您确定要继续下单吗?',
+    submit_ring_suc:'提交环路成功',
+    submit_ring_fail:'提交环路失败'
   },
   message: {
     place_order_price_high:"您当前的价格高于市场价5%",
@@ -208,7 +212,7 @@ export default {
     my_open_orders: '最近订单',
     my_all_orders: '全部订单',
     order_book: '最新挂单',
-    no_open_orders: '{market}暂无有效订单',
+no_open_orders: '{market}暂无有效订单',
     view_all_orders: '查看全部订单'
   },
   order_detail: {
@@ -284,6 +288,9 @@ export default {
     title: '设置订单的矿工撮合费',
     tabs_basic: '快速设置',
     tabs_advanced: '高级设置',
+    low: '低',
+    high: '高',
+    tips:"撮合费 必须大于 矿工发送一个以太坊交易所需的油费。"
   },
   place_order_confirm: {
     qrcode_security: '*为了您订单的安全，二维码只会生成一次并且不会保存在任何地方。请确认妥善保存二维码，任何收到您二维码的人都有可能吃掉您的订单。',
@@ -297,8 +304,10 @@ export default {
     token_balance: '代币余额',
     order_detail: '订单详情',
     generate_order: '生成订单',
+    price:'兑换比例',
     instruction: '1. 以您希望的兑换率生成一个订单，把不包含鉴权数据（没有这部分数据任何人都无法撮合您的订单）的订单信息提交给relay，同时将生成的订单hash和鉴权信息生成二维码。</br>2. 您可以把这个二维码发送给您的朋友，任何人拿到这个二维码都有可能吃掉您的订单，请注意以安全的方式传播。</br>3. 对方使用Circulr移动端扫描二维码，下一个与您买入卖出量完全匹配的对手单，发送以太坊交易吃掉这个订单，因此吃单方需要消耗油费。',
     notice: '* P2P订单双方都不需要支付LRC手续费</br>',
+
     user_center_p2p: 'P2P 交易'
   },
   sign: {
@@ -596,12 +605,12 @@ export default {
     title_balance_not_enough: '{symbol} 余额不足',
     title_converting_eth_to_weth: '转换 ETH 为 WETH',
     title_converting_weth_to_eth: '转换 WETH 为 ETH',
-    status_converting: '转换中',
+    status_converting: '查看进度',
     balance: '当前余额',
     selling: '出售数量',
     lack: '缺少数量',
     actions_enable: '授权',
-    status_enabling: '授权中',
+    status_enabling: '查看进度',
     actions_buy: words.buy,
     actions_receive: words.receive,
     no_detail:'暂时没有详情...'

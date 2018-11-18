@@ -26,7 +26,23 @@ This method calculates an Ethereum specific signature with: `sign(keccak256("\x1
 
 5. transaction.sign
 
-This method displays the Ethereum tx for the user to sign and it should support hexadecimal digits and decimal digits. In general, we deliver hexadecimal digits.
+   This method displays the Ethereum tx for the user to sign and it should support hexadecimal digits and decimal digits. In general, we deliver hexadecimal digits.
+
+6. device.share
+
+   This method applied to share content by third party App. it's data structure is  as followed:
+
+   ```json
+   {
+   type:"",
+   content:{  }
+   extra:{  }
+   }
+   ```
+
+7. user.getRewardAddress
+
+   This method returns a valid ethereum address which used to receive users' trading fee.
 
 ## **Interaction Guideline**
 

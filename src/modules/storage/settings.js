@@ -88,13 +88,25 @@ const getTokensConfig = ()=>{
   }
 }
 
-const setMarketsConfig = (markets)=>{
+const setMarketPairs = (markets)=>{
   localStorage.marketsConfig = JSON.stringify(markets)
 }
 
-const getMarketsConfig = ()=>{
+const getMarketPairs = ()=>{
   if(localStorage.marketsConfig){
     return JSON.parse(localStorage.marketsConfig)
+  }else{
+    return []
+  }
+}
+
+const setMarketR = (markets)=>{
+  localStorage.marketR = JSON.stringify(markets)
+}
+
+const getMarketR = ()=>{
+  if(localStorage.marketR){
+    return JSON.parse(localStorage.marketR)
   }else{
     return []
   }
@@ -112,6 +124,36 @@ const getConfigs = ()=>{
   }
 }
 
+const setLanguage = (language) => {
+  const settings = get()
+  settings.preference.language = language
+  set(settings)
+}
+
+const getLanguage = () => {
+  return get().preference.language
+}
+
+const setCurrency = (currency) => {
+  const settings = get()
+  settings.preference.currency = currency
+  set(settings)
+}
+
+const getCurrency = () => {
+  return get().preference.currency
+}
+
+const setLRCFee = (fee) => {
+  const settings = get()
+  settings.trading.lrcFee = fee
+  set(settings)
+}
+
+const getLRCFee = () => {
+  return get().trading.lrcFee
+}
+
 export default {
   set,
   get,
@@ -121,9 +163,17 @@ export default {
   getContractVersion,
   setTokensConfig,
   getTokensConfig,
-  setMarketsConfig,
-  getMarketsConfig,
+  setMarketPairs,
+  getMarketPairs,
   setConfigs,
-  getConfigs
+  getConfigs,
+  setMarketR,
+  getMarketR,
+  setLanguage,
+  getLanguage,
+  setCurrency,
+  getCurrency,
+  setLRCFee,
+  getLRCFee
 }
 

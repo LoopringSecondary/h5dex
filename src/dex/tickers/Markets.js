@@ -28,9 +28,11 @@ class Markets extends React.Component {
               <i style={{width:'32px',height:'32px',lineHeight:'32px',textAlign:'right'}} onClick={search} key="1" className="icon-search" />,
             ]}
           >
-            {intl.get('common.markets')}
+            <div className="color-black">{intl.get('common.markets')}</div>
           </NavBar>
-          <div className="divider 1px zb-b-t"></div>
+          <div className="bg-white">
+            <div className="divider 1px zb-b-t "></div>
+          </div>
           <ListMarketTickers />
           <div className="pb50"></div>
           <div className="pb15"></div>

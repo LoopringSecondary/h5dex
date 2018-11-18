@@ -1,0 +1,65 @@
+/*
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Thin.ttf');
+  src: url('Roboto-Thin.ttf') format('truetype'), url('Roboto-Thin.ttf') format('svg');
+  font-weight:200;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Light.ttf');
+  src: url('Roboto-Light.ttf') format('truetype'), url('Roboto-Light.ttf') format('svg');
+  font-weight:300;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Regular.ttf');
+  src: url('Roboto-Regular.ttf') format('truetype'), url('Roboto-Regular.ttf') format('svg');
+  font-weight:400;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Medium.ttf');
+  src: url('Roboto-Medium.ttf') format('truetype'), url('Roboto-Medium.ttf') format('svg');
+  font-weight:500;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Bold.ttf');
+  src: url('Roboto-Bold.ttf') format('truetype'), url('Roboto-Bold.ttf') format('svg');
+  font-weight:600;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url('Roboto-Black.ttf');
+  src: url('Roboto-Black.ttf') format('truetype'), url('Roboto-Black.ttf') format('svg');
+  font-weight:700;
+}*/
+
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url('RobotoCondensed-Bold.ttf');
+  src: url('RobotoCondensed-Bold.ttf') format('truetype'), url('RobotoCondensed-Bold.ttf') format('svg');
+  font-weight:600;
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url('RobotoCondensed-Light.ttf');
+  src: url('RobotoCondensed-Light.ttf') format('truetype'), url('RobotoCondensed-Light.ttf') format('svg');
+  font-weight:300;
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url('RobotoCondensed-Regular.ttf');
+  src: url('RobotoCondensed-Regular.ttf') format('truetype'), url('RobotoCondensed-Regular.ttf') format('svg');
+  font-weight:400;
+}
+
+
+
+
+
+
+
+
+

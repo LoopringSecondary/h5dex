@@ -1,27 +1,18 @@
 import React from 'react'
-import { List, InputItem,Button,WingBlank,Slider, Tabs, WhiteSpace, Badge,SegmentedControl, NavBar, Icon,Modal,Switch,Steps } from 'antd-mobile'
-import { Icon as WebIcon,Switch as WebSwitch } from 'antd'
+import { NavBar, Tabs } from 'antd-mobile'
+import { Icon as WebIcon } from 'antd'
 import { connect } from 'dva'
 import routeActions from 'common/utils/routeActions'
-import {getTokensByMarket} from 'modules/formatter/common'
+import { getTokensByMarket } from 'modules/formatter/common'
 import Face2FaceOrders from './Face2FaceOrders'
 import Face2FaceBalances from './Face2FaceBalances'
 import Face2FaceForm from './Face2FaceForm'
+import intl from 'react-intl-universal'
 
-const Item = List.Item;
 class Face2FacePage extends React.Component {
   render() {
     const {dispatch,placeOrder} = this.props
     const {side,pair} = placeOrder
-    // const params = routeActions.match.getParams(this.props)
-    // if(!params.market) {
-    //   if(!pair){
-    //     const defaultMarket = "LRC-WETH" // TODO
-    //     routeActions.gotoPath(`/dex/placeOrder/${defaultMarket}`)
-    //   }else{
-    //     routeActions.gotoPath(`/dex/placeOrder/${pair}`)
-    //   }
-    // }
     const pairTokens = getTokensByMarket(pair)
     const showLayer = (payload={})=>{
       dispatch({
@@ -52,32 +43,32 @@ class Face2FacePage extends React.Component {
       routeActions.gotoPath(`/dex/markets/${pair}`)
     }
     return (
-        <div className="bg-grey-100">
+        <div className="">
           <NavBar
-            className=""
+            className="bg-white"
             mode="light"
-            leftContent={[
+            leftContent={null && [
               <span onClick={routeActions.goBack} className="color-black-1" key="1"><WebIcon type="left" /></span>,
             ]}
             rightContent={[
-              <span className="color-black-1" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
+              <span className="text-primary" key="1"  onClick={()=>{}}><WebIcon type="question-circle-o" /></span>
             ]}
           >
-            <div>
+            <div className="color-black">
               Face To Face
             </div>
           </NavBar>
-          <div className="divider 1px zb-b-t"></div>
+          <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
           <div className="bg-white">
             <Face2FaceForm side="sell" showLayer={showLayer} />
           </div>
-          <div className="divider 1px zb-b-t"></div>
+          <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
           <div className="no-underline tabs-no-border">
             <Tabs
               tabs={
                 [
-                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">Assets</div></div> },
-                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">Orders</div></div> },
+                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">{intl.get('user_center.my_assets')}</div></div> },
+                  { title: <div className="am-tabs-item-wrapper-bak"><div className="fs16 am-tabs-item-bak">{intl.get('user_center.my_orders')}</div></div> },
                 ]
               }
               tabBarBackgroundColor="#fff"

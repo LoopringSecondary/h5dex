@@ -19,41 +19,44 @@ const Item = List.Item;
 const Brief = Item.Brief;
 
 const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatch})=>{
-  const tickerFm = new TickerFm(tickers.item.loopr || {})
+  const tickerFm = new TickerFm(tickers.item.coinmarketcap || {})
   const tokens = tickerFm.getTokens()
   const direction = tickerFm.getChangeDirection()
   const price = tickerFm.getLast() && formatPrice(tokens.left, tokens.right, tickerFm.getLast())
-  let color
+  let color,prefix
   if(direction === 'up'){
     color = "color-success"
+    prefix = '+'
   }
   if(direction === 'down'){
     color = "color-error"
+    // prefix = '-' // no need minus
   }
   if(direction === 'none'){
     color = "text-primary"
   }
 
+
   return (
     <div className="bg-white">
-      <div className={`p10 zb-b-b ${color}`}>
+      <div className={`p10 ${color} pb0`}>
         <span className="fs24">
           {price}
         </span>
         <span className="fs16 ml10">
-          {tickerFm.getChange()}
+          {prefix}{tickerFm.getChange()}
         </span>
         <span className="fs16 ml10">
           <Worth amount={price} symbol={tokens.right}/>
         </span>
       </div>
-      <div className="pl10 pr10 pt15 pb15 zb-b-b">
+      <div className="p10 zb-b-b">
         <div className="row ml0 mr0 no-gutters align-items-center fs13">
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             {intl.get('ticker.change')}
           </div>
           <div className="col color-black-2">
-            {tickerFm.getChange()}
+            {prefix}{tickerFm.getChange()}
           </div>
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             {intl.get('ticker.high')}
@@ -62,7 +65,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
             {tickerFm.getHigh()}
           </div>
         </div>
-        <div className="row ml0 mr0 pt5 pb5 no-gutters align-items-center fs13">
+        <div className="row ml0 mr0 pt5 no-gutters align-items-center fs13">
           <div className="col-auto pr5 color-black-3" style={{minWidth:'70px'}}>
             {intl.get('ticker.vol')}
           </div>
@@ -83,7 +86,7 @@ const TickerItem = connect(({sockets:{tickers}})=>({tickers}))(({tickers,dispatc
 
 class MarketDetail extends React.Component {
   render() {
-    const {loopringTickers:list,dispatch} = this.props
+    const {tickersOfSource:list,dispatch} = this.props
     const {extra:{favored={},keywords}} = list
     const params = routeActions.match.getParams(this.props)
     if(!params.market) return null
@@ -100,7 +103,7 @@ class MarketDetail extends React.Component {
       dispatch({
         type:'sockets/extraChange',
         payload:{
-          id:'loopringTickers',
+          id:'tickersOfSource',
           extra:{
             favored:{...favored,[item]:!favored[item]},
           }
@@ -110,24 +113,24 @@ class MarketDetail extends React.Component {
     }
     const menu1 = `${intl.get("common.buy")} ${tokens.left}`
     const menu2 = `${intl.get("common.sell")} ${tokens.left}`
-    const left = storage.wallet && storage.wallet.getUnlockedType() === 'imtoken' ? '' : <Icon key="1" type="left" onClick={routeActions.goBack} className="" />
+    const left = storage.wallet && storage.wallet.getUnlockedType() === 'imtoken' ? '' : <Icon key="1" type="left" className="" />
     return (
       <div className="">
         <NavBar
-          className=""
+          className="bg-white"
           mode="light"
           icon={null && <Icon type="left" />}
-          onLeftClick={() => console.log('onLeftClick')}
+          onLeftClick={routeActions.goBack}
           leftContent={[
             left,
           ]}
           rightContent={[
-            <WebIcon className="fs18" key="1" type={favored[market] ? "star" : "star-o"} onClick={toggleTickerFavored.bind(this, market)}/>
+            <i className={`icon-${favored[market] ? "star" : "star-o"}`} key="1"  onClick={toggleTickerFavored.bind(this, market)}/>
           ]}
         >
-          {market}
+          <div className="color-black">{market}</div>
         </NavBar>
-        <div className="divider 1px zb-b-t"></div>
+        <div className="bg-white"><div className="divider 1px zb-b-t"></div></div>
         <TickerItem />
         <div className="no-underline">
           <Tabs
@@ -144,13 +147,13 @@ class MarketDetail extends React.Component {
             onChange={(tab, index) => { }}
             onTabClick={(tab, index) => { }}
           >
-            <div className="" style={{minHeight: '150px'}}>
-              <div className="p15">{intl.get('common.comingsoon')} !</div>
+            <div className="zb-b-t" style={{minHeight: '150px'}}>
+              <div className="p15 color-black-3 fs14">{intl.get('common.comingsoon')} !</div>
             </div>
-            <div className="">
+            <div className="zb-b-t">
               <ListDepth />
             </div>
-            <div className="" style={{minHeight: '150px'}}>
+            <div className="zb-b-t" style={{minHeight: '150px'}}>
               <ListFills />
             </div>
           </Tabs>
@@ -159,10 +162,10 @@ class MarketDetail extends React.Component {
           <div className="divider 1px zb-b-t"></div>
             <div className="row ml0 mr0 no-gutters p10">
               <div className="col-6 pr5">
-                <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="">{intl.get("common.buy")} {tokens.left}</Button>
+                <Button type="primary" onClick={gotoTrade.bind(this,{side:'buy'})} className="bg-success border-none">{intl.get("common.buy")} {tokens.left}</Button>
               </div>
               <div className="col-6 pl5">
-                <Button type="ghost" onClick={gotoTrade.bind(this,{side:'sell'})} className="t-light">{intl.get("common.sell")} {tokens.left}</Button>
+                <Button type="primary" onClick={gotoTrade.bind(this,{side:'sell'})} className="bg-error border-none">{intl.get("common.sell")} {tokens.left}</Button>
               </div>
             </div>
         </div>
@@ -171,7 +174,7 @@ class MarketDetail extends React.Component {
   }
 }
 export default connect(
-  ({sockets:{loopringTickers}})=>({loopringTickers})
+  ({sockets:{tickersOfSource}})=>({tickersOfSource})
 )(MarketDetail)
 
 

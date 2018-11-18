@@ -1,7 +1,9 @@
-import React from 'react';
-import { Route, Switch,Redirect} from 'dva/router';
+import React from 'react'
+import { Redirect, Route, Switch } from 'dva/router'
 import Face2FacePage from './Face2FacePage'
 import Face2FaceModals from './Modals'
+import CommonModals from '../components/Modals'
+import Tokens from '../dex/tokens'
 
 const Logged = ()=>{
   // const isLogged =  !!window.WALLET && !!window.WALLET.address
@@ -13,10 +15,12 @@ const Logged = ()=>{
           <Route path={`/face2face`} exact component={Face2FacePage} />
         </Switch>
         <Face2FaceModals />
+        <CommonModals/>
+        <Tokens.Modals />
       </div>
     )
   }else{
-    return <Redirect to="/dex" />
+    return <Redirect to="/auth" />
   }
 }
 
@@ -31,7 +35,6 @@ export default class Routes extends React.Component {
     return (
       <Switch>
         <Route path={`/face2face`}  component={Logged} />
-        {false && <Redirect from="/" to="/dex" />}
       </Switch>
     );
   }
